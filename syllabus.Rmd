@@ -1,0 +1,127 @@
+---
+title: "Syllabus for STATS 401 (Fall 2018) <br>'Applied Statistical Methods II'"
+author: "Instructor: Edward L. Ionides"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+
+## Course description
+
+* An intermediate course in applied statistics, covering a range of topics in modeling and analysis of data including: review of simple linear regression, two-sample problems, one-way analysis of variance; multiple linear regression, diagnostics and model selection; two-way analysis of variance, multiple comparisons, and other selected topics. (4 Credits)
+
+* Pre-requisites: MATH 115 and one of (STATS 180 or STATS 250 or STATS 280, STATS 412 or ECON 451). These pre-requisites are formally advisory, but you should not attempt STATS 401 without comparable preparation. No credit is granted for students who complete, or have completed, STATS 413.
+
+* We will build on material in STATS 250. Notes and labs for 250 are [available online](https://open.umich.edu/find/open-educational-resources/statistics/statistics-250-introduction-statistics-data-analysis). STATS 280, STATS 412 and ECON 451 are more advanced and therefore entirely adequate preparation. AP Statistics (STATS 180) provides sufficient background, but at a somewhat lower level than STATS 250.
+
+* There is no textbook for this course. The lecture notes and lab notes will be posted online at https://ionides.github.io/401f18/. 
+
+* A suitable reference book is "Applied Linear Statistical Models" by Kutner, Nachtsheim, Leter and Li (5th edition). 
+
+* A previous version of this course is at https://ionides.github.io/401w18/. This may be a good guide to see where the course is heading, though some material will be new this year.
+
+## Meeting times and contact information
+
+* Class meets Monday/Wednesday 1:00-2:30 in 1528 North University Building
+* Instructor contact information:
+    + Office: 453 West Hall 
+    + Phone: 647 5457 
+    + E-mail: ionides@umich.edu 
+    + Web: dept.stat.lsa.umich.edu/~ionides
+* Instructor office hours: Monday 10-11am, Wednesday 3-4pm
+* Labs, in B760 East Hall
+    + Section 401-002. Friday 8:30-10:00am. GSI: <!--Yuan Sun (yuansun@umich.edu)-->
+    + Section 401-003. Friday 1:00pm-2:30pm. GSI: <!--Sanjana Gupta (gsan@umich.edu)-->
+    + Section 401-004. Friday 1:00-11:30. GSI: <!--Naomi Giertych (ngierty@umich.edu)-->
+* GSI office hours: <!--, 2165 USB, the Science Learning Center Annex
+    + Yuan Sun. Mon 9-11 am 
+    + Sanjana Gupta. Tue 9-11 am
+    + Naomi Giertych. Thu 9-11 am -->
+    + You may prefer to visit your Section GSI, but you're welcome to go to any office hours
+<!-- * Open office hours. You are also welcome to ask STATS 401 questions to any available Statistics GSI at USB during the open hours: Mon 9-11 am & 1-10 pm; Tue to Thu 9 am – 10 pm;  Friday 9–11 am & 1–4 pm;  Sat CLOSED; Sunday 12 pm – 10 pm. -->
+* Computing support: inquire by email, with a detailed description of the problem, what you did, and any error message you obtained. It can be helpful to provide a minimal example that can be run to demonstrate the problem. Please email your Section GSI.
+
+
+##  Grading
+
+* Weekly homeworks (20\%) due at the start of lab. Extensions will be granted upon request for up to two late homeworks. Subsequent late homeworks will receive no credit. 
+* Two lab quizzes (5\%+5\%) in lab on October 5 and November 16.
+* Midterm exam (20\%) in class on Monday 10/22.
+* Final exam (40\%) on Thursday, December 13, 4:00pm - 6:00pm.
+* Participation (5\%). This will be based on engagement through [Piazza](https://piazza.com/class/jkn2extkfss4l9), contributions in class, and questions during office hours. 
+* Lab attendance (5\%).
+
+### Homework report grades 
+
+* Your homework report must include a statement titled "Sources". 
+
+* __Homework reports without a statement of sources will receive zero points.__
+
+* The lowest homework score will be dropped in the calculation of the course grade.
+
+* The sources statement must list all books, internet resources or other people consulted while completing the homework. For example, "Sources: notes only," or, "Sources: collaboration with X and Y; web site Z," or, "Sources: notes and office hours."
+Any material taken from any source, such as the internet, must be properly acknowledged. 
+Directly copied text must be in quotation marks.
+Directly copied equations must be explicitly referenced to the source.
+Unattributed copying from any source is plagiarism, and has potentially [serious consequences](https://lsa.umich.edu/lsa/academics/academic-integrity/academic-misconduct.html).
+
+* Homework will be graded on engagement with the material. This means that a homework report demonstrating sufficient thought about each problem will receive credit, regardless of accuracy. 
+
+* Homework reports that show only superficial engagement with the material will not receive full credit, even if all questions are attempted.
+
+* Ways to demonstrate engagement include writing some justifications for a qualitative answer and showing your working for a quantitative answer. 
+Simply writing a numerical answer, or responding with a few words to a verbal question, is usually not enough to show you have thought about the task. 
+
+* Take advantage of this grade scheme to try working on the homework by yourself. Then consult other sources if you like, but you won't gain extra credit for borrowing a solution online. Material researched online can help to demonstrate engagement with the task, but only if the homework also reports your own thoughts.
+
+## The gradebook
+
+* All homework, quiz and exam scores will be posted on Canvas. You are responsible for checking posted solutions. Please let us know as soon as possible if there is a grading error, or a missing score for work you turned in.
+
+* When possible, please raise gradebook concerns within a week of the score being posted. 
+
+* Quiz and homework grading questions should be addressed to your GSI. Midterm and final re-grading requests will be considered by the instructor, though you are welcome to ask your GSI for an initial explanation.
+
+* Final grades will be based on an overall score, weighted as described above. 
+Letter grades will follow a curve determined by the instructor, consistent with previous offerings of this course.
+
+## Use of laptops and tablets in class
+
+* You are encouraged to bring a laptop to class, to follow along with the class notes and to follow along with statistical computing topics. A tablet may also be useful, but likely will not be able to run R.
+
+* Out of courtesy to your class-mates, please keep all screen use relevant to the class. Bear in mind that those beside or behind you may be distracted by inappropriate activities.
+
+## No electronic devices allowed in quizzes or exams.
+
+* Tests will be taken closed-book and without any electronic device. All devices, including phones and calculators and smart watches, should remain in a bag on the floor at all times during tests.
+
+
+## Tips to succeed in this class
+
+* Attendance in class will not be checked, but is a good predictor of success.
+
+* The first half of this course has a fair amount of computing and mathematics. Keep engaged with this, and you'll see why this material is fundamental for the statistical data analysis applications emerging in the second half.
+
+## Students with disabilities
+
+* We will work to comply with all individual accommodations requested by the office of Services for Students with Disabilities (SSD). 
+
+* Accommodations for a small-group environment and additional time will be met for the midterm and final by additional exam sessions starting at the same time as the main session.
+
+* To help with the logistics, please give the instructor a copy of your SSD accommodation form within the first two weeks of class.
+
+## Student Mental Health and Wellbeing
+
+* University of Michigan is committed to advancing the mental health and wellbeing of its
+students. If you or someone you know is feeling overwhelmed, depressed, and/or in need of
+support, services are available.
+
+* For help, contact Counseling and Psychological Services (CAPS) at (734)764-8312 and https://caps.umich.edu/ during and after hours, on weekends and holidays, or through its counselors physically located in schools on both North and Central Campus. You may also consult University Health Service (UHS) at (734) 764-8320 and https://www.uhs.umich.edu/mentalhealthsvcs, or for alcohol or drug concerns, see www.uhs.umich.edu/aodresources.
+
+------------
+
+-----------
+

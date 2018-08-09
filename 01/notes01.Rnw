@@ -1,0 +1,763 @@
+%\documentclass[handout]{beamer}
+\documentclass{beamer}
+
+\input{../header.tex}
+\newcommand\CHAPTER{1}
+
+\begin{document}
+
+% knitr set up
+<<knitr_opts,echo=F,purl=F>>=
+library(knitr)
+opts_chunk$set(
+#  cache=FALSE,
+  cache=TRUE,
+  eval=TRUE,
+  include=TRUE,
+  echo=TRUE,
+  purl=TRUE,
+  cache.path=paste0("tmp/cache"),
+  dev='png',
+  dev.args=list(bg='transparent'),
+  dpi=300,
+  error=FALSE,
+  fig.pos="h!",
+  fig.align='center',
+  fig.height=4,fig.width=6.83,
+  fig.lp="fig:",
+  fig.path=paste0("tmp/figure"),
+  fig.show='asis',
+  highlight=TRUE,
+  message=FALSE,
+  progress=TRUE,
+  prompt=FALSE,
+#  results='asis',
+  results="markup",
+  size='small',
+  strip.white=TRUE,
+  tidy=FALSE,
+  warning=FALSE
+#  comment=NA # to remove ## on output
+)
+
+options(width = 60) # number of characters in R output before wrapping
+@
+
+<<plot_margins,echo=F>>=
+par(mai=c(1,0.5,0,0))
+@
+
+\begin{frame}
+\frametitle{STATS 401. Applied Statistical Methods II
+\\
+\vspace{3mm}
+\CHAPTER. Introduction}
+
+\vspace{-5mm}
+
+\begin{center} \Large\bf
+Welcome!
+\end{center}
+
+\vspace{-2mm}
+
+{\bf Objectives}: Linear statistical models are the foundation for most of applied statistics. We will develop statistical computation skills (R programming) and mathematical skills (working with matrices) while studying data analysis using linear models.
+
+\vspace{3mm}
+
+{\bf Pre-requisites}: This course builds on material in STATS 250. All course notes and labs for STATS 250 are at
+
+\url{open.umich.edu/find/open-educational-resources/statistics}
+
+If you have a different background (AP Statistics, STATS 280, or some other introductory statistics class) you should check the STATS 250 notes and if necessary come for help in office hours.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Let's get started}
+
+We will work through a data analysis using a linear model, and then study the math and stats so that (i) we can command the computer to generate what we want; (ii) we can interpret what the computer tells us.
+ \bi 
+ \item Install R (\url{www.r-project.org}) and Rstudio (\url{www.rstudio.com})
+ \item Obtain data and read it into R
+ \item Plot the data
+ \item Develop a model
+ \item Estimate parameters and test hypotheses of interest
+ \item Interpret the results
+ \ei
+The two rising stars in statistical computing are R and Python (\url{http://r4stats.com/articles/popularity/}). Generally, R is preferred for data analysis, and Python for larger programming projects.
+%\uncover<2->{
+  \begin{center}
+  \large \myemph{We live in an era of abundant data. Learn R!}
+  \end{center}
+%}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Case study: Are people healthier in booms or busts?}
+\begin{myitemize}
+\item Is population health \myemph{pro-cyclical} (improving in business cycle booms) or \myemph{counter-cyclical} (improving in recessions), or neither? 
+\item \myemph{Life expectancy at birth} combines instantaneous death rates at all ages and is a basic measure of current population health.
+%(\url{data.oecd.org/healthstat/life-expectancy-at-birth.htm}).
+\item USA data for 1933--2015 are in the file \url{life_expectancy.txt} 
+
+<<read_life_expectancy>>=
+download.file(destfile="life_expectancy.txt",
+  url="https://ionides.github.io/401w18/01/life_expectancy.txt")
+@
+
+\item The first lines of this file are:
+\end{myitemize}
+
+\vspace{-4mm}
+
+\begin{verbatim}
+# The United States of America, Life expectancy at birth.
+# Downloaded from Human Mortality Database on 30 Oct 2017.
+# HMD request that you register at http://www.mortality.org 
+# if you use these data for research purposes.
+  Year       Female    Male     Total
+  1933        62.78    59.17    60.88
+  1934        62.34    58.34    60.23
+\end{verbatim}
+
+\vspace{-3mm}
+
+\begin{myitemize}
+\item 
+Lines marked with \url{#} are \myemph{comments} that are ignored by R.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Read the data into R and then inspect it}
+
+<<read_e0>>=
+L <- read.table(file="life_expectancy.txt",header=TRUE)
+@
+
+\vspace{-2mm}
+
+\myquestion.
+Why should we prefer to use the command line form of R rather than a menu option, say in R Commander?
+
+\vspace{10mm}
+
+Now, let's check on the data. To see the first three rows,
+
+<<LE_rows>>=
+L[1:3,]
+@
+
+\vspace{-2mm}
+
+Here, we're using \myemph{matrix indexing}. 
+\texttt{L[i,j]} is the row \texttt{i} column \texttt{j} entry of \texttt{L}. 
+Also, \texttt{1:3} is the sequence \texttt{1,2,3} and the blank space after the comma in \texttt{L[1:3,]} requests all the rows for the specified columns.
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Matrices and their dimensions}
+Mathematically, we write \altdisplaymath{
+\mat{L}
+%=[\ell_{ij}]
+=\left[
+\begin{array}{cccc}
+\ell_{11} & \ell_{12} & \dots & \ell_{1n} \\
+\ell_{21}& \ell_{22} & \dots & \ell_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\ell_{m1} & \ell_{m2} & \dots & \ell_{mn} 
+\end{array}
+\right]
+}.
+
+We say \mymath{\mat{L}} is a matrix with \myemph{dimension} \mymath{m\times n}. To get the dimension in R,
+<<dim>>=
+dim(L)
+@
+
+\vspace{2mm}
+
+We can also get the number of rows and columns separately,
+<<row+col>>=
+cat("number of rows = ", nrow(L), 
+  "; number of columns = ", ncol(L))
+@
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Extracting rows and columns from a matrix}
+A single row or column of a matrix is a \myemph{vector}. 
+Vectors will be discussed more in Chapter~2.
+
+
+For example, we can set \code{y} to be total life expectancy, combining men and women, which is the fourth column of \code{L}, as follows.
+<<vec>>=
+y <- L[,4]
+y[1:3]
+@
+
+\myquestion.
+We read the assignment operator \code{<-} as ``\code{y} gets \code{L[,4]}''.
+We could have written \code{y=L[,4]}. 
+However, \code{<-} is slightly better coding practice than \code{=}. Why?
+
+\vspace{20mm}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vectors in R}
+
+For R, vectors are not matrices. 
+A vector has a \code{length} but not a \code{dim}.
+When subsetting a matrix, the dimension of length  \code{1} is \myemph{dropped}. 
+\begin{columns}[T] 
+\begin{column}{.3\textwidth}
+<<dim_for_vec>>=
+dim(y)
+@
+\end{column}
+\begin{column}{0.1\textwidth}
+\end{column}
+\begin{column}{0.4\textwidth}
+<<length_for_vec>>=
+length(y)
+@
+\end{column}
+\end{columns}
+We can extract the components of a vector. For example, to obtain the increase in life expectancy each year over the previous year,
+<<e0_gain>>=
+g <- y[2:length(y)] - y[1:(length(y)-1)] 
+@
+Since the increase is not defined for the first year life expectancy is measured, let's set the first increase to \code{NA}, 
+<<e0_gain_with_na>>=
+g <- c(NA,g)
+g[1:8]
+@
+Note: here we've seen two of R's special non-numeric values. \code{NULL} means ``doesn't exist''. \code{NA} means ``not available'' or ``missing''. Data matrices can have \code{NA} entries but not \code{NULL}. R tries to treat missing data appropriately. 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Numeric, logical and character data in R}
+\myemph{Numeric data} are matrices and vectors whose entries are numbers.
+\myemph{Qualitative data} are \myemph{character strings}.
+\myemph{Logical data} are \code{TRUE} or \code{FALSE}.
+\begin{columns}[T] 
+\begin{column}{.45\textwidth}
+<<numeric_vec>>=
+g[1:4]
+@
+\end{column}
+\begin{column}{0.45\textwidth}
+<<logical_vec>>=
+L_up_logical <- g>0
+L_up_logical[1:4]
+@
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+
+<<character_vec>>=
+L_up_qualitative <- ifelse(g>0,"increased","decreased")
+L_up_qualitative[1:4]
+@
+
+\vspace{3mm}
+
+The \code{class} function tells us what data type R is working with
+
+\begin{columns}[T] 
+\begin{column}{.25\textwidth}
+<<>>=
+class(g)
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+<<>>=
+class(L_up_logical)
+@
+\end{column}
+\begin{column}{0.35\textwidth}
+<<>>=
+class(L_up_qualitative)
+@
+\end{column}
+\end{columns}
+
+\vspace{2mm}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Getting help with R}
+Learning a computing language is sometimes frustrating.
+Please proceed in the following order
+\begin{enumerate}
+\item The R help, e.g., type \code{?ifelse} for information on the syntax of \code{ifelse}.
+\item The internet, e.g., google ``R ifelse''.
+\item Classmates. 
+\item Office hours, start-and-end of class, lab
+\item Email to instructor and/or GSI.
+\end{enumerate}
+For detailed email help, please construct and email a simple example demonstrating the issue. Sometimes, the issue gets resolved by writing it out!
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{R data structures: dataframes and matrices}
+
+\vspace{-3mm}
+
+\begin{myitemize}
+
+\item A matrix in R must have all entries of the same type. 
+The mathematics of fitting a linear statistical model will require type to be numeric.
+
+\item For example, to convert data to a numeric representation for statistical analysis, \code{L_up_logical} or \code{L_up_qualitative} could be coded using \code{0} for \code{FALSE} (or \code{"decreased"}) and \code{1} for \code{TRUE} (or \code{"increased"}).
+
+
+\item A dataframe in R may have different types in each column. Data are usually stored in dataframes, e.g., \code{read.table()} generates a dataframe.  
+\end{myitemize}
+
+\vspace{-2mm}
+
+\begin{columns}[T] 
+\begin{column}{.4\textwidth}
+<<>>=
+class(L)
+@
+\end{column}
+\begin{column}{0.45\textwidth}
+<<>>=
+L_matrix <- as.matrix(L)
+class(L_matrix)
+@
+\end{column}
+\end{columns}
+\begin{myitemize}
+\item For many purposes, dataframes and matrices behave the same.
+\end{myitemize}
+
+\vspace{-2mm}
+
+Innuit have many words for snow {(\url{wikipedia:Eskimo_words_for_snow})} and R has many ways of working with data. To do effective data analysis, these are worth learning!
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Subsetting matrices and vectors in R}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item
+Vectors and matrices can be subsetted using logical vectors.
+Each entry of a vector (or row/column of a matrix) is included if the logical vector is \code{TRUE} and excluded if \code{FALSE}.
+
+\item Rows and columns can be selected using row and column names:
+\end{myitemize}
+
+<<,echo=F,cache=F,purl=F>>=
+op <- options()
+options(width=22)
+@
+
+\begin{columns}[T] 
+\begin{column}{.4\textwidth}
+<<rownames>>=
+colnames(L)
+@
+\end{column}
+\begin{column}{0.1\textwidth}
+\end{column}
+\begin{column}{0.4\textwidth}
+<<>>=
+rownames(L)[1:8]
+@
+\end{column}
+\end{columns}
+
+<<,echo=F,cache=F,purl=F>>=
+options(op)
+@
+
+\vspace{3mm}
+
+\myquestion.
+What is computed below. Can you find any interpretation?
+
+<<subsetting_using_logical>>=
+L[g<0,"Year"]
+@
+
+\vspace{20mm}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Building matrices and vectors in R}
+The \code{c()} function combines numbers into vectors, and also combines vectors into longer vectors.
+\begin{columns}[T] 
+\begin{column}{.2\textwidth}
+<<>>=
+u <- c(1,2) 
+u
+@
+\end{column}
+\begin{column}{0.2\textwidth}
+<<>>=
+v <- c(3,4) 
+v
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+<<>>=
+w <- c(u,v) 
+w
+@
+\end{column}
+\end{columns}
+
+\vspace{2mm}
+
+We can build a matrix using \code{matrix()}. Also, we can get a matrix by  binding together vectors either as rows or columns.
+\begin{columns}[T] 
+\begin{column}{0.37\textwidth}
+<<>>=
+A <- matrix(1:6,nrow=2)
+A
+@
+\end{column}
+\begin{column}{0.25\textwidth}
+<<>>=
+B <- rbind(u,v) 
+B
+@
+\end{column}
+\begin{column}{0.25\textwidth}
+<<>>=
+C <- cbind(u,v) 
+C
+@
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+
+{\bf Exercises}. What would \code{cbind(A,B)} produce? Play with these functions. Check out \code{?matrix} to get the syntax of this command.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Continuing our health economics case study}
+
+\vspace{-5mm}
+
+We looked at data on mortality. 
+We'll use Bureau of Labor Statistics data on unemployment as a measure of the business cycle.
+
+\vspace{-5mm}
+
+\begin{verbatim}
+# Data extracted on: February 4, 2016 
+# from http://data.bls.gov/timeseries/LNU04000000
+# Percent unemployment, age 16+, not seasonally adjusted
+Year,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
+1948,4.0,4.7,4.5,4.0,3.4,3.9,3.9,3.6,3.4,2.9,3.3,3.6
+1949,5.0,5.8,5.6,5.4,5.7,6.4,7.0,6.3,5.9,6.1,5.7,6.0
+\end{verbatim}
+
+\vspace{-3mm}
+
+<<read_u>>=
+U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
+U[1:2,]
+@
+
+Note: the data are in a comma separated variable (csv) format, so we use \code{read.table(..., sep=",",...)}.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Averaging columns in R}
+We want annual average unemployment. For each row, we must average columns \code{2:13}.
+<<>>=
+u <- apply(U[,2:13],1,mean)
+u[1:6]
+@
+\begin{myitemize}
+\item
+\code{apply()} carries out an operation (here, taking the mean) on rows or columns of matrices. We will learn more about it later.
+\item 
+The middle argument \code{1} to \code{apply()} asks for the function \code{mean()} to be applied to each row. 
+\item
+Setting \code{2} would give the average over rows for each column.
+\item 
+Remember: \code{apply(U,1,...)} gives a vector of length \code{dim(U)[1]}, and \code{apply(U,2,...)} gives a vector of length \code{dim(U)[2]}.
+\end{myitemize}
+\begin{columns}[T] 
+\begin{column}{0.2\textwidth}
+<<>>=
+dim(U)
+@
+\end{column}
+\begin{column}{0.35\textwidth}
+<<>>=
+length(apply(U,1,mean))
+@
+\end{column}
+\begin{column}{0.35\textwidth}
+<<>>=
+length(apply(U,2,mean))
+@
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Plotting the data}
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+<<fig_L,eval=F,echo=T>>=
+plot(L$Year,y,type="line",
+  xlab="Year",
+  ylab="Life expectancy")
+@
+
+<<fig_L_eval,fig.width=5,fig.height=4,echo=F>>=
+<<fig_L>>
+@
+\end{column}
+\begin{column}{0.45\textwidth}
+<<fig_U,eval=F,echo=T>>=
+plot(U$Year,u,
+  xlab="Year",
+  ylab="Unemployment")
+@
+<<fig_U_eval,fig.width=5,fig.height=4,echo=F>>=
+<<fig_U>>
+@
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+
+\begin{myitemize}
+\item A basic rule of applied statistics is to plot the data.
+\item Carefully designed plots can reveal secrets in the data: (i) label axes; (ii) lines or points or both; (iii) any other creative ideas? 
+\item This course will use the basic \code{plot()} function. A powerful modern approach to graphics is the ``grammar of graphics'' in the \code{ggplot2} package, taught in STATS 306.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Detrending life expectancy}
+\begin{myitemize}
+\item Life expectancy is generally increasing with time. We say it has an \myemph{increasing trend}. 
+\item We're interested in whether it is above or below trend during economic booms.
+\item Subtracting an estimate of the trend from each data point is called \myemph{detrending}. A basic way to do this is to fit a linear trend that fits the data best, by finding the line mimizing the sum of squares of distances to the data.
+\item Most of you have seen this done before:\\
+\url{https://open.umich.edu/sites/default/files/downloads/interactive_lecture_notes_12-regression_analysis.pdf}
+\item In this course, we're going to study linear models and their statistical properties in much more detail.
+\item First, let's see how to compute this \myemph{least squares} fitted line using the \code{lm()} function in R.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fitting a linear model using \code{lm()}}
+<<lm>>=
+L_fit <- lm(Total~Year,data=L)
+@
+\begin{myitemize}
+\item Using \code{Total~Year} to model {\it Total depends on Year} in R is called a \myemph{formula}. Type \code{?lm} in R to see the function description.
+\item We could have said \code{lm(L$Total~L$Year)} or \code{lm(y=L$Total,x=L$Year)}. 
+\item Writing \code{data=L} tells \code{lm()} to look for the linear model variables in the dataframe \code{L} and makes the model easier to read.
+\end{myitemize}
+
+
+\begin{columns}[T] 
+\begin{column}{0.5\textwidth}
+<<fig_L_code,eval=F,echo=T>>=
+plot(Total~Year,L,type="l")
+lines(L$Year,L_fit$fitted.values,
+  lty="dotted")
+@
+\begin{myitemize}
+\item The \myemph{fitted values} in \code{L_fit$fitted.values} give the dotted line.
+
+\item We use formulas in \code{plot()} just like we did in \code{lm()}.
+\end{myitemize}
+
+\end{column}
+\begin{column}{0.4\textwidth}
+<<fig_L_plot,echo=F,fig.width=3.5,fig.height=3.5>>=
+par(mai=c(0.9,0.9,0.1,0.1))
+<<fig_L_code>> 
+@
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exploring the output of \code{lm}}
+\begin{myitemize}
+\item We call \code{L_fit} a \myemph{fitted model object} since it is an R object that was created by fitting a model, in this case a linear model fitted using \code{lm}.
+\item
+First, let's check the class of the object 
+
+\vspace{3mm}
+
+<<>>=
+class(L_fit)
+@
+
+\vspace{3mm}
+
+\item 
+We see that \code{lm} is both the name of the function to fit a linear model and the class of the resulting fitted model object.
+\item
+Now, let's see what the fitted model object contains:
+
+
+\vspace{3mm}
+
+<<>>=
+names(L_fit)
+@
+
+\vspace{3mm}
+
+\item \code{L_fit} is a list with all the things R thinks we might want to know about the fitted linear model. Components are accessed using \code{$}. We have already seen the fitted values accessed using \code{L_fit$fitted.values}. We will use other components later in the course.
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Computer software notation vs math notation}
+
+\begin{myitemize}
+\item Computers compute things. That's what they do. It seems obvious.
+\item A computer function takes numbers in and spits numbers out. It can't know whether the analysis is correct, or reasonable, or useful for some purpose, or complete nonsense. Artificial intelligence is not (yet) good at applied statistics!
+\item \myemph{For describing statistical assumptions, understanding the behavior of statistical tests, and defining statistical models, mathematics is a more appropriate language than computer code.}
+\item We have to learn to write about statistics using two different languages: mathematics and computing. We have to learn when each is appropriate.
+\item If all is well, the math helps us understand the computing and vice versa.
+\item We have already seen one example: matrices and vectors are simultaneously (i) mathematical objects, with certain mathematical rules and definitions; (ii) R objects which follow a set of rules inspired by the mathematics.
+\item How do we mathematically write down the statistical linear model that we fitted using \code{lm()}?
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A linear model -- the sample version}
+\begin{myitemize}
+\item Suppose our data are \m{y_1,y_2,\dots,y_n} and on each individual \m{i} we have \m{p} explanatory variables \m{x_{i1}, x_{i2},\dots,x_{ip}}. A linear model is
+\end{myitemize}
+\altdisplaymath{\LMi \hspace{10mm}
+  y_i = b_1 x_{i1} + b_2 x_{i2} + \dots + b_p x_{ip} + e_i \quad\mbox{for $i=1,2,\dots,n$}
+}
+\begin{myitemize}
+\item 
+This is a model for a particular sample \m{y_1,\dots,y_n}. A basic task of statistics is to generalize from a sample to a population. We'll do that later.
+\item 
+The \myemph{residual error} terms \m{e_1,\dots,e_n} in equation \myref{\LMi} include everything about the data \m{y_1,y_2,\dots,y_n} that cannot be explained by the \myemph{linear combination} of the explanatory variables.
+\item 
+Using \myemph{summation notation} we can write the linear model for this sample in a more compact way,
+\end{myitemize}
+
+\vspace{-1mm}
+
+\altdisplaymath{
+\LMii \hspace{15mm}
+  y_i = \sum_{j=1}^p x_{ij} b_j + e_i \hspace{10mm} \mbox{for $i=1,2,\dots,n$}
+}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item We'll review summation notation in due course.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Applying the linear model to detrend life expectancy}
+\begin{myitemize}
+\item When we did \code{L_fit <- lm(Total~Year,data=L)} earlier, we fitted the linear model \m{(\mathrm{LM1})} with \m{y_i} being the total life expectancy for the \m{i}th year in the dataset (recall that total life expectancy means combining males and females) and \m{x_{i1}} being the corresponding year.
+\item 
+To fit a linear trend, we also want an \myemph{intercept}, which we can write by setting \m{x_{i2}=1} for each year \m{i}. 
+\item 
+In this special case, with \m{p=2} variables and \m{x_{i2}=1}, the model \m{(\mathrm{LM1})} is called the \myemph{simple linear regression} model,
+
+\altdisplaymath{\SLRi \hspace{10mm}
+  y_i = b_1 x_{i1} + b_2 + e_i \quad\mbox{for $i=1,2,\dots,n$}
+}
+
+\vspace{1mm}
+
+\item Here, \m{b_2} is the intercept for the \myemph{fitted line}  \m{y_i = b_1 x_{i1} + b_2} when we ignore the residual errors \m{e_1,\dots,e_n}.
+\item In \code{L_fit <- lm(Total~Year,data=L)}, we gave R the task of finding the values of the \myemph{coefficients} \m{b_1} and \m{b_2} which minimize the \myemph{sum of squared errors}, \m{\sum_{i=1}^n e_i^2}.
+\item We didn't have to tell R we wanted an intercept. By default, it assumed we did. In this case it was right.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Is unemployment assosciated with higher or lower mortality?}
+\begin{myitemize}
+\item
+Now, we'll fit another linear model to see if the detrended life expectancy can be explained by the level of economic activity, quantified by the unemployment rate.
+\item We have seen that \code{residuals} is one of the components of an \code{lm} object, by looking at \code{names(L_fit)}. 
+\item \myemph{Residual} is a more polite name than \myemph{residual error}. That is appropriate here, since the ``error'' \m{e_i} is exactly the deviation from trend which we are most interested in. Interpretation of \m{e_i} depends on the exact situation under consideration.
+\item First, let's set up the variables for the regression. Since we detrended life expectancy, we should also detrend unemployment. Then, we have some work to do to make sure that the years for these two datasets match!
+\end{myitemize}
+<<detrended_variables>>=
+L_detrended <- L_fit$residuals
+U_detrended <- lm(u~U$Year)$residuals
+L_detrended <- subset(L_detrended,L$Year %in% U$Year)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{A linear model linking mortality and unemployment}
+<<detrended_lm>>= 
+lm1 <- lm(L_detrended~U_detrended)
+coef(lm1)
+@
+\begin{myitemize}
+\item We have obtained a positive coefficient for the sample linear model. 
+Higher unemployment seems to be associated with higher life expectancy.
+This may be surprising. Is the result \myemph{statistically significant}? What happens if we use a different explanatory variable instead of unemployment? Or if we use more than one explanatory variable? Are there any violations of statistical assumptions that might invalidate this analysis? Is it reasonable to make a causal interpretation (that economic cycles cause fluctuations in life expectancy) or must we limit ourselves to a claim that these variables are associated?
+\item 
+Giving informed answers to statistical questions such as these is a primary goal of the course.
+\end{myitemize}
+\end{frame}
+
+
+\end{document}
+
+\begin{frame}[fragile]
+\frametitle{}
+\end{frame}
+
+
