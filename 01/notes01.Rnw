@@ -3,6 +3,8 @@
 
 \input{../header.tex}
 \newcommand\CHAPTER{1}
+\newcommand\answer[2]{#2} % to show answers
+% \newcommand\answer[2]{#1} % to show blank space
 
 \begin{document}
 
@@ -145,9 +147,9 @@ L <- read.table(file="life_expectancy.txt",header=TRUE)
 \myquestion.
 Why should we prefer to use the command line form of R rather than a menu option, say in R Commander?
 
-\vspace{10mm}
+\answer{\vspace{10mm}}{(i) reproducibility; (ii) code sharing; (iii) scales to more complex statistical analysis; (iv) faster once learned.}
 
-Now, let's check on the data. To see the first three rows,
+We have made a \myemph{data matrix}, \url{L}. Let's look at the first three rows of \url{L}.
 
 <<LE_rows>>=
 L[1:3,]
@@ -157,7 +159,7 @@ L[1:3,]
 
 Here, we're using \myemph{matrix indexing}. 
 \texttt{L[i,j]} is the row \texttt{i} column \texttt{j} entry of \texttt{L}. 
-Also, \texttt{1:3} is the sequence \texttt{1,2,3} and the blank space after the comma in \texttt{L[1:3,]} requests all the rows for the specified columns.
+Also, \texttt{1:3} is the sequence \texttt{1,2,3} and the blank space after the comma in \texttt{L[1:3,]} requests all the columns for the specified rows.
 
 
 \end{frame}
@@ -177,20 +179,18 @@ Mathematically, we write \altdisplaymath{
 \right]
 }.
 
-We say \mymath{\mat{L}} is a matrix with \myemph{dimension} \mymath{m\times n}. To get the dimension in R,
+We say \mymath{\mat{L}} is a matrix with \myemph{dimension} \mymath{m\times n}. To get the dimension in R, we use the \code{dim()} function.
 <<dim>>=
 dim(L)
 @
 
-\vspace{2mm}
 
-We can also get the number of rows and columns separately,
+The number of rows and columns can be found separately using \code{nrow()} and \code{ncol()}.
 <<row+col>>=
-cat("number of rows = ", nrow(L), 
-  "; number of columns = ", ncol(L))
+c(nrow(L), ncol(L))
 @
 
-\end{frame}
+\end{frame} 
 
 \begin{frame}[fragile]
 \frametitle{Extracting rows and columns from a matrix}
@@ -205,11 +205,11 @@ y[1:3]
 @
 
 \myquestion.
-We read the assignment operator \code{<-} as ``\code{y} gets \code{L[,4]}''.
+We read the \myemph{assignment operator} \code{<-} as ``gets''. So, the assignment above is read as ``\code{y} gets \code{L[,4]}''.
 We could have written \code{y=L[,4]}. 
 However, \code{<-} is slightly better coding practice than \code{=}. Why?
 
-\vspace{20mm}
+\answer{\vspace{20mm}}{(i) assignment is not symmetric so we can also do right assignment, \code{L[,4] -> y}. (ii) \code{=} is used for labeling function arguments.}
 
 
 \end{frame}
@@ -217,40 +217,72 @@ However, \code{<-} is slightly better coding practice than \code{=}. Why?
 \begin{frame}[fragile]
 \frametitle{Vectors in R}
 
-For R, vectors are not matrices. 
-A vector has a \code{length} but not a \code{dim}.
-When subsetting a matrix, the dimension of length  \code{1} is \myemph{dropped}. 
+\bi
+\item A \myemph{vector} in R is a sequence of numbers. One way to make a vector is to use the concatenation function, \code{c()}.
+<<vecExample>>=
+v <- c(3,1,4,1,5,9)
+v
+@
+\item Components of a vector can be extracted using \code{[]}.
+<<extraction>>=
+v[3]
+@
+\ei
+\myquestion. What do you think is the value of \code{v[3:5]}? 
+
+\answer{15mm}{A vector with entries \code{4,1,5}}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Vectors in R are not matrices}
+
+\bi
+\item A vector in R has a \code{length} but not a \code{dim}.
+\item When making a vector by extracting a row or a column of a matrix, the dimension of length  \code{1} is \myemph{dropped}. 
+\ei
 \begin{columns}[T] 
 \begin{column}{.3\textwidth}
-<<dim_for_vec>>=
-dim(y)
+<<length_for_vec>>=
+dim(L)
+y <- L[,4]
 @
 \end{column}
 \begin{column}{0.1\textwidth}
 \end{column}
 \begin{column}{0.4\textwidth}
-<<length_for_vec>>=
+<<dim_for_vec>>= 
 length(y)
+dim(y)
 @
 \end{column}
 \end{columns}
-We can extract the components of a vector. For example, to obtain the increase in life expectancy each year over the previous year,
+\bi
+\item A column of the \mymath{m\times n} matrix \mymath{\mat{L}} can also be considered as a \mymath{m\times 1} matrix called a \myemph{column vector}. A row of \mymath{\mat{L}} can be viewed as a \mymath{1\times n} matrix called a \myemph{row vector}.
+\item For R, a vector is not a column vector or a row vector.
+\ei
+
+\end{frame}
+\begin{frame}[fragile]
+
+\myexample. To obtain the increase in life expectancy each year over the previous year,
 <<e0_gain>>=
 g <- y[2:length(y)] - y[1:(length(y)-1)] 
 @
 Since the increase is not defined for the first year life expectancy is measured, let's set the first increase to \code{NA}, 
 <<e0_gain_with_na>>=
-g <- c(NA,g)
+g <- c(NA,g) 
 g[1:8]
 @
-Note: here we've seen two of R's special non-numeric values. \code{NULL} means ``doesn't exist''. \code{NA} means ``not available'' or ``missing''. Data matrices can have \code{NA} entries but not \code{NULL}. R tries to treat missing data appropriately. 
+Note: now we've seen two of R's special non-numeric values. \code{NULL} means ``doesn't exist''. \code{NA} means ``not available'' or ``missing''. Data matrices can have \code{NA} entries but not \code{NULL}. R tries to treat missing data appropriately. 
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Numeric, logical and character data in R}
 \myemph{Numeric data} are matrices and vectors whose entries are numbers.
-\myemph{Qualitative data} are \myemph{character strings}.
 \myemph{Logical data} are \code{TRUE} or \code{FALSE}.
+\myemph{Character data} are strings of letters and symbols.
+
+\vspace{-2mm}
+
 \begin{columns}[T] 
 \begin{column}{.45\textwidth}
 <<numeric_vec>>=
@@ -265,14 +297,10 @@ L_up_logical[1:4]
 \end{column}
 \end{columns}
 
-\vspace{3mm}
-
 <<character_vec>>=
 L_up_qualitative <- ifelse(g>0,"increased","decreased")
 L_up_qualitative[1:4]
 @
-
-\vspace{3mm}
 
 The \code{class} function tells us what data type R is working with
 
@@ -356,7 +384,7 @@ class(L_matrix)
 
 \vspace{-2mm}
 
-Innuit have many words for snow {(\url{wikipedia:Eskimo_words_for_snow})} and R has many ways of working with data. To do effective data analysis, these are worth learning!
+Innuit have many words for snow {(\url{wikipedia:Eskimo_words_for_snow})} and R has many ways of working with data. To do effective data analysis, these are worth learning.
 
 \end{frame}
 
@@ -373,6 +401,8 @@ Each entry of a vector (or row/column of a matrix) is included if the logical ve
 
 \item Rows and columns can be selected using row and column names:
 \end{myitemize}
+
+\vspace{-2mm}
 
 <<,echo=F,cache=F,purl=F>>=
 op <- options()
@@ -397,8 +427,6 @@ rownames(L)[1:8]
 <<,echo=F,cache=F,purl=F>>=
 options(op)
 @
-
-\vspace{3mm}
 
 \myquestion.
 What is computed below. Can you find any interpretation?
