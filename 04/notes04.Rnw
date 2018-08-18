@@ -1,0 +1,253 @@
+%\documentclass[handout]{beamer}
+\documentclass{beamer}
+
+\input{../header.tex}
+\newcommand\CHAPTER{4}
+%\newcommand\LSi{\mathrm{(LS1)}}
+%\newcommand\LSii{\mathrm{(LS2)}}
+%\newcounter{tXX}
+%\newcounter{tXy}
+%\newcounter{matrixLSi}
+
+\begin{document}
+
+% knitr set up
+<<knitr_opts,echo=F,cache=F,purl=F>>=
+library(knitr)
+opts_chunk$set(
+#  cache=FALSE,
+  cache=TRUE,
+  eval=TRUE,
+  include=TRUE,
+  echo=TRUE,
+  purl=TRUE,
+  cache.path=paste0("tmp/cache"),
+  dev='png',
+  dev.args=list(bg='transparent'),
+  dpi=300,
+  error=FALSE,
+  fig.pos="h!",
+  fig.align='center',
+  fig.height=4,fig.width=6.83,
+  fig.lp="fig:",
+  fig.path=paste0("tmp/figure"),
+  fig.show='asis',
+  highlight=TRUE,
+  message=FALSE,
+  progress=TRUE,
+  prompt=FALSE,
+#  results='asis',
+  results="markup",
+  size='small',
+  strip.white=TRUE,
+  tidy=FALSE,
+  warning=FALSE
+#  comment=NA # to remove ## on output
+)
+options(width = 60) # number of characters in R output before wrapping
+@
+
+% other set up
+<<setup,echo=F,results=F,cache=F>>=
+library(broman) # used for myround 
+@
+
+
+\begin{frame}
+\frametitle{\CHAPTER. Probability models: mean, variance and the normal distribution}
+
+\begin{myitemize}
+\item A \myemph{probability model} is an assignment of \myemph{probabilities} to \myemph{outcomes} in the \myemph{sample space} of all \myemph{possible outcomes} for the situation being modeled.
+
+\item Probabilities are between \m{0} (impossible) and \m{1} (certain).
+
+\item The total probability of all possible outcomes is \m{1} (something is certain to happen!).
+
+\item Probability models are the only known way to quantify uncertainty.
+
+\item Drawing statistical conclusions from data inevitably involves uncertainty. Probability models are important for Statistics!
+\end{myitemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Why do we need a probability model for the linear model?}
+
+\vspace{-1mm}
+
+\begin{myitemize}
+\item We now know how to set up a linear model explaining a response variable \m{\vec{y}} using a matrix of explanatory variables \m{\mat{X}}. 
+We write \m{\vec{y}=\mat{X}\vec{b}+\vec{e}} and use least squares to find a coefficient vector, \m{\vec{b}}.
+We understand that this is a compact way of writing \m{y_i = x_{i1}b_1 + x_{i2}b_2 + \dots + x_{ip}b_p + e_i} for \m{i=1,\dots,n}.
+
+\item A positive value of \m{b_j} for \m{j} in \m{\{1,\dots,p\}} means that larger values of the \m{j}th predictor variable are associated with larger values of the \myemph{response} \m{y_j}. 
+
+\item However, there is always room for uncertainty. Maybe we sampled only a small fraction of the population of interest. There could be error in the measurements. For experimental data, the responses would be different each time we collected a dataset. Common statistical questions are:
+
+(a) How much might \m{b_j} change if we repeated the experiment?
+
+(b) Is the least squares estimate of \m{b_j} small enough that it is reasonable to use an estimate \m{b_j= 0}? If so, we can remove this predictor and simplify the model.
+
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Statistical inference needs a probability model}
+
+\begin{myitemize}
+
+\item Probability models let us assign probabilities to events that may or may not occur, such as ``What is the probability that the difference between the sample least squares coefficient \m{b_1} and the true population coefficient is smaller than \m{0.1}.'' 
+
+\item Numeric outcomes for probability models are called \myemph{random variables}.
+
+\item For the linear model, the response takes a numeric value. Therefore, a probability model for a data vector \m{\vec{y}} uses random variables to model how the data were generated.
+
+\item We could talk about probabilities of outcomes that are not numerical, such as {\it heads} and {\it tails} for a coin. These can be made numeric by assigning value 1 for {\it heads} and 0 for {\it tails}.
+
+\item We have the following goals:
+
+\begin{itemize}
+\item \quad Review the rules of probability and random variables.
+\item \quad Build the skills needed to work with probabilities for linear models.
+\item \quad Learn to use R to make probability calculations.
+\item \quad Use probability calculations to develop statistical inference procedures for linear models.
+\end{itemize}
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Possible outcomes and events}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+
+\item The set of all possible outcomes for model is called the \myemph{sample space} of that model.
+   
+\item {\bf Example}. The set of possible outcomes when rolling a 6-sided die can be modeled as \m{\{1,2,3,4,5,6\}}. This excludes the die rolling off the table, or balancing on its edge.
+
+\item An \myemph{event} is a collection of possible outcomes.
+
+\item Formally, an event is therefore a subset of the sample space.
+
+\item An event can happen or not happen on any \myemph{realization} of the model.
+
+\item If each outcome is equally likely (e.g., a roll of a fair die) we can generate realizations of the model in R using \code{sample()}
+\end{myitemize}
+<<,echo=F>>=
+set.seed(23) 
+@
+
+<<>>=
+## Make 10 draws with replacement from {1,2,3,4,5,6}
+## This models 10 realizations of rolling a fair die
+sample(1:6,size=10,replace=TRUE)
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A definition of probability for repeatable experiments}
+
+\begin{myitemize}
+\item The \myemph{probability} of an event is the long-run proportion of times that an event happens in a large number of realizations of the probability model.
+
+\item Probabilities are only defined in the context of a probability model.
+If we talk about the probability that a particular US senator will be reelected in November, that means we have a model for it.
+We can draw many realizations from our model, even though we are modeling one specific election.
+
+\item For an event \m{A}, we write the probability of \m{A} in our model as \m{\prob(A)}.
+
+\item We can write \m{A} in words or as a set of outcomes. Saying ``\m{A} is the event that a die roll is even'' is equivalent to saying \m{A=\{2,4,6\}}.
+
+\item We will review the material on random variables from STATS 250 at
+\url{open.umich.edu/find/open-educational-resources/statistics}. 
+See, in particular,
+\begin{itemize}
+\item\quad \emph{Interactive Lecture Notes 04: Probability}
+
+\item\quad \emph{Interactive Lecture Notes 05: Random Variables}
+
+\item\quad \emph{Workbook 03: Lab 2 - Probability and Random Variables}
+\end{itemize}
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Events corresponding to the outcome of a random variable}
+
+\begin{myitemize}
+%\item A \myemph{random variable} is a number associated with each possible outcome in the sample space of a probability model.
+ 
+%\item {\bf Example}. A probability model for 3 consecutive coin tosses has possible outcomes \m{\{TTT,TTH,THT,THH,HTT,HTH,HHT,HHH\}}. The random variable counting the number of heads takes value \m{2} when the outcome is \m{HHT}, \m{HTH} or \m{THH}.
+
+\item Events can be defined using random variables.
+%\end{myitemize}
+%\example.
+\item Let \m{X} be the number of heads in these three coin tosses. This is a random variable, using the usual probability model that each coin toss is equally likely to be {\it heads} (H) or {\it tails} (T).
+
+\item
+Let \m{A} be the event that there are two heads. We can write \m{A} as \m{\{X=2\}} or \m{\{HHT, HTH,THH\}}. 
+
+\item To talk about the probability of \m{A}, we could write \m{\prob(A)} or \m{\prob(HHT, HTH, \mbox{ or } THH)} or \m{\prob(X=2)}.
+
+%\item Random variables, like probabilities, are only defined in the context of a model. For example, suppose that for the first three trials of a new surgical operation, two of the patients have a successful operation. It may be useful to model surgical success like the outcome of coin toss. However, data are not random variables, and random variables are not data!
+
+\item We use upper case letters for random variables, and lower case letters for the possible values of the random variables. \m{\{X=x\}} is common notation for the event that the random variable \m{X} takes the specific value \m{x}.
+
+\end{myitemize}
+
+\end{frame}
+
+\end{document}
+
+
+\begin{frame}[fragile]
+\frametitle{Obtaining a probability by simulation}
+
+\begin{myitemize}
+\item Let \m{A} be the event that the die lands on a ``1''.
+
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The basic rules of probability}
+
+Complement	rule P(A ) 1 P(A) C = −
+• Mutually	Exclusive	(disjoint)	Events:	
+The	events	A,	B	are	disjoint	if	“A	and	B”	is	the	empty	set.		
+Thus,	P(A	and	B)	=	0.
+• Addition	Rule	(general) P(Aor B) = P(A) + P(B) − P(Aand B)
+If	A,	B	are	disjoint,	we	have	 P(Aor B) = P(A) + P(B)
+• Conditional	Probability	(general) ( )
+( and ) ( | ) P B
+P A B P A B =
+• Independent	Events:	
+The	events	A,	B	are	independent	if		 P(A| B) = P(A)
+Equivalently,	the	events	A,	B	are	independent	
+if	 P(Aand B) = P(A)P(B)
+
+\end{frame}
+
+\end{document}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+
+\begin{myitemize}
+\item 
+\end{myitemize}
+
+\end{frame}
