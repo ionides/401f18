@@ -1,0 +1,172 @@
+---
+title: "STATS 401 (Fall 2018) <br>'Applied Statistical Methods II'"
+author: "Instructor: Edward L. Ionides"
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+csl: ecology.csl
+---
+
+------
+
+The [syllabus](syllabus.html) gives the course description, contact information, grading scheme, and other course information.
+
+
+----------
+
+## Class notes
+
+1. [Introduction](01/notes01.pdf). [(R script)](01/notes01.R).
+
+<!--
+2. [Linear algebra for applied statistics](02/notes02.pdf). [(R script)](02/notes02.R).
+
+3. [Fitting a linear model to a sample by least squares](03/notes03.pdf). [(R script)](03/notes03.R).
+
+4. [Toward a population version of the linear model](04/notes04.pdf).
+[Random variables (from 401W17)](04/401f17-chapter2.pdf).
+[Bivariate random variables (from 401W17)](04/401f17-chapter3.pdf).
+ 
+5. [Vector random variables](05/notes05.pdf). [(R script)](05/notes05.R).
+
+6. [Hypothesis testing and confidence intervals](06/notes06.pdf). 
+[Log transformations](06/log_transform.pdf).
+[Reading Sheather and other texts](06/texts.html).
+
+7. [Model diagnostics](07/notes07.pdf). [(R script)](07/notes07.R).
+
+8. [Additional topics in linear modeling](08/notes08.pdf). [(R script)](08/notes08.R).
+-->
+
+--------
+
+## Homework assignments
+
+* [Homework 0. Setting up your laptop](hw/hw00/hw00.html). 
+Due in class on 1/3.
+
+<!--
+* [Homework 1. Introduction to R](hw/hw01/hw01.html). 
+Due in your lab on 1/11 or 1/12. [Solutions, as a text file of R commands](hw/hw01/sol_hw01.R).
+
+* [Homework 2. More swirl and matrix exercises](hw/hw02/hw02.html). 
+Due in your lab on 1/18 or 1/19. [Solutions, as a pdf file](hw/hw02/Hw2_Solutions.pdf) or [R script](hw/hw02/Hw2_Solutions.Rmd)
+
+* [Homework 3. More swirl and fitting a linear model via matrix computations](hw/hw03/hw03.html). 
+Due in your lab on 1/25 or 1/26. [Solutions](hw/hw03/sol_hw03.html).
+
+* [Homework 4. Summation exercises and a historic data analysis](hw/hw04/hw04.html). 
+Due in your lab on 2/1 or 2/2. [Solutions](hw/hw04/sol_hw04.html).
+
+* [Homework 5. Probability exercises and an application to a randomized experiment](hw/hw05/hw05.html). 
+Due in your lab on 2/8 or 2/9. [Solutions](hw/hw05/sol_hw05.html).
+
+* [Homework 6. Variance, covariance and standard errors for fitting a linear model](hw/hw06/hw06.html). 
+Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
+
+* [Homework 7. Using a linear model for investigation of two populations](hw/hw07/hw07.html). Due in your lab on 3/15 or 3/16. [Solutions](hw/hw07/sol_hw07.html).
+
+* [Homework 8. Making an F test, and exploring the t and F distributions](hw/hw08/hw08.html). Due in your lab on 3/22 or 3/23. [Solutions](hw/hw08/sol_hw08.html).
+
+* [Homework 9. Analyzing a dataset: Investigating variables associated with hospital-acquired infection](hw/hw09/hw09.html). Due in your lab on 4/12 or 4/13. [Solutions](hw/hw09/sol_hw09.html).
+-->
+
+------------
+
+## Lab materials
+
+<!--
+* [Lab 1. Introduction to R](lab/lab01/lab01.pdf). Slides for 1/4 and 1/5.
+
+* [Lab 2. Practicing matrix operations](lab/lab02/lab02.pdf). Slides for 1/11 and 1/12.
+
+* [Lab 3. Using matrices for fitting a linear model by least squares ](lab/lab03/lab03.pdf). Slides for 1/18 and 1/19. [Solutions](lab/lab03/sol_lab03.pdf).
+
+* [Lab 4. Summation and quiz review](lab/lab04/lab04.pdf). Slides for 1/25 and 1/26. [Sample quiz](lab/lab04/sample_quiz.pdf). 
+
+* Lab 5. Quiz 1.
+
+* [Lab 6. Variance, covariance and standard errors for the linear model](lab/lab06/lab06.pdf). Slides for 2/8 and 2/9.
+
+* [Lab 7. Midterm review](lab/lab07/lab07.pdf). Slides for 2/15 and 2/16.
+
+* [Lab 8. Confidence intervals and hypothesis tests](lab/lab08/lab08.pdf). Slides for 3/8 and 3/9. [Solutions](lab/lab08/sol_lab08.pdf).
+
+* [Lab 9. F tests for model selection and ANOVA](lab/lab09/lab09.pdf). Slides for 3/15 and 3/16. [Solutions](lab/lab09/sol_lab09.pdf).
+
+* [Lab 10. Review for Quiz 2](lab/lab10/lab10.html). Slides for 3/22 and 3/23. [Solutions](lab/lab10/sol_lab10.html).
+
+* Lab 11. Quiz 2.
+
+* Lab 12. Data analysis. [Code](lab/lab12/lab12.R).
+
+* Lab 13. Final review. [Slides](lab/lab13/lab13_slides.pdf) and [exercises](lab/lab13/lab13_exercises.pdf) for 4/12 and 4/13.  [Solutions for the exercises](lab/lab13/lab13_exercises_sol.html)
+
+-->
+
+------------
+
+## Quiz materials
+
+<!--
+* [Information and practice for quiz 1](quiz1/quiz1.html).
+
+* A [list of questions in the quiz 1  generator](quiz1/quiz1-all.html).
+
+* Quiz 2 will have 4 questions, with one question of each type (normal approximations; prediction; estimates and confidence intervals; F-tests) drawn randomly.
+
+* A  [list of questions in the quiz 2 generator](quiz2/quiz2.pdf) with some [solutions](quiz2/quiz2+sol.pdf).
+-->
+
+
+-----------
+
+## Midterm exam materials
+
+<!--
+
+* [Information and outline for the midterm](mt/info.html).
+
+* [Practice midterm exam](mt/practice/practice-mt.html).
+
+* [Exam](mt/mt401w18/mt401w18.pdf). [Solutions](mt/mt401w18/mt401w18sol.pdf).
+-->
+
+
+-----------
+
+## Final exam materials
+
+<!--
+
+* Topics for the final exam will include
+
+1. F tests.
+
+2. Prediction intervals.
+
+3. Confidence intervals for linear model coefficients.
+
+4. Normal approximations and mean/variance calculations.
+
+5. Linear model diagnostics.
+
+6. Colinearity and its consequences.
+
+7. Building and interpreting design matrices for models with interactions and factors.
+
+8. Observational studies and causation.
+
+* The style and format of the final exam will be based on the practice final exam below. The exam will work through a data analysis, asking questions to requiring understanding of the statistical techniques used, how they are computed, and how they are interpreted.
+
+* [Practice final exam](final/practice/practice.pdf), with [solutions](final/practice/sol_practice.pdf) for questions not discussed in class.
+
+* [Exam](final/final401w18/final401w18.pdf). [Solutions](final/final401w18/sol_final401w18.pdf).
+
+-->
+
+------------
+
+-----------
+

@@ -1,0 +1,24 @@
+---
+title: "Homework 0, STATS 401 F18"
+author: "Due at the start of lab on Friday 9/7"
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+csl: ecology.csl
+---
+
+Welcome to STATS 401 (Applied Statistical Methods II). 
+Homework 0 involves getting your laptop ready for the course.
+There is nothing to turn in, but please let the instructor or GSI know about any difficulties that arise.
+
+1. **R**. You may have used R before, and if not this is the time to start! Install R on your laptop if it is not already there. It is available at [www.r-project.org](https://www.r-project.org)
+
+2. **RStudio**. RStudio is a popular environment for carrying out statistical analysis in R. You can choose whether or not to access R through RStudio for this course, but many people find that a convenient approach. It can be downloaded from [www.rstudio.com](https://www.rstudio.com)
+
+3. **Class notes**. Class notes and source code will be posted at [ionides.github.io/401f18/](http://ionides.github.io/401f18/). You may bring a laptop to class, or print out a copy of the notes. You should be prepared to add annotations.
+
+4. **Optional use of Github**. Complete class materials are at [github.com/ionides/401f18](https://github.com/ionides/401f18). If you are familiar with Github, or choose to learn to use it, cloning this repository is a convenient way to keep up-to-date copies of all course files on your computer. 
+
+
+------
