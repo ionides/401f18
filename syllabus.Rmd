@@ -14,19 +14,19 @@ STATS 401 is an intermediate course in applied statistics focusing on the linear
 
 We will cover the following topics.
 
-1. Introduction to command line statistical computing using R.
+1. **Introduction to command line statistical computing**: getting started with R.
 
-2. Introduction to the linear model: fitting a line by least squares.
+2. **Introduction to the linear model**: fitting a line by least squares.
 
-3. Matrices: introduction to the matrix representation of the linear model.
+3. **Matrices**: introduction to the matrix representation of the linear model.
 
-4. Uncertainty: probability and random variables.
+4. **Uncertainty**: probability and random variables.
 
-5. Statistical inference: hypothesis testing and confidence intervals for the linear model.
+5. **Statistical inference**: hypothesis testing and confidence intervals for the linear model.
 
-6. Model specification: diagnosis of misspecification, and the quest for an appropriate linear model.
+6. **Model specification**: diagnosis of misspecification, and the quest for an appropriate linear model.
 
-7. Handling some common difficulties: collinear variables, interpreting linear models for observational versus experimental data, working with nonlinear relationships using a linear model, testing multiple hypotheses. 
+7. **Handling some common difficulties**: collinear variables, interpreting linear models for observational versus experimental data, working with nonlinear relationships using a linear model, testing multiple hypotheses. 
 
 ## Pre-requisites
 
