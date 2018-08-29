@@ -22,7 +22,7 @@ opts_chunk$set(
   dev='png',
   dev.args=list(bg='transparent'),
   dpi=300,
-  error=FALSE,
+  error=FALSE, 
   fig.pos="h!",
   fig.align='center',
   fig.height=4,fig.width=6.83,
@@ -182,118 +182,188 @@ L <- read.table(file="life_expectancy.txt",header=TRUE)
 
 \vspace{-2mm}
 
-
-We have made a \myemph{data matrix}, \url{L}. Let's look at the first three rows of \url{L}.
-
-<<LE_rows>>=
-L[1:3,]
+\begin{myitemize}
+\item The \myemph{function} \code{read.table()} reads data from a file to make a \myemph{data matrix} in R.
+\item The \myemph{assignment operator} \code{<-} gives this matrix the name \url{L}. 
+\item The \myemph{argument} \code{file="life_expectancy.txt"} names the file.
+\item \code{header=TRUE} tells R to treat the first row as column names.
+\item Let's look at the first three rows of \url{L} using the function \code{head()}.
+\end{myitemize}
+<<LE_head>>=
+head(L,3)
 @
-
-\vspace{-2mm}
-
-Here, we're using \myemph{matrix indexing}. 
-\texttt{L[i,j]} is the row \texttt{i} column \texttt{j} entry of \texttt{L}. 
-Also, \texttt{1:3} is the sequence \texttt{1,2,3} and the blank space after the comma in \texttt{L[1:3,]} requests all the columns for the specified rows.
-
+\begin{myitemize}
+\item Check this matches the data file. Reading data correctly can be fiddly.
+\end{myitemize}
 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Matrices and their dimensions}
-Mathematically, we write \altdisplaymath{
-\mat{L}
-%=[\ell_{ij}]
-=\left[
-\begin{array}{cccc}
-\ell_{11} & \ell_{12} & \dots & \ell_{1n} \\
-\ell_{21}& \ell_{22} & \dots & \ell_{2n} \\
-\vdots & \vdots & \ddots & \vdots \\
-\ell_{m1} & \ell_{m2} & \dots & \ell_{mn} 
-\end{array}
-\right]
-}.
+\frametitle{A comment on the assignment operator}
 
-We say \mymath{\mat{L}} is a matrix with \myemph{dimension} \mymath{m\times n}. To get the dimension in R, we use the \code{dim()} function.
-<<dim>>=
-dim(L)
+\begin{myitemize}
+\item We read the \myemph{assignment operator} \code{<-} as ``gets''. 
+\item The assignment above is read as ``\code{L} gets the data in \code{life_expectancy.txt}''.
+\item We could equivalently have used \code{=} 
+<<alt_read_e0,eval=FALSE>>= 
+L = read.table(file="life_expectancy.txt",header=TRUE)
 @
+\item You will see both \code{<-} and \code{=} used for assignment.
+\end{myitemize}
+\myquestion. \code{<-} is slightly better coding practice than \code{=}. Why?
 
+\answer{\vspace{20mm}}{(i) assignment is not symmetric so we can also do right assignment, \code{->}. (ii) \code{=} is used for labeling function arguments.}
 
-The number of rows and columns can be found separately using \code{nrow()} and \code{ncol()}.
-<<row+col>>=
-c(nrow(L), ncol(L))
-@
-
-\end{frame} 
+\end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Extracting rows and columns from a matrix}
-A single row or column of a matrix is a \myemph{vector}. 
-Vectors will be discussed more in Chapter~2.
+\frametitle{Using matrix indexing to identify entries in the dataset}
 
+\vspace{-1mm}
 
-For example, we can set \code{y} to be total life expectancy, combining men and women, which is the fourth column of \code{L}, as follows.
-<<vec>>=
-y <- L[,4]
-y[1:3]
+\begin{myitemize}
+\item Each entry in a data matrix can be identified by its row and column index.
+\item We can use \myemph{matrix indexing} to read and manipulate entries of \code{L}.
+<<LE_indexing>>=
+L[2,3]
 @
 
-\myquestion.
-We read the \myemph{assignment operator} \code{<-} as ``gets''. So, the assignment above is read as ``\code{y} gets \code{L[,4]}''.
-We could have written \code{y=L[,4]}. 
-However, \code{<-} is slightly better coding practice than \code{=}. Why?
+\vspace{-1mm}
 
-\answer{\vspace{20mm}}{(i) assignment is not symmetric so we can also do right assignment, \code{L[,4] -> y}. (ii) \code{=} is used for labeling function arguments.}
+\item \code{L[i,j]} is the row \code{i} column \code{j} entry of \code{L}. 
+\item Most datasets have this matrix form, also called  \myemph{rectangular} data.
+\item Each row is a measured object (a person, a car, an experiment, a country) generically called a \myemph{unit}.
+\item The columns lists \myemph{variables} measured for each unit.
+\end{myitemize}
 
+\myquestion. For the life expectancy data, what are the units? What are the variables?
+
+\answer{\vspace{15mm}}{Units are years, variables are three life expectancy categories: female, male and total}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Selecting rows or columns of a matrix}
+\begin{myitemize}
+\item Above, we used the function \code{head()} to see the first 3 rows of \code{L}.
+\item We could have used matrix indexing.
+\end{myitemize}
+<<LE_rows>>=
+L[1:3,]
+@
+\begin{myitemize}
+\item \code{1:3} is the sequence \code{1,2,3}.
+\item The blank space after the comma in \code{L[1:3,]} requests all the columns for the specified rows.
+\end{myitemize}
 
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Vectors in R}
 
-\bi
-\item A \myemph{vector} in R is a sequence of numbers. One way to make a vector is to use the concatenation function, \code{c()}.
+\begin{myitemize}
+\item A \myemph{numeric vector} in R is a sequence of numbers. 
+\item One way to make a vector is to use the \myemph{concatenation function}, \code{c()}.
 <<vecExample>>=
 v <- c(3,1,4,1,5,9)
 v
 @
+\item \code{c(1,2,3,4,5,6)} can be written as \code{1:6}
 \item Components of a vector can be extracted using \code{[]}.
 <<extraction>>=
 v[3]
 @
-\ei
-\myquestion. What do you think is the value of \code{v[3:5]}? What would you see if you typed \code{v[3:5]}?
+\end{myitemize}
+\myquestion. What do you think is the value of \code{v[c(2,6)]} and \code{v[3:5]}? 
 
-\answer{20mm}{A vector with entries \code{4,1,5}. Try typing this to see what happens}
+\answer{\vspace{20mm}}{(i) A vector with entries \code{1,9}; (ii) a vector with entries \code{4,1,5}. Try typing this to see what happens.}
+
 
 \end{frame} 
+
+
+\begin{frame}[fragile]
+\frametitle{Matrices and their dimensions}
+
+%\vspace{1mm}
+\begin{myitemize}
+\item Mathematically, we write \altdisplaymath{
+\mat{L}
+%=[\ell_{ij}]
+=\left[
+\begin{array}{cccc}
+\ell_{11} & \ell_{12} & \dots & \ell_{1p} \\
+\ell_{21}& \ell_{22} & \dots & \ell_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+\ell_{n1} & \ell_{n2} & \dots & \ell_{np} 
+\end{array}
+\right]
+}.
+
+\item We say \mymath{\mat{L}} is a matrix with \myemph{dimension} \mymath{n\times p}. 
+\item It is common to use \mymath{n} for the number of rows, corresponding to the number of measured units. 
+\item We will see that \mymath{p} is common notation for the number of variables.
+\item To get the dimension in R, we use the \code{dim()} function.
+<<dim>>=
+dim(L)
+@
+\item We say that \code{L} is a matrix with \code{n=\Sexpr{nrow(L)}} rows and \code{p=\Sexpr{ncol(L)}} columns.
+\end{myitemize}
+\vspace{-2.5mm}
+\end{frame} 
+
+\begin{frame}[fragile]
+\frametitle{Extracting rows and columns from a matrix}
+
+\vspace{-1.5mm}
+
+\begin{myitemize}
+\item 
+In R, a single row or column of a matrix is a vector.  
+\item
+For example, we can extract the first 5 entries for total life expectancy, which is the fourth column of \code{L}, as follows.
+<<vec>>=
+L[1:5,4]
+@
+\item We can also use row and column names:
+<<vec_with_names>>=
+L[1:5,"Total"]
+@
+\item We need \code{""} so that R knows \code{Total} is text not a variable name. 
+
+\vspace{1mm}
+
+\myquestion. What is going on in this peculiar example?
+<<vec_with_names_weird>>=
+Total <- "Female"
+L[1:5,Total]
+@
+
+\answer{\vspace{15mm}}{This is equivalent to \code{L[1:5,"Female"]}}
+
+\end{myitemize}
+
+\end{frame}
+
 \begin{frame}[fragile] 
 \frametitle{Vectors in R are not matrices} 
 
-\bi
+\begin{myitemize}
 \item A vector in R has a \code{length} but not a \code{dim}.
-\item When making a vector by extracting a row or a column of a matrix, the dimension of length  \code{1} is \myemph{dropped}. 
-\ei
-\begin{columns}[T] 
-\begin{column}{.3\textwidth}
-<<length_for_vec>>=
-dim(L) 
-y <- L[,4]
+\item We have already found the dimension of the data matrix \code{L},
+<<length_or_dimA>>=
+dim(L)
 @
-\end{column}
-\begin{column}{0.1\textwidth}
-\end{column}
-\begin{column}{0.4\textwidth}
-<<dim_for_vec>>= 
-length(y)
+\item Let's set \code{y} to be the fourth column of the data and see its dimension:
+<<length_or_dimB>>=
+y <- L[,4]
 dim(y)
 @
-\end{column}
-\end{columns}
-\bi
-\item A column of the \mymath{m\times n} matrix \mymath{\mat{L}} can also be considered as a \mymath{m\times 1} matrix called a \myemph{column vector}. A row of \mymath{\mat{L}} can be viewed as a \mymath{1\times n} matrix called a \myemph{row vector}.
-\item For R, a vector is not a column vector or a row vector.
-\ei
+\item However, \code{y} does have a \code{length}, equal to the number of rows:
+<<length_or_dimC>>=
+length(y)
+@
+%\item A column of the \mymath{n\times p} matrix \mymath{\mat{L}} is sometimes considered as a \mymath{n\times 1} matrix called a \myemph{column vector}. A row of \mymath{\mat{L}} can be viewed as a \mymath{1\times p} matrix called a \myemph{row vector}. It is sometimes important to note that R \myemph{drops} matrices with dimension of length 1 to give a vector.
+\end{myitemize}
 
 \end{frame}
 \begin{frame}[fragile]
@@ -308,6 +378,8 @@ g <- c(NA,g)
 g[1:8]
 @
 Note: now we've seen two of R's special non-numeric values. \code{NULL} means ``doesn't exist''. \code{NA} means ``not available'' or ``missing''. Data matrices can have \code{NA} entries but not \code{NULL}. R tries to treat missing data appropriately. 
+
+%\vspace{50mm}
 \end{frame}
 
 \begin{frame}[fragile]
