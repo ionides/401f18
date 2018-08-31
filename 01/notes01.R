@@ -3,7 +3,7 @@ par(mai=c(1,0.5,0,0))
 
 ## ----read_life_expectancy------------------------------------------------
 download.file(destfile="life_expectancy.txt",
-  url="https://ionides.github.io/401w18/01/life_expectancy.txt")
+  url="https://ionides.github.io/401f18/01/life_expectancy.txt")
 
 ## ----read_e0-------------------------------------------------------------
 L <- read.table(file="life_expectancy.txt",header=TRUE)
@@ -50,72 +50,91 @@ dim(y)
 ## ----length_or_dimC------------------------------------------------------
 length(y)
 
+## ----vec_add-------------------------------------------------------------
+u <- c(3,1,4)
+v <- c(1,5,9)
+u+v
+
+## ----vec_mult------------------------------------------------------------
+u*v
+
+## ----vec_scalar_add------------------------------------------------------
+u <- c(3,1,4)
+a <- 5
+u+a
+
+## ----vec_scalar_mult-----------------------------------------------------
+u*a
+
+## ------------------------------------------------------------------------
+y <- L[,"Total"]
+
 ## ----e0_gain-------------------------------------------------------------
 g <- y[2:length(y)] - y[1:(length(y)-1)] 
+
+## ------------------------------------------------------------------------
+length(y)
+length(g)
 
 ## ----e0_gain_with_na-----------------------------------------------------
 g <- c(NA,g) 
 g[1:8]
 
-## ----numeric_vec---------------------------------------------------------
-g[1:4]
+## ----logic_vec-----------------------------------------------------------
+g[1:6]
+L_down <- g<0
+L_down[1:6]
 
-## ----logical_vec---------------------------------------------------------
-L_up_logical <- g>0
-L_up_logical[1:4]
+## ------------------------------------------------------------------------
+year <- L[,"Year"]
+years_down <- year[L_down]
+years_down[1:6]
 
 ## ----character_vec-------------------------------------------------------
-L_up_qualitative <- ifelse(g>0,"increased","decreased")
-L_up_qualitative[1:4]
+L_qualitative <- ifelse(g<0,"decreased","increased")
+L_qualitative[1:6]
 
 ## ------------------------------------------------------------------------
 class(g)
-
-## ------------------------------------------------------------------------
-class(L_up_logical)
-
-## ------------------------------------------------------------------------
-class(L_up_qualitative)
+class(L_down)
+class(L_qualitative)
 
 ## ------------------------------------------------------------------------
 class(L)
-
-## ------------------------------------------------------------------------
 L_matrix <- as.matrix(L)
 class(L_matrix)
 
-## ----rownames------------------------------------------------------------
-colnames(L)
-
 ## ------------------------------------------------------------------------
+colnames(L)
 rownames(L)[1:8]
 
 ## ----subsetting_using_logical--------------------------------------------
 L[g<0,"Year"]
 
 ## ------------------------------------------------------------------------
-u <- c(1,2) 
-u
-
-## ------------------------------------------------------------------------
-v <- c(3,4) 
-v
-
-## ------------------------------------------------------------------------
-w <- c(u,v) 
-w
-
-## ------------------------------------------------------------------------
 A <- matrix(1:6,nrow=2)
 A
 
 ## ------------------------------------------------------------------------
-B <- rbind(u,v) 
-B
+matrix(c(1,2,3),nrow=2,ncol=3)
+
+## ----matrix_exercise,eval=F----------------------------------------------
+## matrix(c(0,1),nrow=3,ncol=2,byrow=TRUE)
+
+## ----echo=FALSE,eval=ANS-------------------------------------------------
+matrix(c(0,1),nrow=3,ncol=2,byrow=TRUE)
 
 ## ------------------------------------------------------------------------
-C <- cbind(u,v) 
+u <- c(1,2) ; v <- c(3,4) ; c(u,v)
+
+## ------------------------------------------------------------------------
+B <- rbind(u,v) ; C <- cbind(u,v)
+B
 C
+
+## ----download_unemployment-----------------------------------------------
+download.file(destfile="unemployment.csv",
+  url="https://ionides.github.io/401f18/01/unemployment.csv")
 
 ## ----read_u--------------------------------------------------------------
 U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
@@ -127,11 +146,7 @@ u[1:6]
 
 ## ------------------------------------------------------------------------
 dim(U)
-
-## ------------------------------------------------------------------------
 length(apply(U,1,mean))
-
-## ------------------------------------------------------------------------
 length(apply(U,2,mean))
 
 ## ----fig_L,eval=F,echo=T-------------------------------------------------
@@ -139,9 +154,9 @@ length(apply(U,2,mean))
 ##   xlab="Year",
 ##   ylab="Life expectancy")
 
-## ----fig_L_eval,fig.width=5,fig.height=4,echo=F--------------------------
-plot(L$Year,y,type="line",
-  xlab="Year",
+## ----fig_L_eval,out.width="60mm",fig.width=4,fig.height=3,echo=F---------
+plot(L$Year,y,type="line", 
+  xlab="Year", 
   ylab="Life expectancy")
 
 ## ----fig_U,eval=F,echo=T-------------------------------------------------
@@ -149,22 +164,35 @@ plot(L$Year,y,type="line",
 ##   xlab="Year",
 ##   ylab="Unemployment")
 
-## ----fig_U_eval,fig.width=5,fig.height=4,echo=F--------------------------
+## ----fig_U_eval,out.width="60mm",fig.width=4,fig.height=3,echo=F---------
 plot(U$Year,u,
-  xlab="Year",
+  xlab="Year", 
   ylab="Unemployment")
+
+## ------------------------------------------------------------------------
+my_list <- list(apples=c("red","green"),oranges=c(6,12))
+class(my_list)
+class(my_list$apples)
+class(my_list$oranges)
+
+## ------------------------------------------------------------------------
+my_list[[1]] 
 
 ## ----lm------------------------------------------------------------------
 L_fit <- lm(Total~Year,data=L)
 
 ## ----fig_L_code,eval=F,echo=T--------------------------------------------
-## plot(Total~Year,L,type="l")
+## plot(Total~Year,data=L,
+##   type="l",
+##   ylab="Total life expectancy")
 ## lines(L$Year,L_fit$fitted.values,
 ##   lty="dotted")
 
 ## ----fig_L_plot,echo=F,fig.width=3.5,fig.height=3.5----------------------
 par(mai=c(0.9,0.9,0.1,0.1))
-plot(Total~Year,L,type="l")
+plot(Total~Year,data=L,
+  type="l",
+  ylab="Total life expectancy")
 lines(L$Year,L_fit$fitted.values,
   lty="dotted")
 
