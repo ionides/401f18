@@ -79,7 +79,7 @@ We will cover the following topics.
 * Two lab quizzes (5\%+5\%) in lab on October 5 and November 16.
 * Midterm exam (20\%) in class on Monday 10/22.
 * Final exam (40\%) on Thursday, December 13, 4:00pm - 6:00pm.
-* Participation (5\%). This will be based on engagement through [Piazza](https://piazza.com/class/jkn2extkfss4l9), contributions in class, and questions during office hours. 
+* Participation (5\%). This will be based on engagement through [the STATS 401 Piazza site](https://piazza.com/umich/fall2018/stats401/home) (signup link: https://piazza.com/umich/fall2018/stats401), contributions in class, and questions during office hours. 
 * Lab grade (5\%).
 
 ### Homework report grades 

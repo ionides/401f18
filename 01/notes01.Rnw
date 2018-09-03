@@ -3,7 +3,7 @@
 
 \input{../header.tex}
 \newcommand\CHAPTER{1}
-% \newcommand\answer[2]{#2} % to show answers
+% \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
  \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
@@ -422,6 +422,7 @@ g <- y[2:length(y)] - y[1:(length(y)-1)]
 @
 \end{myitemize}
 \myquestion. Write out the expression for the elements \code{g[1]} and \code{g[2]} in terms of elements of \code{y}. This should convince you whether our calculation is correct.
+
 \answer{\vspace{30mm}}{
 The first element of \code{y[2:length(y)]} is \code{y[2]} and the first element of \code{y[1:(length(y)-1)]} is \code{y[1]}. Subtraction is elementwise, so the first element of \code{g} is \code{g[1]=y[2]-y[1]}. Similar reasoning gives \code{g[2]=y[3]-y[2]}.}
 
@@ -482,7 +483,7 @@ L_qualitative[1:6]
 \end{myitemize}
 \myquestion. Guess how \code{ifelse()} works. Is is elementwise?
 
-\answer{\vspace{25mm}}{Yes. For each element, if the first argument is \code{TRUE} then the second argument is evaluated, otherwise the third argument is evaluated.}
+\answer{\vspace{25mm}}{\code{ifelse} does work elementwise. For each element, if the first argument is \code{TRUE} then the second argument is evaluated, otherwise the third argument is evaluated.}
 
 \begin{myitemize}
 \item You can check the R help on \code{ifelse()} by typing
@@ -577,9 +578,13 @@ rownames(L)[1:8]
 \myquestion.
 What is computed below. Can you find any interpretation?
 
+\vspace{-1mm}
+
 <<subsetting_using_logical>>=
 L[g<0,"Year"]
 @
+
+\vspace{-2mm}
 
 \answer{\vspace{20mm}}{1957 and 1968 had influenza pandemics. Otherwise, it may be hard to see any historical patterns.}
 
