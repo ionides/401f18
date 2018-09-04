@@ -67,6 +67,16 @@ Use a sequence of indices to extract the vector of weights for the corresponding
 
 ------
 
+### Thinking about datasets used in class
+
+We only expect fairly superficial understanding of the science behind datasets. However, it is worth thinking about the data enough to allow common sense reasoning about the numbers we are studying. The following questions relate to datasets and statistical questions introduced in Chapter 1 of the notes.
+
+**Q8**. Is the life expectancy at birth in 2015 more or less than the lifespan you would expect for a baby born in 2015, or about the same? Explain.
+
+**Q9**. Do you think the following economic variables are pro-cyclical or counter-cyclical: (i) healthcare spending; (ii) construction of new homes. Explain.
+
+------
+
 For your homework report, give answers to the questions above together with the code used to generate them. As with all homeworks for this course, don't forget to make a statement of sources as requested on the [syllabus](https://ionides.github.io/401f18/syllabus.html). Homework without this statement receives zero credit.
 
 ------
