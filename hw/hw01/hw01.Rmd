@@ -46,19 +46,21 @@ You can read the data into R with
 mice <- read.csv("https://ionides.github.io/401f18/hw/hw01/femaleMiceWeights.csv")
 ```
 
-**Q2**. What is the exact name of the column containing the weights? Use the function ```colnames()``` to report code that extracts this.
+**Q2**. (a) Is ```mice``` an R object of class ```data.frame``` or ```matrix```, and how can you tell? (b) What is the difference between a dataframe and a matrix in R? (c) What is the dimension of the ```mice``` dataset? (d) What are the units, and what are the variables?
+
+**Q3**. What is the exact name of the column containing the weights? Use the function ```colnames()``` to report code that extracts this.
 
 The ```[``` and ```]``` symbols can be used to extract specific rows and specific columns of the table. 
 
-**Q3**. What is the entry in the 12th row and second column? Give code to extract it.
+**Q4**. What is the entry in the 12th row and second column? Give code to extract it.
 
 You should have seen that the ```$``` character can be used to extract a column from a table and return it as a vector. 
 
-**Q4**. Use ```$``` to extract the weight column and report the weight of the mouse in the 11th row and the code used to obtain it.
+**Q5**. Use ```$``` to extract the weight column and report the weight of the mouse in the 11th row and the code used to obtain it.
 
-**Q5**. The length function returns the number of elements in a vector. Use ```length()``` to obtain the number of mice included in our dataset. Also, obtain the number of mice using ```dim()```. Report your code.
+**Q6**. The length function returns the number of elements in a vector. Use ```length()``` to obtain the number of mice included in our dataset. Report your code.
 
-**Q6**. To create a vector with the numbers 3 to 7, we can use ```seq(3,7)``` or, because they are consecutive, ```3:7```. 
+**Q7**. To create a vector with the numbers 3 to 7, we can use ```seq(3,7)``` or, because they are consecutive, ```3:7```. 
 View the data and determine what rows are associated with the high fat diet (coded as ```hf```). 
 Use a sequence of indices to extract the vector of weights for the corresponding animals and then use the ```mean()``` function to compute their average weight. Report this mean weight and the code used to get it.
 

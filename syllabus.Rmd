@@ -8,6 +8,8 @@ output:
 csl: ecology.csl
 ---
 
+------------
+
 ## Course outline
 
 STATS 401 is an intermediate course in applied statistics focusing on the linear model and its applications. The linear model is a fundamental tool for much of data analysis. We will learn to use the linear model for statistical analysis in applications drawn across the social sciences, the natural sciences, and elsewhere. 
@@ -28,6 +30,8 @@ We will cover the following topics.
 
 7. **Handling some common difficulties**: collinear variables, interpreting linear models for observational versus experimental data, working with nonlinear relationships using a linear model, testing multiple hypotheses. 
 
+------------
+
 ## Pre-requisites
 
 * The listed pre-requisites are MATH 115 and one of (STATS 180 or STATS 250 or STATS 280, STATS 412 or ECON 451). 
@@ -43,6 +47,8 @@ We will cover the following topics.
 * No previous experience with statistical computing is expected. STATS 306  overlaps with our initial introduction to R, but after the first two weeks the courses head in different directions.
 
 
+----------
+
 ## Class notes and other resources
 
 * There is no textbook for this course. The lecture notes and lab notes will be posted online at https://ionides.github.io/401f18/. 
@@ -50,6 +56,8 @@ We will cover the following topics.
 * A suitable reference book is "Applied Linear Statistical Models" by Kutner, Nachtsheim, Leter and Li (5th edition). 
 
 * A previous version of STATS 401 is at https://ionides.github.io/401w18/. This may be a good guide to see where the course is heading, though some material will be new this year.
+
+----------
 
 ## Meeting times and contact information
 
@@ -61,17 +69,18 @@ We will cover the following topics.
     + Web: dept.stat.lsa.umich.edu/~ionides
 * Instructor office hours: Monday 10-11am, Wednesday 3-4pm
 * Labs, in B760 East Hall
-    + Section 401-002. Friday 8:30-10:00am. GSI: <!--Yuan Sun (yuansun@umich.edu)-->
-    + Section 401-003. Friday 1:00pm-2:30pm. GSI: <!--Sanjana Gupta (gsan@umich.edu)-->
-    + Section 401-004. Friday 1:00-11:30. GSI: <!--Naomi Giertych (ngierty@umich.edu)-->
-* GSI office hours: <!--, 2165 USB, the Science Learning Center Annex
-    + Yuan Sun. Mon 9-11 am 
-    + Sanjana Gupta. Tue 9-11 am
-    + Naomi Giertych. Thu 9-11 am -->
-    + You may prefer to visit your Section GSI, but you're welcome to go to any office hours
+    + Section 401-002. Friday 8:30-10:00am. GSI: Naomi Giertych (ngierty@umich.edu)
+    + Section 401-003. Friday 10:00-11:30am. GSI: Sanjana Gupta (gsan@umich.edu)
+    + Section 401-004. Friday 1:00-11:30. GSI: Ed Wu (jameswu@umich.edu)
+* GSI office hours: , 2165 USB, the Science Learning Center Annex
+    + Ed Wu. Tuesday 12:30-2:30pm. 
+    + Sanjana Gupta. Monday 4:30-5:30 and Tuesday 11:30-12:30.
+    + Naomi Giertych. Thursday 9-11am. 
+    + You may prefer to visit your Section GSI, but you're welcome to go to any STATS 401 office hours.
 <!-- * Open office hours. You are also welcome to ask STATS 401 questions to any available Statistics GSI at USB during the open hours: Mon 9-11 am & 1-10 pm; Tue to Thu 9 am – 10 pm;  Friday 9–11 am & 1–4 pm;  Sat CLOSED; Sunday 12 pm – 10 pm. -->
 * Computing support: inquire by email, with a detailed description of the problem, what you did, and any error message you obtained. It can be helpful to provide a minimal example that can be run to demonstrate the problem. Please email your Section GSI.
 
+-----------
 
 ##  Grading
 
@@ -82,7 +91,9 @@ We will cover the following topics.
 * Participation (5\%). This will be based on engagement through [the STATS 401 Piazza site](https://piazza.com/umich/fall2018/stats401/home) (signup link: https://piazza.com/umich/fall2018/stats401), contributions in class, and questions during office hours. 
 * Lab grade (5\%).
 
-### Homework report grades 
+------------
+
+## Homework report grades 
 
 * Your homework report must include a statement titled "Sources". 
 
@@ -105,6 +116,8 @@ Simply writing a numerical answer, or responding with a few words to a verbal qu
 
 * Take advantage of this grade scheme to try working on the homework by yourself. Then consult other sources if you like, but you won't gain extra credit for borrowing a solution online. Material researched online can help to demonstrate engagement with the task, but only if the homework also reports your own thoughts.
 
+------------
+
 ## The gradebook
 
 * All homework, quiz and exam scores will be posted on Canvas. You are responsible for checking posted solutions. Please let us know as soon as possible if there is a grading error, or a missing score for work you turned in.
@@ -116,6 +129,8 @@ Simply writing a numerical answer, or responding with a few words to a verbal qu
 * Final grades will be based on an overall score, weighted as described above. 
 Letter grades will follow a curve determined by the instructor, consistent with previous offerings of this course.
 
+------------
+
 ## Use of laptops and tablets in class
 
 * You are encouraged to bring a laptop to class, to follow along with the class notes and to follow along with statistical computing topics. A tablet may also be useful, but likely will not be able to run R.
@@ -126,12 +141,15 @@ Letter grades will follow a curve determined by the instructor, consistent with 
 
 * Tests will be taken closed-book and without any electronic device. All devices, including phones and calculators and smart watches, should remain in a bag on the floor at all times during tests.
 
+-----------
 
 ## Tips to succeed in this class
 
 * Attendance in class will not be checked, but is a good predictor of success.
 
 * The first half of this course has a fair amount of computing and learning to work with matrices. Keep engaged with this, and you'll see why this material is useful for the statistical data analysis applications emerging in the second half.
+
+------------
 
 ## Students with disabilities
 
@@ -140,6 +158,8 @@ Letter grades will follow a curve determined by the instructor, consistent with 
 * Accommodations for a small-group environment and additional time will be met for the midterm and final by additional exam sessions starting at the same time as the main session.
 
 * To help with the logistics, please give the instructor a copy of your SSD accommodation form within the first two weeks of class.
+
+----------
 
 ## Student Mental Health and Wellbeing
 
