@@ -1,100 +1,97 @@
-## ----plot_margins,echo=F-------------------------------------------------
-par(mai=c(1,0.5,0,0))
-
-## ----read_life_expectancy------------------------------------------------
+## ----download life expectancy data file----------------------------------
 download.file(destfile="life_expectancy.txt",
   url="https://ionides.github.io/401f18/01/life_expectancy.txt")
 
-## ----read_e0-------------------------------------------------------------
+## ----read life expectancy into R-----------------------------------------
 L <- read.table(file="life_expectancy.txt",header=TRUE)
 
-## ----LE_head-------------------------------------------------------------
+## ----use head to check the data matrix-----------------------------------
 head(L,3)
 
-## ----alt_read_e0,eval=FALSE----------------------------------------------
+## ----alternative assignment operator,eval=FALSE--------------------------
 ## L = read.table(file="life_expectancy.txt",header=TRUE)
 
-## ----LE_indexing---------------------------------------------------------
+## ----indexing L----------------------------------------------------------
 L[2,3]
 
-## ----LE_rows-------------------------------------------------------------
+## ----indexing rows of L--------------------------------------------------
 L[1:3,]
 
-## ----vecExample----------------------------------------------------------
+## ----vector example------------------------------------------------------
 v <- c(3,1,4,1,5,9)
 v
 
-## ----extraction----------------------------------------------------------
+## ----extracting an element of a vector-----------------------------------
 v[3]
 
-## ----dim-----------------------------------------------------------------
+## ----using dim to find the dimension-------------------------------------
 dim(L)
 
-## ----vec-----------------------------------------------------------------
+## ----extracting multiple rows--------------------------------------------
 L[1:5,4]
 
-## ----vec_with_names------------------------------------------------------
+## ----identifying columns by name-----------------------------------------
 L[1:5,"Total"]
 
-## ----vec_with_names_weird------------------------------------------------
+## ----if the name has no quotes R treats it as a variable-----------------
 Total <- "Female"
 L[1:5,Total]
 
-## ----length_or_dimA------------------------------------------------------
+## ----finding the dimension of L again------------------------------------
 dim(L)
 
-## ----length_or_dimB------------------------------------------------------
+## ----a vector has no dim-------------------------------------------------
 y <- L[,4]
 dim(y)
 
-## ----length_or_dimC------------------------------------------------------
+## ----but it does have a length-------------------------------------------
 length(y)
 
-## ----vec_add-------------------------------------------------------------
+## ----adding vectors in R-------------------------------------------------
 u <- c(3,1,4)
 v <- c(1,5,9)
 u+v
 
-## ----vec_mult------------------------------------------------------------
+## ----multiplying vectors in R--------------------------------------------
 u*v
 
-## ----vec_scalar_add------------------------------------------------------
+## ----vector plus scalar in R---------------------------------------------
 u <- c(3,1,4)
 a <- 5
 u+a
 
-## ----vec_scalar_mult-----------------------------------------------------
+## ----vector times scalar-------------------------------------------------
 u*a
 
 ## ------------------------------------------------------------------------
 y <- L[,"Total"]
 
-## ----e0_gain-------------------------------------------------------------
+## ----gain in life expectancy---------------------------------------------
 g <- y[2:length(y)] - y[1:(length(y)-1)] 
 
-## ------------------------------------------------------------------------
+## ----comparing length of y and g-----------------------------------------
 length(y)
 length(g)
 
-## ----e0_gain_with_na-----------------------------------------------------
+## ----adding NA to match lengths------------------------------------------
 g <- c(NA,g) 
 g[1:8]
 
-## ----logic_vec-----------------------------------------------------------
+## ----a logical vector----------------------------------------------------
 g[1:6]
 L_down <- g<0
 L_down[1:6]
 
-## ------------------------------------------------------------------------
+## ----indexing using a logical vector-------------------------------------
 year <- L[,"Year"]
 years_down <- year[L_down]
 years_down[1:6]
 
-## ----character_vec-------------------------------------------------------
+## ----a character vector--------------------------------------------------
 L_qualitative <- ifelse(g<0,"decreased","increased")
 L_qualitative[1:6]
 
-## ------------------------------------------------------------------------
+## ----checking the class of R objects-------------------------------------
 class(g)
 class(L_down)
 class(L_qualitative)
@@ -104,81 +101,68 @@ class(L)
 L_matrix <- as.matrix(L)
 class(L_matrix)
 
-## ------------------------------------------------------------------------
+## ----using the rownames and colnames functions---------------------------
 colnames(L)
 rownames(L)[1:8]
 
-## ----subsetting_using_logical--------------------------------------------
+## ----subsetting using a logical vector-----------------------------------
 L[g<0,"Year"]
 
-## ------------------------------------------------------------------------
+## ----using the matrix function-------------------------------------------
 A <- matrix(1:6,nrow=2)
 A
 
-## ------------------------------------------------------------------------
+## ----recycling in the matrix function------------------------------------
 matrix(c(1,2,3),nrow=2,ncol=3)
 
-## ----matrix_exercise,eval=F----------------------------------------------
+## ----matrix exercise,eval=F----------------------------------------------
 ## matrix(c(0,1),nrow=3,ncol=2,byrow=TRUE)
 
-## ----echo=FALSE,eval=ANS-------------------------------------------------
-matrix(c(0,1),nrow=3,ncol=2,byrow=TRUE)
-
-## ------------------------------------------------------------------------
+## ----using c to concatenate vectors--------------------------------------
 u <- c(1,2) ; v <- c(3,4) ; c(u,v)
 
-## ------------------------------------------------------------------------
+## ----using rbind and cbind-----------------------------------------------
 B <- rbind(u,v) ; C <- cbind(u,v)
 B
 C
 
-## ----download_unemployment-----------------------------------------------
+## ----download unemployment data file-------------------------------------
 download.file(destfile="unemployment.csv",
   url="https://ionides.github.io/401f18/01/unemployment.csv")
 
-## ----read_u--------------------------------------------------------------
+## ----read unemployment data into R---------------------------------------
 U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
 U[1:2,]
 
-## ------------------------------------------------------------------------
+## ----using the apply function to get averages over each row--------------
 u <- apply(U[,2:13],1,mean)
 u[1:6]
 
-## ------------------------------------------------------------------------
+## ----checking the mnemonic-----------------------------------------------
 dim(U)
 length(apply(U,1,mean))
 length(apply(U,2,mean))
-
-## ----fig_L,eval=F,echo=T-------------------------------------------------
-## plot(L$Year,y,type="line",
-##   xlab="Year",
-##   ylab="Life expectancy")
 
 ## ----fig_L_eval,out.width="60mm",fig.width=4,fig.height=3,echo=F---------
 plot(L$Year,y,type="line", 
   xlab="Year", 
   ylab="Life expectancy")
 
-## ----fig_U,eval=F,echo=T-------------------------------------------------
-## plot(U$Year,u,
-##   xlab="Year",
-##   ylab="Unemployment")
-
 ## ----fig_U_eval,out.width="60mm",fig.width=4,fig.height=3,echo=F---------
 plot(U$Year,u,
   xlab="Year", 
   ylab="Unemployment")
 
-## ------------------------------------------------------------------------
+## ----list example--------------------------------------------------------
 my_list <- list(apples=c("red","green"),oranges=c(6,12))
 class(my_list)
 class(my_list$apples)
 class(my_list$oranges)
 
-## ------------------------------------------------------------------------
+## ----indexing a list component-------------------------------------------
 my_list[[1]] 
 
-## ----lm------------------------------------------------------------------
+## ----lm for a time trend of life expectancy------------------------------
 L_fit <- lm(Total~Year,data=L)
 
 ## ----fig_L_code,eval=F,echo=T--------------------------------------------
@@ -188,26 +172,18 @@ L_fit <- lm(Total~Year,data=L)
 ## lines(L$Year,L_fit$fitted.values,
 ##   lty="dotted")
 
-## ----fig_L_plot,echo=F,fig.width=3.5,fig.height=3.5----------------------
-par(mai=c(0.9,0.9,0.1,0.1))
-plot(Total~Year,data=L,
-  type="l",
-  ylab="Total life expectancy")
-lines(L$Year,L_fit$fitted.values,
-  lty="dotted")
-
 ## ------------------------------------------------------------------------
 class(L_fit)
 
 ## ------------------------------------------------------------------------
 names(L_fit)
 
-## ----detrended_variables-------------------------------------------------
+## ----detrend the variables-----------------------------------------------
 L_detrended <- L_fit$residuals
 U_detrended <- lm(u~U$Year)$residuals
 L_detrended <- subset(L_detrended,L$Year %in% U$Year)
 
-## ----detrended_lm--------------------------------------------------------
+## ----fit a linear model to the detrended variables-----------------------
 lm1 <- lm(L_detrended~U_detrended)
 coef(lm1)
 

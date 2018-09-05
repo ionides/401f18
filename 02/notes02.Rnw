@@ -3,6 +3,14 @@
 
 \input{../header.tex}
 \newcommand\CHAPTER{2}
+% \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
+ \newcommand\answer[2]{\color{blue}{#2}} % to show answers
+% \newcommand\answer[2]{#1} % to show blank space
+<<R_answer,echo=F,purl=F>>=
+# ANS = TRUE
+ ANS=FALSE
+@
+
 \newcommand\Li{\mathrm{(L1)}}
 \newcommand\Lii{\mathrm{(L2)}}
 \newcommand\Liiia{\mathrm{(L3.1)}}
@@ -69,12 +77,13 @@ n <- length(e0)
 \begin{myitemize}
 \item Linear algebra is the math of vectors and matrices.
 \item In statistics, the main purpose of linear algebra is to organize data and write down the manipulations we want to do to them.
-\item A \myemph{vector} of length \mymath{n} is also called an \mymath{n}-\myemph{tuple}, or an \myemph{ordered sequence} of length \mymath{n}. 
+\item A \myemph{vector} of length \mymath{n} is also called an \mymath{n}-\myemph{tuple} or a \myemph{sequence} of length \mymath{n}. 
 \item We can suppose that each data point is a \myemph{real number}. We write \mymath{\Rspace} for the set of real numbers, and \mymath{\Rspace^n} for the set of vectors of \mymath{n} real numbers.
 \item Write the US life expectancy at birth for \Sexpr{L$Year[n-4]} to \Sexpr{L$Year[n]} as
-\mymath{\vec{y}=(y_1,y_2,y_3,y_4,y_5)=( \Sexpr{myround(e0[n],1)},\Sexpr{myround(e0[n-1])},\Sexpr{myround(e0[n-2],1)},\Sexpr{myround(e0[n-3],1)},\Sexpr{myround(e0[n-4],1)} )}.
-\item We see \mymath{\vec{y}\in\Rspace^5}. Numerical data can always be written as a vector in \mymath{\Rspace^n} where \mymath{n} is the number of datapoints. Categorical data can also be written as a vector in \mymath{\Rspace^n} by assigning a number for each category.
-\item Note that we use a bold font for vectors, and an italic font for the \myemph{components} of the vector. Components of a vector are also called \myemph{elements}.
+\mymath{\vec{y}=(y_1,y_2,y_3,y_4,y_5)=( \Sexpr{myround(e0[n],1)},\Sexpr{myround(e0[n-1])},\Sexpr{myround(e0[n-2],1)},\Sexpr{myround(e0[n-3],1)},\Sexpr{myround(e0[n-4],1)} )}. We see \mymath{\vec{y}\in\Rspace^5}. 
+\item A numerical dataset with \mymath{n} datapoints is a vector in \mymath{\Rspace^n}.
+\item Qualitative data can be written as a vector in \mymath{\Rspace^n} by assigning a number for each qualitative level.
+\item We use bold font for vectors, and italic font for \myemph{elements} of the vector. 
 \end{myitemize}
  
 
@@ -90,13 +99,13 @@ n <- length(e0)
 {\myquestion}. 
 You may or may not have seen vectors in other contexts. In physics, a vector is a quantity with magnitude and direction. How does that fit in with our definition?
 
-\vspace{25mm}
+\answer{\vspace{25mm}}{This physics definition corresponds to a polar coordinate representation of our vectors in \mymath{\Rspace^2} and \mymath{\Rspace^3}. \vspace{5mm}}
 
 {\myquestion}. 
-How can I distinguish vectors in my own handwriting, since I can't handwrite in a bold font?
+How can I write a boldface \mymath{\vec{x}} in handwriting?
 
-\uncover<2->{
-An underscore is a conventional handwritten alternative to a bold font, so \m{\vec{x}} is equivalent to \m{\utilde{x}}.
+\answer{\vspace{25mm}}{
+An underscore, \m{\utilde{x}}, is conventional handwriting to represent bold font.
 In physics and mathematics, vectors are sometimes written as \m{\stackrel{\to}{x}}, but we will not do that here.
 }
 
@@ -111,49 +120,36 @@ In physics and mathematics, vectors are sometimes written as \m{\stackrel{\to}{x
 \begin{myitemize}
 \item
 For a dataset, the \myemph{index} \m{i} of the component \m{y_i} of the vector \m{y} might correspond to a measurement on the \m{i}th member of a population, the outcome of the \m{i}th group in an experiment, or the \m{i}th observation out of a sequence of observations on a system.
-Generically, we will call \m{i} an \myemph{observational unit}, or just \myemph{unit}.
+Recall \m{i} is called an \myemph{observational unit}, or just \myemph{unit}.
 \item
 We might want to add two quantities \m{u_i} and \m{v_i} for unit \m{i}.
 \item
-Using vector notation, if \mymath{\vec{u}=(u_1,u_2,\dots,u_n)}, \mymath{\vec{v}=(v_1,v_2,\dots,v_n)} and \mymath{\vec{y}=(y_1,y_2,\dots,y_n)} we define the \myemph{vector sum} \mymath{\vec{y}=\vec{u}+\vec{v}} to be the \myemph{componentwise sum} \m{y_i=u_i+v_i}, adding up the corresponding components for each unit.
+Using vector notation, if \m{\vec{u}=(u_1,u_2,\dots,u_n)}, \m{\vec{v}=(v_1,v_2,\dots,v_n)} and \m{\vec{y}=(y_1,y_2,\dots,y_n)} we define the \myemph{vector sum} \m{\vec{y}=\vec{u}+\vec{v}} to be the \myemph{elementwise sum} \m{y_i=u_i+v_i}, adding up the corresponding elements for each unit.
 \item 
 We might also want to rescale each component by the same factor. 
 To change a measurement \m{y_i} in inches to a new measurement \m{z_i} in mm, we rescale with the \myemph{scalar} \m{\alpha=25.4}. 
 We want \m{z_i=\alpha y_i} for each \m{i}. 
 This is written in vector notation as \myemph{multplication of a vector by a scalar}, \m{\vec{z}=\alpha \vec{y}}.
-\item
-Keep track of whether each object is a scalar, a vector (what is its length?) or a matrix (what are its dimensions?).
 \end{myitemize} 
 
 \end{frame} 
 
-
-%\end{document}
-
 \begin{frame}[fragile]
 \frametitle{Adding vectors and multiplying by a scalar}
 
-{\bf Worked example}. An ecologist measures the pH of ten Michigan lakes at two points in the summer. Set up vector notation to describe her data. Write a vector calculation to find the average pH in each lake.
+{\bf Worked example}. An ecologist measures the pH of ten Michigan lakes at two points in the summer. Set up vector notation to describe her data algebraically. Write a vector calculation, using summation notation, giving the average pH in each lake.
 
-\uncover<2->{
-{\bf Solution}. 
-
-First, set up notation. 
-
+\answer{\vspace{80mm}}{
 Let \mymath{x_i} be the first pH measurement in lake \mymath{i}, for \mymath{i\in\{1,2,\dots,10\}}.
-
 Then, \mymath{\vec{x}=(x_1,\dots,x_{10})} is the vector of the first pH measurement in each of the 10 lakes.
- 
-Let \mymath{\vec{y}=(y_1,\dots,y_{10})} be the vector of second measurements. 
-
+ Let \mymath{\vec{y}=(y_1,\dots,y_{10})} be the vector of second measurements. 
 Let \mymath{\vec{\mu}=(\mu_1,\dots,\mu_{10})} be the average pH for each of the 10 lakes.
-
 For each lake \mymath{i}, the mean is \mymath{\mu_i = \frac{1}{2}(x_i+y_i)}. In vector notation,
 this is 
-
 \mydisplaymath{
 \vec{\mu} = \frac{1}{2}(\vec{x}+\vec{y})}.
 }
+
 \end{frame}
 
 \begin{frame}[fragile]
@@ -163,30 +159,8 @@ this is
 
 \begin{myitemize}
 \item
-We have seen in Chapter 1 that R has vectors. 
-An R vector of length 1 is a scalar. 
-\item
-You can check that R follows the usual mathematical rules of vector addition and multiplication by a a scalar.
-\end{myitemize}
-\begin{columns}[T] 
-\begin{column}{0.3\textwidth}
-<<>>=
-x <- c(1,2,3)
-y <- c(4,5,6)
-@
-\end{column}
-\begin{column}{0.3\textwidth}
-<<>>=
-x+y 
-@
-\end{column}
-\begin{column}{0.3\textwidth}
-<<>>=
-3*x
-@
-\end{column}
-\end{columns}
-\begin{myitemize}
+We have seen in Chapter 1 that R has vectors.
+An R vector of length 1 is a scalar, and we have seen that R follows the usual mathematical rules of vector addition and multiplication by a scalar.
 \item R also allows adding a scalar to a vector
 \end{myitemize}
 \begin{columns}[T]
@@ -207,11 +181,10 @@ x+2
 \item Mathematically, adding scalars to vectors is not allowed. Instead, we define the \myemph{vector of ones}, \m{\vec{1}=(1,1,\dots,1)}, and write \m{\vec{x}+ 2\times \vec{1}}.
 \end{myitemize}
 
-\vspace{-2mm}
 
-\myquestion. Why does R break the usual rules of mathematics here?
+\myquestion. Why does R choose to break the usual rules of mathematics here?
 
-\vspace{10mm}
+\answer{\vspace{20mm}}{Convenience. It is quite common to want to add a fixed amount to each data point, so R makes this easy.}
 
 \end{frame}
 
@@ -227,18 +200,16 @@ x+2
 \mat{A} = \mymatrix{a}{n}{p}.
 }
 \item
-Data that have the form of a matrix are called \myemph{rectangular}.
+Blackboard bold capital letters, \m{\mat{A}}, \m{\mat{B}}, \m{\mat{X}}, \m{\mat{Z}}, etc, denote matrices. 
 \item
-Many common datasets are rectangular, consisting of multiple variables collected on a groups of individual units.
-\item
-We will use blackboard bold capital letters, \m{\mat{A}}, \m{\mat{B}}, \m{\mat{X}}, \m{\mat{Z}}, etc, for matrices. 
 We are keeping plain capital letters to use for random variables.
 \item We say \m{\mat{A}=[a_{ij}]_{n\times p}} as an abbreviation for writing the full \m{n\times p} matrix.
+\item We write \m{\underset{n\times p}{\mat{A}}} to emphasize the dimension. Keeping track of matrix dimensions can be helpful!
 \end{myitemize}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Matrix times vector multiplication}
+\frametitle{Matrix multiplication}
 \begin{myitemize}
 \item 
 A linear system of \m{n} equations with \m{p} unknown variables, \m{x_1,\dots,x_p} is
@@ -253,7 +224,8 @@ a_{n1}x_1 &+& a_{n2}\, x_2 &+& \dots &+& a_{np}\, x_p &=& b_n
 \hspace{12mm}
 \right\} \hspace{2mm}   \Li
 }
-We define matrix multiplication \m{\mat{A}\vec{x}=\vec{b}} to match this linear system. So,
+\item 
+We define matrix multiplication \m{\mat{A}\vec{x}=\vec{b}} to match this linear system. The matrix multiplication
 \mydisplaymath{
 \mymatrix{a}{n}{p}
 \myvector{x}{p}
@@ -262,6 +234,10 @@ We define matrix multiplication \m{\mat{A}\vec{x}=\vec{b}} to match this linear 
 %\hfill (2)
 }
 is exactly equivalent to the collection of \m{p} linear equations in \myref{\Li} above.
+
+\item Matrices are good for using computers to solve large systems of linear equations.
+
+
 \item
 Mechanically, the \m{i}th component of \m{\mat{A}\vec{x}} is found by multiplying each term in the \m{i}th row of \m{\mat{A}} with corresponding terms in the \myemph{column vector} \m{\vec{x}}, and adding these contributions.  See Homework~2 for practice!
 \end{myitemize}

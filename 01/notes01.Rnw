@@ -49,7 +49,7 @@ opts_chunk$set(
 options(width = 60) # number of characters in R output before wrapping
 @
 
-<<plot_margins,echo=F>>=
+<<plot_margins,echo=F,purl=F>>=
 par(mai=c(1,0.5,0,0))
 @
 
@@ -133,7 +133,7 @@ Why should we prefer to use the command line form of R rather than point-and-cli
 \item Life expectancy in 2017 is the average lifespan of a fictitious person whose probability of dying at age 10 matches mortality of 10-year-olds in 2017, and the probability at age 50 matches 50-year-olds in 2017. (\url{data.oecd.org/healthstat/life-expectancy-at-birth.htm}). 
 \item USA data for 1933--2015 are in the file \url{life_expectancy.txt} on the class website.
 \item We could read the data into R directly from a website, but it is good data analysis practice to make your own local copy. Here is a way to do that in R:
-<<read_life_expectancy>>=
+<<download life expectancy data file>>=
 download.file(destfile="life_expectancy.txt",
   url="https://ionides.github.io/401f18/01/life_expectancy.txt")
 @
@@ -182,7 +182,7 @@ Lines marked with \url{#} are \myemph{comments} that are ignored by R.
 \begin{frame}[fragile]
 \frametitle{Read the data into R and then inspect it}
 
-<<read_e0>>=
+<<read life expectancy into R>>=
 L <- read.table(file="life_expectancy.txt",header=TRUE)
 @
 
@@ -195,7 +195,7 @@ L <- read.table(file="life_expectancy.txt",header=TRUE)
 \item \code{header=TRUE} tells R to treat the first row as column names.
 \item Let's look at the first three rows of \url{L} using the function \code{head()}.
 \end{myitemize}
-<<LE_head>>=
+<<use head to check the data matrix>>=
 head(L,3)
 @
 \begin{myitemize}
@@ -211,7 +211,7 @@ head(L,3)
 \item We read the \myemph{assignment operator} \code{<-} as ``gets''. 
 \item The assignment above is read as ``\code{L} gets the data in \code{life_expectancy.txt}''.
 \item We could equivalently have used \code{=} 
-<<alt_read_e0,eval=FALSE>>= 
+<<alternative assignment operator,eval=FALSE>>= 
 L = read.table(file="life_expectancy.txt",header=TRUE)
 @
 \item You will see both \code{<-} and \code{=} used for assignment.
@@ -230,7 +230,7 @@ L = read.table(file="life_expectancy.txt",header=TRUE)
 \begin{myitemize}
 \item Each entry in a data matrix can be identified by its row and column index.
 \item We can use \myemph{matrix indexing} to read and manipulate entries of \code{L}.
-<<LE_indexing>>=
+<<indexing L>>=
 L[2,3]
 @
 
@@ -253,7 +253,7 @@ L[2,3]
 \item Above, we used the function \code{head()} to see the first 3 rows of \code{L}.
 \item We could have used matrix indexing.
 \end{myitemize}
-<<LE_rows>>=
+<<indexing rows of L>>=
 L[1:3,]
 @
 \begin{myitemize}
@@ -269,13 +269,13 @@ L[1:3,]
 \begin{myitemize}
 \item A \myemph{numeric vector} in R is a sequence of numbers. 
 \item One way to make a vector is to use the \myemph{concatenation function}, \code{c()}.
-<<vecExample>>=
+<<vector example>>=
 v <- c(3,1,4,1,5,9)
 v
 @
 \item \code{c(1,2,3,4,5,6)} can be written as \code{1:6}
 \item Elements of a vector can be extracted using \code{[]}.
-<<extraction>>=
+<<extracting an element of a vector>>=
 v[3]
 @
 \end{myitemize}
@@ -290,11 +290,9 @@ v[3]
 \begin{frame}[fragile]
 \frametitle{Matrices and their dimensions}
 
-%\vspace{1mm}
 \begin{myitemize}
 \item Mathematically, we write \altdisplaymath{
 \mat{L}
-%=[\ell_{ij}]
 =\left[
 \begin{array}{cccc}
 \ell_{11} & \ell_{12} & \dots & \ell_{1p} \\
@@ -309,7 +307,7 @@ v[3]
 \item It is common to use \mymath{n} for the number of rows, corresponding to the number of measured units. 
 \item We will see that \mymath{p} is common notation for the number of variables.
 \item To get the dimension in R, we use the \code{dim()} function.
-<<dim>>=
+<<using dim to find the dimension>>=
 dim(L)
 @
 \item We say that \code{L} is a matrix with \code{n=\Sexpr{nrow(L)}} rows and \code{p=\Sexpr{ncol(L)}} columns.
@@ -327,11 +325,11 @@ dim(L)
 In R, a single row or column of a matrix is a vector.  
 \item
 For example, we can extract the first 5 entries for total life expectancy, which is the fourth column of \code{L}, as follows.
-<<vec>>=
+<<extracting multiple rows>>=
 L[1:5,4]
 @
 \item We can also use row and column names:
-<<vec_with_names>>=
+<<identifying columns by name>>=
 L[1:5,"Total"]
 @
 \item We need \code{""} so that R knows \code{Total} is text not a variable name. 
@@ -339,7 +337,7 @@ L[1:5,"Total"]
 \vspace{1mm}
 
 \myquestion. What is going on in this peculiar example?
-<<vec_with_names_weird>>=
+<<if the name has no quotes R treats it as a variable>>=
 Total <- "Female"
 L[1:5,Total]
 @
@@ -356,16 +354,16 @@ L[1:5,Total]
 \begin{myitemize}
 \item A vector in R has a \code{length} but not a \code{dim}.
 \item We have already found the dimension of the data matrix \code{L},
-<<length_or_dimA>>=
+<<finding the dimension of L again>>=
 dim(L)
 @
 \item Let's set \code{y} to be the fourth column of the data and see its dimension:
-<<length_or_dimB>>=
+<<a vector has no dim>>=
 y <- L[,4]
 dim(y)
 @
 \item However, \code{y} does have a \code{length}, equal to the number of rows:
-<<length_or_dimC>>=
+<<but it does have a length>>=
 length(y)
 @
 %\item A column of the \mymath{n\times p} matrix \mymath{\mat{L}} is sometimes considered as a \mymath{n\times 1} matrix called a \myemph{column vector}. A row of \mymath{\mat{L}} can be viewed as a \mymath{1\times p} matrix called a \myemph{row vector}. It is sometimes important to note that R \myemph{drops} matrices with dimension of length 1 to give a vector.
@@ -376,14 +374,14 @@ length(y)
 \frametitle{Addition and multiplication of vectors in R}
 \begin{myitemize}
 \item Let's see what happens when we add two vectors:
-<<vec_add>>=
+<<adding vectors in R>>=
 u <- c(3,1,4)
 v <- c(1,5,9)
 u+v
 @
 \item Vectors are added \myemph{elementwise}.
 \item They also multiply elementwise:
-<<vec_mult>>=
+<<multiplying vectors in R>>=
 u*v
 @
 \item In R, many functions apply elementwise. This is useful for data analysis: we often want to do the same operation to each data point. 
@@ -394,14 +392,14 @@ u*v
 \begin{myitemize}
 \item A single number is called a \myemph{scalar} or a \myemph{constant}.
 \item Let's see what happens when we add and muliply with a scalar.
-<<vec_scalar_add>>=
+<<vector plus scalar in R>>=
 u <- c(3,1,4)
 a <- 5
 u+a
 @
 \item The constant is added to each element of the vector.
 \item The same rule applies for multiplying a vector and a scalar:
-<<vec_scalar_mult>>=
+<<vector times scalar>>=
 u*a
 @
 \item The rules in R aim to be convenient for data analysis. This is often the case, but we still have to learn what R does and check it is doing what we want.
@@ -417,7 +415,7 @@ u*a
 y <- L[,"Total"]
 @
 \item To obtain the increase in life expectancy each year over the previous year,
-<<e0_gain>>=
+<<gain in life expectancy>>=
 g <- y[2:length(y)] - y[1:(length(y)-1)] 
 @
 \end{myitemize}
@@ -432,12 +430,12 @@ The first element of \code{y[2:length(y)]} is \code{y[2]} and the first element 
 \begin{myitemize}
 \item
 Increase in life expectancy is not available for the first year it is measured.
-<<>>=
+<<comparing length of y and g>>=
 length(y)
 length(g)
 @
 \item To make include this missing value and make the data vectors equal length, let's set the first increase to \code{NA}, 
-<<e0_gain_with_na>>=
+<<adding NA to match lengths>>=
 g <- c(NA,g) 
 g[1:8]
 @
@@ -455,14 +453,14 @@ Now we've seen two of R's special non-numeric values. \code{NULL} means ``doesn'
 \item Elements of \myemph{logical vectors} are \code{TRUE} or \code{FALSE}.
 \item One way to get a logical vector in R is to test for equality or inequality using \code{>}, \code{<} or \code{==}.
 \item To find years with decreasing life expectancy:
-<<logic_vec>>=
+<<a logical vector>>=
 g[1:6]
 L_down <- g<0
 L_down[1:6]
 @
 \item As we might expect, \code{>} is calculated elementwise.
 \item We can index using a logical vector:
-<<>>=
+<<indexing using a logical vector>>=
 year <- L[,"Year"]
 years_down <- year[L_down]
 years_down[1:6]
@@ -476,7 +474,7 @@ years_down[1:6]
 \begin{myitemize}
 \item Elements of \myemph{character vectors} are strings of letters and symbols.
 \item Qualitative data are often represented as character strings:
-<<character_vec>>=
+<<a character vector>>=
 L_qualitative <- ifelse(g<0,"decreased","increased")
 L_qualitative[1:6]
 @
@@ -499,7 +497,7 @@ L_qualitative[1:6]
 \begin{myitemize}
 \item
 The \code{class} function tells us what data type R is working with
-<<>>=
+<<checking the class of R objects>>=
 class(g)
 class(L_down)
 class(L_qualitative)
@@ -569,7 +567,7 @@ Matrices can be subsetted using logical vectors to pick out subsets of rows and 
 Each row or column is included if the logical vector is \code{TRUE} and excluded if \code{FALSE}.
 
 \item Rows and columns can also be selected using row and column names:
-<<>>=
+<<using the rownames and colnames functions>>=
 colnames(L)
 rownames(L)[1:8]
 @
@@ -580,7 +578,7 @@ What is computed below. Can you find any interpretation?
 
 \vspace{-1mm}
 
-<<subsetting_using_logical>>=
+<<subsetting using a logical vector>>=
 L[g<0,"Year"]
 @
 
@@ -596,7 +594,7 @@ L[g<0,"Year"]
 \begin{myitemize}
 \item The basic way to build a matrix is the \code{matrix()}
 function.
-<<>>=
+<<using the matrix function>>=
 A <- matrix(1:6,nrow=2)
 A
 @
@@ -604,7 +602,7 @@ A
 \item \code{matrix()} fills the matrix by columns.
 \item R figured out \code{A} should have 3 columns since we gave \code{matrix()} 6 numbers and asked for 2 rows.
 \item If you don't give R enough numbers, it \myemph{recycles} the ones you gave it.
-<<>>=
+<<recycling in the matrix function>>=
 matrix(c(1,2,3),nrow=2,ncol=3)
 @
 
@@ -615,12 +613,12 @@ matrix(c(1,2,3),nrow=2,ncol=3)
 \begin{frame}[fragile]
 \frametitle{Exercise on using \code{matrix()} and the recycling rule}
 \myquestion. Guess the ouput of 
-<<matrix_exercise,eval=F>>=
+<<matrix exercise,eval=F>>=
 matrix(c(0,1),nrow=3,ncol=2,byrow=TRUE)
 @
 
 \answer{\vspace{25mm}}{}
-<<,echo=FALSE,eval=ANS>>=
+<<,echo=FALSE,eval=ANS,purl=FALSE>>=
 <<matrix_exercise>>
 @
 
@@ -634,12 +632,12 @@ matrix(c(0,1),nrow=3,ncol=2,byrow=TRUE)
 \frametitle{Gluing together vectors and matrices}
 \begin{myitemize}
 \item We've used \code{c()} to combine numbers into vectors. It also combines vectors into longer vectors.
-<<>>=
+<<using c to concatenate vectors>>=
 u <- c(1,2) ; v <- c(3,4) ; c(u,v)
 @
 \item 
 We can build a matrix by binding together vectors either as rows or columns.
-<<>>=
+<<using rbind and cbind>>=
 B <- rbind(u,v) ; C <- cbind(u,v)
 B
 C
@@ -660,7 +658,7 @@ C
 \item The \myemph{business cycle}  (\url{Wikipedia:Business_cycle}) consists of alternating periods of higher and lower economic activity.
 \item Unemployment is \myemph{counter-cyclical}: it is higher when economic activity is lower.
 We'll use Bureau of Labor Statistics unemployment data. 
-<<download_unemployment>>=
+<<download unemployment data file>>=
 download.file(destfile="unemployment.csv",
   url="https://ionides.github.io/401f18/01/unemployment.csv")
 @
@@ -675,15 +673,12 @@ Year,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
 1949,5.0,5.8,5.6,5.4,5.7,6.4,7.0,6.3,5.9,6.1,5.7,6.0
 \end{verbatim}
 
-%\vspace{0.5mm}
 
-
-<<read_u>>=
+<<read unemployment data into R>>=
 U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
 U[1:2,]
 @
 
-% \item The data are in a comma separated variable (csv) format, so we use \code{read.table(..., sep=",",...)}.
 
 \end{myitemize}
 
@@ -694,7 +689,7 @@ U[1:2,]
 \begin{myitemize}
 \item We want annual average unemployment. For each row, we must average columns \code{2:13}.
 \item The \code{apply()} function is useful for carrying out manipulations on rows and columns of matrices.
-<<>>=
+<<using the apply function to get averages over each row>>=
 u <- apply(U[,2:13],1,mean)
 u[1:6]
 @
@@ -715,7 +710,7 @@ Mnemonic: \code{apply(U,1,...)} gives a vector of length \code{dim(U)[1]}, and \
 
 \vspace{-1.5mm}
 
-<<>>=
+<<checking the mnemonic>>=
 dim(U)
 length(apply(U,1,mean))
 length(apply(U,2,mean))
@@ -739,7 +734,7 @@ par(mai=c(0.6,0.6,0.2,0.2))
 
 \begin{columns}[T] 
 \begin{column}{0.45\textwidth}
-<<fig_L,eval=F,echo=T>>=
+<<fig_L,eval=F,echo=T,purl=FALSE>>=
 plot(L$Year,y,type="line", 
   xlab="Year", 
   ylab="Life expectancy")
@@ -756,7 +751,7 @@ plot(L$Year,y,type="line",
 
 
 \begin{column}{0.45\textwidth}
-<<fig_U,eval=F,echo=T>>=
+<<fig_U,eval=F,echo=T,purl=FALSE>>=
 plot(U$Year,u,
   xlab="Year", 
   ylab="Unemployment")
@@ -779,7 +774,6 @@ plot(U$Year,u,
 \item In R, \code{$} extracts a component of a \myemph{list}. 
 \item The list class can collect together objects of any other class.
 
-%This course will use the basic \code{plot()} function. A powerful modern approach to graphics is the ``grammar of graphics'' in the \code{ggplot2} package, taught in STATS 306.
 \end{myitemize}
 \end{frame}
 
@@ -790,14 +784,14 @@ plot(U$Year,u,
 \vspace{-1mm}
 
 \item Let's learn lists by example
-<<>>=
+<<list example>>=
 my_list <- list(apples=c("red","green"),oranges=c(6,12))
 class(my_list)
 class(my_list$apples)
 class(my_list$oranges)
 @
-\item We can also index components of a list using \code{[[.]]}
-<<>>=
+\item We can also index a component of a list using \code{[[.]]}
+<<indexing a list component>>=
 my_list[[1]] 
 @
 
@@ -827,7 +821,7 @@ my_list[[1]]
 
 \begin{myitemize}
 \item The \code{lm()} function has a \myemph{formula notation} using a tilde (\code{~}).
-<<lm>>=
+<<lm for a time trend of life expectancy>>=
 L_fit <- lm(Total~Year,data=L)
 @
 
@@ -857,7 +851,7 @@ lines(L$Year,L_fit$fitted.values,
 \begin{column}{0.4\textwidth}
 
 \vspace{-3mm}
-<<fig_L_plot,echo=F,fig.width=3.5,fig.height=3.5>>=
+<<fig_L_plot,echo=F,fig.width=3.5,fig.height=3.5,purl=FALSE>>=
 par(mai=c(0.9,0.9,0.1,0.1))
 <<fig_L_code>> 
 @
@@ -979,7 +973,7 @@ Now, we'll fit another linear model to see if the detrended life expectancy can 
 \item First, let's set up the variables for the regression. Since we detrended life expectancy, we should also detrend unemployment. 
 Then, we use \code{\%in\%} to find the years when these two datasets match and \code{subset()} to select these years from \code{L_detrended}.
 \end{myitemize}
-<<detrended_variables>>=
+<<detrend the variables>>=
 L_detrended <- L_fit$residuals
 U_detrended <- lm(u~U$Year)$residuals
 L_detrended <- subset(L_detrended,L$Year %in% U$Year)
@@ -988,7 +982,7 @@ L_detrended <- subset(L_detrended,L$Year %in% U$Year)
 
 \begin{frame}[fragile]
 \frametitle{A linear model linking mortality and unemployment}
-<<detrended_lm>>= 
+<<fit a linear model to the detrended variables>>= 
 lm1 <- lm(L_detrended~U_detrended)
 coef(lm1)
 @
