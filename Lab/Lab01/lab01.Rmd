@@ -29,8 +29,10 @@ output:
 
 - (Printed) Homework is due at the start of class
 
-- If you need to make up a lab:
+- If you need to make up a lab (up to 2):
   Please email me and make-up GSI in advance
+
+- HW extensions may be granted upon request given sufficient reasoning and notice
   
 - To be respectful of the labs after us, I will not answer questions immediately following lab. Please post on Piazza or come to office hours.
   
@@ -115,7 +117,7 @@ head(gpa)
 A = matrix(c(3,-2,-1,4,1,2),nrow=2); A
 ```
 
-Change the number of entries and the number of rows of the matrix. Report your results.
+Modify the code above to create a 3 by 4 matrix. Report your matrix.
 
 # In Lab Activity Part 2
 
