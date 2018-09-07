@@ -4,7 +4,7 @@
 \input{../header.tex}
 \newcommand\CHAPTER{2}
 % \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
- \newcommand\answer[2]{\color{blue}{#2}} % to show answers
+ \newcommand\answer[2]{{\color{blue}{#2}}} % to show answers
 % \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
@@ -99,10 +99,12 @@ n <- length(e0)
 {\myquestion}. 
 You may or may not have seen vectors in other contexts. In physics, a vector is a quantity with magnitude and direction. How does that fit in with our definition?
 
-\answer{\vspace{25mm}}{This physics definition corresponds to a polar coordinate representation of our vectors in \mymath{\Rspace^2} and \mymath{\Rspace^3}. \vspace{5mm}}
+\answer{\vspace{25mm}}{This physics definition is a polar coordinate representation of a vector in \m{\Rspace^2} and \m{\Rspace^3}. Our definition is a Cartesian coordinate representation.
+
+\vspace{5mm}}
 
 {\myquestion}. 
-How can I write a boldface \mymath{\vec{x}} in handwriting?
+How can I write a boldface \m{\vec{x}} in handwriting?
 
 \answer{\vspace{25mm}}{
 An underscore, \m{\utilde{x}}, is conventional handwriting to represent bold font.
@@ -112,21 +114,18 @@ In physics and mathematics, vectors are sometimes written as \m{\stackrel{\to}{x
 \end{frame}
 
 
-%\end{document}
-
-
 \begin{frame}[fragile]
 \frametitle{Adding vectors and multiplying by a scalar}
 \begin{myitemize}
 \item
-For a dataset, the \myemph{index} \m{i} of the component \m{y_i} of the vector \m{y} might correspond to a measurement on the \m{i}th member of a population, the outcome of the \m{i}th group in an experiment, or the \m{i}th observation out of a sequence of observations on a system.
+For a dataset, the \myemph{index} \m{i} of the element \m{y_i} of the vector \m{y} might correspond to a measurement on the \m{i}th member of a population, the outcome of the \m{i}th group in an experiment, or the \m{i}th observation out of a sequence of observations on a system.
 Recall \m{i} is called an \myemph{observational unit}, or just \myemph{unit}.
 \item
 We might want to add two quantities \m{u_i} and \m{v_i} for unit \m{i}.
 \item
 Using vector notation, if \m{\vec{u}=(u_1,u_2,\dots,u_n)}, \m{\vec{v}=(v_1,v_2,\dots,v_n)} and \m{\vec{y}=(y_1,y_2,\dots,y_n)} we define the \myemph{vector sum} \m{\vec{y}=\vec{u}+\vec{v}} to be the \myemph{elementwise sum} \m{y_i=u_i+v_i}, adding up the corresponding elements for each unit.
 \item 
-We might also want to rescale each component by the same factor. 
+We might also want to rescale each element by the same factor. 
 To change a measurement \m{y_i} in inches to a new measurement \m{z_i} in mm, we rescale with the \myemph{scalar} \m{\alpha=25.4}. 
 We want \m{z_i=\alpha y_i} for each \m{i}. 
 This is written in vector notation as \myemph{multplication of a vector by a scalar}, \m{\vec{z}=\alpha \vec{y}}.
@@ -135,19 +134,27 @@ This is written in vector notation as \myemph{multplication of a vector by a sca
 \end{frame} 
 
 \begin{frame}[fragile]
-\frametitle{Adding vectors and multiplying by a scalar}
+\frametitle{An example of vector addition and scalar multiplication}
 
-{\bf Worked example}. An ecologist measures the pH of ten Michigan lakes at two points in the summer. Set up vector notation to describe her data algebraically. Write a vector calculation, using summation notation, giving the average pH in each lake.
+%{\bf Worked example}. 
+An ecologist measures the pH of ten Michigan lakes at two points in the summer. Set up vector notation to describe her data algebraically. Write a vector calculation giving the average pH in each lake.
 
-\answer{\vspace{80mm}}{
-Let \mymath{x_i} be the first pH measurement in lake \mymath{i}, for \mymath{i\in\{1,2,\dots,10\}}.
-Then, \mymath{\vec{x}=(x_1,\dots,x_{10})} is the vector of the first pH measurement in each of the 10 lakes.
+\answer{\vspace{90mm}}{
+\begin{myitemize}
+\item Let \mymath{x_i} be the first pH measurement in lake \mymath{i}, for \mymath{i\in\{1,2,\dots,10\}}.
+\item 
+Write \mymath{\vec{x}=(x_1,\dots,x_{10})} for the vector of the first pH measurement in each of the 10 lakes.
+\item
  Let \mymath{\vec{y}=(y_1,\dots,y_{10})} be the vector of second measurements. 
+\item
 Let \mymath{\vec{\mu}=(\mu_1,\dots,\mu_{10})} be the average pH for each of the 10 lakes.
-For each lake \mymath{i}, the mean is \mymath{\mu_i = \frac{1}{2}(x_i+y_i)}. In vector notation,
+\item
+For each lake \mymath{i}, the mean is \mymath{\mu_i = \frac{1}{2}(x_i+y_i)}. 
+\item In vector notation,
 this is 
 \mydisplaymath{
 \vec{\mu} = \frac{1}{2}(\vec{x}+\vec{y})}.
+\end{myitemize}
 }
 
 \end{frame}
@@ -178,13 +185,13 @@ x+2
 \end{column}
 \end{columns}
 \begin{myitemize}
-\item Mathematically, adding scalars to vectors is not allowed. Instead, we define the \myemph{vector of ones}, \m{\vec{1}=(1,1,\dots,1)}, and write \m{\vec{x}+ 2\times \vec{1}}.
+\item Mathematically, adding scalars to vectors is \myemph{not allowed}. Instead, we define the \myemph{vector of ones}, \m{\vec{1}=(1,1,\dots,1)}, and write \m{\vec{x}+ 2\times \vec{1}}.
 \end{myitemize}
 
 
 \myquestion. Why does R choose to break the usual rules of mathematics here?
 
-\answer{\vspace{20mm}}{Convenience. It is quite common to want to add a fixed amount to each data point, so R makes this easy.}
+\answer{\vspace{25mm}}{Convenience. It is quite common to want to add a fixed amount to each data point, so R makes this easy.}
 
 \end{frame}
 
@@ -194,29 +201,230 @@ x+2
 \begin{frame}[fragile]
 \frametitle{Matrices}
 \begin{myitemize}
-\item Matrices provide a way to store and manipulate \m{p} quantitites for each of \m{n} units.
+\item Matrices let us store and manipulate \m{p} quantitites for each of \m{n} units.
 \item An \m{n\times p} matrix \m{\mat{A}} is a numerical array with \m{n} rows and \m{p} columns,
 \altdisplaymath{
-\mat{A} = \mymatrix{a}{n}{p}.
+\mat{A} = \mymatrix{a}{n}{p}
 }
 \item
 Blackboard bold capital letters, \m{\mat{A}}, \m{\mat{B}}, \m{\mat{X}}, \m{\mat{Z}}, etc, denote matrices. 
 \item
-We are keeping plain capital letters to use for random variables.
+We are reserving plain capital letters for random variables.
 \item We say \m{\mat{A}=[a_{ij}]_{n\times p}} as an abbreviation for writing the full \m{n\times p} matrix.
-\item We write \m{\underset{n\times p}{\mat{A}}} to emphasize the dimension. Keeping track of matrix dimensions can be helpful!
+\item We write \m{\underset{n\times p}{\mat{A}}} to emphasize the dimension. 
+\item Keeping track of matrix dimensions can be helpful!
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Matrix addition}
+
+\vspace{-1mm}
+
+\begin{myitemize}
+\item matrices are added elementwise.
+\item We can only add matrices with the same dimensions.
+\item Let \m{\mat{A}=[a_{ij}]_{n\times p}} and \m{\mat{B}=[b_{ij}]_{n\times p}}. 
+\item Since both \m{\mat{A}} and \m{\mat{B}} are \m{n\times p} we can add them
+
+\vspace{2mm}
+
+\m{
+\left[
+\begin{array}{cccc}
+\textcolor{red}{a_{11}} & a_{12} & \dots & a_{1p} \\
+a_{21} & a_{22} & \dots & a_{2p} \\
+\vdots &        &       & \vdots  \\
+a_{n1} & a_{n2} & \dots & a_{np}
+\end{array}
+\right]
++
+\left[
+\begin{array}{cccc}
+\textcolor{red}{b_{11}} & b_{12} & \dots & b_{1p} \\
+b_{21} & b_{22} & \dots & b_{2p} \\
+\vdots &        &       & \vdots  \\
+b_{n1} & b_{n2} & \dots & b_{np}
+\end{array}
+\right]
+}
+
+\vspace{2mm}
+
+\m{ \hspace{20mm}=
+\left[
+\begin{array}{cccc}
+\textcolor{red}{a_{11}+b_{11}} & a_{12}+b_{12} & \dots & a_{1p}+b_{1p} \\
+a_{21}+b_{22} & a_{22}+b_{22} & \dots & a_{2p}+b_{2p} \\
+\vdots &        &       & \vdots  \\
+a_{n1}+b_{n1} & a_{n2}+b_{n2} & \dots & a_{np}+b_{np}
+\end{array}
+\right]
+}
+
+\vspace{1mm}
+
+\item Focus on one element (say, the top left element in red) and then check that the pattern repeats.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Matrix addition in R}
+\begin{myitemize}
+\item R agrees with our mathematical definition of matrix addition.
+\item If \code{A} and \code{B} are two R matrices of matching dimension, then
+<<,eval=F,purl=F>>=
+C <- A + B
+@ 
+gives a matrix with the elementwise sums.
+\item If the dimensions of \code{A} and \code{B} don't match, R gives an error message.
+\item Curiously, R does allow adding a vector to a matrix using the recycling rule. This is \myemph{not allowed} in math.
+<<matrix plus vector>>=
+A <- matrix(1:6,2,3)
+A
+A+c(0,10)
+@
 \end{myitemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Matrix multiplication}
 \begin{myitemize}
+\item The rule for matrix multiplication seems strange at first. We'll see why it is useful.
+\item The \m{(i,j)} entry of the product \m{\mat{A}\, \mat{B}} comes from multiplying each element in row i of \m{\mat{A}} with the corresponding element in column j of \m{\mat{B}} and adding up these terms.
+\item For this rule to work, the number of columns of \m{\mat{A}} must match the number of rows of \m{\mat{B}}. 
+\item We start with the \m{2\times 2} case, where \m{\mat{A}=[a_{ij}]_{2\times 2}} and \m{\mat{B}=[b_{ij}]_{2\times 2}}.
+\mydisplaymath{
+\left[
+\begin{array}{cc}
+\textcolor{red}{a_{11}} & \textcolor{red}{a_{12}} \\
+a_{21} & a_{22} \\
+\end{array}
+\right]
+\hspace{1mm}
+\left[
+\begin{array}{cc}
+b_{11} & \textcolor{red}{b_{12}} \\
+b_{21} & \textcolor{red}{b_{22}} \\
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cc}
+a_{11}b_{11}+a_{12}b_{21} & \textcolor{red}{a_{11}b_{12}+a_{12}b_{22}} \\
+a_{21}b_{11}+a_{22}b_{21} & a_{21}b_{12}+a_{22}b_{22} \\
+\end{array}
+\right]
+}
+\item In red: notice how the \m{(1,2)} entry of \m{\mat{A}\, \mat{B}} comes from \myemph{sliding} row 1 of \m{\mat{A}} down column 2 of \m{\mat{B}} and adding corresponding terms.
+
+\end{myitemize} 
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Let's practice multiplying $2\times 2$ matrices}
+\myquestion. Evaluate the matrix product
+\mydisplaymath{
+\left[
+\begin{array}{cc}
+{2} & -1 \\
+1 & 3 \\
+\end{array}
+\right]
+\hspace{1mm}
+\left[
+\begin{array}{cc}
+1 & 4 \\
+-2 & 0 \\
+\end{array}
+\right]
+}
+
+\answer{\vspace{80mm}}{
+Answer:
+\mydisplaymath{
+\left[
+\begin{array}{cc}
+4 & 8 \\
+-5 & 4 \\
+\end{array}
+\right]
+}
+\vspace{30mm}
+
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The dimension of a matrix product}
+\begin{myitemize}
+\item We can multiply \m{\underset{n\times p}{\mat{A}} \hspace{2mm} \underset{p\times q}{\mat{B}} } and the result is an \m{n\times q} matrix.
+\end{myitemize}
+\myquestion. What do you think is the dimension of the triple product 
+\mydisplaymath{
+\underset{n\times \textcolor{red}{p}}{\mat{A}}
+\hspace{2mm}
+\underset{\textcolor{red}{p}\times \textcolor{cyan}{q}}{\mat{B}} 
+\hspace{2mm}
+\underset{\textcolor{cyan}{q}\times r}{\mat{C}}
+}
+
+\answer{\vspace{15mm}}{\vspace{15mm}}
+
+\begin{myitemize}
+\item The rule is: when multiplying matrices, the middle dimensions have to pair up, and the resulting matrix has the outside dimensions.
+\item Notice that \m{\underset{p\times q}{\mat{B}}  \hspace{2mm} \underset{n\times p}{\mat{A}} } does not exist. 
+\item In general, \m{\mat{A}\, \mat{B} \neq \mat{B}\, \mat{A}}. Matrix multiplication \myemph{is not commutative}.
+
+\end{myitemize}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{Matrix multiplication in R}
+\begin{myitemize}
+\item R interprets the usual multiplication operator \code{*} as elementwise multiplication.
+\item Matrix multiplication is done with \code{\%*\%}.
+\item Let's check this by an example.
+\begin{columns}[T] 
+\begin{column}{0.5\textwidth}
+<<>>=
+U <- matrix(c(2,1,2,-1),2)
+U
+V <- matrix(c(3,1,1,2),2)
+V
+@
+\end{column}
+\begin{column}{0.4\textwidth}
+<<>>=
+U * V
+
+U %*% V 
+
+@
+\end{column}
+\end{columns}
+
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Matrix multiplication and linear equations}
+\begin{myitemize}
 \item 
 A linear system of \m{n} equations with \m{p} unknown variables, \m{x_1,\dots,x_p} is
 \mydisplaymath{
 \left.
 \begin{array}{ccccccccc}
-a_{11}x_1 &+& a_{12}\, x_2 &+& \dots &+& a_{1p}\, x_p &=& b_1 \\
+\textcolor{red}{a_{11}x_1} &\textcolor{red}{+}& \textcolor{red}{a_{12}\, x_2} &\textcolor{red}{+}& \dots &\textcolor{red}{+}& \textcolor{red}{a_{1p}\, x_p} &=& 
+%\textcolor{red}{b_1} 
+b_1 \\
 a_{21}x_1 &+& a_{22}\, x_2 &+& \dots &+& a_{2p}\, x_p &=& b_2 \\
 \vdots    & &           & &       & & \vdots    & & \vdots \\
 a_{n1}x_1 &+& a_{n2}\, x_2 &+& \dots &+& a_{np}\, x_p &=& b_n 
@@ -224,103 +432,47 @@ a_{n1}x_1 &+& a_{n2}\, x_2 &+& \dots &+& a_{np}\, x_p &=& b_n
 \hspace{12mm}
 \right\} \hspace{2mm}   \Li
 }
-\item 
-We define matrix multiplication \m{\mat{A}\vec{x}=\vec{b}} to match this linear system. The matrix multiplication
+\item The rule for matrix multiplication lets us write this as \m{\mat{A}\vec{x}=\vec{b}}.
 \mydisplaymath{
-\mymatrix{a}{n}{p}
-\myvector{x}{p}
-=
-\myvector{b}{n}
-%\hfill (2)
-}
-is exactly equivalent to the collection of \m{p} linear equations in \myref{\Li} above.
-
-\item Matrices are good for using computers to solve large systems of linear equations.
-
-
-\item
-Mechanically, the \m{i}th component of \m{\mat{A}\vec{x}} is found by multiplying each term in the \m{i}th row of \m{\mat{A}} with corresponding terms in the \myemph{column vector} \m{\vec{x}}, and adding these contributions.  See Homework~2 for practice!
-\end{myitemize}
-
-\end{frame}
-
-%\end{document}
-
-\begin{frame}[fragile]
-\frametitle{Column vectors and row vectors}
-\begin{myitemize}
-\item
-In the matrix times vector multiplication on the previous slide, the vector \m{\vec{x}} is written in a column, as a \m{p\times 1} matrix.
-\item 
-We say that that \m{\vec{x}} is a \myemph{column vector}. We interpret a vector \m{\vec{x}} as a column vectors unless we explicitly say it is a \m{1\times p} \myemph{row vector}. 
-\item
-Similarly, \m{\vec{b}} in the previous slide is a length \m{n} column vector.
-\item
-R matches our notation: a vector in R is not a matrix, but is interpreted as a column vector for matrix times vector multiplication. R uses \code{\%*\%} to denote matrix multiplication.
-\end{myitemize}
-\begin{columns}[T] 
-\begin{column}{0.22\textwidth}
-<<>>=
-x <- c(1,2)
-is(x,"matrix")
-is(x,"vector")
-@
-\end{column}
-\begin{column}{0.3\textwidth}
-<<>>=
-A<-matrix(
- c(1,0,0,-1),nrow=2)
-A %*% x
-@
-\end{column}
-\begin{column}{0.3\textwidth}
-<<>>=
-xx<-matrix(x,nrow=2)
-
-A %*% xx
-@
-\end{column}
-\end{columns}
-
- 
-\end{frame}
-
-%\end{document}
-
-
-\begin{frame}[fragile]
-\frametitle{Does a system of linear equations have no solution? One solution? Many solutions?}
-\begin{myitemize}
-\item One linear equation in one unknown, \m{ax=u}, has a unique solution unless \m{a=0}.
-\item One linear equation with two unknowns, \m{ax+by=u}, has a solution consisting of all points on a line in the \m{x-y} plane, as long as one of \m{a} and \m{b} is nonzero.
-\item Two linear equations with two unknowns, 
-\altdisplaymath{
-\begin{array}{ccccc}
-ax &+& by &=& u \\
-cx &+& dy &=& v
+\left[
+\begin{array}{cccc}
+\textcolor{red}{a_{11}} & \textcolor{red}{a_{12}} & \dots & \textcolor{red}{a_{1p}} \\
+a_{21} & a_{22} & \dots & a_{2p} \\
+\vdots &        &       & \vdots  \\
+a_{n1} & a_{n2} & \dots & a_{np}
 \end{array}
-},
-have a unique solution where the lines \m{ax+by=u} and \m{cx+dy=v} intersect, so long as these lines are not parallel.
-\item Three linear equations in two unknowns will not usually have a solution---the three corresponding lines would all have to meet at a common point. 
-\item Can you see the general pattern?
+\right]
+\left[
+\textcolor{red}{
+\begin{array}{c}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{array}
+}
+\right]
+=
+\left[
+\begin{array}{c}
+b_1
+ \\ b_2 \\ \vdots \\ b_n
+\end{array}
+\right]
+}
+
+
+\item In red: the first entry in the matrix product \m{\mat{A}\vec{x}} comes from sliding the first row of \m{\mat{A}} down the column of values in \m{\vec{x}}, multiplying each pair of numbers, and adding up these products. This matches the left hand side of the first line of \m{\Li}.
+
+%\item Matrices are good for using computers to solve systems of linear equations.
+
 \end{myitemize}
 
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Does a system of linear equations have no solution? One solution? Many solutions? Continued...}
-\begin{myitemize}
-\item For three unknowns, an equation \m{ax+by+cz=u} corresponds to a plane in three-dimensional \m{(x,y,z)} space.
-\item Three planes will typically intersect at a single point, so three equations in three unknowns will typically have a unique solution.
-\item Two planes that are not parallel will meet along a line, and give a family of solutions.
-\item Four or more planes will typically not all meet at any point.
-\item In higher dimensions, we can't visualize but the pattern remains true.
-\item The general linear system we wrote previously in \myref{\Li} has \m{n} equations with \m{p} unknowns. 
-We expect a unique solution when \m{p=n}, no
-solution when \m{p<n} and a family of solutions when \m{p>n}.
-\end{myitemize}
 
-\end{frame}
+%\end{document}
+
+
+%\end{document}
+
 
 \begin{frame}[fragile]
 \frametitle{Using matrices to solve a system of linear equations}
@@ -336,27 +488,6 @@ Understanding when this inverse exists, and what to do when it doesn't, will hel
 \item From the previous slide, we can only expect \m{\mat{A}^{-1}} to exist when \m{p=n}, in which case \m{\mat{A}} is called a \myemph{square matrix}.
 \end{myitemize}
 
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Multiplying two matrices}
-\begin{myitemize}
-\item Let \m{\mat{A}=[a_{ij}]_{n\times p}} and \m{\mat{X}=[x_{ij}]_{p\times q}} be two matrices. 
-\item The columns of \m{\mat{X}} can be written as \m{\vec{x}_1}, \m{\vec{x}_2}, $\dots$, \m{\vec{x}_q}.
-\item \m{\mat{X}} consists of these \m{q} columns glued together, so \m{\mat{X}=[\vec{x}_1\; \vec{x}_2 \; \vec{x}_3 \; \cdots \; \vec{x}_q]}.
-\item Here, \m{\vec{x}_j} is a vector whose \m{i}th component is \m{x_{ij}}. 
-\item We define the \myemph{matrix product} \m{\mat{A}\mat{X}} by gluing together the matrix times vector products for each column of \m{\mat{X}}, so
-\m{\mat{A}\mat{X} = [\mat{A}\vec{x}_1\; \mat{A}\vec{x}_2 \; \mat{A}\vec{x}_3 \; \cdots \; \mat{A}\vec{x}_q]}.
-\item From this definition, we see:\\
-\begin{enumerate}
-\item The \m{(i,j)} entry of \m{\mat{A}\mat{X}} is found by sliding the \m{i}th row of \m{\mat{A}} down the \m{j}th column of \m{\mat{X}}, multiplying the corresponding terms and adding them. See homework for practice!\\
-\item \vspace{2mm} Since each product \m{\mat{A}\vec{x}_j} is a vector of length \m{n}, the dimension of \m{\mat{A}\mat{X}} is \m{n\times q}. 
-So, the rule for the dimension of a matrix product is 
-\mydisplaymath{(n\times p)\times (p\times q) = (n\times q)}
-\item
-For the matrix product to exist, the number of columns of the first matrix must equal the number of rows of the second.
-\end{enumerate} 
-\end{myitemize} 
 \end{frame}
 
 
@@ -395,37 +526,9 @@ U %*% V
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Matrix multiplication is not commutative}
-\begin{myitemize}
-\item
-Scalar multiplication (i.e., the usual multiplication of two numbers) has the \myemph{commutative} property, \m{uv=vu}.
-\item
-Matrix multiplication does not usually have this property, e.g., 
-\end{myitemize}
-\begin{columns}[T] 
-\begin{column}{0.4\textwidth}
-<<>>=
-U %*% V
-@
-\end{column}
-\begin{column}{0.4\textwidth}
-<<>>=
-V %*% U
-@
-\end{column}
-\end{columns}
-\begin{myitemize}
-\item
-We are all very used to multiplication being commutative.  
-It takes practice to get used to the fact that matrix multiplication doesn't commute.
-\end{myitemize}
-
-\end{frame}
-
-\begin{frame}[fragile]
 \frametitle{Addition of matrices and multiplication by a scalar}
 \begin{myitemize}
-\item If \m{\mat{A}=[a_{ij}]_{p\times q}} and \m{\mat{B}=[b_{ij}]_{p\times q}} then the \myemph{matrix sum} \m{\mat{A}+\mat{B}} is computed componentwise, just like for vectors:
+\item If \m{\mat{A}=[a_{ij}]_{p\times q}} and \m{\mat{B}=[b_{ij}]_{p\times q}} then the \myemph{matrix sum} \m{\mat{A}+\mat{B}} is computed elementwise, just like for vectors:
 {\small
 \mydisplaymath{
 \mysmallmatrix{a}{p}{q}+\mysmallmatrix{b}{p}{q} =
@@ -438,7 +541,7 @@ a_{p1}+b_{p1} & \dots & a_{pq}+b_{pq}
 \right]
 }
 }
-\item \myemph{Scalar times matrix} multiplication is also computed componentwise:
+\item \myemph{Scalar times matrix} multiplication is also computed elementwise:
 {\small
 \mydisplaymath{
 s\mat{A}=s
@@ -498,120 +601,62 @@ Suppose \m{\mat{B}} is a \m{n\times q} matrix and \m{\mat{I}} is an identity mat
 \vspace{5mm}
 \end{frame}
 
+%\end{document}
+
 \begin{frame}[fragile]
 \frametitle{Inverting a $2\times 2$ matrix}
 \begin{myitemize}
-\item Let \m{\mat{A}=\mytwomatrix{a}{b}{c}{d}} be a general \m{2\times 2} matrix.
-\item Then, \m{\mat{A}\mytwovector{x}{y}=\mytwovector{u}{v}} corresponds to a system of linear equations,
-\mydisplaymath{
-\left.
-\begin{array}{ccccc}
-ax &+& by &=& u \\
-cx &+& dy &=& v
-\end{array}
-\hspace{12mm}
-\right\}
-\hspace{6mm} 
-\Lii
-}
-\item Recall that the inverse \m{\mat{A}^{-1}} should solve this linear system, i.e., 
- \mydisplaymath{\mytwovector{x}{y}=\mat{A}^{-1}\mytwovector{u}{v}}.
-
-\vspace{-3mm}
-
-\item We can solve a pair of linear equations by hand. First, we solve for \m{x} by eliminating \m{y}. We can rewrite \myref{\Lii} as
-
-\vspace{-4mm}
-
-\mydisplaymath{
-\begin{array}{ccccc}
-adx &+& bdy &=& du \\
-bcx &+& bdy &=& bv
-\end{array}
-\hspace{20mm}\begin{array}{c} \Liiia \\ \Liiib \end{array}
-}
-\item
-Subtracting \myref{\Liiib} from \myref{\Liiia} gives \m{(ad-bc)x = du-bv} and so \m{x=\frac{1}{ad-bc}(du-bv)}. 
+\item Let \m{\displaystyle \mat{A}=\mytwomatrix{a}{b}{c}{d}} be a general \m{2\times 2} matrix.
+\item Let \m{\displaystyle \mat{A}^{-1} = \frac{1}{ad-bc}\mytwomatrix{d}{-b}{-c}{a} }
 \end{myitemize}
-\end{frame}
+\myquestion. Compute the matrix product \m{\mat{A}\,\mat{A}^{-1}}
 
-\begin{frame}[fragile]
-\frametitle{Inverting a $2\times 2$ matrix, Continued...}
+\vspace{25mm}
+
 \begin{myitemize}
-\item
-Next, we can find \m{y} by eliminating \m{x}. We rewrite \myref{\Lii} as
-\mydisplaymath{
-\begin{array}{ccccc}
-acx &+& bcy &=& cu \\
-acx &+& ady &=& av
-\end{array}
-}
-Then subtraction gives \m{(ad-bc)y = av-cu}. 
+\item \m{\mat{A}^{-1}} is called the \myemph{inverse} of \m{\mat{A}}.
 
-\item Collecting these results, we find
-\mydisplaymath{
-\mytwovector{x}{y} = \frac{1}{ad-bc}\mytwomatrix{d}{-b}{-c}{a} \mytwovector{u}{v}.
-}
-\item
-This gives us the formula for \m{ \mat{A}^{-1}}, 
-\mydisplaymath{
- {\mytwomatrix{a}{b}{c}{d}}^{-1} = \frac{1}{ad-bc}\mytwomatrix{d}{-b}{-c}{a} 
-}
 
 \end{myitemize}
 
 \end{frame}
 
-\begin{frame}
-\frametitle{The identity $\mat{A}^{-1}\mat{A}=\mat{I}$}
+%\end{document}
+
+\begin{frame} 
+\frametitle{The identity matrix}
 \begin{myitemize}
-\item We constructed \m{\mat{A}^{-1}} so that \m{\mat{A}\vec{x}=\vec{b}} has solution \m{\vec{x}=\mat{A}^{-1}\vec{b}}.
-\item Formally, this amounts to multiplying both sides of the equation \m{\mat{A}\vec{x}=\vec{b}} by
- \m{\mat{A}^{-1}}.
-
-\item This gives us 
-\mydisplaymath{\mat{A}^{-1}\mat{A}\vec{x}=\mat{A}^{-1}\vec{b}.}
-
-\item Mathematically, it must be true that
-
-\vspace{1mm}
-
-\centerline{
-\framebox{
-\hspace{10mm}
-\altdisplaymath{\mat{A}^{-1}\mat{A}=\mat{I}} 
-\hspace{10mm}\rule[-2mm]{0mm}{7mm}
-}}
-
-\vspace{1mm}
-
-so that 
-\mydisplaymath{\mat{A}^{-1}\mat{A}\vec{x}=\mat{I}\vec{x}=\vec{x}.}
-\item This matches usual arithmetic, where we have the identity \m{a^{-1} a = 1}.
+\item \m{\mat{I}=\mytwomatrix{1}{0}{0}{1}} is the \m{2\times 2} \myemph{identity matrix}.
+\item We can check that \m{\mat{A}\, \mat{A}^{-1}= \mat{A}^{-1}\, \mat{A}=\mat{I}}.
+\item Also, for any \m{2\times 2} matrix \m{\mat{B}},  \m{\mat{I}\,\mat{B}=\mat{B}\mat{I}=\mat{B}}.
+\item We see that \m{\mat{I}} plays the role of 1 in the usual arithmetic. 
+\item For numbers we are familiar with the corresponding results 
+\m{a^{-1}\dot a = a \dot a^{-1} = 1} and \m{1\times a = a\times 1 = a}.
 \end{myitemize}
-
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{The determinant of a $2\times 2$ matrix}
 \begin{myitemize}
-\item Recall that \m{ \mat{A}^{-1}={\mytwomatrix{a}{b}{c}{d}}^{-1} = \frac{1}{ad-bc}\mytwomatrix{d}{-b}{-c}{a} }
+\item Recall that \m{ \mat{A}^{-1}={\displaystyle \mytwomatrix{a}{b}{c}{d}}^{-1} = \frac{1}{ad-bc}\mytwomatrix{d}{-b}{-c}{a} }
 \item We call \m{ad-bc} the \myemph{determinant} of \m{\mat{A}}, and we write
 \mydisplaymath{\mathrm{det}(A) = ad-bc.}
 \item We can see from the formula for \m{ \mat{A}^{-1}} that the inverse of \m{\mat{A}} exists if and only if \m{ad-bc \neq 0}.
 \end{myitemize}
-\myquestion. 
-What does it mean geometrically for \m{ad-bc = 0}?
+%\myquestion. 
+%What does it mean geometrically for \m{ad-bc = 0}?
 
-\vspace{20mm}
+%\vspace{20mm}
 
-Hint: the slope of the line \m{ax+by=u} is \m{-a/b}, and the slope of \m{cx+dy=v} is \m{-c/d}. 
+%Hint: the slope of the line \m{ax+by=u} is \m{-a/b}, and the slope of \m{cx+dy=v} is \m{-c/d}. 
 
 \end{frame}
 
 <<,echo=F>>=
 set.seed(1)
 @
+
+%\end{document}
 
 \begin{frame}[fragile]
 \frametitle{Finding the matrix inverse and determinant in R}
@@ -899,4 +944,84 @@ round( A_inv %*% A, 3)
 \frametitle{}
 \end{frame}
 
+
+
+%%%%%% KEPT FOR LATER, MAYBE WHEN WE'RE DOING RANK
+
+
+\begin{frame}[fragile]
+\frametitle{Does a system of linear equations have no solution? One solution? Many solutions?}
+\begin{myitemize}
+\item One linear equation in one unknown, \m{ax=u}, has a unique solution unless \m{a=0}.
+\item One linear equation with two unknowns, \m{ax+by=u}, has a solution consisting of all points on a line in the \m{x-y} plane, as long as one of \m{a} and \m{b} is nonzero.
+\item Two linear equations with two unknowns, 
+\altdisplaymath{
+\begin{array}{ccccc}
+ax &+& by &=& u \\
+cx &+& dy &=& v
+\end{array}
+},
+have a unique solution where the lines \m{ax+by=u} and \m{cx+dy=v} intersect, so long as these lines are not parallel.
+\item Three linear equations in two unknowns will not usually have a solution---the three corresponding lines would all have to meet at a common point. 
+\item Can you see the general pattern?
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Does a system of linear equations have no solution? One solution? Many solutions? Continued...}
+\begin{myitemize}
+\item For three unknowns, an equation \m{ax+by+cz=u} corresponds to a plane in three-dimensional \m{(x,y,z)} space.
+\item Three planes will typically intersect at a single point, so three equations in three unknowns will typically have a unique solution.
+\item Two planes that are not parallel will meet along a line, and give a family of solutions.
+\item Four or more planes will typically not all meet at any point.
+\item In higher dimensions, we can't visualize but the pattern remains true.
+\item The general linear system we wrote previously in \myref{\Li} has \m{n} equations with \m{p} unknowns. 
+We expect a unique solution when \m{p=n}, no
+solution when \m{p<n} and a family of solutions when \m{p>n}.
+\end{myitemize}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{Column vectors and row vectors}
+\begin{myitemize}
+\item
+In the matrix times vector multiplication on the previous slide, the vector \m{\vec{x}} is written in a column, as a \m{p\times 1} matrix.
+\item 
+We say that that \m{\vec{x}} is a \myemph{column vector}. We interpret a vector \m{\vec{x}} as a column vectors unless we explicitly say it is a \m{1\times p} \myemph{row vector}. 
+\item
+Similarly, \m{\vec{b}} in the previous slide is a length \m{n} column vector.
+\item
+R matches our notation: a vector in R is not a matrix, but is interpreted as a column vector for matrix times vector multiplication. R uses \code{\%*\%} to denote matrix multiplication.
+\end{myitemize}
+\begin{columns}[T] 
+\begin{column}{0.22\textwidth}
+<<>>=
+x <- c(1,2)
+is(x,"matrix")
+is(x,"vector")
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+<<>>=
+A<-matrix(
+ c(1,0,0,-1),nrow=2)
+A %*% x
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+<<>>=
+xx<-matrix(x,nrow=2)
+
+A %*% xx
+@
+\end{column}
+\end{columns}
+
+ 
+\end{frame}
 
