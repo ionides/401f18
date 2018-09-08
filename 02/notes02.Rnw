@@ -211,7 +211,7 @@ Blackboard bold capital letters, \m{\mat{A}}, \m{\mat{B}}, \m{\mat{X}}, \m{\mat{
 \item
 We are reserving plain capital letters for random variables.
 \item We say \m{\mat{A}=[a_{ij}]_{n\times p}} as an abbreviation for writing the full \m{n\times p} matrix.
-\item We write \m{\underset{n\times p}{\mat{A}}} to emphasize the dimension. 
+\item We write \m{\underset{n\times p}{\mat{A}}} when we want to emphasize the dimension. 
 \item Keeping track of matrix dimensions can be helpful!
 \end{myitemize}
 \end{frame}
@@ -324,7 +324,7 @@ a_{21}b_{11}+a_{22}b_{21} & a_{21}b_{12}+a_{22}b_{22} \\
 
 
 \begin{frame}[fragile]
-\frametitle{Let's practice multiplying $2\times 2$ matrices}
+\frametitle{Practice multiplying $2\times 2$ matrices}
 \myquestion. Evaluate the matrix product
 \mydisplaymath{
 \left[
@@ -468,80 +468,10 @@ b_1
 \end{frame}
 
 
-%\end{document}
-
-
-%\end{document}
-
-
 \begin{frame}[fragile]
-\frametitle{Using matrices to solve a system of linear equations}
+\frametitle{Multiplication and addition of a matrix and a scalar}
 \begin{myitemize}
-\item
-We've seen how matrices can represent a system of linear equations as \m{\mat{A}\vec{x}=\vec{b}}.
-\item
-For a basic linear algebra equation \m{ax=b} we would divide through by \m{a}, or equivalently multiply through by \m{a^{-1}}, to find \m{x=a^{-1}b} when \m{a\neq 0}.
-\item Is there a \myemph{matrix inverse} \m{\mat{A}^{-1}} such that \m{\vec{x}=\mat{A}^{-1}\vec{b}} solves the system of linear equations \m{\mat{A}\vec{x}=\vec{b}}?
-\item We will see that there is an inverse \m{\mat{A}^{-1}} when the system of linear equations has a unique solution. Since software can compute this inverse, we can solve systems of linear equations easily. 
-This is useful in statistics for fitting linear models to datasets.
-Understanding when this inverse exists, and what to do when it doesn't, will help us develop appropriate models for data analysis.
-\item From the previous slide, we can only expect \m{\mat{A}^{-1}} to exist when \m{p=n}, in which case \m{\mat{A}} is called a \myemph{square matrix}.
-\end{myitemize}
-
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{A matrix product example}
-
-\myquestion.
-Let \m{\mat{U}=\left[\begin{array}{cc} 2& 2 \\ 1 & -1 \end{array}\right]} and
-\m{\mat{V}=\left[\begin{array}{cc} 3& 1 \\ 1 & 2 \end{array}\right]}. Calculate \m{\mat{U}\mat{V}}.
-
-\vspace{30mm}
-
-We can check our working in R. 
-\begin{columns}[T] 
-\begin{column}{0.3\textwidth}
-<<>>=
-U <- matrix(
-   c(2,1,2,-1),2)
-U
-@
-\end{column}
-\begin{column}{0.3\textwidth}
-<<>>=
-V <- matrix(
-   c(3,1,1,2),2)
-V
-@
-\end{column}
-\begin{column}{0.3\textwidth}
-<<>>=
-U %*% V 
-
-@
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Addition of matrices and multiplication by a scalar}
-\begin{myitemize}
-\item If \m{\mat{A}=[a_{ij}]_{p\times q}} and \m{\mat{B}=[b_{ij}]_{p\times q}} then the \myemph{matrix sum} \m{\mat{A}+\mat{B}} is computed elementwise, just like for vectors:
-{\small
-\mydisplaymath{
-\mysmallmatrix{a}{p}{q}+\mysmallmatrix{b}{p}{q} =
-\left[
-\begin{array}{ccc}
-a_{11}+b_{11} & \dots & a_{1q}+b_{1q} \\
-\vdots & \ddots & \vdots \\
-a_{p1}+b_{p1} & \dots & a_{pq}+b_{pq} 
-\end{array}
-\right]
-}
-}
-\item \myemph{Scalar times matrix} multiplication is also computed elementwise:
+\item \myemph{Scalar times matrix} multiplication is computed elementwise:
 {\small
 \mydisplaymath{
 s\mat{A}=s
@@ -555,51 +485,31 @@ s\, a_{p1} & \dots & s\, a_{pq}
 \right]
 }
 }
-\item Scalar times matrix multiplication does commute: \m{s\mat{A} = \mat{A}s}.
-\item Matrix and scalar multiplication both have a \myemph{distributive} property: 
-\m{\mat{U}(\mat{V}+\mat{W})=\mat{U}\mat{V} + \mat{U}\mat{W}}, and
-\m{s(\mat{V}+\mat{W})=s\mat{V} + s\mat{W}}, 
-\end{myitemize}
+%\item Scalar times matrix multiplication does commute: \m{s\mat{A} = \mat{A}s}.
+%\item Matrix and scalar multiplication both have a \myemph{distributive} property:
 
-\end{frame}
+\item R allows addition of a matrix and a scalar, with the scalar being added to each element of the matrix.
 
-
-\begin{frame}[fragile]
-\frametitle{The identity matrix}
-
-\vspace{-2mm}
-
-\begin{myitemize}
-\item The \m{p\times p} \myemph{identity matrix}, \m{\mat{I}_p}, is a square matrix with 1's on the diagonal and 0's everywhere else: 
+\item To write this in math, we need to define the \myemph{unit matrix}
 \mydisplaymath{
-  \mat{I}_p =  \left[
-\begin{array}{ccccc}
-1 & 0 & \dots & 0 \\
-0 & 1 & \dots & 0 \\
-\vdots & \vdots & \ddots & \vdots \\
-0 & 0 &  \dots & 1 
+\underset{n\times p}{\mat{1}}= 
+\left[
+\begin{array}{cccc}
+1 & 1 & \dots & 1 \\
+1 & 1 & \dots & 1 \\
+\vdots &        &       & \vdots  \\
+1 & 1 & \dots & 1
 \end{array}
 \right]
 }
-\item Check that for any \m{p\times p} matrix \m{\mat{A}}, we have \m{\mat{I}_p\mat{A}=\mat{A}\mat{I}_p=\mat{A}}. Also, for any vector \m{\vec{v}\in \Rspace^p} we have \m{\mat{I}_p\vec{v}=\vec{v}}.
-\item We can often write \m{\mat{I}} in place of \m{\mat{I}_p} since the dimension of \m{\mat{I}} is always evident from the context. 
+\item \m{\mat{A}+s\mat{1}} matches addition of a scalar and matrix in R.
 \end{myitemize}
 
-\vspace{-2mm}
-
-\myquestion. 
-Suppose \m{\mat{B}} is a \m{n\times q} matrix and \m{\mat{I}} is an identity matrix.
-
-\vspace{-2mm}
-
-(i) If we write \m{\mat{B}\mat{I}}, what must be the dimension of \m{\mat{I}}? Find a simplification of \m{\mat{B}\mat{I}}.\\
-
-\vspace{5mm}
-
-(ii) How about if we write \m{\mat{I}\mat{B}}?
-
-\vspace{5mm}
 \end{frame}
+
+
+%\end{document}
+
 
 %\end{document}
 
@@ -611,11 +521,12 @@ Suppose \m{\mat{B}} is a \m{n\times q} matrix and \m{\mat{I}} is an identity mat
 \end{myitemize}
 \myquestion. Compute the matrix product \m{\mat{A}\,\mat{A}^{-1}}
 
-\vspace{25mm}
+\vspace{35mm}
 
 \begin{myitemize}
 \item \m{\mat{A}^{-1}} is called the \myemph{inverse} of \m{\mat{A}}.
 
+\item \m{ad-bc} is called the \myemph{determinant} of \m{\mat{A}}. The inverse only exists if \m{ad-bc \neq 0}.
 
 \end{myitemize}
 
@@ -626,7 +537,8 @@ Suppose \m{\mat{B}} is a \m{n\times q} matrix and \m{\mat{I}} is an identity mat
 \begin{frame} 
 \frametitle{The identity matrix}
 \begin{myitemize}
-\item \m{\mat{I}=\mytwomatrix{1}{0}{0}{1}} is the \m{2\times 2} \myemph{identity matrix}.
+\item \m{\underset{2\times 2}{\mat{I}}
+=\mytwomatrix{1}{0}{0}{1}} is the \m{2\times 2} \myemph{identity matrix}.
 \item We can check that \m{\mat{A}\, \mat{A}^{-1}= \mat{A}^{-1}\, \mat{A}=\mat{I}}.
 \item Also, for any \m{2\times 2} matrix \m{\mat{B}},  \m{\mat{I}\,\mat{B}=\mat{B}\mat{I}=\mat{B}}.
 \item We see that \m{\mat{I}} plays the role of 1 in the usual arithmetic. 
@@ -635,22 +547,6 @@ Suppose \m{\mat{B}} is a \m{n\times q} matrix and \m{\mat{I}} is an identity mat
 \end{myitemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{The determinant of a $2\times 2$ matrix}
-\begin{myitemize}
-\item Recall that \m{ \mat{A}^{-1}={\displaystyle \mytwomatrix{a}{b}{c}{d}}^{-1} = \frac{1}{ad-bc}\mytwomatrix{d}{-b}{-c}{a} }
-\item We call \m{ad-bc} the \myemph{determinant} of \m{\mat{A}}, and we write
-\mydisplaymath{\mathrm{det}(A) = ad-bc.}
-\item We can see from the formula for \m{ \mat{A}^{-1}} that the inverse of \m{\mat{A}} exists if and only if \m{ad-bc \neq 0}.
-\end{myitemize}
-%\myquestion. 
-%What does it mean geometrically for \m{ad-bc = 0}?
-
-%\vspace{20mm}
-
-%Hint: the slope of the line \m{ax+by=u} is \m{-a/b}, and the slope of \m{cx+dy=v} is \m{-c/d}. 
-
-\end{frame}
 
 <<,echo=F>>=
 set.seed(1)
@@ -664,8 +560,7 @@ set.seed(1)
 \vspace{-2mm}
 
 \begin{myitemize}
-\item The R function \code{det()} finds the determinant of a square matrix, and \code{solve()} finds
- the inverse if it exists. 
+\item The R function \code{det()} finds the determinant of a square matrix, and \code{solve()} finds the inverse if it exists. 
 \end{myitemize}
 
 \vspace{-2mm}
@@ -709,6 +604,25 @@ Why is \url{A %*% A_inv} not exactly equal to the identity matrix?
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Using matrices to solve a system of linear equations}
+\begin{myitemize}
+\item
+We've seen how matrices can represent a system of linear equations as \m{\mat{A}\vec{x}=\vec{b}}.
+\item
+For a basic linear algebra equation \m{ax=b} we would divide through by \m{a}, or equivalently multiply through by \m{a^{-1}}, to find \m{x=a^{-1}b} when \m{a\neq 0}.
+\item We can use the \myemph{matrix inverse} \m{\mat{A}^{-1}} in the same way. Multiplying both sides of \m{\mat{A}\vec{x}=\vec{b}} by \m{\mat{A}^{-1}}, we get
+\mydisplaymath{
+%\begin{array}{ccc}
+\mat{A}^{-1}\mat{A}\vec{x} = \mat{A}^{-1} \vec{b}
+}
+\item Since \m{\mat{A}^{-1}\mat{A}=\vec{I}} and \m{\mat{I}\vec{x}=\vec{x}}, we get
+\mydisplaymath{
+\vec{x}= \mat{A}^{-1} \vec{b}
+}
+\end{myitemize}
+
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Using R to solve a set of linear equations}
@@ -832,107 +746,88 @@ If \m{\mat{A}} has dimension \m{n\times p}, then \m{\mat{A}^\transpose} is \m{p\
 \end{myitemize}
 \end{frame}
 
+
+
+\begin{frame}[fragile]
+\frametitle{The identity matrix}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item The \m{p\times p} \myemph{identity matrix}, \m{\mat{I}_p}, is a square matrix with 1's on the diagonal and 0's everywhere else: 
+\mydisplaymath{
+  \mat{I}_p =  \left[
+\begin{array}{ccccc}
+1 & 0 & \dots & 0 \\
+0 & 1 & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 &  \dots & 1 
+\end{array}
+\right]
+}
+\item Check that for any \m{p\times p} matrix \m{\mat{A}}, we have \m{\mat{I}_p\mat{A}=\mat{A}\mat{I}_p=\mat{A}}. Also, for any vector \m{\vec{v}\in \Rspace^p} we have \m{\mat{I}_p\vec{v}=\vec{v}}.
+\item We can often write \m{\mat{I}} in place of \m{\mat{I}_p} since the dimension of \m{\mat{I}} is always evident from the context. 
+\end{myitemize}
+
+\vspace{-2mm}
+
+\myquestion. 
+Suppose \m{\mat{B}} is a \m{n\times q} matrix and \m{\mat{I}} is an identity matrix.
+
+\vspace{-2mm}
+
+(i) If we write \m{\mat{B}\mat{I}}, what must be the dimension of \m{\mat{I}}? Find a simplification of \m{\mat{B}\mat{I}}.\\
+
+\vspace{5mm}
+
+(ii) How about if we write \m{\mat{I}\mat{B}}?
+
+\vspace{5mm}
+\end{frame}
+
+%\end{document}
+
 \begin{frame}[fragile]
 \frametitle{More properties of matrices}
 \begin{myitemize}
-\item The following material is not essential for this course.
-However, it may help reinforce understanding to see more ways in which matrix addition and multiplication behave similarly, or differently, from usual arithmetic.
+\item The main difference between matrix algebra and the usual numeric algebra is that matrix multiplication does not commute (\m{\mat{A}\,\mat{B} \neq \mat{B}\, \mat{A}}).
+\item Many other properties for matrices are the same as for numbers.
+\item Optional exercise: set up R examples to check the following.
 \end{myitemize}
-\myemph{Associative property}. We are used to the associative property of addition and multiplication for numbers: \m{a+(b+c)=(a+b)+c} and \m{a\times(b\times c) = (a\times b)\times c}. 
-You can check that matrix addition and multiplication also have the associative property: for matrices of appropriate size,
-\m{\mat{A}+(\mat{B}+\mat{C})=(\mat{A}+\mat{B})+\mat{C}} and \m{\mat{A}(\mat{B}\, \mat{C}) = (\mat{A}\, \mat{B})\mat{C}}.
 
-\myemph{Inverse of a product}. For square invertible matrices \m{\mat{A}} and \m{\mat{B}}, we can check that \m{(\mat{A}\mat{B})^{-1} = \mat{B}^{-1}\mat{A}^{-1}}. The change of order may seem weird.
-To demonstrate that this inverse works correctly,
 \mydisplaymath{
-(\mat{A}\, \mat{B})^{-1}(\mat{A}\, \mat{B}) = \mat{B}^{-1}\mat{A}^{-1}\mat{A}\, \mat{B} = \mat{B}^{-1}\mat{I}\, \mat{B} = \mat{B}^{-1}\mat{B} = \mat{I}.
+\begin{array}{rclrcl}
+(\mat{A}\mat{B})\mat{C} &=& \mat{A}(\mat{B}\mat{C}) \hspace{10mm} &
+(\mat{A}+\mat{B})+\mat{C} &=& \mat{A}+(\mat{B}+\mat{C})
+\\
+\mat{A}(\mat{B}+\mat{C}) &=& \mat{A}\,\mat{B} + \mat{A}\,\mat{C} &
+(\mat{A}+\mat{B})^\transpose &=& \mat{A}^\transpose + \mat{B}^\transpose
+\\
+\mat{A}\,\mat{A}^{-1} = \mat{A}^{-1}\,\mat{A} &=& \mat{I}
+&&
+\end{array}
 }
-Note that we have repeatedly used the associative property of matrix multiplication, and we have been careful not to accidentally commute (recall that, in general, \m{\mat{C}\, \mat{D} \neq \mat{D}\, \mat{C}}).
 
 \end{frame}
 
-
-\begin{frame}[fragile]
-\frametitle{More properties of matrices, continued}
-\myemph{Transpose of a sum}. Convince yourself that \m{(\mat{A}+\mat{B})^\transpose = \mat{A}^\transpose + \mat{B}^\transpose}. If you like, calculate an example in R to check.
-
-\myemph{Transpose of a product}. The rule is
-\m{
-(\mat{A}\, \mat{B})^\transpose = \mat{B}^\transpose \mat{A}^\transpose
-}.
-
+\begin{frame}
+\frametitle{More properties of matrices}
+\begin{myitemize}
+\item The inverse of a product is the product of the inverses, but with the order reversed.
+\mydisplaymath{
+\begin{array}{rclrcl}
+(\mat{A}\,\mat{B})^{-1} &=& \mat{B}^{-1}\mat{A}^{-1} &
+(\mat{A}\,\mat{B}\,\mat{C})^{-1} &=& \mat{C}^{-1} \mat{B}^{-1} \mat{A}^{-1}
+\\
+(\mat{A}\,\mat{B})^{\transpose} &=& \mat{B}^{\transpose}\mat{A}^{\transpose} &
+(\mat{A}\,\mat{B}\,\mat{C})^{\transpose} &=& \mat{C}^{\transpose} \mat{B}^{\transpose} \mat{A}^{\transpose}
+\end{array}
+}
+\end{myitemize}
 \myquestion. 
 Suppose that \m{\mat{A}} has dimension \m{n\times p} and \m{\mat{B}} is \m{p\times q}. Check that this formula for \m{(\mat{A}\, \mat{B})^\transpose} has the right dimension.
 
 \vspace{10mm}
-
-\myexample:
-<<>>= 
-A <- matrix(1:3,4,3); B <- matrix(1:6,3,2)
-@
-
-\vspace{3mm}
-
-\begin{columns}[T] 
-\begin{column}{0.45\textwidth}
-<<>>= 
-t(A %*% B)
-@
-\end{column}
-\begin{column}{0.45\textwidth}
-<<>>= 
-t(B) %*% t(A)
-@
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{More properties of matrices, continued}
-
-{\bf A matrix commutes with its inverse}: \m{\mat{A}^{-1}\mat{A} = \mat{A}\mat{A}^{-1} = \mat{I}}.
-
-\begin{myitemize}
-\item Recall that, in general, matrix multiplication does not commute \m{(\mat{A}\mat{B}\neq \mat{B}\mat{A}}).
-
-\item We can check, using R, that a matrix does commute with its inverse.
-
-\end{myitemize}
-
-<<,echo=F>>=
-set.seed(2)
-@
-
-\vspace{-2mm}
-
-\begin{columns}[T] 
-\begin{column}{0.4\textwidth}
-<<>>= 
-A <- matrix(runif(9),3,3)
-@
-\end{column}
-\begin{column}{0.4\textwidth}
-<<>>= 
-A_inv <- solve(A)
-@
-\end{column}
-\end{columns}
-
-\vspace{5mm}
-
-\begin{columns}[T] 
-\begin{column}{0.4\textwidth}
-<<>>= 
-round( A %*% A_inv, 3)
-@
-\end{column}
-\begin{column}{0.4\textwidth}
-<<>>= 
-round( A_inv %*% A, 3)
-@
-\end{column}
-\end{columns}
 
 \end{frame}
 
@@ -986,42 +881,40 @@ solution when \m{p<n} and a family of solutions when \m{p>n}.
 
 
 
-\begin{frame}[fragile]
-\frametitle{Column vectors and row vectors}
-\begin{myitemize}
-\item
-In the matrix times vector multiplication on the previous slide, the vector \m{\vec{x}} is written in a column, as a \m{p\times 1} matrix.
-\item 
-We say that that \m{\vec{x}} is a \myemph{column vector}. We interpret a vector \m{\vec{x}} as a column vectors unless we explicitly say it is a \m{1\times p} \myemph{row vector}. 
-\item
-Similarly, \m{\vec{b}} in the previous slide is a length \m{n} column vector.
-\item
-R matches our notation: a vector in R is not a matrix, but is interpreted as a column vector for matrix times vector multiplication. R uses \code{\%*\%} to denote matrix multiplication.
-\end{myitemize}
-\begin{columns}[T] 
-\begin{column}{0.22\textwidth}
-<<>>=
-x <- c(1,2)
-is(x,"matrix")
-is(x,"vector")
-@
-\end{column}
-\begin{column}{0.3\textwidth}
-<<>>=
-A<-matrix(
- c(1,0,0,-1),nrow=2)
-A %*% x
-@
-\end{column}
-\begin{column}{0.3\textwidth}
-<<>>=
-xx<-matrix(x,nrow=2)
 
-A %*% xx
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A matrix product example}
+
+\myquestion.
+Let \m{\mat{U}=\left[\begin{array}{cc} 2& 2 \\ 1 & -1 \end{array}\right]} and
+\m{\mat{V}=\left[\begin{array}{cc} 3& 1 \\ 1 & 2 \end{array}\right]}. Calculate \m{\mat{U}\mat{V}}.
+
+\vspace{30mm}
+
+We can check our working in R. 
+\begin{columns}[T] 
+\begin{column}{0.3\textwidth}
+<<>>=
+U <- matrix(
+   c(2,1,2,-1),2)
+U
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+<<>>=
+V <- matrix(
+   c(3,1,1,2),2)
+V
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+<<>>=
+U %*% V 
+
 @
 \end{column}
 \end{columns}
-
- 
 \end{frame}
-
