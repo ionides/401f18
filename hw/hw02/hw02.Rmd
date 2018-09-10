@@ -16,7 +16,7 @@ csl: ecology.csl
 
 ### More swirl lessons
 
-Continuing from Homework 1, complete the following swirl modules: ```Lesson 5: Missing Values```, ```Lesson 6: Subsetting Vectors```, ```Lesson 7: Matrices and Data Frames```, ```Lesson 9: Functions```. We will not need the material in ```Lesson 8: Logic```, but you can do this too if you like. You will have a chance to ask swirl questions in lab if difficulties arise.
+Continuing from Homework 1, complete the following swirl modules: ```Lesson 5: Missing Values```, ```Lesson 6: Subsetting Vectors```, ```Lesson 7: Matrices and Data Frames```, ```Lesson 9: Functions```. We will not need the material in ```Lesson 8: Logic```, but you can do this too if you like. You will have a chance to ask swirl questions in lab if difficulties arise. In this class, we will emphasize using existing functions rather than writing our own, but it will help you to understand how new functions are made.
 
 **Q1**. Write a brief comment on what you did with swirl, which tutorials you successfully completed, and the techical or conceptual obstacles (if any) that you encountered and (hopefully) overcame. This could be as little as a single sentence.
 
@@ -24,10 +24,11 @@ Continuing from Homework 1, complete the following swirl modules: ```Lesson 5: M
 
 ### Matrix exercises
 
-It is good to do at least one example of each of the fundamental matrix operations by hand, even though in practice we almost always use a computer. For the homework, you are required to carry out and check exactly one example of each operation, but the code provided can be used to make more examples until you are comfortable with carrying out all of them.
+It is good to do at least one example of each of the fundamental matrix operations by hand, even though in practice we almost always use a computer. For the homework, you are required to carry out and check exactly one example of each operation. The code provided can be used to make more examples by changing the value of `set.seed` used to generate the random numbers. (Computers use a random number generator that is actually a deterministic algorithm which produces a long sequence of numbers that behave much like random numbers. The seed tells the algorithm where to start.) 
 
 We will generates exercises using the following function:
 ```{r randomMatrix}
+# randomMatrix() generates a p x q matrix with elements chosen randomly from the given values
 randomMatrix <- function(p,q,values=-4:4){
    matrix(sample(values,size=p*q,replace=TRUE),p,q)
 }
@@ -38,6 +39,8 @@ Let's use ```randomMatrix``` to produce two $2\times 2$ matrices $\mat{A}$ and $
 set.seed(5)
 A <- randomMatrix(2,2)
 B <- randomMatrix(2,2)
+```
+```{r showAB}
 A
 B
 ```
@@ -45,6 +48,7 @@ B
 **Q2. Matrix addition**.  Compute by hand the matrix sum
 ```{r sum,echo=FALSE,results='asis',cache=FALSE}
 ## uses mat2tex from https://github.com/markheckmann/mat2tex
+## devtools:install_github("markheckmann/mat2tex")
 library(mat2tex)
 xx("\\mat{A}+\\mat{B} = ",A,"+",B,digits=0,mtype="bmatrix")
 ```
@@ -60,7 +64,7 @@ Then check your calculation using R. Report your answer and your R code.
 ```{r AB_prod,echo=FALSE,results='asis'}
 xx("\\mat{A}\\mat{B} = ",A,B,digits=0,mtype="bmatrix")
 ```
-Then check your calculation using R. 
+Then check your calculation using R. Report your answer and your R code.  Also report whether you successfully found the answer calculating my hand.
 
 **Q5. Multiplying two rectangular matrices**. Compute by hand the product $\mat{C}\mat{D}$ where 
 $\mat{C}$ and $\mat{D}$ are given by
@@ -69,22 +73,21 @@ set.seed(7)
 C <- randomMatrix(2,3)
 D <- randomMatrix(3,2)
 ```
-Then check your calculation using R. Report your answer and your R code. Confirm whether you can also get the answer calculating my hand.
+Then check your calculation using R. Report your answer and your R code. Also report whether you successfully found the answer calculating my hand.
 
 **Q6. Inverting a $2\times 2$ matrix**. Compute by hand the matrix inverse
 ```{r inverse,echo=FALSE,results='asis'}
 xx("\\mat{A}^{-1} = ",A,"^{-1}", digits=0,mtype="bmatrix")
 ```
-Then check your calculation using R. Report your answer and your R code. Confirm whether you can also get the answer calculating my hand.
+Then check your calculation using R. Report your answer and your R code. Also report whether you successfully found the answer calculating my hand.
 
-
-Generate more examples using ```randomMatrix()``` until you are confident about inverting $2\times 2$ matrices by hand.
+Generate more examples using ```randomMatrix(2,2)``` until you are confident about inverting $2\times 2$ matrices by hand.
 
 **Q7. Transposing a matrix**. Compute by hand the transpose of $\mat{C}$,
 ```{r transpose,echo=FALSE,results='asis'}
 xx("\\mat{C}^{\\transpose} = ",C,"^{T}", digits=0,mtype="bmatrix")
 ```
-Then check your calculation using R. Report your answer and your R code. Confirm whether you can also get the answer calculating my hand.
+Then check your calculation using R. Report your answer and your R code. Also report whether you successfully found the answer calculating my hand.
 
 ```{r linear_system,echo=F,results=F}
 set.seed(8)
@@ -102,7 +105,7 @@ $$\begin{array}{ccccccccc}
 `r my_nonzero(L[3,1],"w")` &`r my_sign(L[3,2])`& `r my_abs(L[3,2],"x")` &`r my_sign(L[3,3])`& `r my_abs(L[3,3],"y")` &`r my_sign(L[3,4])` & `r my_abs(L[3,4],"z")` &=& `r b[3,1]` \\
 `r my_nonzero(L[4,1],"w")` &`r my_sign(L[4,2])`& `r my_abs(L[4,2],"x")` &`r my_sign(L[4,3])`& `r my_abs(L[4,3],"y")` &`r my_sign(L[4,4])` & `r my_abs(L[4,4],"z")` &=& `r b[4,1]`
 \end{array}$$
-Report your answer and your R code. You are not required to solve this by hand.
+Report the solution (to 3 significant figures)  and your R code. You are not required to solve this by hand.
 
 **As usual, you also need to make a _Sources_ statement, which will let the grader know whether you completed the homework based on class and lab materials alone or whether you made use of additional resources.**
 
