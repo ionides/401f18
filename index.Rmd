@@ -19,9 +19,9 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 
 1. [Getting started](01/notes01.pdf). [(R code)](01/notes01.R).
 
-<!--
-2. [Linear algebra for applied statistics](02/notes02.pdf). [(R code)](02/notes02.R).
+2. [Matrices for applied statistics](02/notes02.pdf). [(R code)](02/notes02.R).
 
+<!--
 3. [Fitting a linear model to a sample by least squares](03/notes03.pdf). [(R code)](03/notes03.R).
 
 4. [Toward a population version of the linear model](04/notes04.pdf).

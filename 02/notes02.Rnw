@@ -4,12 +4,15 @@
 \input{../header.tex}
 \newcommand\CHAPTER{2}
 % \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
- \newcommand\answer[2]{{\color{blue}{#2}}} % to show answers
-% \newcommand\answer[2]{#1} % to show blank space
+% \newcommand\answer[2]{{\color{blue}{#2}}} % to show answers
+ \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
  ANS=FALSE
 @
+
+\usepackage{bbm} % for blackboard bold 1
+\newcommand\matOne{\mathbbm{1}}
 
 \newcommand\Li{\mathrm{(L1)}}
 \newcommand\Lii{\mathrm{(L2)}}
@@ -70,12 +73,12 @@ n <- length(e0)
 @
 
 \begin{frame}
-\frametitle{\CHAPTER. Linear algebra for applied statistics}
+\frametitle{\CHAPTER. Matrices for applied statistics}
 
 \vspace{-2mm}
 
 \begin{myitemize}
-\item Linear algebra is the math of vectors and matrices.
+\item Math for matrices and vectors is called linear algebra.
 \item In statistics, the main purpose of linear algebra is to organize data and write down the manipulations we want to do to them.
 \item A \myemph{vector} of length \mymath{n} is also called an \mymath{n}-\myemph{tuple} or a \myemph{sequence} of length \mymath{n}. 
 \item We can suppose that each data point is a \myemph{real number}. We write \mymath{\Rspace} for the set of real numbers, and \mymath{\Rspace^n} for the set of vectors of \mymath{n} real numbers.
@@ -170,6 +173,9 @@ We have seen in Chapter 1 that R has vectors.
 An R vector of length 1 is a scalar, and we have seen that R follows the usual mathematical rules of vector addition and multiplication by a scalar.
 \item R also allows adding a scalar to a vector
 \end{myitemize}
+
+\vspace{-3mm}
+
 \begin{columns}[T]
 \begin{column}{0.3\textwidth}
 <<>>=
@@ -184,6 +190,9 @@ x+2
 \begin{column}{0.3\textwidth}
 \end{column}
 \end{columns}
+
+\vspace{2mm}
+
 \begin{myitemize}
 \item Mathematically, adding scalars to vectors is \myemph{not allowed}. Instead, we define the \myemph{vector of ones}, \m{\vec{1}=(1,1,\dots,1)}, and write \m{\vec{x}+ 2\times \vec{1}}.
 \end{myitemize}
@@ -203,6 +212,9 @@ x+2
 \begin{myitemize}
 \item Matrices let us store and manipulate \m{p} quantitites for each of \m{n} units.
 \item An \m{n\times p} matrix \m{\mat{A}} is a numerical array with \m{n} rows and \m{p} columns,
+
+\vspace{1mm}
+
 \altdisplaymath{
 \mat{A} = \mymatrix{a}{n}{p}
 }
@@ -316,7 +328,7 @@ a_{21}b_{11}+a_{22}b_{21} & a_{21}b_{12}+a_{22}b_{22} \\
 \end{array}
 \right]
 }
-\item In red: notice how the \m{(1,2)} entry of \m{\mat{A}\, \mat{B}} comes from \myemph{sliding} row 1 of \m{\mat{A}} down column 2 of \m{\mat{B}} and adding corresponding terms.
+\item In red: notice how the \m{(1,2)} entry of \m{\mat{A}\, \mat{B}} comes from \myemph{sliding} row 1 of \m{\mat{A}} down column 2 of \m{\mat{B}} and adding products of corresponding pairs.
 
 \end{myitemize} 
 
@@ -461,8 +473,6 @@ b_1
 
 \item In red: the first entry in the matrix product \m{\mat{A}\vec{x}} comes from sliding the first row of \m{\mat{A}} down the column of values in \m{\vec{x}}, multiplying each pair of numbers, and adding up these products. This matches the left hand side of the first line of \m{\Li}.
 
-%\item Matrices are good for using computers to solve systems of linear equations.
-
 \end{myitemize}
 
 \end{frame}
@@ -485,14 +495,12 @@ s\, a_{p1} & \dots & s\, a_{pq}
 \right]
 }
 }
-%\item Scalar times matrix multiplication does commute: \m{s\mat{A} = \mat{A}s}.
-%\item Matrix and scalar multiplication both have a \myemph{distributive} property:
 
 \item R allows addition of a matrix and a scalar, with the scalar being added to each element of the matrix.
 
 \item To write this in math, we need to define the \myemph{unit matrix}
 \mydisplaymath{
-\underset{n\times p}{\mat{1}}= 
+\underset{n\times p}{\matOne}= 
 \left[
 \begin{array}{cccc}
 1 & 1 & \dots & 1 \\
@@ -502,7 +510,7 @@ s\, a_{p1} & \dots & s\, a_{pq}
 \end{array}
 \right]
 }
-\item \m{\mat{A}+s\mat{1}} matches addition of a scalar and matrix in R.
+\item \m{\mat{A}+s\matOne} matches addition of a scalar and matrix in R.
 \end{myitemize}
 
 \end{frame}
@@ -539,11 +547,13 @@ s\, a_{p1} & \dots & s\, a_{pq}
 \begin{myitemize}
 \item \m{\underset{2\times 2}{\mat{I}}
 =\mytwomatrix{1}{0}{0}{1}} is the \m{2\times 2} \myemph{identity matrix}.
-\item We can check that \m{\mat{A}\, \mat{A}^{-1}= \mat{A}^{-1}\, \mat{A}=\mat{I}}.
-\item Also, for any \m{2\times 2} matrix \m{\mat{B}},  \m{\mat{I}\,\mat{B}=\mat{B}\mat{I}=\mat{B}}.
+\item We can check that
+\mydisplaymath{\mat{A}\, \mat{A}^{-1}= \mat{A}^{-1}\, \mat{A}=\mat{I}}
+\item Also, for any \m{2\times 2} matrix \m{\mat{B}},
+\mydisplaymath{\mat{I}\,\mat{B}=\mat{B}\,\mat{I}=\mat{B}}
 \item We see that \m{\mat{I}} plays the role of 1 in the usual arithmetic. 
 \item For numbers we are familiar with the corresponding results 
-\m{a^{-1}\dot a = a \dot a^{-1} = 1} and \m{1\times a = a\times 1 = a}.
+\m{a^{-1}\times a = a \times a^{-1} = 1} and \m{1\times a = a\times 1 = a}.
 \end{myitemize}
 \end{frame}
 
@@ -563,7 +573,7 @@ set.seed(1)
 \item The R function \code{det()} finds the determinant of a square matrix, and \code{solve()} finds the inverse if it exists. 
 \end{myitemize}
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 \begin{columns}[T] 
 \begin{column}{0.5\textwidth}
@@ -580,7 +590,7 @@ round(A_inv,2)
 \end{column}
 \end{columns}
 
-\vspace{5mm}
+\vspace{2mm}
 
 \begin{columns}[T] 
 \begin{column}{0.5\textwidth}
@@ -595,11 +605,13 @@ det(A) ; det(A_inv)
 \end{column}
 \end{columns}
 
-\vspace{3mm}
+\vspace{1.5mm}
 
-\myquestion. 
-Why is \url{A %*% A_inv} not exactly equal to the identity matrix?
- 
+\begin{myitemize}
+\item
+Due to \myemph{numerical error}, \url{A %*% A_inv} is not exactly equal to \m{\mat{I}}.
+\end{myitemize}
+
 \vspace{5mm}
 
 \end{frame}
@@ -672,9 +684,15 @@ z
 
 \begin{frame}[fragile]
 \frametitle{Using R to solve a set of linear equations, continued...}
+
+\vspace{-2mm}
+
 2. Enter the matrix \m{\mat{A}} and vector \m{\vec{b}} into R.
-\begin{columns}[T] 
-\begin{column}{0.5\textwidth}
+%\begin{columns}[T] 
+%\begin{column}{0.5\textwidth}
+
+\vspace{-2mm}
+
 <<>>=
 A <- rbind( c( 1, 2,-3, 4),
             c( 2,-2, 1, 1),
@@ -682,13 +700,9 @@ A <- rbind( c( 1, 2,-3, 4),
             c( 3,-1,-8, 2))
 b <- c(0,1,2,3)
 @
-\end{column}
-\begin{column}{0.5\textwidth}
 
-\end{column}
-\end{columns}
 
-\vspace{2mm}
+\vspace{1mm}
 
 3. Compute the matrix solution to the linear system, \m{\vec{x}=\mat{A}^{-1}\vec{b}}.
 
@@ -697,6 +711,9 @@ b <- c(0,1,2,3)
 
 \myquestion.
 Which of these correctly computes \m{\vec{x}} and why?
+
+\vspace{-3mm}
+
 \begin{columns}[T] 
 \begin{column}{0.4\textwidth}
 <<>>=
@@ -710,6 +727,7 @@ round(solve(A) * b,2)
 \end{column}
 \end{columns}
 
+\answer{\vspace{10mm}}{The left hand version uses matrix multiplication, which is correct. The right does elementwise multiplication.}
 \end{frame}
 
 
@@ -747,79 +765,59 @@ If \m{\mat{A}} has dimension \m{n\times p}, then \m{\mat{A}^\transpose} is \m{p\
 \end{frame}
 
 
-
 \begin{frame}[fragile]
-\frametitle{The identity matrix}
-
-\vspace{-2mm}
-
+\frametitle{Some properties of matrices}
 \begin{myitemize}
-\item The \m{p\times p} \myemph{identity matrix}, \m{\mat{I}_p}, is a square matrix with 1's on the diagonal and 0's everywhere else: 
-\mydisplaymath{
-  \mat{I}_p =  \left[
-\begin{array}{ccccc}
-1 & 0 & \dots & 0 \\
-0 & 1 & \dots & 0 \\
-\vdots & \vdots & \ddots & \vdots \\
-0 & 0 &  \dots & 1 
-\end{array}
-\right]
-}
-\item Check that for any \m{p\times p} matrix \m{\mat{A}}, we have \m{\mat{I}_p\mat{A}=\mat{A}\mat{I}_p=\mat{A}}. Also, for any vector \m{\vec{v}\in \Rspace^p} we have \m{\mat{I}_p\vec{v}=\vec{v}}.
-\item We can often write \m{\mat{I}} in place of \m{\mat{I}_p} since the dimension of \m{\mat{I}} is always evident from the context. 
+\item The following properties of matrices match similar properties of numbers. They may therefore seem intuitive.
 \end{myitemize}
-
-\vspace{-2mm}
-
-\myquestion. 
-Suppose \m{\mat{B}} is a \m{n\times q} matrix and \m{\mat{I}} is an identity matrix.
-
-\vspace{-2mm}
-
-(i) If we write \m{\mat{B}\mat{I}}, what must be the dimension of \m{\mat{I}}? Find a simplification of \m{\mat{B}\mat{I}}.\\
-
-\vspace{5mm}
-
-(ii) How about if we write \m{\mat{I}\mat{B}}?
-
-\vspace{5mm}
-\end{frame}
-
-%\end{document}
-
-\begin{frame}[fragile]
-\frametitle{More properties of matrices}
-\begin{myitemize}
-\item The main difference between matrix algebra and the usual numeric algebra is that matrix multiplication does not commute (\m{\mat{A}\,\mat{B} \neq \mat{B}\, \mat{A}}).
-\item Many other properties for matrices are the same as for numbers.
-\item Optional exercise: set up R examples to check the following.
-\end{myitemize}
-
 \mydisplaymath{
-\begin{array}{rclrcl}
-(\mat{A}\mat{B})\mat{C} &=& \mat{A}(\mat{B}\mat{C}) \hspace{10mm} &
+\begin{array}{rcl}
+(\mat{A}\,\mat{B})\,\mat{C} &=& \mat{A}\,(\mat{B}\,\mat{C}) \hspace{20mm}
+\\
 (\mat{A}+\mat{B})+\mat{C} &=& \mat{A}+(\mat{B}+\mat{C})
 \\
-\mat{A}(\mat{B}+\mat{C}) &=& \mat{A}\,\mat{B} + \mat{A}\,\mat{C} &
+\mat{A}\,(\mat{B}+\mat{C}) &=& \mat{A}\,\mat{B} + \mat{A}\,\mat{C}
+\\
+\mat{A}\,\mat{A}^{-1} &=& \mat{A}^{-1}\,\mat{A} = \mat{I}
+\\
+\big(\mat{A}^{-1}\big)^{-1} &=& \mat{A}
+\end{array}
+}
+
+\begin{myitemize}
+\item The following are properties of transposes.
+\end{myitemize}
+\mydisplaymath{
+\begin{array}{rcl}
+\big(\mat{A}^\transpose\big)^\transpose &=& \mat{A}
+\\
 (\mat{A}+\mat{B})^\transpose &=& \mat{A}^\transpose + \mat{B}^\transpose
 \\
-\mat{A}\,\mat{A}^{-1} = \mat{A}^{-1}\,\mat{A} &=& \mat{I}
-&&
+\big(\mat{A}^\transpose\big)^{-1} &=& \big(\mat{A}^{-1}\big)^\transpose
 \end{array}
 }
 
 \end{frame}
 
 \begin{frame}
-\frametitle{More properties of matrices}
+\frametitle{Properties about the order of multiplication}
 \begin{myitemize}
-\item The inverse of a product is the product of the inverses, but with the order reversed.
+\item
+The main difference between matrix algebra and the usual numeric algebra is that matrix multiplication does not commute (\m{\mat{A}\,\mat{B} \neq \mat{B}\, \mat{A}}).
+\item
+The inverse of a product is the product of the inverses, but with the order reversed.
 \mydisplaymath{
-\begin{array}{rclrcl}
-(\mat{A}\,\mat{B})^{-1} &=& \mat{B}^{-1}\mat{A}^{-1} &
-(\mat{A}\,\mat{B}\,\mat{C})^{-1} &=& \mat{C}^{-1} \mat{B}^{-1} \mat{A}^{-1}
+\begin{array}{rcl}
+(\mat{A}\,\mat{B})^{-1} &=& \mat{B}^{-1}\mat{A}^{-1}
 \\
-(\mat{A}\,\mat{B})^{\transpose} &=& \mat{B}^{\transpose}\mat{A}^{\transpose} &
+(\mat{A}\,\mat{B}\,\mat{C})^{-1} &=& \mat{C}^{-1} \mat{B}^{-1} \mat{A}^{-1}
+\end{array}
+}
+\item The same rule holds for transpose
+\mydisplaymath{
+\begin{array}{rcl}
+(\mat{A}\,\mat{B})^{\transpose} &=& \mat{B}^{\transpose}\mat{A}^{\transpose}
+\\
 (\mat{A}\,\mat{B}\,\mat{C})^{\transpose} &=& \mat{C}^{\transpose} \mat{B}^{\transpose} \mat{A}^{\transpose}
 \end{array}
 }
@@ -827,7 +825,7 @@ Suppose \m{\mat{B}} is a \m{n\times q} matrix and \m{\mat{I}} is an identity mat
 \myquestion. 
 Suppose that \m{\mat{A}} has dimension \m{n\times p} and \m{\mat{B}} is \m{p\times q}. Check that this formula for \m{(\mat{A}\, \mat{B})^\transpose} has the right dimension.
 
-\vspace{10mm}
+\vspace{20mm}
 
 \end{frame}
 
