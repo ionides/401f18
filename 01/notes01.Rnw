@@ -694,7 +694,7 @@ u <- apply(U[,2:13],1,mean)
 u[1:6]
 @
 \item
-\code{apply()} carries out an operation (here, taking the mean) on rows or columns of matrices. We will learn more about it later.
+\code{apply()} carries out an operation (here, taking the mean) on rows or columns of matrices. 
 \item 
 The middle argument \code{1} to \code{apply()} asks for the function \code{mean()} to be applied to each row. 
 \item
@@ -790,7 +790,7 @@ class(my_list)
 class(my_list$apples)
 class(my_list$oranges)
 @
-\item We can also index a component of a list using \code{[[.]]}
+\item We can index a component of a list using double brackets, \code{[[.]]}
 <<indexing a list component>>=
 my_list[[1]] 
 @
@@ -914,7 +914,7 @@ names(L_fit)
 \begin{frame}[fragile]
 \frametitle{A linear model -- the sample version}
 \begin{myitemize}
-\item Suppose our data are \m{y_1,y_2,\dots,y_n} and on each individual \m{i} we have \m{p} explanatory variables \m{x_{i1}, x_{i2},\dots,x_{ip}}. A linear model is
+\item Suppose our data are \m{y_1,y_2,\dots,y_n} and on each unit \m{i} we have \m{p} explanatory variables \m{x_{i1}, x_{i2},\dots,x_{ip}}. A linear model is
 \end{myitemize}
 \altdisplaymath{\LMi \hspace{10mm}
   y_i = b_1 x_{i1} + b_2 x_{i2} + \dots + b_p x_{ip} + e_i \quad\mbox{for $i=1,2,\dots,n$}
