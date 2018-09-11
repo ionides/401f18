@@ -1,0 +1,597 @@
+%\documentclass[handout]{beamer}
+\documentclass{beamer}
+
+\input{../header.tex}
+\newcommand\CHAPTER{3}
+\newcommand\LSi{\mathrm{(LS1)}}
+\newcommand\LSii{\mathrm{(LS2)}}
+\newcounter{tXX}
+\newcounter{tXy}
+\newcounter{matrixLSi}
+
+\begin{document}
+
+% knitr set up
+<<knitr_opts,echo=F,cache=F,purl=F>>=
+library(knitr)
+opts_chunk$set(
+#  cache=FALSE,
+  cache=TRUE,
+  eval=TRUE,
+  include=TRUE,
+  echo=TRUE,
+  purl=TRUE,
+  cache.path=paste0("tmp/cache"),
+  dev='png',
+  dev.args=list(bg='transparent'),
+  dpi=300,
+  error=FALSE,
+  fig.pos="h!",
+  fig.align='center',
+  fig.height=4,fig.width=6.83,
+  fig.lp="fig:",
+  fig.path=paste0("tmp/figure"),
+  fig.show='asis',
+  highlight=TRUE,
+  message=FALSE,
+  progress=TRUE,
+  prompt=FALSE,
+#  results='asis',
+  results="markup",
+  size='small',
+  strip.white=TRUE,
+  tidy=FALSE,
+  warning=FALSE
+#  comment=NA # to remove ## on output
+)
+options(width = 60) # number of characters in R output before wrapping
+@
+
+% other set up
+<<setup,echo=F,results=F,cache=F>>=
+library(broman) # used for myround 
+@
+
+
+\begin{frame}
+\frametitle{Chapter \CHAPTER. Fitting a linear model to data by least squares}
+
+\vspace{-1mm}
+
+\begin{myitemize}
+\item Recall the sample version of the linear model. 
+Data are \m{y_1,y_2,\dots,y_n} and on each unit \m{i} we have \m{p} explanatory variables \m{x_{i1}, x_{i2},\dots,x_{ip}}. 
+\end{myitemize}
+
+%\vspace{-1mm}
+
+\altdisplaymath{\LMi \hspace{10mm}
+  y_i = b_1 x_{i1} + b_2 x_{i2} + \dots + b_p x_{ip} + e_i \quad\mbox{for $i=1,2,\dots,n$}
+}
+
+\vspace{1mm}
+
+\begin{myitemize}
+\item Using summation notation, we can equivalently write
+\end{myitemize}
+
+\vspace{-1.5mm}
+
+\altdisplaymath{
+\LMii \hspace{15mm}
+  y_i = \sum_{j=1}^p x_{ij} b_j + e_i \hspace{10mm} \mbox{for $i=1,2,\dots,n$}
+}
+\vspace{-1mm}
+\begin{myitemize}
+\item We can also use matrix notation. 
+Define column vectors \m{\vec{y}=(y_1,y_2,\dots,y_n)}, \m{\vec{e}=(e_1,e_2,\dots,e_n)} and \m{\vec{b}=(b_1,b_2,\dots,b_p)}. 
+Define the matrix of explanatory variables, \m{\mat{X}=[x_{ij}]_{n\times p}}.
+In matrix notation, writing \myref{\LMi} or \myref{\LMii} is exactly the same as
+
+\vspace{1mm}
+
+\end{myitemize}
+\framebox{
+\altdisplaymath{
+\LMiii \hspace{16mm}
+ \vec{y} = \mat{X}\, \vec{b} + \vec{e}
+}
+\hspace{10mm}\rule[-3mm]{0mm}{9mm}
+}
+
+\vspace{1mm}
+
+\begin{myitemize}
+\item Matrices give a compact way to write the linear model, and also a good way to carry out the necessary computations. 
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Choosing the coefficient vector, $\vec{b}$, by least squares}
+\begin{myitemize}
+\item We seek the \myemph{least squares} choice of \m{\vec{b}} that minimizes the \myemph{residual sum of squares}, \m{\sum_{i=1}^n e_i^2}.
+\item \m{\mat{X}\, \vec{b}} is the vector of \myemph{fitted values}.
+\item The \myemph{residual} for unit \m{i} is \m{e_i = y_i - [ \mat{X}\, \vec{b}]_i}. This is small when the fitted value is close to the data.
+\item Intuitively, the fit with smallest RSS has fitted values closest to the data, so should be preferred.
+\item One could use some other criterion, e.g., minimizing the sum of absolute residuals, \m{\sum_{i=1}^n |e_i|}.
+\item We will find out that RSS is convenient for its mathematical and statistical properties.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The least squares formula}
+\begin{myitemize}
+
+\item The least squares choice of \m{\vec{b}} turns out to be
+
+\vspace{1mm}
+
+\framebox{
+\altdisplaymath{
+\LMiv \hspace{16mm} 
+ \vec{b} = \big( \mat{X}^\transpose \mat{X} \big) ^{-1}\,  \mat{X}^\transpose \vec{y}
+}
+\hspace{10mm}\rule[-3mm]{0mm}{9mm}
+}
+
+\vspace{1mm}
+
+\item We will check that this is the formula R uses to fit a linear model.
+
+\item We will also gain understanding of \myref{\LMiv} by studying the \myemph{simple linear regression} model \m{y_i = b_1 x_i + b_2 + e_i} for which \m{p=2}.
+
+\item In the simple linear regression model, \m{b_1} and \m{b_2} are called the slope and the intercept.
+\item
+In general, \m{b_1,\dots,b_p} are called the \myemph{coefficients} of the linear model, and \m{\vec{b}} is the \myemph{coefficient vector}.
+\item
+Sometimes, \m{b_1,\dots,b_p} are called \myemph{parameters} of the linear model, and \m{\vec{b}} is the \myemph{parameter vector}.
+\item In R, we obtain \m{\vec{b}} using the \code{coef()} function as demonstrated below.
+\end{myitemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Checking the coefficient estimates from R}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item Consider the example from Chapter 1, where \code{L_detrended} is life expectancy for each year, after subtracting a linear trend, and \code{U_detrended} is the corresponding detrended unemployment.
+\end{myitemize}
+<<reconstruct_variables,echo=F>>=
+L <- read.table(file="life_expectancy.txt",header=TRUE)
+L_fit <- lm(Total~Year,data=L)
+L_detrended <- L_fit$residuals
+U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
+U_annual <- apply(U[,2:13],1,mean)
+U_detrended <- lm(U_annual~U$Year)$residuals
+L_detrended <- subset(L_detrended,L$Year %in% U$Year)
+@
+
+<<detrended_lm>>= 
+lm1 <- lm(L_detrended~U_detrended)
+coef(lm1)
+@
+\begin{myitemize}
+\item Now, we can construct the \m{\mat{X}} matrix corresponding to this linear model and ask R to compute the coefficients using the formula \myref{\LMiv}.
+\end{myitemize}
+<<build_X>>= 
+X <- cbind(U_detrended,intercept=rep(1,length(U_detrended)))
+
+solve( t(X) %*% X ) %*% t(X) %*% L_detrended
+@
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Checking the $\mat{X}$ matrix we constructed}
+
+\begin{myitemize}
+\item The matrix calculation on the previous slide matches the coefficients produced by \code{lm()}.
+\item We're fairly sure we got the computation right, because we exactly matched \code{lm()}, but it is a good idea to look at the \m{\mat{X}} matrix we constructed.
+\end{myitemize}
+
+\begin{columns}[T] 
+\begin{column}{0.4\textwidth}
+<<>>=
+head(X)
+@
+\end{column}
+\begin{column}{0.4\textwidth}
+<<>>=
+length(U_detrended)
+dim(X)
+@
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Naming the $\mat{X}$ matrix in the linear model $\vec{y}=\mat{X}\vec{b}+\vec{e}$}
+
+\begin{myitemize}
+\item ``The \m{\mat{X}} matrix'' is not a great name since we would have the same model if we had called it \m{\mat{Z}}.
+\item Many names are used for \m{\mat{X}} for the many different purposes of linear models.
+\item Sometimes \m{\mat{X}} is called the \myemph{matrix of predictor variables} or \myemph{matrix of explanatory variables}.
+\item We call \m{\mat{X}} the \myemph{design matrix} in situations where \m{x_{ij}} is the setting of adjustable variable \m{j} for the \m{i}th run of an experiment. For example, \m{y_i} could be the stregth of an alloy made up of a fraction \m{x_{ij}} of metal \m{j} for \m{j=1,\dots,p-1}. We would also want to include an intercept, \m{x_{ip}=1}.
+\item \m{\mat{X}} can also be called the \myemph{matrix of covariates}.
+\item Sometimes, \m{\vec{y}} is called the \myemph{dependent variable} and \m{\mat{X}} is the \myemph{matrix of independent variables}. Scientifically, an independent variable is one that can be set by the scientist. However, independence has a different technical meaning in statistics.
+\end{myitemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Fitted values}
+
+\begin{myitemize}
+\item The \myemph{fitted values} are the estimates of the data based on the explanatory variables.
+For our linear model, these fitted values are
+
+\vspace{-2mm}
+
+\mydisplaymath{ \hat y_i = b_1 x_{i1} + b_2 x_{i2} + \dots + b_p x_{ip}, \hspace{10mm}\mbox{for $i=1,2,\dots,n$}.}
+
+\vspace{-1mm}
+
+\item The vector of least squares fitted values \m{\vec{\hat y}=(\hat y_1,\dots,\hat y_n)} is given by
+
+\vspace{1mm}
+
+\framebox{
+\altdisplaymath{
+\LMv \hspace{10mm} 
+ \vec{\hat y} = \mat{X}\vec{b} = \mat{X}\big( \mat{X}^\transpose \mat{X} \big) ^{-1} \mat{X}^\transpose \vec{y}.
+}
+\hspace{10mm}\rule[-3mm]{0mm}{9mm}
+}
+
+\vspace{1mm}
+
+\item It is worth checking we now understand how R produces the fitted values for predicting detrended life expectancy using unemployment:
+\end{myitemize}
+
+<<,echo=F>>=
+lm1$fitted.values<- unname(lm1$fitted.values)
+@
+
+<<>>=
+my_fitted_values<-X %*% solve(t(X)%*%X) %*% t(X) %*% L_detrended 
+@
+
+\vspace{-5mm}
+
+\begin{columns}[T] 
+\begin{column}{0.4\textwidth}
+<<>>=
+lm1$fitted.values[1:2]
+@
+\end{column}
+\begin{column}{0.4\textwidth}
+<<>>=
+my_fitted_values[1:2]
+@
+\end{column}
+\end{columns}
+\begin{myitemize}
+\item We see that the matrix calculation \myref{\LMv} exactly matches the fitted values of the \code{lm1} model that we built earlier using \code{lm()}.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotting the data}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item We have already seen plots of the life expectancy and unemployment data before. When you fit a linear model you should look at the data and the fitted values. We plot the fitted values two different ways.
+\end{myitemize}
+<<plot_fitted_code,echo=T,eval=F>>=
+plot(L_detrended~U_detrended)  
+lines(U_detrended,my_fitted_values,lty="solid",col="blue")
+abline(coef(lm1),lty="dotted",col="red",lwd=2)
+@
+\begin{columns}[T] 
+\begin{column}{0.5\textwidth}
+
+\vspace{-5mm}
+
+<<plot_fitted_eval,echo=F,fig.width=4,fig.height=3.2,out.width="2.8in",cache=F>>=
+par(mai=c(1.1,1,0.4,1))
+<<plot_fitted_code>>
+@
+\end{column}
+\begin{column}{0.4\textwidth}
+
+\vspace{5mm}
+
+\myquestion.
+Learn about the \code{abline()} and \code{lines()} functions. Explain to yourself why the solid blue line and the dotted red line coincide. 
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Review of summation signs}
+
+\begin{myitemize}
+\item To do statistics, we often want to sum things up over all data points so the \myemph{summation sign} \m{\sum_{i=1}^n} comes up frequently.
+\item The basic trick to understand \m{\sum_{i=1}^n} is that anything written using a summation sign can be written as a usual sum. 
+\item As long as you can expand from \m{\sum_{i=1}^n z_i} to \m{z_1+z_2+\dots+z_n}, and then contract back again from \m{z_1+z_2+\dots+z_n} to \m{\sum_{i=1}^n z_i}, then you can use what you already know about \m{+} to work with \m{\sum_{i=1}^n}.
+\end{myitemize}
+
+{\bf Worked example 1}.  Can we take a constant outside a sum sign? Is it true that 
+
+\vspace{-8mm}
+
+\mydisplaymath{
+\sum_{i=1}^n \intercept y_i = \intercept \sum_{i=1}^n y_i.}
+
+{\bf Solution 1}. Expand the sum, apply the distributive rule, and contract again.
+
+\vspace{-6mm}
+
+\mydisplaymath{
+\sum_{i=1}^n \intercept y_i 
+\hspace{1.5mm} = \hspace{1.5mm}
+\intercept y_1 + \intercept y_2 + \dots + \intercept y_n
+\hspace{1.5mm} = \hspace{1.5mm}
+\intercept(y_1+\dots+y_n) 
+\hspace{1.5mm} = \hspace{1.5mm}
+ \intercept \sum_{i=1}^n y_i.
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{More worked examples using summation signs}
+
+{\bf Worked example 2}.  What happens if we sum a constant? Show that
+
+\vspace{-5mm}
+
+\mydisplaymath{
+\sum_{i=1}^n \intercept  = n\intercept.
+}
+
+{\bf Solution 2}. Expand the sum, and apply basic addition.
+
+\vspace{-6mm}
+
+\mydisplaymath{
+\sum_{i=1}^n \intercept
+\hspace{1.5mm} = \hspace{1.5mm}
+\intercept + \intercept + \dots + \intercept \hspace{1.5mm}
+\mbox{($n$ times)}
+\hspace{1.5mm} = \hspace{1.5mm}
+n \intercept
+}
+
+\vspace{1mm}
+
+
+\hrule
+
+\vspace{3mm}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Deriving the formula for the least squares coefficient vector}
+
+\vspace{-2mm}
+
+{\bf This material will not be tested in quizzes and exams. It is presented to explain where the formula \myref{\LMiv} for \m{\vec{b}} comes from.}
+
+%\vspace{-1mm}
+
+\begin{myitemize}
+\item We derive \myref{\LMiv} for the simple linear regression model \myref{\SLRi}. 
+
+\item 
+For simple linear regression, the \myemph{residual sum of squares (RSS)} is
+
+\vspace{-2mm}
+
+\mydisplaymath{ 
+\mathrm{RSS} = \sum_{i=1}^n \big(y_i -  \slope x_i - \intercept \big)^2
+}
+
+\item Calculus fact: To find \m{\slope} and \m{\intercept} minimizing  \m{\mathrm{RSS}}, we can differentiate with respect to \m{\slope} and \m{\intercept} and set the derivatives equal to zero.
+
+\item Calculus fact: Differentiating \m{\mathrm{RSS}} with respect to \m{\slope} treating \m{\intercept} as a constant is called a \myemph{partial derivative}, written as \m{\partial \mathrm{RSS}/\partial \slope}.
+
+\item Calculus fact: If we can find \m{\slope} and \m{\intercept} with \m{\partial \mathrm{RSS}/\partial \slope=0} and \m{\partial \mathrm{RSS}/\partial \intercept=0} we have found a \myemph{minimum or maximum} of \m{\mathrm{RSS}}.
+
+\item
+\m{\mathrm{RSS}} is non-negative and can get arbitrarily large for bad choices of \m{\slope} and \m{\intercept}. It has a minimum but not a maximum.
+
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Differentiating RSS with respect to $\slope$}
+
+\vspace{-1mm}
+
+%\myquestion
+{\bf Worked example}. Apply the chain rule to differentiate one term in the sum. Check that
+\mydisplaymath{
+\frac{\partial}{\partial \slope} \big(y_i -  \slope x_i -\intercept \big)^2 = (-x_i) \cdot 2 \big(y_i -  \slope x_i -\intercept \big)
+}
+
+
+
+\vspace{8mm}
+
+%\myquestion
+{\bf Worked example}.
+Since the derivative of a sum is the sum of the derivatives, check that
+\mydisplaymath{
+\frac{\partial}{\partial \slope}\RSS = 
+ = 2\slope \sum_{i=1}^n x_i^2 - 2\sum_{i=1}^n x_iy_i + 2 \intercept \sum_{i=1}^n x_i.
+}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Differentiating RSS with respect to $\intercept$}
+
+A similar calculation, which you can check if you want the exercise, gives
+\altdisplaymath{ 
+\frac{\partial}{\partial \intercept} \mathrm{RSS} = 2n\intercept - 2\sum_{i=1}^n y_i + 2 \slope \sum_{i=1}^n x_i.
+}
+
+\vspace{10mm}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The normal equations}
+
+\begin{myitemize}
+\item
+Now we set the derivatives to zero. This minimizes the residual sum of squares (RSS) giving the least squares values of \m{\slope} and \m{\intercept}
+\item 
+This gives a pair of simultaneous linear equations for \m{\slope} and \m{\intercept}:
+
+\vspace{1mm}
+
+\m{
+\LSi \hspace{2mm} \left\{ \hspace{18mm}
+\begin{array}{ccccc}
+%\displaystyle 
+\slope \sum_{i=1}^n x_i^2  &+&  \intercept \sum_{i=1}^n x_i &=&  \sum_{i=1}^n x_iy_i 
+\rule[-4mm]{0mm}{3mm}
+\\
+ \slope \sum_{i=1}^n x_i &+& \intercept n &=& \sum_{i=1}^n y_i
+\end{array}
+\right.
+}
+
+\vspace{1mm}
+
+\item These are called the \myemph{normal equations}.
+\item We will show they can be written in matrix form as
+\mydisplaymath{
+\mat{X}^\transpose\mat{X}\vec{b}=\mat{X}^\transpose\vec{y}
+}
+\item Therefore, the solution to the normal equations is
+\mydisplaymath{
+\vec{b}=\big[\mat{X}^\transpose\mat{X}\big]^{-1}\max{X}^\transpose\vec{y}
+}
+\item This shows \myref{\LMiv} solves \myref{\LSi} and so minimizes the RSS.
+
+\end{myitemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Simple linear regression in matrix form}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item The matrix form of \m{y_i = \slope x_i + \intercept+e_i}, for \m{i=1,\dots,n}, is \m{\vec{y}=\mat{X}\vec{b}+\vec{e}} where \m{\vec{y}=(y_1,\dots,y_n)}, \m{\vec{b}=(\slope,\intercept)}, \m{\vec{e}=(e_1,\dots,e_n)}, \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{1}=(1,1,\dots,1)} are column vectors, and \m{\mat{X}=[\, \vec{x} \hspace{1mm} \vec{1}\, ]}.
+\item Written out in full, this is
+\mydisplaymath{
+\myvector{y}{n} =
+\left[
+\begin{array}{cc}
+x_1 & 1 \\
+x_2 & 1 \\
+\vdots & \vdots \\
+x_n & 1
+\end{array}
+\right]
+\raisebox{5mm}{$\displaystyle
+\left[
+\begin{array}{c} \slope \\ \intercept \end{array}
+\right]$
+}
++
+\myvector{e}{n}
+}
+
+
+\end{myitemize}
+
+\myquestion. \setcounter{tXX}{\theQcounter}
+For this \m{\mat{X}}, check that \m{\mat{X}^\transpose\mat{X} = 
+\left[ \begin{array}{cc}
+\sum_{i=1}^n x_i^2 & \sum_{i=1}^n x_i \\
+\sum_{i=1}^n x_i   & n 
+\end{array}\right]
+}
+
+\vspace{10mm}
+
+\myquestion. \setcounter{tXy}{\theQcounter}
+Also, check that \m{\mat{X}^\transpose\vec{y} = 
+\left[ \begin{array}{c}
+\sum_{i=1}^n x_iy_i\\
+\sum_{i=1}^n y_i    
+\end{array}\right]
+}
+
+\vspace{10mm}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The normal equations in matrix form}
+
+\myquestion. \setcounter{matrixLSi}{\theQcounter}
+Check that \myref{\LSi} in matrix form is
+
+\vspace{1mm}
+
+\hspace{15mm}\m{
+\left[ \begin{array}{cc}
+\sum_{i=1}^n x_i^2 & \sum_{i=1}^n x_i \\
+\sum_{i=1}^n x_i   & n 
+\end{array}\right]
+\left[ \begin{array}{c}
+\slope\\
+\intercept
+\end{array}\right]
+=
+\left[ \begin{array}{c}
+\sum_{i=1}^n x_iy_i\\
+\sum_{i=1}^n y_i    
+\end{array}\right]
+}
+
+\vspace{15mm}
+
+\begin{myitemize}
+\item 
+Now we have found that \myref{\LSii} and \myref{\LSi} are the same equations.
+Therefore they must have the same solution, which is \m{\vec{b}=\big(\mat{X}^\transpose\mat{X}\big)^{-1}\mat{X}^\transpose \vec{y}}.
+
+\item We have shown that \m{\vec{b}=\big(\mat{X}^\transpose\mat{X}\big)^{-1}\mat{X}^\transpose \vec{y}} is the least squares coefficient vector for simple linear regression.
+
+\end{myitemize}
+
+\end{frame}
+
+
+\end{document}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+
+\begin{myitemize}
+\item 
+\end{myitemize}
+
+\end{frame}
