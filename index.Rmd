@@ -84,7 +84,7 @@ Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
 * [Lab 1. Introduction to R](Lab/Lab01/lab01.pdf) Slides for 9/7.
     * [CH01PR19.txt](Lab/Lab01/CH01PR19.txt) Dataset of ACT scores and GPAs of college freshmen.
     * [plastic_hardness.txt](Lab/Lab01/plastic_hardness.txt) Plastic hardness dataset.
-    * [Lab 1 Solutions](Lab/Lab01/lab01_solutions.pdf) Solutions to lab exercises and ticket.
+    * [Lab 1 Solutions](Lab/Lab01/lab01_solutions.R) Solutions to lab exercises and ticket.
 
 <!--
 * [Lab 2. Practicing matrix operations](lab/lab02/lab02.pdf). Slides for 1/11 and 1/12.
