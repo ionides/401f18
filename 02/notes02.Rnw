@@ -84,10 +84,10 @@ n <- length(e0)
 \item Mathematically, we say the data point is a \myemph{real number},  and we write \mymath{\Rspace} for the set of all real numbers, which is the entire number line.
 \item A \myemph{vector} of length \mymath{n} is a collection of \mymath{n} numeric values. 
 \item We write \mymath{\Rspace^n} for the set of vectors of length \mymath{n}.
-\item A numerical dataset with \mymath{n} datapoints is a vector in \mymath{\Rspace^n}.
+%\item A numerical dataset with \mymath{n} datapoints is a vector in \mymath{\Rspace^n}.
 \item Example: the US life expectancy at birth for \Sexpr{L$Year[n-4]} to \Sexpr{L$Year[n]} is
-\mymath{\vec{y}=(y_1,y_2,y_3,y_4,y_5)=( \Sexpr{myround(e0[n],1)},\Sexpr{myround(e0[n-1])},\Sexpr{myround(e0[n-2],1)},\Sexpr{myround(e0[n-3],1)},\Sexpr{myround(e0[n-4],1)} )}. 
-We say \mymath{\vec{y}\in\Rspace^5}. 
+\mymath{\vec{y}=(y_1,y_2,y_3,y_4,y_5)=( \Sexpr{myround(e0[n],1)},\Sexpr{myround(e0[n-1])},\Sexpr{myround(e0[n-2],1)},\Sexpr{myround(e0[n-3],1)},\Sexpr{myround(e0[n-4],1)} )}. We say \mymath{\vec{y}\in\Rspace^5}.
+\item \mymath{\vec{y}\in\Rspace^5} corresponds to \code{class(y)="numeric"}, \code{length(y)=5} in R.
 \item Qualitative data can be written as a vector in \mymath{\Rspace^n} by assigning a number for each qualitative level.
 \item We use bold font for vectors, and italic font for \myemph{elements} of the vector. 
 \end{myitemize}
