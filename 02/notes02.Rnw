@@ -107,7 +107,7 @@ You may or may not have seen vectors in other contexts. In physics, a vector is 
 
 \answer{\vspace{25mm}}{This physics definition is a polar coordinate representation of a vector in \m{\Rspace^2} and \m{\Rspace^3}. Our definition is a Cartesian coordinate representation.
 
-\vspace{5mm}}
+\vspace{10mm}}
 
 {\myquestion}. 
 How can I write a boldface \m{\vec{x}} in handwriting?
@@ -115,6 +115,9 @@ How can I write a boldface \m{\vec{x}} in handwriting?
 \answer{\vspace{25mm}}{
 An underscore, \m{\utilde{x}}, is conventional handwriting to represent bold font.
 In physics and mathematics, vectors are sometimes written as \m{\stackrel{\to}{x}}, but we will not do that here.
+
+\vspace{10mm}
+
 }
 
 \end{frame}
@@ -142,7 +145,6 @@ This is written in vector notation as \myemph{multplication of a vector by a sca
 \begin{frame}[fragile]
 \frametitle{An example of vector addition and scalar multiplication}
 
-%{\bf Worked example}. 
 An ecologist measures the pH of ten Michigan lakes at two points in the summer. Set up vector notation to describe her data algebraically. Write a vector calculation giving the average pH in each lake.
 
 \answer{\vspace{90mm}}{
@@ -387,7 +389,10 @@ Answer:
 \underset{\textcolor{cyan}{q}\times r}{\mat{C}}
 }
 
-\answer{\vspace{15mm}}{\vspace{15mm}}
+\answer{\vspace{15mm}}{
+The interior dimensions cancel, so the dimension of the product is the outside dimensions, $n\times r$
+
+\vspace{10mm}}
 
 \begin{myitemize}
 \item The rule is: when multiplying matrices, the middle dimensions have to pair up, and the resulting matrix has the outside dimensions.
@@ -532,7 +537,15 @@ s\, a_{p1} & \dots & s\, a_{pq}
 \end{myitemize}
 \myquestion. Compute the matrix product \m{\mat{A}\,\mat{A}^{-1}}
 
-\vspace{35mm}
+\answer{\vspace{35mm}}{
+
+\vspace{5mm}
+
+A diagonal matrix with ones down the diagonal, \m{\mytwomatrix{1}{0}{0}{1}}.
+
+\vspace{5mm}
+
+}
 
 \begin{myitemize}
 \item \m{\mat{A}^{-1}} is called the \myemph{inverse} of \m{\mat{A}}.
@@ -828,7 +841,10 @@ The inverse of a product is the product of the inverses, but with the order reve
 \myquestion. 
 Suppose that \m{\mat{A}} has dimension \m{n\times p} and \m{\mat{B}} is \m{p\times q}. Check that this formula for \m{(\mat{A}\, \mat{B})^\transpose} has the right dimension.
 
-\vspace{20mm}
+\answer{\vspace{20mm}}{
+\m{\mat{A}\, \mat{B}} is \m{n\times q} and so \m{(\mat{A}\, \mat{B})^\transpose} is \m{q\times n}.
+Working the other way, \m{\mat{B}^\transpose} is \m{q\times p} and \m{\mat{A}^\transpose} is \m{p\times n}, and so \m{\mat{B}^{\transpose}\mat{A}^{\transpose}} is \m{q\times n}. The dimensions match.
+}
 
 \end{frame}
 
