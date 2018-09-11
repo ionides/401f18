@@ -48,7 +48,7 @@ B
 **Q2. Matrix addition**.  Compute by hand the matrix sum
 ```{r sum,echo=FALSE,results='asis',cache=FALSE}
 ## uses mat2tex from https://github.com/markheckmann/mat2tex
-## devtools:install_github("markheckmann/mat2tex")
+## devtools::install_github("markheckmann/mat2tex")
 library(mat2tex)
 xx("\\mat{A}+\\mat{B} = ",A,"+",B,digits=0,mtype="bmatrix")
 ```
@@ -62,7 +62,7 @@ Then check your calculation using R. Report your answer and your R code.
 
 **Q4. Multiplying two square matrices**. Compute by hand the matrix product
 ```{r AB_prod,echo=FALSE,results='asis'}
-xx("\\mat{A}\\mat{B} = ",A,B,digits=0,mtype="bmatrix")
+xx("\\mat{A}\\,\\mat{B} = ",A,B,digits=0,mtype="bmatrix")
 ```
 Then check your calculation using R. Report your answer and your R code.  Also report whether you successfully found the answer calculating my hand.
 
@@ -75,7 +75,15 @@ D <- randomMatrix(3,2)
 ```
 Then check your calculation using R. Report your answer and your R code. Also report whether you successfully found the answer calculating my hand.
 
-**Q6. Inverting a $2\times 2$ matrix**. Compute by hand the matrix inverse
+**Q6. Multiplying a matrix and a column vector**. Compute by hand the matrix product
+```{r EF_prod,echo=FALSE,results='asis'}
+Emat <- randomMatrix(4,4,-3:3)
+Fmat <- randomMatrix(4,1,-3:3)
+xx("\\mat{E}\\,\\mat{F} = ",Emat,Fmat,digits=0,mtype="bmatrix")
+```
+Then check your calculation using R. Report your answer and your R code.  Also report whether you successfully found the answer calculating my hand.
+
+**Q7. Inverting a $2\times 2$ matrix**. Compute by hand the matrix inverse
 ```{r inverse,echo=FALSE,results='asis'}
 xx("\\mat{A}^{-1} = ",A,"^{-1}", digits=0,mtype="bmatrix")
 ```
@@ -83,12 +91,24 @@ Then check your calculation using R. Report your answer and your R code. Also re
 
 Generate more examples using ```randomMatrix(2,2)``` until you are confident about inverting $2\times 2$ matrices by hand.
 
-**Q7. Transposing a matrix**. Compute by hand the transpose of $\mat{C}$,
+**Q8. Transposing a matrix**. Compute by hand the transpose of $\mat{C}$,
 ```{r transpose,echo=FALSE,results='asis'}
 xx("\\mat{C}^{\\transpose} = ",C,"^{T}", digits=0,mtype="bmatrix")
 ```
 Then check your calculation using R. Report your answer and your R code. Also report whether you successfully found the answer calculating my hand.
 
+**Q9. Checking dimensions for a matrix product**. Let $\underset{2\times 2}{\mat{A}}$, $\underset{2\times 2}{\mat{B}}$, $\underset{2\times 3}{\mat{C}}$, $\underset{3\times 2}{\mat{D}}$, $\underset{4\times 4}{\mat{E}}$ and $\underset{4\times 1}{\mat{F}}$
+ be six matrices with the specified dimensions. Which of the following matrix products are possible:
+
+(a) $\; \mat{A}\, \mat{C}$
+(b) $\; \mat{B}\,\mat{C}^\transpose$
+(c) $\; \mat{C}\,\mat{D}$
+(d) $\; \mat{C}^\transpose\,\mat{D}^\transpose$
+(e) $\; \mat{D}^\transpose\,\mat{C}$
+(f) $\; \mat{F}\,\mat{E}$
+(g) $\; \mat{F}^\transpose\mat{E}$
+(h) $\; \mat{F}^\transpose\,\mat{E}^\transpose$
+ 
 ```{r linear_system,echo=F,results=F}
 set.seed(8)
 L <- randomMatrix(4,4)
@@ -98,7 +118,7 @@ my_abs <- function(a,x)ifelse(a==0,"",ifelse(abs(a)==1,x,paste(abs(a),x)))
 my_nonzero <- function(a,x)ifelse(a==0,"",paste(a,x))
 ```
 
-**Q8. Solve the following system of linear equations using R.**
+**Q10. Solve the following system of linear equations using R.**
 $$\begin{array}{ccccccccc}
 `r my_nonzero(L[1,1],"w")` &`r my_sign(L[1,2])`& `r my_abs(L[1,2],"x")` &`r my_sign(L[1,3])`& `r my_abs(L[1,3],"y")` &`r my_sign(L[1,4])` & `r my_abs(L[1,4],"z")` &=& `r b[1,1]` \\
 `r my_nonzero(L[2,1],"w")` &`r my_sign(L[2,2])`& `r my_abs(L[2,2],"x")` &`r my_sign(L[2,3])`& `r my_abs(L[2,3],"y")` &`r my_sign(L[2,4])` & `r my_abs(L[2,4],"z")` &=&  `r b[2,1]`\\
