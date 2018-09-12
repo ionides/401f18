@@ -1,8 +1,16 @@
 %\documentclass[handout]{beamer}
 \documentclass{beamer}
 
-\input{../header.tex}
 \newcommand\CHAPTER{3}
+% \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
+% \newcommand\answer[2]{{\color{blue}{#2}}} % to show answers
+ \newcommand\answer[2]{#1} % to show blank space
+<<R_answer,echo=F,purl=F>>=
+# ANS = TRUE
+ ANS=FALSE
+@
+
+\input{../header.tex}
 \newcommand\LSi{\mathrm{(LS1)}}
 \newcommand\LSii{\mathrm{(LS2)}}
 \newcounter{tXX}
@@ -109,7 +117,7 @@ In matrix notation, writing \myref{\LMi} or \myref{\LMii} is exactly the same as
 \begin{frame}[fragile]
 \frametitle{Choosing the coefficient vector, $\vec{b}$, by least squares}
 \begin{myitemize}
-\item We seek the \myemph{least squares} choice of \m{\vec{b}} that minimizes the \myemph{residual sum of squares}, \m{\sum_{i=1}^n e_i^2}.
+\item We seek the \myemph{least squares} choice of \m{\vec{b}} that minimizes the \myemph{residual sum of squares}, \m{RSS=\sum_{i=1}^n e_i^2}.
 \item \m{\mat{X}\, \vec{b}} is the vector of \myemph{fitted values}.
 \item The \myemph{residual} for unit \m{i} is \m{e_i = y_i - [ \mat{X}\, \vec{b}]_i}. This is small when the fitted value is close to the data.
 \item Intuitively, the fit with smallest RSS has fitted values closest to the data, so should be preferred.
@@ -318,20 +326,24 @@ Learn about the \code{abline()} and \code{lines()} functions. Explain to yoursel
 \begin{frame}[fragile]
 \frametitle{Review of summation signs}
 
+
+\vspace{-1.5mm}
+
 \begin{myitemize}
 \item To do statistics, we often want to sum things up over all data points so the \myemph{summation sign} \m{\sum_{i=1}^n} comes up frequently.
 \item The basic trick to understand \m{\sum_{i=1}^n} is that anything written using a summation sign can be written as a usual sum. 
 \item As long as you can expand from \m{\sum_{i=1}^n z_i} to \m{z_1+z_2+\dots+z_n}, and then contract back again from \m{z_1+z_2+\dots+z_n} to \m{\sum_{i=1}^n z_i}, then you can use what you already know about \m{+} to work with \m{\sum_{i=1}^n}.
 \end{myitemize}
 
-{\bf Worked example 1}.  Can we take a constant outside a sum sign? Is it true that 
+\myquestion.  Can we take a constant outside a sum sign? Is it true that 
 
-\vspace{-8mm}
+\vspace{-1mm}
 
 \mydisplaymath{
 \sum_{i=1}^n \intercept y_i = \intercept \sum_{i=1}^n y_i.}
 
-{\bf Solution 1}. Expand the sum, apply the distributive rule, and contract again.
+\answer{\vspace{25mm}}{
+Expand the summation by writing out all the $+$ signs, apply the distributive rule, and contract again.
 
 \vspace{-6mm}
 
@@ -344,24 +356,23 @@ Learn about the \code{abline()} and \code{lines()} functions. Explain to yoursel
 \hspace{1.5mm} = \hspace{1.5mm}
  \intercept \sum_{i=1}^n y_i.
 }
-
+}
 \end{frame}
 
 \begin{frame}
-\frametitle{More worked examples using summation signs}
+\frametitle{Example: summation of a constant}
 
-{\bf Worked example 2}.  What happens if we sum a constant? Show that
+\myquestion.  What happens if we sum a constant? Explain why
 
-\vspace{-5mm}
+\vspace{-1mm}
 
 \mydisplaymath{
 \sum_{i=1}^n \intercept  = n\intercept.
 }
 
-{\bf Solution 2}. Expand the sum, and apply basic addition.
 
-\vspace{-6mm}
-
+\answer{\vspace{55mm}}{
+Expand the sum, and apply basic addition. Note that there are $n$ terms in the sum.
 \mydisplaymath{
 \sum_{i=1}^n \intercept
 \hspace{1.5mm} = \hspace{1.5mm}
@@ -371,12 +382,9 @@ Learn about the \code{abline()} and \code{lines()} functions. Explain to yoursel
 n \intercept
 }
 
-\vspace{1mm}
+\vspace{10mm}
 
-
-\hrule
-
-\vspace{3mm}
+}
 
 \end{frame}
 
@@ -419,25 +427,33 @@ For simple linear regression, the \myemph{residual sum of squares (RSS)} is
 \frametitle{Differentiating RSS with respect to $\slope$}
 
 \vspace{-1mm}
+\begin{myitemize}
+\item Recall that \m{RSS=\sum_{i=1}^n \big(y_i -  \slope x_i -\intercept \big)^2}.
+\end{myitemize}
+
+\vspace{1mm}
 
 %\myquestion
-{\bf Worked example}. Apply the chain rule to differentiate one term in the sum. Check that
+%{\bf Worked example}.
+\WorkedExample. Apply the chain rule to differentiate the \m{i}th term in the sum for \m{RSS}. Check that
 \mydisplaymath{
 \frac{\partial}{\partial \slope} \big(y_i -  \slope x_i -\intercept \big)^2 = (-x_i) \cdot 2 \big(y_i -  \slope x_i -\intercept \big)
 }
 
-
-
-\vspace{8mm}
+\answer{\vspace{20mm}}{TODO}
 
 %\myquestion
-{\bf Worked example}.
-Since the derivative of a sum is the sum of the derivatives, check that
+%{\bf Worked example}.
+\WorkedExample. Since the derivative of a sum is the sum of the derivatives, check that
+
+\vspace{-1mm}
+
 \mydisplaymath{
 \frac{\partial}{\partial \slope}\RSS = 
  = 2\slope \sum_{i=1}^n x_i^2 - 2\sum_{i=1}^n x_iy_i + 2 \intercept \sum_{i=1}^n x_i.
 }
 
+\answer{\vspace{20mm}}{TODO}
 \end{frame}
 
 \begin{frame}[fragile]
