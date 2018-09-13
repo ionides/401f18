@@ -17,7 +17,9 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 
 ## Class notes
 
-1. [Getting started](01/notes01.pdf). [(R code)](01/notes01.R).
+1. [Getting started](01/notes01.pdf). 
+[(R code)](01/notes01.R).
+[(Annotations)](01/notes01annotated.pdf).
 
 2. [Matrices for applied statistics](02/notes02.pdf). [(R code)](02/notes02.R).
 
@@ -53,10 +55,13 @@ Due in lab on 9/14.
 [Solutions, as a text file of R commands](hw/hw01/sol_hw01.R).
 -->
 
+* [Homework 2. More swirl and some matrix exercises](hw/hw02/hw02.html). 
+Due in lab on 9/21. 
 <!--
-* [Homework 2. More swirl and matrix exercises](hw/hw02/hw02.html). 
-Due in your lab on 1/18 or 1/19. [Solutions, as a pdf file](hw/hw02/Hw2_Solutions.pdf) or [R code](hw/hw02/Hw2_Solutions.Rmd)
+[Solutions, as a pdf file](hw/hw02/Hw2_Solutions.pdf) or [R code](hw/hw02/Hw2_Solutions.Rmd)
+-->
 
+<!--
 * [Homework 3. More swirl and fitting a linear model via matrix computations](hw/hw03/hw03.html). 
 Due in your lab on 1/25 or 1/26. [Solutions](hw/hw03/sol_hw03.html).
 

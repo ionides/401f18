@@ -24,7 +24,9 @@ Continuing from Homework 1, complete the following swirl modules: ```Lesson 5: M
 
 ### Matrix exercises
 
-It is good to do at least one example of each of the fundamental matrix operations by hand, even though in practice we almost always use a computer. For the homework, you are required to carry out and check exactly one example of each operation. The code provided can be used to make more examples by changing the value of `set.seed` used to generate the random numbers. (Computers use a random number generator that is actually a deterministic algorithm which produces a long sequence of numbers that behave much like random numbers. The seed tells the algorithm where to start.) 
+In Q2-Q8, you are asked to carry out and check examples of each matrix operation we have covered in class, both by hand and using a computer. The code provided can be used to make more examples by changing the value of `set.seed` used to generate the random numbers. Computers use a random number generator that is actually a deterministic algorithm which produces a long sequence of numbers that behave much like random numbers. The seed tells the algorithm where to start reading off numbers from this sequence.
+
+Particularly if you are in the 25% of the class that that has no previous experience working with matrices, you are recommended to do extra examples until you are comfortable working them by hand.
 
 We will generates exercises using the following function:
 ```{r randomMatrix}
