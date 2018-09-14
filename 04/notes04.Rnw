@@ -1,6 +1,13 @@
 %\documentclass[handout]{beamer}
 \documentclass{beamer}
 
+% \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
+ \newcommand\answer[2]{#1} % to show blank space
+<<R_answer,echo=F,purl=F>>=
+# ANS = TRUE
+ ANS=FALSE
+@
+
 \input{../header.tex}
 \newcommand\CHAPTER{4}
 %\newcommand\LSi{\mathrm{(LS1)}}
@@ -12,7 +19,7 @@
 \begin{document}
 
 % knitr set up
-<<knitr_opts,echo=F,cache=F,purl=F>>=
+<<knitr_opts,echo=F,purl=F>>=
 library(knitr)
 opts_chunk$set(
 #  cache=FALSE,
@@ -25,7 +32,7 @@ opts_chunk$set(
   dev='png',
   dev.args=list(bg='transparent'),
   dpi=300,
-  error=FALSE,
+  error=FALSE, 
   fig.pos="h!",
   fig.align='center',
   fig.height=4,fig.width=6.83,
@@ -44,6 +51,7 @@ opts_chunk$set(
   warning=FALSE
 #  comment=NA # to remove ## on output
 )
+
 options(width = 60) # number of characters in R output before wrapping
 @
 
@@ -54,256 +62,268 @@ library(broman) # used for myround
 
 
 \begin{frame}
-\frametitle{\CHAPTER. Probability models: mean, variance and the normal distribution}
-
-\begin{myitemize}
-\item A \myemph{probability model} is an assignment of \myemph{probabilities} to \myemph{events} in the \myemph{sample space} of all \myemph{possible outcomes} for the situation being modeled.
-
-\item Probabilities are between \m{0} (impossible) and \m{1} (certain).
-
-\item The total probability of all possible outcomes is \m{1} (something is certain to happen!).
-
-\item Probability models are the only known way to quantify uncertainty.
-
-\item Drawing statistical conclusions from data inevitably involves uncertainty. Probability models are important for Statistics!
-\end{myitemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Our goals for learning about probability models} 
-
-\begin{itemize}
-\item \quad Review the rules of probability and random variables.
-\item \quad Build the skills needed to work with probabilities for linear models.
-\item \quad Learn to use R to make probability calculations.
-\item \quad Use probability calculations to develop statistical inference procedures for linear models.
-\end{itemize}
-%\end{myitemize}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Why do we need a probability model for the linear model?}
+\frametitle{Chapter \CHAPTER. Probability models}
 
 \vspace{-1mm}
 
 \begin{myitemize}
-\item We now know how to set up a linear model explaining a response variable \m{\vec{y}} using a matrix of explanatory variables \m{\mat{X}}. 
-We write \m{\vec{y}=\mat{X}\vec{b}+\vec{e}} and use least squares to find a coefficient vector, \m{\vec{b}}.
-We understand that this is a compact way of writing \m{y_i = x_{i1}b_1 + x_{i2}b_2 + \dots + x_{ip}b_p + e_i} for \m{i=1,\dots,n}.
+\item A \myemph{probability model} is an assignment of probabilities to possible outcomes. 
 
-\item A positive value of \m{b_j} for \m{j} in \m{\{1,\dots,p\}} means that larger values of the \m{j}th predictor variable are associated with larger values of the \myemph{response} \m{y_j}. 
+\item We don't observe these probabilities. We observe a particular dataset.
 
-\item However, there is always room for uncertainty. Maybe we sampled only a small fraction of the population of interest. There could be error in the measurements. For experimental data, the responses would be different each time we collected a dataset. Common statistical questions are:
+\item If we treat the dataset as an outcome of a probability model, we can answer questions such as,
 
-(a) How much might \m{b_j} change if we repeated the experiment?
+\vspace{3mm}
 
-(b) Is the least squares estimate of \m{b_j} small enough that it is reasonable to use an estimate \m{b_j= 0}? If so, we can remove this predictor and simplify the model.
+``{\it If there really is no association between unemployment and life expectancy, what is the probability we would see an estimated linear model coefficient as large as the one we actually observed, due to random fluctuations in both quantities?}''
 
-\item Probability models will let us answer these questions.
+\vspace{3mm}
 
-%let us assign probabilities to events that may or may not occur, such as ``What is the probability that the difference between the sample least squares coefficient \m{b_1} and the true population coefficient is smaller than \m{0.1}.'' 
+\item Here, we are most interested in developing a probability model for the linear model.
 
-\end{myitemize}
+\item First, we need some basic tools for probability models: random variables, the normal distribution, mean, variance and standard deviation.
 
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Possible outcomes and events}
-
-\vspace{-2mm}
-
-\begin{myitemize}
-
-\item The set of all possible outcomes for model is called the \myemph{sample space} of that model.
-   
-\item {\bf Example}. The set of possible outcomes when rolling a 6-sided die can be modeled as \m{\{1,2,3,4,5,6\}}. This excludes the die rolling off the table, or balancing on its edge.
-
-\item An \myemph{event} is a collection of possible outcomes.
-
-\item Formally, an event is therefore a subset of the sample space.
-
-\item We can write \m{A} in words or as a set of outcomes. Saying ``\m{A} is the event that a die roll is even'' is equivalent to saying \m{A=\{2,4,6\}} where the set of possible outcomes is \m{\{1,2,3,4,5,6\}}.
-
-\item An event can happen or not happen on any \myemph{realization} of the model.
-\end{myitemize} 
-
-\end{frame}
-
-%\end{document}
-
-\begin{frame}[fragile]
-
-\frametitle{Random variables}
-
-\begin{myitemize}
-
-\item A probability model when the outcome is a single number is called a \myemph{random variable}.
-
-\item Statistics is primarily concerned with numeric quantities, so our probability models are usually built using random variables.
-
-\item For the linear model, the response takes a numeric value. Therefore, a probability model for a data vector \m{\vec{y}} uses random variables to model how the data were generated.
-
-\item  Outcomes that are not numeric can be made numeric.
-%\bi
-\item
-Outcomes of {\it heads} and {\it tails} for a coin can be made numeric by assigning value 1 for {\it heads} and 0 for {\it tails}.
-\item
-Outcomes of ``What is your favorite movie?'' can be made numeric by enumerating all movies.
-%\ei
 \end{myitemize}
 \end{frame}
 
 %\end{document}
 
-
-
-\begin{frame}[fragile]
-\frametitle{Generating random variables with a computer, in R}
-
-\vspace{-2mm}
+\begin{frame}
+\frametitle{Random variables and events}
 
 \begin{myitemize}
-\item
-If each outcome is equally likely (e.g., a roll of a fair die) we can generate realizations of the model in R using \code{sample()}
+\item A \myemph{random variable} \m{X} is a random number with probabilities assigned to outcomes.
+
+Example:  Let \m{X} be a roll of a fair die. A natural probability model is to assign probability of \m{1/6} to each of the possible outcomes \m{1,2,3,4,5,6}.
+
+\item An \myemph{event} is a set of possible outcomes.
+
+Example:  For a die, \m{E=\{X\ge 4\}=\{4,5,6\}} is the event that the die lands on \m{4} or more.
+
+\item We can assign probabilities to events just like to outcomes.
+
+Example: For a die, \m{\prob(E)=\prob(X\ge 4)= 3/6 = 1/2}.
+
 \end{myitemize}
+\myquestion. If an experiment can be repeated many times (like rolling a die) how can you check whether the probability model is correct?
 
-\vspace{-2mm}
+\answer{\vspace{20mm}}{For a correct probability model, the probability of an event should match the long run proportion of the time that the event happens in many repetitions. This is the \myemph{law of large numbers}}. 
 
-<<dice_sample,echo=T,eval=F>>=
-## Make 20 draws with replacement from {1,2,3,4,5,6}
-## This models 20 realizations of rolling a fair die
-## We can plot a histogram of the simulated dice rolls
-my_data <- sample(1:6,size=20,replace=TRUE)
-hist(my_data)
-@
-
-\vspace{-6mm}
-
-<<,fig.width=4,fig.height=2.5,out.width="2.9in",echo=F,eval=T>>=
-set.seed(23) 
-par(mai=c(0.1,0.8,0.5,0.5))
-<<dice_sample>>
-@
-
-\end{frame}
-
-%\end{document}
-
-\begin{frame}[fragile]
-\frametitle{A definition of probability for repeatable experiments}
-
-\begin{myitemize}
-\item The \myemph{probability} of an event is the long-run proportion of times that an event happens in a large number of realizations of the probability model.
-
-\item Probabilities are only defined in the context of a probability model.
-If we talk about the probability that a particular US senator will be reelected in November, that means we have a model for it.
-We can draw many realizations from our model, even though we are modeling one specific election.
-
-\item For an event \m{A}, we write the probability of \m{A} in our model as \m{\prob(A)}.
-
-\item We will review the material on probability random variables from STATS 250 at
-\url{open.umich.edu/find/open-educational-resources/statistics}. 
-See, in particular,
-\begin{itemize}
-\item\quad \emph{Interactive Lecture Notes 04: Probability}
-
-\item\quad \emph{Interactive Lecture Notes 05: Random Variables}
-
-\item\quad \emph{Workbook 03: Lab 2 - Probability and Random Variables}
-\end{itemize}
-\end{myitemize}
-
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Bivariate and vector-valued random variables}
-\begin{myitemize}
-\item Our data usually have more than one number, so a probability model for the data needs to generate a collection of random variables.
-\item A probability model generating \m{n} numeric values is a \myemph{vector-valued random variable} of length \m{n}.
-\item In the special case \m{n=2}, the pair of numeric values is a \myemph{bivariate random variable}.
-\item We have already seen one example of a vector-valued random variable. Above, we made \m{20} dice rolls to generate a vector of \m{20} outcomes.
-\end{myitemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Notation for random variables}
+\frametitle{Notation for combining events}
 \begin{myitemize}
-\item We use upper case letters for random variables, and lower case letters for the possible values of the random variables. \m{\{X=x\}} is common notation for the event that the random variable \m{X} takes the specific value \m{x}.
-\item Bivariate random variables are often called \m{X} and \m{Y}.
-\item Vector-valued random variables are often called \m{X_1,\dots,X_n}.
-\item For linear models, the data are often called \m{y_1,\dots,y_n} so we call the probability model \m{Y_1,\dots,Y_n}. Here, \m{\mat{X}} is reserved for the matrix of covariates. In the usual linear model, entries of \m{\mat{X}} are fixed, not random.
+\item \m{\{\mbox{$E$ or $F$}\}} is the event that either \m{E} or \m{F} or both happens.
+\item Since \m{E} and \m{F} are sets, we can write this as a union,
+ \m{\{\mbox{$E$ or $F$}\}= E\cup F}
+\item \m{\{\mbox{$E$ and $F$}\}} is the event that both \m{E} and \m{F} happen.
+\item We can write this as an intersection,
+\mydisplaymath{
+  \{\mbox{$E$ and $F$}\}=E\cap F
+}
+\item Usually, we prefer ``and/or'' to  ``intersection/union''. 
 \end{myitemize}
-\end{frame}
+\myquestion. When does this formal use of ``and/or'' agree with usual English usage? When does it disagree?
 
-\begin{frame}[fragile]
-\frametitle{Events corresponding to the outcomes of random variables}
-
-\begin{myitemize}
- 
-\item Events can be specified as a range of outcomes of random variables.
-
-\item Let \m{X} be the outcome of rolling a fair die.
-Let \m{A} be the event that the die lands on \m{5} or \m{6}.
-We can write \m{A} as \m{\{X\ge 5\}}.
-
-\item To talk about the probability of \m{A}, we could write \m{\prob(A)} or \m{\prob(X\ge 5)}.
-
-\item For vector-valued random variables, an event may involve many or all the random numbers.
-
-\item Let $X_1,X_2,X_3$ be three rolls of a die. Let \m{B=\{X_1+X_2+X_3\ge 12\}}. \m{B} is the event that the sum of three dice is at least \m{12}.
-
-\end{myitemize}
-
-\myquestion. Define a probability model for fifty dice rolls and use summation notation to write the event that the sum of fifty dice exceeds thirty.
-
-\vspace{5mm}
+\answer{\vspace{20mm}}
 
 \end{frame}
 
-\end{document}
-
-
-\begin{frame}[fragile]
-\frametitle{Obtaining a probability by simulation}
-
-\begin{myitemize}
-\item Let \m{A} be the event that the die lands on a ``1''.
-
-\end{myitemize}
-
-\end{frame}
-
+%\end{document}
 
 \begin{frame}
 \frametitle{The basic rules of probability}
 
-Complement	rule P(A ) 1 P(A) C = −
-• Mutually	Exclusive	(disjoint)	Events:	
-The	events	A,	B	are	disjoint	if	“A	and	B”	is	the	empty	set.		
-Thus,	P(A	and	B)	=	0.
-• Addition	Rule	(general) P(Aor B) = P(A) + P(B) − P(Aand B)
-If	A,	B	are	disjoint,	we	have	 P(Aor B) = P(A) + P(B)
-• Conditional	Probability	(general) ( )
-( and ) ( | ) P B
-P A B P A B =
-• Independent	Events:	
-The	events	A,	B	are	independent	if		 P(A| B) = P(A)
-Equivalently,	the	events	A,	B	are	independent	
-if	 P(Aand B) = P(A)P(B)
+\begin{enumerate}
+\item Probabilities are non-negative numbers between 0 (impossible) and 1 (certain).
+
+\item  Let \m{\Sspace} be the set of all possible outcomes. Then, \m{\prob(\Sspace)=1}.
+
+Example: For a die, \m{\prob(X\in\{1,2,3,4,5,6\})=1}.
+
+\item Events \m{E} and \m{F} are called \myemph{mutually exclusive} if they cannot happen at the same time. In other words, their intersection is the empty set. In this case, 
+\mydisplaymath{
+\prob(\mbox{$E$ or $F$})=\prob(E)+\prob(F).
+}
+
+%\end{myitemize}
+\end{enumerate}
+
+\myquestion. I roll a red die and a blue die. Let \m{E=\{\mbox{red die lands on 1}\}}, \m{F=\{\mbox{blue die lands on 1}\}}, \m{G=\{\mbox{red die lands mon 6}\}}. (a) Are \m{E} and \m{F} mutually exclusive? (b) How about \m{E} and \m{G}? (c) How about \m{F} and \m{G}?
+
+\answer{\vspace{20mm}}{TODO}
 
 \end{frame}
+
+
+%\end{document}
+
+\begin{frame}
+\frametitle{Discrete random variables}
+\begin{myitemize}
+\item A \myemph{discrete random variable} is one where we can list all possible outcomes. Let's call them \m{x_1,x_2,\dots}. 
+
+\item A discrete random variable is specified by probability that the random variable takes each possible outcome,
+\mydisplaymath{
+  p_i = \prob[X=x_i], \mbox{for $i = 1,2,3,\dots$}
+}
+
+\item It can be helpful to plot a graph of \m{p_i} against \m{x_i}.
+\item This graph is called the \myemph{probability mass function}.
+\end{myitemize}
+\myquestion. Sketch the probability mass function for a fair die.
+
+\answer{\vspace{40mm}}
+
+\end{frame}
+
+%\end{document}
+
+\begin{frame}
+\frametitle{Simulating the law of large numbers}
+\begin{myitemize}
+\item The ``law of large numbers'' says that the proportion of each outcome \m{i} in a large number of draws of a discrete random variable approaches \m{p_i}.
+
+\item We can test this by simulation, using the \code{replicate()} command.
+\end{myitemize}
+
+\WorkedExample. In R, a random draw with replacement from \m{\{1,2,3,4,5,6\}} can be obtained by
+\code{sample(1:6,size=1)}
+This is equivalent to one roll of a fair die.
+
+%\vspace{-5mm}
+
+<<hist100,echo=T>>=
+hist(replicate(sample(1:6,size=1),n=100),
+  main="", prob=TRUE, breaks=0.5:6.5, xlab="n=100")
+@
+
+\end{frame}
+
+\begin{frame}
+
+<<>>=
+plot(1:10, 
+  main="", prob=TRUE, 
+  breaks=0.5:6.5, xlab="n=100")
+@
+
+<<hist10000,eval=F,echo=F,purl=FALSE>>=
+hist(replicate(sample(1:6,size=1),n=10000),
+  main="", prob=TRUE, breaks=0.5:6.5, xlab="n=10000")
+@
+
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+<<hist100eval,out.width="60mm",fig.width=4,fig.height=3,echo=F>>=
+<<hist100>> 
+@
+\end{column}
+
+
+\begin{column}{0.45\textwidth}
+
+
+<<hist10000eval,out.width="60mm",fig.width=4,fig.height=3,echo=F>>=
+<<hist10000>> 
+@
+\end{column}
+\end{columns}
+
+%hist(replicate(sample(1:6),n=10),
+%histogram(sample(1:6,n=100))
+%histogram(sample(1:6,n=1000))
+%histogram(sample(1:6,n=10000))
+
+\end{frame}
+
 
 \end{document}
 
+A continuous random variable is one which can take possible values in an interval of the real numbers.
 
-\end{frame}
+An important example of this is the normal distribution. Random draws from the normal distribution are obtained by rnorm() in R and we can use multiple \myemph{simulations} of the random  draws to learn about the distribution.
 
-\begin{frame}[fragile]
-\frametitle{}
+histogram(rnorm(n=1000,mean=20,sd=5))
 
-\begin{myitemize}
-\item 
+Mathematically, we say this is a histogram of 1000 random variables drawn from the Normal(20,5) distribution.
+
+The mean is a measure of center, which we'll define soon, and sd (standard deviation) is a measure of spread.
+
+We see that the points are centered around the mean, 20, and most of them fall within two standard deviations(+/- 10) of the mean.
+
+For a continuous random variable, the probability that the random variable falls in an interval is given by the area under its \myemph{probability density} curve.
+
+Let X be a \myemph{standard normal random variable}, with mean=0 and sd=1. We write X\sim \normal[0,1]. The probability density function for X is usually called phi(x) and has the mathematical formula
+
+phi(x) = \frac{1}{\sqrt{2\pi}}e^{-x^2/2}
+
+\myquestion. Suppose X\sim Normal[0,1]. Write \prob[-2\le X\le 2] as an integral and use R to evaluate this probability.
+
+solution. [DRAW SHADED PLOT OF NORMAL CURVE HERE]
+
+We want the shaded area. It is formally given by
+
+\mydisplaymath{
+shaded area = \int_{-2}^2 \phi(x) dx = \int_{-2}^2 \frac{1}{\sqrt{2\pi}}e^{-x^2/2} \, dx
+}
+
+This integral has no nice solution, so we ask R to evaluate it numerically, using the R function pnorm.
+
+pnorm(x,mean=0,sd=1) computes the left tail of the standard normal distribution up to x
+
+Mathematically, pnorm(x,0,1)=\prob(X\le x) when X\sim \normal(0,1)
+
+Visually, pnorm(x,0,1) is the following shaded area
+
+[DRAW SHADED PLOT OF NORMAL CURVE HERE]
+
+pnorm(x,0,1) is called the standard normal cumulative distribution function, and it is usually written as Phi(x), so mathematically
+
+\Phi(x)=\int_{-\infty}^x \phi(z)\, dz.
+
+R knows many other probability distributions. For example, try hist(rexp(1000)) or hist(runif(1000)), or
+?[WHAT TO SEARCH FOR R HELP?]
+. The normal distribution is by far the most important. Let's find out why. 
+
+The central limit theorem
+
+The sum of many random variables follows the normal distribution. This is called the CLT.
+
+Example: let's look at histograms of 1000 replications of the sum of n dice, and see what happens as n increases.
+
+
+
+
+\myquestion. Would you expect the heights of adult males (or adult females) to follow a normal distribution? You can give arguments for and against
+
+\myquestion. Would you expect the height of all adults to follow a normal distribution? Explain.
+
+The normal distribution is often used to model \myemph{measurement error}, when we suppose there is some true underlying quantity on which we make an imperfect measurement. 
+
+\myquestion. Would you expect the measurement of life expectancy at birth to have normally distributed measurement error?
+
+\myquestion. Consider the mice weight data for HW1 with mice randomized to two treatments: a high fat diet and a usual lab diet. (a) Would you expect the weights of mice in each treatment group to follow a normal distribution? (b) If the experiment were replicated ten times, and an average weight calculated for each of these ten replications, would you expect the ten averages to follow a normal distribution? Are your answers different for (a) and (b)?
+
+Mean of samples and random variables.
+
+The sample mean of n values x_1,\dots,x_n is \m{\bar x = \frac{1}{n}\sum_{i=1}^n x_i = (x_1+x+2+\dots+x_n) / n}
+
+Let X be a random variable that takes possible values x_1,\dots,x_n with probabilities p_1,...,p_n.
+The mean of X is also called the \myemph{expected value} of X and is 
+
+
+
+
+
+
+
+
+
+
+
+
 \end{myitemize}
 
-\end{frame}
+\end{document}
