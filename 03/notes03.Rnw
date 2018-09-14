@@ -150,7 +150,7 @@ In matrix notation, writing \myref{\LMi} or \myref{\LMii} is exactly the same as
 
 \item In the simple linear regression model, \m{b_1} and \m{b_2} are called the slope and the intercept.
 \item
-In general, \m{b_1,\dots,b_p} are called the \myemph{coefficients} of the linear model, and \m{\vec{b}} is the \myemph{coefficient vector}.
+Often, \m{b_1,\dots,b_p} are called the \myemph{coefficients} of the linear model, and \m{\vec{b}} is the \myemph{coefficient vector}.
 \item
 Sometimes, \m{b_1,\dots,b_p} are called \myemph{parameters} of the linear model, and \m{\vec{b}} is the \myemph{parameter vector}.
 \item In R, we obtain \m{\vec{b}} using the \code{coef()} function as demonstrated below.
@@ -433,20 +433,16 @@ For simple linear regression, the \myemph{residual sum of squares (RSS)} is
 
 \vspace{1mm}
 
-%\myquestion
-%{\bf Worked example}.
 \WorkedExample. Apply the chain rule to differentiate the \m{i}th term in the sum for \m{RSS}. Check that
 \mydisplaymath{
 \frac{\partial}{\partial \slope} \big(y_i -  \slope x_i -\intercept \big)^2 = (-x_i) \cdot 2 \big(y_i -  \slope x_i -\intercept \big)
 }
 
-\answer{\vspace{20mm}}{TODO}
+\answer{\vspace{15mm}}{TODO}
 
-%\myquestion
-%{\bf Worked example}.
 \WorkedExample. Since the derivative of a sum is the sum of the derivatives, check that
 
-\vspace{-1mm}
+\vspace{-4mm}
 
 \mydisplaymath{
 \frac{\partial}{\partial \slope}\RSS = 
@@ -464,7 +460,7 @@ A similar calculation, which you can check if you want the exercise, gives
 \frac{\partial}{\partial \intercept} \mathrm{RSS} = 2n\intercept - 2\sum_{i=1}^n y_i + 2 \slope \sum_{i=1}^n x_i.
 }
 
-\vspace{10mm}
+\vspace{50mm}
 
 \end{frame}
 
@@ -495,12 +491,19 @@ This gives a pair of simultaneous linear equations for \m{\slope} and \m{\interc
 
 \item These are called the \myemph{normal equations}.
 \item We will show they can be written in matrix form as
-\mydisplaymath{
+
+\vspace{1mm}
+
+\m{
+\LSii \hspace{30mm} 
 \mat{X}^\transpose\mat{X}\vec{b}=\mat{X}^\transpose\vec{y}
 }
+
+\vspace{1mm}
+
 \item Therefore, the solution to the normal equations is
 \mydisplaymath{
-\vec{b}=\big[\mat{X}^\transpose\mat{X}\big]^{-1}\max{X}^\transpose\vec{y}
+\vec{b}=\big[\mat{X}^\transpose\mat{X}\big]^{-1}\mat{X}^\transpose\vec{y}
 }
 \item This shows \myref{\LMiv} solves \myref{\LSi} and so minimizes the RSS.
 
@@ -514,7 +517,13 @@ This gives a pair of simultaneous linear equations for \m{\slope} and \m{\interc
 \vspace{-2mm}
 
 \begin{myitemize}
-\item The matrix form of \m{y_i = \slope x_i + \intercept+e_i}, for \m{i=1,\dots,n}, is \m{\vec{y}=\mat{X}\vec{b}+\vec{e}} where \m{\vec{y}=(y_1,\dots,y_n)}, \m{\vec{b}=(\slope,\intercept)}, \m{\vec{e}=(e_1,\dots,e_n)}, \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{1}=(1,1,\dots,1)} are column vectors, and \m{\mat{X}=[\, \vec{x} \hspace{1mm} \vec{1}\, ]}.
+\item The matrix form of \m{y_i = \slope x_i + \intercept+e_i}, for \m{i=1,\dots,n}, is 
+
+\mydisplaymath{
+\vec{y}=\mat{X}\vec{b}+\vec{e}
+}
+
+where \m{\vec{y}=(y_1,\dots,y_n)}, \m{\vec{b}=(\slope,\intercept)}, \m{\vec{e}=(e_1,\dots,e_n)}, \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{1}=(1,1,\dots,1)} are column vectors, and \m{\mat{X}=[\, \vec{x} \hspace{1mm} \vec{1}\, ]}.
 \item Written out in full, this is
 \mydisplaymath{
 \myvector{y}{n} =
@@ -535,8 +544,12 @@ x_n & 1
 \myvector{e}{n}
 }
 
-
 \end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Evaluating $\mat{X}^\transpose\mat{X}$ and $\mat{X}^\transpose\vec{y}$ for simple linear regression}
 
 \myquestion. \setcounter{tXX}{\theQcounter}
 For this \m{\mat{X}}, check that \m{\mat{X}^\transpose\mat{X} = 
@@ -546,7 +559,7 @@ For this \m{\mat{X}}, check that \m{\mat{X}^\transpose\mat{X} =
 \end{array}\right]
 }
 
-\vspace{10mm}
+\answer{\vspace{30mm}}{TODO}
 
 \myquestion. \setcounter{tXy}{\theQcounter}
 Also, check that \m{\mat{X}^\transpose\vec{y} = 
@@ -556,7 +569,7 @@ Also, check that \m{\mat{X}^\transpose\vec{y} =
 \end{array}\right]
 }
 
-\vspace{10mm}
+\answer{\vspace{30mm}}{TODO}
 
 \end{frame}
 
@@ -584,7 +597,7 @@ Check that \myref{\LSi} in matrix form is
 \end{array}\right]
 }
 
-\vspace{15mm}
+\answer{\vspace{30mm}}{TODO}
 
 \begin{myitemize}
 \item 

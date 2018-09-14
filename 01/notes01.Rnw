@@ -958,7 +958,7 @@ In this special case, with \m{p=2} variables and \m{x_{i2}=1}, the model \m{(\ma
 \vspace{1mm}
 
 \item Here, \m{b_2} is the intercept for the \myemph{fitted line}  \m{y_i = b_1 x_{i1} + b_2} when we ignore the residual errors \m{e_1,\dots,e_n}.
-\item In \code{L_fit <- lm(Total~Year,data=L)}, we gave R the task of finding the values of the \myemph{coefficients} \m{b_1} and \m{b_2} which minimize the \myemph{sum of squared errors}, \m{\sum_{i=1}^n e_i^2}.
+\item In \code{L_fit <- lm(Total~Year,data=L)}, we gave R the task of finding the values of the \myemph{coefficients} \m{b_1} and \m{b_2} which minimize the \myemph{residual sum of squares}, \m{\sum_{i=1}^n e_i^2}.
 \item We didn't have to tell R we wanted an intercept. By default, it assumed we did. In this case it was right.
 \end{myitemize}
 \end{frame}
