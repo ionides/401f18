@@ -31,7 +31,7 @@ Repeat this with ```Lesson 3: Sequences of Numbers``` and ```Lesson 4: Vectors``
 The lessons are designed to take 10-20 minutes each. In addition to introducing some knowledge, they give your fingers a chance to start practicing coding in R. You will have a chance to ask swirl questions during lab. 
 If possible, bring your laptop to lab. 
 
-**Q1**. Write a brief paragraph on what you did with swirl, which tutorials you successfully completed, and the techical or conceptual obstacles (if any) that you encountered and (hopefully) overcame.
+**Q1**. Write a brief paragraph on what you did with swirl, which tutorials you successfully completed, and the technical or conceptual obstacles (if any) that you encountered and (hopefully) overcame.
 
 ------
 

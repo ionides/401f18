@@ -4,7 +4,7 @@ author: "Due in your lab on 9/28"
 output:
   html_document:
     theme: flatly
-    toc: yes
+    toc: no
 csl: ecology.csl
 ---
 
@@ -20,16 +20,123 @@ csl: ecology.csl
 Continuing from Homeworks 1 and 2, complete the following swirl modules: ```Lesson 12: Looking at Data```, ```Lesson 13: Simulation``` and ```Lesson 15: Base Graphics```. 
 For now, we will not need the material in Lessons 10, 11 and 14, but you can do any or all of these too if you like. 
 
-**Q1**. Write a brief comment on what you did with swirl, which tutorials you successfully completed, and the techical or conceptual obstacles (if any) that you encountered and (hopefully) overcame. This could be as little as a single sentence.
+**Q1**. Write a brief comment on what you did with swirl, which tutorials you successfully completed, and the technical or conceptual obstacles (if any) that you encountered and (hopefully) overcame. This could be as little as a single sentence.
 
 ---------------
 
 ### Using matrices to detrend unemployment
 
 The goal here is to fit a least squares trend to the  unemployment data analyzed in class, checking that matrix calculations match the output of `lm()`. 
-The R code needed to answer the following questions appears in the notes, so the questions below deliberately do not give you detailed R advice.
 
-**Q2**. 
+**Q2**. Report your R code and output from steps (a-e) below, including a graph for (d). 
+Add enough comments to help the reader understand what you are doing. 
+The R code needed to answer the following questions appears in the notes, so the steps deliberately do not give you detailed R advice.
+You are expected to use and adapt the code you have already been given.
+
+(a) Data on monthly US unemployment from 1948 to 2015 from the Bureau of Labor Statistics are on the class website, at https://ionides.github.io/401f18/01/unemployment.csv. Read these data into R and obtain a vector called `y` giving the average unemployment for each year.
+
+(b) In R, construct a matrix called `X` corresponding to the design matrix for fitting a linear model
+\[
+ y_i = b_1 x_{i1} + b_2 + e_i, i=1,\dots,n
+\]
+where $n=68$ and $x_{i1}$ is the year corresponding to the $i$th row of the dataset, so $x_{11}=1948$.
+
+(c) In R, use matrix multiplication to compute the vector $\vec{b}=(b_1,b_2)$ giving the least squares fit of this linear model. Use R notation matching the matrix form of the linear model,
+\[ 
+\vec{y} = \mat{X}\vec{b} + \vec{e}
+\]
+where $\vec{y}=(y_1,\dots,y_n)$, $\mat{X}=[x_{ij}]_{n\times 2}$ and $\vec{e}=(e_1,\dots,e_n)$.
+
+(d) Let $\vec{x}$ be the vector of elements in the first column of $\mat{X}$, corresponding to the sequence of years for which we have unemployment data. Plot $\vec{y}$ against $\vec{x}$ as points, and add a line corresponding to plotting the vector of fitted values $\mat{X}\vec{b}$ against $\vec{x}$. From looking at this plot, do you think there has been a noticeable trend in unemployment since 1948? Describe in words the main patterns you see in the data.
+
+(e) Use `lm()` in R to fit the same linear model. Check that you get the same fitted values. Report the first 5 fitted values obtained by both `lm()` and the matrix computation.
+
+
+
+------------------
+
+### Debugging a matrix calculation
+
+**Q3**. An important matrix calculation for linear models is
+\[
+\mat{X}\, \big(\mat{X}^\transpose\, \mat{X}\big)^{-1}\, \mat{X}^\transpose
+\]
+where $\mat{X}$ is the $n\times p$ design matrix for a linear model. Your friend shows you the following calculation:
+
+$\begin{array}{ll}
+(1) \hspace{40mm} & \mat{X}\, \big(\mat{X}^\transpose \, \mat{X}\big)^{-1} \, \mat{X}^\transpose 
+\\
+(2) & \hspace{10mm} =  \hspace{2mm} \mat{X} \, \big(\mat{X}^{-1}\, [\mat{X}^\transpose]^{-1}\big)\, \mat{X}^\transpose
+\\
+(3) &  \hspace{10mm} =  \hspace{2mm}   \big(\mat{X}\, \mat{X}^{-1}\big) \, \big([\mat{X}^\transpose]^{-1}\, \mat{X}^\transpose\big)
+\\
+(4) &  \hspace{10mm} =  \hspace{2mm}   \hspace{5mm} \mat{I}\hspace{10mm}\mat{I}
+\\
+(5) &  \hspace{10mm} =  \hspace{2mm}  \mat{I}
+\end{array}$
+ 
+It can't be right that $\mat{X}\big(\mat{X}^\transpose\mat{X}\big)^{-1}\mat{X}^\transpose$ is simply the identity matrix, $\mat{I}$. Otherwise, this formula would never arise in linear models! So we should look for the bug(s) in the reasoning. There are four steps: 
+
+(a) From (1) to (2)
+(b) From (2) to (3)
+(c) From (3) to (4)
+(d) From (4) to (5)
+
+For each of (a,b,c,d) say whether the reasoning is correct or, if there is an error, explain how you know it is wrong.
+
+-------------------
+
+### Diagonal matrices and their inverse
+
+A **diagonal matrix** is a square matrix with all entries zero except on the **leading diagonal**.
+So, if $\mat{D}=[d_{ij}]_{p\times p}$ is a diagonal matrix, then $d_{11},d_{22},\dots,d_{pp}$ may be non-zero but all other entries are zero. For example, the identity matrix
+\[
+\underset{3\times 3}\mat{I} = \left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 
+\end{array}
+\right]
+\]
+is a diagonal matrix. 
+
+You may be curious why diagonal matrices are useful for statistics. Here's one reason.
+Suppose $\mat{X}=[x_{ij}]_{n\times p}$ is a matrix of data, measuring $p$ variables on $n$ units. 
+Suppose I want to rescale all the variables,  multiplying the first variable by some constant $c_1$, the second by some constant $c_2$ and so on. How do I do that? Let $\underset{p\times p}{\mat{C}}$ be the diagonal matrix with diagonal entries $c_1,\dots,c_p$, so
+\[
+\mat{C} = \left[
+\begin{array}{cccc}
+c_1 & 0 & \dots & 0 \\
+0 & c_2 & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \dots & c_p 
+\end{array}
+\right].
+\]
+The matrix product $\mat{X}\,\mat{C}$ does the rescaling I want (You can check this if you like, but this is not required for homework). Incidentally, in R this could be computed as
+```
+X <- X %*% diag(c)
+```
+where diag(c) produces a diagonal matrix with diagonal terms given by the vector `c`.
+
+**Q4**. Let $\mat{A}$ be the following diagonal matrix:
+\[
+\mat{A} = \left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 3 
+\end{array}
+\right].
+\]
+Find the inverse $\mat{A}^{-1}$. Hint: guess the answer and try it out. Do you think the inverse is also a diagonal matrix? If you can guess at the inverse and then find you got it right, by checking that $\mat{A}^{-1}\mat{A}= \underset{3\times 3}\mat{I}$, then you have solved the problem.
+
+
+--------------
+
+**As usual, you also need to make a _Sources_ statement, which will let the grader know whether you completed the homework based on class and lab materials alone or whether you made use of additional resources. It is debateable whether class notes should be cited as a source, or if they can be take for granted. When giving academic credit, it is best to err on the side of caution and so you are encouraged to include class notes as a source if (as is likely) you study them while answering the question.**
+
 
 --------------
 
