@@ -1,0 +1,93 @@
+---
+title: "Hw3 Solutions"
+output: pdf_document
+---
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+
+**For your homework report this week, you do not need to submit solutions to the swirl lessons. 
+Please report whether you successfully completed them, and discuss any issues that arose in the  _Sources_ and _Please explain_ statements. 
+For the data analysis exercise, write a brief report including the output you are asked to compute and the R code you used to generate it.
+Recall that you are permitted to collaborate, or to use internet resources including the source code for the textbook at http://www.stat.tamu.edu/~sheather/book/, but you must list all sources that make a substantial contribution to your report.**
+
+---------------
+
+### Building the design matrix for a linear model
+
+1. Start by reading Section 1.2.1. of the textbook. 
+This section describes the data and the models we will consider, and then goes further to discuss p-values we have not yet introduced in class.  We will get to that soon. 
+Look at the data at https://ionides.github.io/401w18/hw/hw03/FieldGoals2003to2006.csv.
+The data are described in the header of that file.
+
+2. Read the data into R (as in Homework 1).
+```{r}
+data_nfl <- read.csv("https://ionides.github.io/401w18/hw/hw03/FieldGoals2003to2006.csv",header = TRUE,skip=5)
+```
+
+
+3. Let $i$ correspond to the $i$th row of the data table. 
+Recall that each kicker has $4$ rows for the seasons 2003, 2004, 2005, 2006.
+Let $y_i$ be the field goal average for row $i$, and $x_i$ be the average for the previous season.
+A simple linear regression model predicting performance based on the previous season is
+<br><br>
+(SLR) $\hspace{1cm}y_i = m x_i + c + e_i, \hspace{1cm}$ for $i=1,\dots,4\times 19$.
+<br><br>
+We can write this in matrix form as
+$$ \vec{y} = \mat{X}\vec{b} + \vec{e}.$$
+Construct the matrix $\mat{X}$ for model (SLR) in R. 
+Use the material in Chapter 3 of the notes to obtain the least squares values of $m$ and $c$ in model (SLR) via matrix multiplication in R.
+Plot the data, together with the fitted values contructed using a matrix multiplication formula.
+This should look like Figure 1.2 of Sheather, with the addition of a single line corresponding to a fit for all kickers.
+
+```{r}
+y <- data_nfl$FGt
+X <- cbind(data_nfl$FGtM1,rep(1,length(data_nfl$FGtM1)))
+b <- c("m","c")
+#Confirm that you have defined the correct matrices
+head(y); head(X)
+b <- solve( t(X) %*% X ) %*% t(X) %*% y
+b
+```
+```{r}
+plot(x=data_nfl$FGtM1,y=jitter(y),xlab = "Av Field Goals in previous year (t-1)", ylab = "Av Field Goals in current year (t)")
+abline(a=b[2],b=b[1],col="red")
+```
+
+
+4. Now, we build a linear model for predicting performance based on the previous season where each kicker has their own intercept. 
+This model can be written mathematically as
+<br><br>
+(LM) $\hspace{1cm}y_i = m x_i + c_1 z_{i,1} + c_2 z_{i,2} +\dots+c_{19}z_{i,19} + e_i, \hspace{1cm}$ for $i=1,\dots,4\times 19$.
+<br><br>
+where $z_{i,1}$ takes the value $1$ when row $i$ of the data corresponds to kicker 1 (i.e., for $i=1,2,3,4$) and $0$ otherwise, $z_{i,2}$ takes the value $1$ when $i$ corresponds to kicker 2 (i.e., for $i=5,6,7,8$) and $0$ otherwise, and so on.
+This means that $c_k$ is the intercept of a linear model for kicker $k$, for $k=1,\dots,19$, where the lines for all the kickers share the same slope, $m$.
+To write model (LM) in the form $\vec{y} = \mat{X}\vec{b} + \vec{e}$, we need $\mat{X}=[\vec{x},\vec{z}_1,\dots,\vec{z}_{19}]$ where $\vec{x}$ is a column vector containing $(x_1,\dots,x_{76})$ and $\vec{z}_k$ is a column vector containing $(z_{1,k},\dots,z_{76,k})$ for $k=1,\dots,19$.
+The vector $\vec{z}_k$ can be called a dummy variable for kicker $k$. 
+Dummy variables are explanatory variables that we construct in order to allow a coefficient (here, the intercept) to be estimated separately for different subsets of the data (here, the intercept is estimated separately for each kicker).
+<br><br>
+Construct the $\mat{X}$ matrix for model (LM) in R. 
+A direct way is to build each of the twenty columns, with the help of `rep()`, and glue them together with `cbind()`.
+```{r}
+Z <- matrix(0,nrow=19*4,ncol=19)
+for(k in 1:19){Z[,k]<-c(rep(c(0,0,0,0),k-1),rep(1,4),rep(c(0,0,0,0),19 - k))}
+# or
+for(k in 1:19){Z[,k][(4*(k-1)+1) : (4*k)] <- rep(1,4)}
+X <- cbind(data_nfl$FGtM1,Z)
+b <- solve( t(X) %*% X ) %*% t(X) %*% y
+m <- b[1]; m
+```
+
+There are other succinct ways to construct this matrix, and you can look for them if you wish. 
+Report whether your least squares estimate of $m$, constructed using the design matrix $\mat{X}$,
+ matches the value of -0.504 in Figure 1.2 of Sheather. 
+
+5. Can you use the fitted values and/or the least square coefficient estimates that you obtained for model (LM) above to reproduce the parallel lines in Figure 1.2 of Sheather? This is an optional additional task, to be carried out if you have time. It will not be counted toward the "completeness" grade for your homework.
+
+```{r}
+plot(x=data_nfl$FGtM1,y=jitter(y),xlab = "Av Field Goals in previous year (t-1)", ylab = "Av Field Goals in current year (t)")
+for(i in 1:19){abline(a=b[i+1],b=b[1],col=palette(rainbow(19))[i])}
+```
+
+

@@ -1,0 +1,38 @@
+---
+title: "Homework 3, STATS 401 F18"
+author: "Due in your lab on 9/28"
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+csl: ecology.csl
+---
+
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+
+--------------
+
+### More swirl lessons
+
+Continuing from Homeworks 1 and 2, complete the following swirl modules: ```Lesson 12: Looking at Data```, ```Lesson 13: Simulation``` and ```Lesson 15: Base Graphics```. 
+For now, we will not need the material in Lessons 10, 11 and 14, but you can do any or all of these too if you like. 
+
+**Q1**. Write a brief comment on what you did with swirl, which tutorials you successfully completed, and the techical or conceptual obstacles (if any) that you encountered and (hopefully) overcame. This could be as little as a single sentence.
+
+---------------
+
+### Using matrices to detrend unemployment
+
+The goal here is to fit a least squares trend to the  unemployment data analyzed in class, checking that matrix calculations match the output of `lm()`. 
+The R code needed to answer the following questions appears in the notes, so the questions below deliberately do not give you detailed R advice.
+
+**Q2**. 
+
+--------------
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+
+------
