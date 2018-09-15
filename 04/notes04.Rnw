@@ -61,7 +61,7 @@ library(broman) # used for myround
 @
 
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Chapter \CHAPTER. Probability models}
 
 \vspace{-1mm}
@@ -88,7 +88,7 @@ library(broman) # used for myround
 
 %\end{document}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Random variables and events}
 
 \begin{myitemize}
@@ -98,7 +98,7 @@ Example:  Let \m{X} be a roll of a fair die. A natural probability model is to a
 
 \item An \myemph{event} is a set of possible outcomes.
 
-Example:  For a die, \m{E=\{X\ge 4\}=\{4,5,6\}} is the event that the die lands on \m{4} or more.
+Example:  For a die, \m{E=\{X\ge 4\}=\{4,5,6\}} is the event that the die shows \m{4} or more.
 
 \item We can assign probabilities to events just like to outcomes.
 
@@ -111,7 +111,9 @@ Example: For a die, \m{\prob(E)=\prob(X\ge 4)= 3/6 = 1/2}.
 
 \end{frame}
 
-\begin{frame}
+%\end{document}
+
+\begin{frame}[fragile]
 \frametitle{Notation for combining events}
 \begin{myitemize}
 \item \m{\{\mbox{$E$ or $F$}\}} is the event that either \m{E} or \m{F} or both happens.
@@ -132,17 +134,22 @@ Example: For a die, \m{\prob(E)=\prob(X\ge 4)= 3/6 = 1/2}.
 
 %\end{document}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{The basic rules of probability}
 
+\vspace{-1.5mm}
+
 \begin{enumerate}
-\item Probabilities are non-negative numbers between 0 (impossible) and 1 (certain).
+\item Probabilities are numbers between 0 (impossible) and 1 (certain).
 
 \item  Let \m{\Sspace} be the set of all possible outcomes. Then, \m{\prob(\Sspace)=1}.
 
 Example: For a die, \m{\prob(X\in\{1,2,3,4,5,6\})=1}.
 
-\item Events \m{E} and \m{F} are called \myemph{mutually exclusive} if they cannot happen at the same time. In other words, their intersection is the empty set. In this case, 
+\item Events \m{E} and \m{F} are called \myemph{mutually exclusive} if they cannot happen at the same time. In other words, their intersection is the empty set. In this case,
+
+\vspace{-4mm}
+
 \mydisplaymath{
 \prob(\mbox{$E$ or $F$})=\prob(E)+\prob(F).
 }
@@ -150,16 +157,16 @@ Example: For a die, \m{\prob(X\in\{1,2,3,4,5,6\})=1}.
 %\end{myitemize}
 \end{enumerate}
 
-\myquestion. I roll a red die and a blue die. Let \m{E=\{\mbox{red die lands on 1}\}}, \m{F=\{\mbox{blue die lands on 1}\}}, \m{G=\{\mbox{red die lands mon 6}\}}. (a) Are \m{E} and \m{F} mutually exclusive? (b) How about \m{E} and \m{G}? (c) How about \m{F} and \m{G}?
+\myquestion. You roll a red die and a blue die. Let \m{E=\{\mbox{red die shows 1}\}}, \m{F=\{\mbox{blue die shows 1}\}}, \m{G=\{\mbox{red die shows 6}\}}. (a) Are \m{E} and \m{F} mutually exclusive? (b) How about \m{E} and \m{G}? (c) How about \m{F} and \m{G}?
 
-\answer{\vspace{20mm}}{TODO}
+\answer{\vspace{25mm}}{TODO}
 
 \end{frame}
 
 
 %\end{document}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Discrete random variables}
 \begin{myitemize}
 \item A \myemph{discrete random variable} is one where we can list all possible outcomes. Let's call them \m{x_1,x_2,\dots}. 
@@ -180,7 +187,7 @@ Example: For a die, \m{\prob(X\in\{1,2,3,4,5,6\})=1}.
 
 %\end{document}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Simulating the law of large numbers}
 \begin{myitemize}
 \item The ``law of large numbers'' says that the proportion of each outcome \m{i} in a large number of draws of a discrete random variable approaches \m{p_i}.
@@ -194,29 +201,22 @@ This is equivalent to one roll of a fair die.
 
 %\vspace{-5mm}
 
-<<hist100,echo=T>>=
-hist(replicate(sample(1:6,size=1),n=100),
-  main="", prob=TRUE, breaks=0.5:6.5, xlab="n=100")
+<<hist100,echo=T,eval=F,purl=TRUE>>=
+hist(replicate(n=100,sample(1:6,size=1) ),
+  main="",prob=TRUE,breaks=0.5:6.5,xlab="n=100",ylim=c(0,0.21))
 @
 
-\end{frame}
-
-\begin{frame}
-
-<<>>=
-plot(1:10, 
-  main="", prob=TRUE, 
-  breaks=0.5:6.5, xlab="n=100")
-@
-
-<<hist10000,eval=F,echo=F,purl=FALSE>>=
+<<hist10000,eval=F,echo=F,purl=TRUE>>=
 hist(replicate(sample(1:6,size=1),n=10000),
-  main="", prob=TRUE, breaks=0.5:6.5, xlab="n=10000")
+  main="", prob=TRUE, breaks=0.5:6.5, xlab="n=10000",ylim=c(0,0.21))
 @
+
+\vspace{-15mm}
 
 \begin{columns}[T] 
 \begin{column}{0.45\textwidth}
-<<hist100eval,out.width="60mm",fig.width=4,fig.height=3,echo=F>>=
+<<hist100eval,out.width="60mm",fig.width=3.5,fig.height=3,echo=F,purl=F>>=
+set.seed(23)
 <<hist100>> 
 @
 \end{column}
@@ -224,8 +224,8 @@ hist(replicate(sample(1:6,size=1),n=10000),
 
 \begin{column}{0.45\textwidth}
 
-
-<<hist10000eval,out.width="60mm",fig.width=4,fig.height=3,echo=F>>=
+<<hist10000eval,out.width="60mm",fig.width=3.5,fig.height=3,echo=F,purl=F>>=
+set.seed(196)
 <<hist10000>> 
 @
 \end{column}
