@@ -323,7 +323,7 @@ set.seed(117)
 \mydisplaymath{
 \prob(a < X < b) = \int_a^b f(x)\, dx
 }
-\item If \m{X} is \m{\normal(\mu,\sigma)}, i.e., \m{X} follows the normal distribution with mean \m{\mu} and sd \m{\sigma}, the probability density function is
+\item Write \m{X\sim\normal(\mu,\sigma)} to mean \m{X} is a normal random variable with mean \m{\mu} and sd \m{\sigma}. The probability density function of \m{X} is
 \mydisplaymath{
 f(x) =\frac{1}{\sqrt{2\pi\sigma^2}} e^{-(x-\mu)^2/2\sigma^2}
 }
@@ -342,64 +342,106 @@ and so
 \frametitle{Calculating probabilities for the normal distribution}
 \begin{myitemize}
 \item \code{pnorm()} finds the \myemph{left tail} of the normal distribution.
-\item \code{pnorm(25,mean=20,sd=5)} computes the shaded area:
 
-<<normal_pdf,out.width="60mm",fig.width=3.5,fig.height=3,echo=F,purl=F>>=
+
+\vspace{-10mm}
+
+<<normal_pdf,out.width="60mm",fig.width=3.5,fig.height=3,echo=F,purl=T>>=
 # Create data for the area to shade
-cord.x <- c(-3,seq(-3,-1,0.01),-1) 
-cord.y <- c(0,dnorm(seq(-3,-1,0.01)),0) 
- 
-# Make a curve
-curve(dnorm(x,0,1), xlim=c(-3,3), main='Standard Normal') 
- 
-# Add the shaded area.
-polygon(cord.x,cord.y,col='skyblue')
-
+pnorm_plot <- function(q,mean,sd,...) {
+  coord.x <- seq(from=mean-3*sd,to=mean+3*sd,by=sd/100)
+  plot(coord.x,dnorm(coord.x,mean,sd),type="l",...)
+  shaded.coord.x <- coord.x[coord.x <= q]
+  polygon.x <- c(mean-3*sd,shaded.coord.x,q)
+  polygon.y <- c(0,dnorm(shaded.coord.x,mean,sd),0)  
+  polygon(polygon.x,polygon.y,col='skyblue')
+}
+pnorm_plot(25,20,5,main="",xlab="",ylab="probability density")
 @
+
+\vspace{-10mm}
+
+Example: \code{pnorm(25,mean=20,sd=5)} computes the shaded area above.
+
+\item We don't have to do calculus with the normal integral, but we do use the relationship between the curve, area under the curve, and probability. And we must know how to compute these things in R.
+
+\item For \m{X\sim\normal(\mu,\sigma)},
+
+\vspace{-3mm}
+
+\mydisplaymath{
+\mbox{\code{pnorm(x,mu,sigma)}} =\prob(X\le x) = \int_{-\infty}^x
+\frac{1}{\sqrt{2\pi\sigma^2}} e^{-(y-\mu)^2/2\sigma^2}\, dy
+}
+
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Finding probabilities that are not a left tail}
+
+\myquestion. Let \m{X\sim \normal(10,10)}. Sketch a shaded area under a curve giving \m{\prob(0\le X\le 10)}. Write this probability as an integral and as R code.
+
+\vspace{1.5mm}
+
+Hint: To use \code{pnorm()}, think of the shaded area as the difference of two left tails.
+
+\answer{\vspace{80mm}}{TODO}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Other continuous distributions}
+\begin{myitemize}
+\item There are many continuous random variables that are not normally distributed.
+
+\item For example, we could explore the \myemph{uniform} or \myemph{exponential} distributions.
+
+
+\vspace{1mm}
+
+%\vspace{-5mm}
+
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+<<runif,echo=T,eval=F,purl=TRUE>>=
+hist(runif(100))
+@
+
+\vspace{-8mm}
+
+<<runif_eval,out.width="60mm",fig.width=3.5,fig.height=3,echo=F,purl=F>>=
+set.seed(28)
+hist(runif(100),xlab="",main="")
+@
+\end{column}
+
+
+\begin{column}{0.45\textwidth}
+
+<<rexp,eval=F,echo=T,purl=TRUE>>=
+hist(rexp(100))
+@
+
+\vspace{-8mm}
+
+<<rexp_eval,out.width="60mm",fig.width=3.5,fig.height=3,echo=F,purl=F>>=
+set.seed(31)
+hist(rexp(100),xlab="",main="")
+@
+\end{column}
+\end{columns}
+<<,eval=F>>=
+@
+
+\vspace{-8mm}
+
+\item Normal random variables are the only ones we will need in this class.
+\item Let's investigate why the normal distribution is so important.
 \end{myitemize}
 \end{frame}
 
 \end{document}
-
-Random draws from the normal distribution are obtained by \code{rnorm()} in R and we can use multiple \myemph{simulations} of the random  draws to learn about the distribution.
-
-histogram(rnorm(n=100,mean=20,sd=5))
-
-Mathematically, we say this is a histogram of 1000 random variables drawn from the Normal(20,5) distribution.
-
-The mean is a measure of center, which we'll define soon, and sd (standard deviation) is a measure of spread.
-
-We see that the points are centered around the mean, 20, and most of them fall within two standard deviations(+/- 10) of the mean.
-
-For a continuous random variable, the probability that the random variable falls in an interval is given by the area under its \myemph{probability density} curve.
-
-Let X be a \myemph{standard normal random variable}, with mean=0 and sd=1. We write X\sim \normal[0,1]. The probability density function for X is usually called phi(x) and has the mathematical formula
-
-phi(x) = \frac{1}{\sqrt{2\pi}}e^{-x^2/2}
-
-\myquestion. Suppose X\sim Normal[0,1]. Write \prob[-2\le X\le 2] as an integral and use R to evaluate this probability.
-
-solution. [DRAW SHADED PLOT OF NORMAL CURVE HERE]
-
-We want the shaded area. It is formally given by
-
-\mydisplaymath{
-shaded area = \int_{-2}^2 \phi(x) dx = \int_{-2}^2 \frac{1}{\sqrt{2\pi}}e^{-x^2/2} \, dx
-}
-
-This integral has no nice solution, so we ask R to evaluate it numerically, using the R function pnorm.
-
-pnorm(x,mean=0,sd=1) computes the left tail of the standard normal distribution up to x
-
-Mathematically, pnorm(x,0,1)=\prob(X\le x) when X\sim \normal(0,1)
-
-Visually, pnorm(x,0,1) is the following shaded area
-
-[DRAW SHADED PLOT OF NORMAL CURVE HERE]
-
-pnorm(x,0,1) is called the standard normal cumulative distribution function, and it is usually written as Phi(x), so mathematically
-
-\Phi(x)=\int_{-\infty}^x \phi(z)\, dz.
 
 R knows many other probability distributions. For example, try hist(rexp(1000)) or hist(runif(1000)), or
 ?[WHAT TO SEARCH FOR R HELP?]
