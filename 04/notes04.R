@@ -9,3 +9,14 @@ library(broman) # used for myround
 ## hist(replicate(sample(1:6,size=1),n=10000),
 ##   main="", prob=TRUE, breaks=0.5:6.5, xlab="n=10000",ylim=c(0,0.21))
 
+## ----rnorm_example,echo=T------------------------------------------------
+rnorm(n=10,mean=20,sd=5)
+
+## ----rnorm100,echo=T,eval=F,purl=TRUE------------------------------------
+## hist(rnorm(n=100,mean=20,sd=5),
+##   main="",xlab="n=100")
+
+## ----rnorm10000,eval=F,echo=F,purl=TRUE----------------------------------
+## hist(rnorm(n=10000,mean=20,sd=5),
+##   main="",xlab="n=10000")
+

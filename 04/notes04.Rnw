@@ -75,11 +75,11 @@ library(broman) # used for myround
 
 \vspace{3mm}
 
-``{\it If there really is no association between unemployment and life expectancy, what is the probability we would see an estimated linear model coefficient as large as the one we actually observed, due to random fluctuations in both quantities?}''
+``{\it If there really is no association between unemployment and life expectancy, what is the probability we would see a least squares linear model coefficient as large as the one we actually observed, due to random fluctuations in the data?}''
 
 \vspace{3mm}
 
-\item Here, we are most interested in developing a probability model for the linear model.
+\item Here, we are particularly interested in developing a probability model for the linear model.
 
 \item First, we need some basic tools for probability models: random variables, the normal distribution, mean, variance and standard deviation.
 
@@ -126,7 +126,7 @@ Example: For a die, \m{\prob(E)=\prob(X\ge 4)= 3/6 = 1/2}.
 }
 \item Usually, we prefer ``and/or'' to  ``intersection/union''. 
 \end{myitemize}
-\myquestion. When does this formal use of ``and/or'' agree with usual English usage? When does it disagree?
+\myquestion. When does this formal use of ``and'' and ``or'' agree with usual English usage? When does it disagree?
 
 \answer{\vspace{20mm}}
 
@@ -239,13 +239,131 @@ set.seed(196)
 \end{frame}
 
 
+%\end{document}
+\begin{frame}[fragile]
+\frametitle{Continuous random variables: the normal distribution}
+
+\vspace{-1mm}
+
+\begin{myitemize}
+\item 
+A \myemph{continuous random variable} is one which can take any value in an interval of the real numbers.
+
+Example: physical quantities such as time and speed are not limited to a discrete set of possible values.
+
+\item We will often see the \myemph{normal distribution}.
+
+\item Let's look at \myemph{normal random variables} simulated by R using \code{rnorm()}.
+\end{myitemize}
+
+\vspace{-1mm}
+
+<<rnorm_seed,echo=F,purl=F>>=
+set.seed(928)
+@
+
+<<rnorm_example,echo=T>>=
+rnorm(n=10,mean=20,sd=5)
+@
+
+\begin{myitemize}
+\item The arguments \code{mean=20, sd=5} of \code{rnorm()} are the \myemph{parameters} of the normal distribution.
+\item A normal random variable can take any numeric value:  it is continuous.
+\item Values are centered on the mean and are usually less than twice the standard deviation (sd) from the mean.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{A histogram of normal distribution simulations}
+
+<<rnorm100,echo=T,eval=F,purl=TRUE>>=
+hist(rnorm(n=100,mean=20,sd=5),
+  main="",xlab="n=100")
+@
+
+<<rnorm10000,eval=F,echo=F,purl=TRUE>>=
+hist(rnorm(n=10000,mean=20,sd=5),
+  main="",xlab="n=10000")
+@
+
+\vspace{-15mm}
+
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+<<rnorm100eval,out.width="60mm",fig.width=3.5,fig.height=3,echo=F,purl=F>>=
+set.seed(676)
+<<rnorm100>> 
+@
+\end{column}
+
+
+\begin{column}{0.45\textwidth}
+
+<<rnorm10000eval,out.width="60mm",fig.width=3.5,fig.height=3,echo=F,purl=F>>=
+set.seed(117)
+<<rnorm10000>> 
+@
+\end{column}
+\end{columns}
+
+\begin{myitemize}
+\item Large samples from the normal distribution follow a \myemph{bell curve} histogram.
+\item From smaller samples, this is harder to see.
+\end{myitemize}
+
+\end{frame}
+
+%\end{document}
+
+\begin{frame}[fragile]
+\frametitle{Finding probabilities for a continuous random variable}
+\begin{myitemize}
+\item A continuous random variable \m{X} has a \myemph{probability density function} \m{f(x)} with
+\mydisplaymath{
+\prob(a < X < b) = \int_a^b f(x)\, dx
+}
+\item If \m{X} is \m{\normal(\mu,\sigma)}, i.e., \m{X} follows the normal distribution with mean \m{\mu} and sd \m{\sigma}, the probability density function is
+\mydisplaymath{
+f(x) =\frac{1}{\sqrt{2\pi\sigma^2}} e^{-(x-\mu)^2/2\sigma^2}
+}
+and so
+\mydisplaymath{
+\prob(a < X < b) = \int_a^b
+\frac{1}{\sqrt{2\pi\sigma^2}} e^{-(x-\mu)^2/2\sigma^2}\, dx
+}
+\item  This integral has no closed form solution.
+\item Fortunately, R provides \code{pnorm()} and \code{qnorm()} that let us work with probabilities for the normal distribution numerically.
+
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Calculating probabilities for the normal distribution}
+\begin{myitemize}
+\item \code{pnorm()} finds the \myemph{left tail} of the normal distribution.
+\item \code{pnorm(25,mean=20,sd=5)} computes the shaded area:
+
+<<normal_pdf,out.width="60mm",fig.width=3.5,fig.height=3,echo=F,purl=F>>=
+# Create data for the area to shade
+cord.x <- c(-3,seq(-3,-1,0.01),-1) 
+cord.y <- c(0,dnorm(seq(-3,-1,0.01)),0) 
+ 
+# Make a curve
+curve(dnorm(x,0,1), xlim=c(-3,3), main='Standard Normal') 
+ 
+# Add the shaded area.
+polygon(cord.x,cord.y,col='skyblue')
+
+@
+\end{myitemize}
+\end{frame}
+
 \end{document}
 
-A continuous random variable is one which can take possible values in an interval of the real numbers.
+Random draws from the normal distribution are obtained by \code{rnorm()} in R and we can use multiple \myemph{simulations} of the random  draws to learn about the distribution.
 
-An important example of this is the normal distribution. Random draws from the normal distribution are obtained by rnorm() in R and we can use multiple \myemph{simulations} of the random  draws to learn about the distribution.
-
-histogram(rnorm(n=1000,mean=20,sd=5))
+histogram(rnorm(n=100,mean=20,sd=5))
 
 Mathematically, we say this is a histogram of 1000 random variables drawn from the Normal(20,5) distribution.
 
