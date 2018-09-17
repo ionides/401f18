@@ -1,0 +1,119 @@
+---
+title: "HW03 Solutions"
+author: "STATS401 team"
+date: "9/17/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q2
+### (a)
+
+```{r, Q2(a1)}
+# (a)
+## download unemployment data file
+download.file(destfile="unemployment.csv",
+  url="https://ionides.github.io/401f18/01/unemployment.csv")
+
+## read-in unemployment data into R
+data <- read.table(file="unemployment.csv",sep=",",header=TRUE)
+```
+
+To define y, we look at a snipet of the dataset to see how to obtain 'y'.
+```{r, echo=FALSE, Q2(a2)}
+# (a) ctd
+## look at dataset
+head(data)
+```
+
+As we can see, to define 'y', we need to take the average of all columns except the first one. This can be done in one of the following two ways:
+```{r, Q2(a3)}
+# (a) ctd
+## Defining y
+y <- apply(data[,-1],1,mean)
+  #or
+y <- apply(data[,2:ncol(data)],1,mean)
+```
+
+### (b)
+Recall from class notes (Notes03,LM3 and Notes03, slide15) that the design matrix for such a model will simply be $\m{\mat{X}=[\mathbf{x_1} \mathbf{x_2]}}$ where $\mathbf{x_1}$ is the vector of years (that is, its $i^{th}$ entry corresponds to the $i^{th}$ year in the dataset) and $\mathbf{x_2}$ is simply a vector of 1s (of length equal to the number of observations in the dataset). Let us now construct this matrix
+```{r, Q2(b)}
+#(b)
+## Extract vector of years
+x1 <- data$Year
+
+## Define a vector containing 1s (of appropriate length)
+x2 <- rep(1,nrow(data))
+
+## Define X = [x1 x2]
+X <- cbind(x1,x2)
+```
+
+### (c)
+Recall formula for to obtain **b** from class notes (Notes03, LM4)
+```{r, Q2(c)}
+# (c)
+b <- solve(t(X)%*%X)%*%t(X)%*%y
+rownames(b) <- c("b1","b2") #renaming the elements of b, this is not essential, being done here so that the notation                              matches that of the hw
+b
+```
+
+### (d)
+Here, we have to simply rename the first column ($\mathbf{x_1}$) as $\mathbf{x}$.
+```{r, Q2(d)}
+# (d)
+## Define x
+x <- x1
+
+## Define vector of fitted values
+fitted_values <- c(X%*%b)
+
+## Plot y ~ x
+plot(x,y, main="Plot of average unemployment per year", ylab="average unemployment", xlab= "year")
+lines(x,fitted_values,lty="solid",col="blue")
+```
+
+Clearly, there seems to be an increasing trend, that is, the average annual unemployment rate appears to be increasing every year.
+
+### (e)
+```{r, Q2(e)}
+# (e)
+## Fitting the linear model
+lm1 <- lm(y~x1, data = data) #remember x is labeled as x1 in the design matrix
+
+## Compare first 5-values
+lm1$fitted.values[1:5]
+fitted_values[1:5]
+
+## Check if both vectors are equal by taking their difference
+table(round(lm1$fitted.values - fitted_values,4))
+```
+
+## Q3
+While in general, if $\mat{A},\mat{B}$ are two invertible square matrices, then $\mat{(AB)}^{-1} = \mat{B}^{-1}\mat{A}^{-1}$.  
+Here, (a) is not correct since X may not be an invertible matrix (infact X is mostly not even square). This means that $\mat{A^{-1}}$ and $\mat{{A^T}^{-1}}$ may not exist at all. Thus, the following steps can not follow. If $\mat{A^{-1}}$ and $\mat{{A^T}^{-1}}$ did exist though, then (b), (c) and (d) would be true and this product would infact equal identity in that case.
+
+## Q4
+Since $\mat{A}$ is a square matrix whose determinant is $6 \neq 0$, its inverse exists. Now, we know that $\mat{A}\mat{A}^{-1} = \mat{I}$ where $mat{I}$ is a diagonal matrix as well. Also, from above we know that $\mat{A}\mat{A}^{-1}$ is the same as multiplying the first columns of $\mat{A}^{-1}$ by 1,2, and 3 respectively. Hence, the natural guess would be that \[
+\mat{A}^{-1} = \left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1/2 & 0 \\
+0 & 0 & 1/3 
+\end{array}
+\right].
+\]
+and indeed this is correct! Let's verify using R.
+```{r}
+# Q4
+## Define A, inv_A 
+A <- matrix(c(1,0,0,0,2,0,0,0,3),3)
+inv_A <- matrix(c(1,0,0,0,1/2,0,0,0,1/3),3)
+
+## Verify 
+A%*%inv_A
+```
+
