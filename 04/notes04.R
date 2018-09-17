@@ -41,3 +41,27 @@ pnorm_plot(25,20,5,main="",xlab="",ylab="probability density")
 ## ----eval=F--------------------------------------------------------------
 ## NA
 
+## ----dice_rolls----------------------------------------------------------
+dice2 <- replicate(50000,sum(sample(1:6,2,replace=TRUE)))
+dice3 <- replicate(50000,sum(sample(1:6,3,replace=TRUE)))
+dice10 <- replicate(50000,sum(sample(1:6,10,replace=TRUE)))
+dice20 <- replicate(50000,sum(sample(1:6,20,replace=TRUE))) 
+
+## ----two_dice,echo=T,eval=F,purl=T---------------------------------------
+## hist(dice2,prob=TRUE,breaks=(min(dice2)-0.5):(max(dice2)+0.5))
+## normal.x <- seq(from=min(dice2),to=max(dice2),length=100)
+## normal.y <- dnorm(normal.x,mean=mean(dice2),sd=sd(dice2))
+## lines(normal.x,normal.y,col="blue")
+
+## ----echo=F,purl=T-------------------------------------------------------
+dice_hist <- function(dat,...){
+  hist(dat,probability=TRUE,breaks=seq(min(dat)-0.5,max(dat)+0.5,by=1),...)
+  normal.x <- seq(from=min(dat),to=max(dat),length=100)
+  normal.y <- dnorm(normal.x,mean=mean(dat),sd=sd(dat)) 
+  lines(normal.x,normal.y,col="blue")
+}
+
+## ------------------------------------------------------------------------
+x <- rnorm(10000,mean=20,sd=5)
+mean(x)
+

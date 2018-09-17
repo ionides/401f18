@@ -441,49 +441,203 @@ hist(rexp(100),xlab="",main="")
 \end{myitemize}
 \end{frame}
 
-\end{document}
-
-R knows many other probability distributions. For example, try hist(rexp(1000)) or hist(runif(1000)), or
-?[WHAT TO SEARCH FOR R HELP?]
-. The normal distribution is by far the most important. Let's find out why. 
-
-The central limit theorem
-
-The sum of many random variables follows the normal distribution. This is called the CLT.
-
-Example: let's look at histograms of 1000 replications of the sum of n dice, and see what happens as n increases.
+\begin{frame}[fragile]
+\frametitle{Sums and averages follow the normal distribution}
 
 
+\vspace{-1.5mm}
+
+\begin{myitemize}
+\item When we sum many random quantities, the sum often follows a normal distribution even if each term in the sum is not normally distributed.
+
+\item This property is called \myemph{the central limit theorem}.
+
+\item It is an empirical fact as well as a mathematical theorem!
+
+\item Averaging is multiplying the sum by a constant (\m{1/n}). A bell curve is still a bell curve when we rescale by multiplication.
+
+\end{myitemize}
+\myquestion. Would you expect a histogram of student heights to follow a normal curve? Why? Why  not?
+
+\answer{\vspace{15mm}}{TODO}
+
+\myquestion. Would you expect a histogram of the daily change in the Dow Jones stock market index to follow a normal curve? Why? Why not?
+
+\answer{\vspace{15mm}}{TODO}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Demonstrating the central limit theorem with dice}
+
+<<,purl=F,echo=F>>=
+set.seed(199)
+@
+
+\begin{myitemize}
+\item \code{sample(1:6,2,replace=TRUE)} simulates the outcome of rolling two dice.
+\item \code{sum(sample(1:6,2,replace=TRUE))} simulates the sum of two dice.
+\item \code{replicate()} lets us see what happens if we do this many times
+\end{myitemize}
+<<dice_rolls>>=
+dice2 <- replicate(50000,sum(sample(1:6,2,replace=TRUE)))
+dice3 <- replicate(50000,sum(sample(1:6,3,replace=TRUE)))
+dice10 <- replicate(50000,sum(sample(1:6,10,replace=TRUE)))
+dice20 <- replicate(50000,sum(sample(1:6,20,replace=TRUE))) 
+@
+\begin{myitemize}
+\item Guess how many dice you have to add up before the histogram looks normal?
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+
+\vspace{-5mm}
+
+<<two_dice,echo=T,eval=F,purl=T>>=
+hist(dice2,prob=TRUE,breaks=(min(dice2)-0.5):(max(dice2)+0.5))
+normal.x <- seq(from=min(dice2),to=max(dice2),length=100)
+normal.y <- dnorm(normal.x,mean=mean(dice2),sd=sd(dice2)) 
+lines(normal.x,normal.y,col="blue")
+@
 
 
-\myquestion. Would you expect the heights of adult males (or adult females) to follow a normal distribution? You can give arguments for and against
+<<,echo=F,purl=T>>=
+dice_hist <- function(dat,...){
+  hist(dat,probability=TRUE,breaks=seq(min(dat)-0.5,max(dat)+0.5,by=1),...)
+  normal.x <- seq(from=min(dat),to=max(dat),length=100)
+  normal.y <- dnorm(normal.x,mean=mean(dat),sd=sd(dat)) 
+  lines(normal.x,normal.y,col="blue")
+}
+@
 
-\myquestion. Would you expect the height of all adults to follow a normal distribution? Explain.
+\vspace{-5mm}
 
-The normal distribution is often used to model \myemph{measurement error}, when we suppose there is some true underlying quantity on which we make an imperfect measurement. 
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+\centerline{2 dice}
 
-\myquestion. Would you expect the measurement of life expectancy at birth to have normally distributed measurement error?
+\vspace{-10mm}
+
+<<dice2,echo=F,eval=T,purl=F,out.width="50mm",fig.width=3.5,fig.height=3>>=
+dice_hist(dice2,main="",xlab="")
+@
+
+\vspace{-9mm}
+
+\centerline{10 dice}
+
+\vspace{-11mm}
+
+<<dice10,echo=F,eval=T,purl=F,out.width="50mm",fig.width=3.5,fig.height=3>>=
+dice_hist(dice10,main="",xlab="",by=1)  
+@
+
+\end{column}
+
+
+\begin{column}{0.45\textwidth}
+
+\centerline{3 dice}
+
+\vspace{-10mm}
+
+<<dice3,echo=F,eval=T,purl=F,out.width="50mm",fig.width=3.5,fig.height=3>>=
+dice_hist(dice3,main="",xlab="",ylim=c(0,0.14)) 
+@
+
+\vspace{-9mm}
+
+\centerline{20 dice}
+
+\vspace{-11mm}
+
+<<dice20,echo=F,eval=T,purl=F,out.width="50mm",fig.width=3.5,fig.height=3>>=
+dice_hist(dice20,main="",xlab="") 
+@
+
+\end{column}
+\end{columns}
+
+\vspace{-8mm}
+
+\myquestion. Why do we use \code{prob} and \code{breaks} arguments to \code{hist()}?
+
+\end{frame}
+
+\begin{frame}
+\frametitle{More normal approximation situations}
+
+\myquestion. Would you expect detrended data on life expectancy at birth to follow a normal distribution? Explain.
+
+\answer{\vspace{20mm}}{TODO}
 
 \myquestion. Consider the mice weight data for HW1 with mice randomized to two treatments: a high fat diet and a usual lab diet. (a) Would you expect the weights of mice in each treatment group to follow a normal distribution? (b) If the experiment were replicated ten times, and an average weight calculated for each of these ten replications, would you expect the ten averages to follow a normal distribution? Are your answers different for (a) and (b)?
 
-Mean of samples and random variables.
+\answer{\vspace{20mm}}{TODO}
 
-The sample mean of n values x_1,\dots,x_n is \m{\bar x = \frac{1}{n}\sum_{i=1}^n x_i = (x_1+x+2+\dots+x_n) / n}
+\end{frame}
 
-Let X be a random variable that takes possible values x_1,\dots,x_n with probabilities p_1,...,p_n.
-The mean of X is also called the \myemph{expected value} of X and is 
-
+%\end{document}
 
 
+\begin{frame}[fragile]
+\frametitle{The sample mean and the expectation of a random variable}
 
+\begin{myitemize}
+\item The \myemph{sample mean} or \myemph{average} of \m{\vect{y}=(y_1,\dots,y_n)} is
+\mydisplaymath{
+ \bar{\vect{y}} = \frac{1}{n} \sum_{i=1}^n y_i
+}
+\item The \myemph{expected value} of a random variable \m{X} taking possible values \m{x_1,x_2,\dots} with probabilities \m{p_1,p_2,\dots} is
+\mydisplaymath{
+ \E[X] = \sum_{i=1}^\infty x_i p_i
+}
+\item If we have many draws of \m{X}, the sample proportion taking value \m{x_i} becomes close to \m{p_i} and so the sample mean becomes close to the expected value.
+\item If \m{X} is a continuous random variable with density \m{f(x)} the sum for expected value becomes an integral,
+\mydisplaymath{
+ \E[X] = \int_{-\infty}^\infty x f(x)\, dx
+}
+\end{myitemize}
+\end{frame}
 
+%\end{document}
 
+\begin{frame}[fragile]
+\frametitle{The sample mean and expectation using R}
 
-
-
-
-
-
+\begin{myitemize}
+\item We've already seen the \code{mean()} function which computes the sample mean of a numeric vector.
+\item One way to compute the expected value of a random variable is to take the sample mean of many realizations of the random variable
+<<>>=
+x <- rnorm(10000,mean=20,sd=5)
+mean(x)
+@
+\item The expectation of a random variable is sometimes called its mean. 
 \end{myitemize}
 
+\end{frame}
+
+
+%\end{document}
+
+\begin{frame}[fragile]
+\frametitle{The sample variance and the variance of a random variable}
+
+\begin{myitemize}
+\item The \myemph{sample variance} of \m{\vect{y}=(y_1,\dots,y_n)} is
+\mydisplaymath{
+ \var(\vect{y}) = \frac{1}{n} \sum_{i=1}^n (y_i-\bar{\vect{y}})^2
+}
+\item The \myemph{variance} of a random variable \m{X} is defined in terms of the expected value as
+\mydisplaymath{
+ \var(X) = \E[ (X-\E(X))^2]
+}
+
+\end{myitemize}
+\end{frame}
+
+
 \end{document}
+
+

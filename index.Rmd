@@ -21,7 +21,9 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 [(R code)](01/notes01.R).
 [(Annotations)](01/notes01annotated.pdf).
 
-2. [Matrices for applied statistics](02/notes02.pdf). [(R code)](02/notes02.R).
+2. [Matrices for applied statistics](02/notes02.pdf). 
+[(R code)](02/notes02.R).
+[(Annotations)](02/notes02annotated.pdf).
 
 <!--
 3. [Fitting a linear model to a sample by least squares](03/notes03.pdf). [(R code)](03/notes03.R).
