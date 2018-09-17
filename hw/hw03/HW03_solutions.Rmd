@@ -39,7 +39,7 @@ y <- apply(data[,2:ncol(data)],1,mean)
 ```
 
 ### (b)
-Recall from class notes (Notes03,LM3 and Notes03, slide15) that the design matrix for such a model will simply be $\m{\mat{X}=[\mathbf{x_1} \mathbf{x_2]}}$ where $\mathbf{x_1}$ is the vector of years (that is, its $i^{th}$ entry corresponds to the $i^{th}$ year in the dataset) and $\mathbf{x_2}$ is simply a vector of 1s (of length equal to the number of observations in the dataset). Let us now construct this matrix
+Recall from class notes (Notes03,LM3 and Notes03, slide15) that the design matrix for such a model will simply be $\mat{X}=[\mathbf{x_1} \mathbf{x_2]}$ where $\mathbf{x_1}$ is the vector of years (that is, its $i^{th}$ entry corresponds to the $i^{th}$ year in the dataset) and $\mathbf{x_2}$ is simply a vector of 1s (of length equal to the number of observations in the dataset). Let us now construct this matrix
 ```{r, Q2(b)}
 #(b)
 ## Extract vector of years
@@ -94,7 +94,7 @@ table(round(lm1$fitted.values - fitted_values,4))
 
 ## Q3
 While in general, if $\mat{A},\mat{B}$ are two invertible square matrices, then $\mat{(AB)}^{-1} = \mat{B}^{-1}\mat{A}^{-1}$.  
-Here, (a) is not correct since X may not be an invertible matrix (infact X is mostly not even square). This means that $\mat{A^{-1}}$ and $\mat{{A^T}^{-1}}$ may not exist at all. Thus, the following steps can not follow. If $\mat{A^{-1}}$ and $\mat{{A^T}^{-1}}$ did exist though, then (b), (c) and (d) would be true and this product would infact equal identity in that case.
+Here, (a) is not correct since X may not be an invertible matrix (infact X is mostly not even square). This means that $\mat{A}^{-1}$ and $[\mat{A}^T]^{-1}$ may not exist at all. Thus, the following steps can not follow. If $\mat{A}^{-1}$ and $[\mat{A}^T]^{-1}$ did exist though, then (b), (c) and (d) would be true and this product would infact equal identity in that case.
 
 ## Q4
 Since $\mat{A}$ is a square matrix whose determinant is $6 \neq 0$, its inverse exists. Now, we know that $\mat{A}\mat{A}^{-1} = \mat{I}$ where $mat{I}$ is a diagonal matrix as well. Also, from above we know that $\mat{A}\mat{A}^{-1}$ is the same as multiplying the first columns of $\mat{A}^{-1}$ by 1,2, and 3 respectively. Hence, the natural guess would be that \[
