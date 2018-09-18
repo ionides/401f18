@@ -69,7 +69,7 @@ library(broman) # used for myround
 \begin{myitemize}
 \item Recall the sample version of the linear model. 
 Data are \m{y_1,y_2,\dots,y_n} and on each unit \m{i} we have \m{p} explanatory variables \m{x_{i1}, x_{i2},\dots,x_{ip}}. 
-\end{myitemize}
+%\end{myitemize}
 
 %\vspace{-1mm}
 
@@ -78,10 +78,11 @@ Data are \m{y_1,y_2,\dots,y_n} and on each unit \m{i} we have \m{p} explanatory 
 }
 
 \vspace{1mm}
+This is the \myemph{index form} of the sample version of the linear model.
 
-\begin{myitemize}
+%\begin{myitemize}
 \item Using summation notation, we can equivalently write
-\end{myitemize}
+%\end{myitemize}
 
 \vspace{-1.5mm}
 
@@ -90,7 +91,10 @@ Data are \m{y_1,y_2,\dots,y_n} and on each unit \m{i} we have \m{p} explanatory 
   y_i = \sum_{j=1}^p x_{ij} b_j + e_i \hspace{10mm} \mbox{for $i=1,2,\dots,n$}
 }
 \vspace{-1mm}
-\begin{myitemize}
+
+This is the \myemph{summation variant} of the index form of the linear model.
+
+%\begin{myitemize}
 \item We can also use matrix notation. 
 Define column vectors \m{\vec{y}=(y_1,y_2,\dots,y_n)}, \m{\vec{e}=(e_1,e_2,\dots,e_n)} and \m{\vec{b}=(b_1,b_2,\dots,b_p)}. 
 Define the matrix of explanatory variables, \m{\mat{X}=[x_{ij}]_{n\times p}}.
@@ -98,21 +102,144 @@ In matrix notation, writing \myref{\LMi} or \myref{\LMii} is exactly the same as
 
 \vspace{1mm}
 
-\end{myitemize}
+% \end{myitemize}
+
 \framebox{
 \altdisplaymath{
 \LMiii \hspace{16mm}
  \vec{y} = \mat{X}\, \vec{b} + \vec{e}
 }
-\hspace{10mm}\rule[-3mm]{0mm}{9mm}
+\hspace{10mm}\rule[-2mm]{0mm}{7mm}
 }
 
 \vspace{1mm}
 
-\begin{myitemize}
-\item Matrices give a compact way to write the linear model, and also a good way to carry out the necessary computations. 
+This is the \myemph{matrix form} of the sample version of the linear model.
+
 \end{myitemize}
 \end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Naming the $\mat{X}$ matrix in the linear model $\vec{y}=\mat{X}\vec{b}+\vec{e}$}
+
+\begin{myitemize}
+\item ``The \m{\mat{X}} matrix'' is not a great name since we would have the same model if we had called it \m{\mat{Z}}.
+\item Many names are used for \m{\mat{X}} for the many different purposes of linear models.
+\item Sometimes \m{\mat{X}} is called the \myemph{matrix of predictor variables} or \myemph{matrix of explanatory variables}.
+\item We call \m{\mat{X}} the \myemph{design matrix} in situations where \m{x_{ij}} is the setting of adjustable variable \m{j} for the \m{i}th run of an experiment. For example, \m{y_i} could be the stregth of an alloy made up of a fraction \m{x_{ij}} of metal \m{j} for \m{j=1,\dots,p-1}. We would also want to include an intercept, \m{x_{ip}=1}.
+\item \m{\mat{X}} can also be called the \myemph{matrix of covariates}.
+\item Sometimes, \m{\vec{y}} is called the \myemph{dependent variable} and \m{\mat{X}} is the \myemph{matrix of independent variables}. Scientifically, an independent variable is one that can be set by the scientist. However, independence has a different technical meaning in statistics.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The expanded matrix form of the linear model}
+\begin{myitemize}
+\item We can write \m{\mat{X}=[\vec{x}_1 \; \vec{x}_2 \; \dots \; \vec{x}_p]}, where 
+\m{\vec{x}_i=(x_{1i},x_{2i},\dots,x_{ni})} is the column vector of the \m{i}th predictor. 
+\item The matrix form of the linear model, \m{\vec{y} = \mat{X}\, \vec{b} + \vec{e}}, can then be expanded to
+\mydisplaymath{
+\left[ \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array}\right]
+=
+\left[ \begin{array}{c}
+x_{11} \\
+x_{21} \\
+\vdots \\
+x_{n1}
+\end{array}\right]
+b_1
++
+\left[ \begin{array}{c}
+x_{12} \\
+x_{22} \\
+\vdots \\
+x_{n2}
+\end{array}\right]
+b_2
++\dots +
+\left[ \begin{array}{c}
+x_{1p} \\
+x_{2p} \\
+\vdots \\
+x_{np}
+\end{array}\right]
+b_p
++
+\left[ \begin{array}{c}
+e_1 \\
+e_2 \\
+\vdots \\
+e_n
+\end{array}\right]
+}
+\item Often, the matrix of predictors includes a column of ones, commonly called the \myemph{intercept}. For example, when \m{\vec{x}_p=(1,1,\dots,1)} we get
+\mydisplaymath{
+\left[ \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array}\right]
+=
+\left[ \begin{array}{c}
+x_{11} \\
+x_{21} \\
+\vdots \\
+x_{n1}
+\end{array}\right]
+b_1
++ \dots +
+\left[ \begin{array}{c}
+x_{1\, p-1} \\
+x_{2\, p-1} \\
+\vdots \\
+x_{n p-1}
+\end{array}\right]
+b_{p-1}
++
+\left[ \begin{array}{c}
+1 \\
+1 \\
+\vdots \\
+1
+\end{array}\right]
+b_p
++
+\left[ \begin{array}{c}
+e_1 \\
+e_2 \\
+\vdots \\
+e_n
+\end{array}\right]
+}
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\myquestion. Suppose \m{\mat{X}} is \m{n\times 2} and the second column is an intercept, \m{\vec{x}_2 = (1,1,\dots,1)}. This is called ``\myemph{one predictor plus an intercept}''.
+
+(a) Write out this linear model in expanded matrix form.
+
+\answer{\vspace{30mm}}{TODO}
+
+(b) Write out the model in subscript form. Hence, explain why \m{\vec{x}_2} is called the intercept.
+
+\answer{\vspace{16mm}}{TODO} 
+
+(c) Would it be more proper to call \m{b_2} the intercept? 
+
+\answer{\vspace{16mm}}{TODO}
+
+\end{frame}
+
 
 \begin{frame}[fragile]
 \frametitle{Choosing the coefficient vector, $\vec{b}$, by least squares}
@@ -125,6 +252,7 @@ In matrix notation, writing \myref{\LMi} or \myref{\LMii} is exactly the same as
 \item We will find out that RSS is convenient for its mathematical and statistical properties.
 \end{myitemize}
 \end{frame}
+
 
 \begin{frame}[fragile]
 \frametitle{The least squares formula}
@@ -213,19 +341,6 @@ dim(X)
 @
 \end{column}
 \end{columns}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Naming the $\mat{X}$ matrix in the linear model $\vec{y}=\mat{X}\vec{b}+\vec{e}$}
-
-\begin{myitemize}
-\item ``The \m{\mat{X}} matrix'' is not a great name since we would have the same model if we had called it \m{\mat{Z}}.
-\item Many names are used for \m{\mat{X}} for the many different purposes of linear models.
-\item Sometimes \m{\mat{X}} is called the \myemph{matrix of predictor variables} or \myemph{matrix of explanatory variables}.
-\item We call \m{\mat{X}} the \myemph{design matrix} in situations where \m{x_{ij}} is the setting of adjustable variable \m{j} for the \m{i}th run of an experiment. For example, \m{y_i} could be the stregth of an alloy made up of a fraction \m{x_{ij}} of metal \m{j} for \m{j=1,\dots,p-1}. We would also want to include an intercept, \m{x_{ip}=1}.
-\item \m{\mat{X}} can also be called the \myemph{matrix of covariates}.
-\item Sometimes, \m{\vec{y}} is called the \myemph{dependent variable} and \m{\mat{X}} is the \myemph{matrix of independent variables}. Scientifically, an independent variable is one that can be set by the scientist. However, independence has a different technical meaning in statistics.
-\end{myitemize}
 \end{frame}
 
 
@@ -393,9 +508,7 @@ n \intercept
 
 \vspace{-2mm}
 
-{\bf This material will not be tested in quizzes and exams. It is presented to explain where the formula \myref{\LMiv} for \m{\vec{b}} comes from.}
-
-%\vspace{-1mm}
+\vspace{-1mm}
 
 \begin{myitemize}
 \item We derive \myref{\LMiv} for the simple linear regression model \myref{\SLRi}. 
@@ -403,11 +516,15 @@ n \intercept
 \item 
 For simple linear regression, the \myemph{residual sum of squares (RSS)} is
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 \mydisplaymath{ 
 \mathrm{RSS} = \sum_{i=1}^n \big(y_i -  \slope x_i - \intercept \big)^2
 }
+
+\vspace{-1mm}
+
+\item To minimize \m{\mathrm{RSS}}, we differentiate. Differentiation will not be tested in quizzes and exams. We present it here to understand where the formula \myref{\LMiv} for \m{\vec{b}} comes from.
 
 \item Calculus fact: To find \m{\slope} and \m{\intercept} minimizing  \m{\mathrm{RSS}}, we can differentiate with respect to \m{\slope} and \m{\intercept} and set the derivatives equal to zero.
 
@@ -517,14 +634,17 @@ This gives a pair of simultaneous linear equations for \m{\slope} and \m{\interc
 \vspace{-2mm}
 
 \begin{myitemize}
-\item The matrix form of \m{y_i = \slope x_i + \intercept+e_i}, for \m{i=1,\dots,n}, is 
-
+\item Recall the subscript form for the simple linear regression model,
+\mydisplaymath{
+y_i = \slope x_i + \intercept+e_i, \hspace{5mm} \mbox{for $i=1,\dots,n$}
+}
+\item The matrix form for this model is 
 \mydisplaymath{
 \vec{y}=\mat{X}\vec{b}+\vec{e}
 }
-
-where \m{\vec{y}=(y_1,\dots,y_n)}, \m{\vec{b}=(\slope,\intercept)}, \m{\vec{e}=(e_1,\dots,e_n)}, \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{1}=(1,1,\dots,1)} are column vectors, and \m{\mat{X}=[\, \vec{x} \hspace{1mm} \vec{1}\, ]}.
-\item Written out in full, this is
+where \m{\vec{y}=(y_1,\dots,y_n)}, \m{\vec{b}=(\slope,\intercept)}, \m{\vec{e}=(e_1,\dots,e_n)}, 
+and \m{\mat{X}=[\, \vec{x} \hspace{1mm} \vec{1}\, ]} for column vectors \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{1}=(1,1,\dots,1)}.
+\item Written out in full, this matrix form is
 \mydisplaymath{
 \myvector{y}{n} =
 \left[
