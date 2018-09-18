@@ -25,9 +25,9 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 [(R code)](02/notes02.R).
 [(Annotations)](02/notes02annotated.pdf).
 
-<!--
-3. [Fitting a linear model to a sample by least squares](03/notes03.pdf). [(R code)](03/notes03.R).
+3. [Fitting a linear model to data by least squares](03/notes03.pdf). [(R code)](03/notes03.R).
 
+<!--
 4. [Toward a population version of the linear model](04/notes04.pdf).
 [Random variables (from 401W17)](04/401f17-chapter2.pdf).
 [Bivariate random variables (from 401W17)](04/401f17-chapter3.pdf).

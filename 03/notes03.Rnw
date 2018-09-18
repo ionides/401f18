@@ -137,8 +137,8 @@ This is the \myemph{matrix form} of the sample version of the linear model.
 \frametitle{The expanded matrix form of the linear model}
 \begin{myitemize}
 \item We can write \m{\mat{X}=[\vec{x}_1 \; \vec{x}_2 \; \dots \; \vec{x}_p]}, where 
-\m{\vec{x}_i=(x_{1i},x_{2i},\dots,x_{ni})} is the column vector of the \m{i}th predictor. 
-\item The matrix form of the linear model, \m{\vec{y} = \mat{X}\, \vec{b} + \vec{e}}, can then be expanded to
+\m{\vec{x}_i=(x_{1i},x_{2i},\dots,x_{ni})} is the column vector of values of the \m{i}th predictor for each of the \m{n} units.
+\item The matrix form of the linear model, \m{\vec{y} = \mat{X}\, \vec{b} + \vec{e}}, can then be \myemph{expanded} to
 \mydisplaymath{
 \left[ \begin{array}{c}
 y_1 \\
