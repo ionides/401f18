@@ -41,7 +41,7 @@ You are expected to use and adapt the code you have already been given.
 \]
 where $n=68$ and $x_{i1}$ is the year corresponding to the $i$th row of the dataset, so $x_{11}=1948$.
 
-(c) In R, use matrix multiplication to compute the vector $\vec{b}=(b_1,b_2)$ giving the least squares fit of this linear model. Use R notation matching the matrix form of the linear model,
+(c) In R, use matrix multiplication to compute the vector $\vec{b}=(b_1,b_2)$ giving the least squares fit of this linear model. Use variable names in R matching the letters used for the matrix form of the linear model,
 \[ 
 \vec{y} = \mat{X}\vec{b} + \vec{e}
 \]
@@ -135,7 +135,7 @@ Find the inverse $\mat{A}^{-1}$. Hint: guess the answer and try it out. Do you t
 
 --------------
 
-**As usual, you also need to make a _Sources_ statement, which will let the grader know whether you completed the homework based on class and lab materials alone or whether you made use of additional resources. It is debateable whether class notes should be cited as a source, or if they can be take for granted. When giving academic credit, it is best to err on the side of caution and so you are encouraged to include class notes as a source if (as is likely) you study them while answering the question.**
+**As usual, you also need to make a _Sources_ statement, which will let the grader know whether you completed the homework based on class and lab materials alone or whether you made use of additional resources. It is debatable whether class notes should be cited as a source, or if they can be take for granted. When giving academic credit, it is best to err on the side of caution and so you are encouraged to include class notes as a source if (as is likely) you study them while answering the question.**
 
 
 --------------
