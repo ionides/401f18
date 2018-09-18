@@ -244,12 +244,12 @@ e_n
 \begin{frame}[fragile]
 \frametitle{Choosing the coefficient vector, $\vec{b}$, by least squares}
 \begin{myitemize}
-\item We seek the \myemph{least squares} choice of \m{\vec{b}} that minimizes the \myemph{residual sum of squares}, \m{RSS=\sum_{i=1}^n e_i^2}.
+\item We seek the \myemph{least squares} choice of \m{\vec{b}} that minimizes the \myemph{residual sum of squares}, \m{\RSS=\sum_{i=1}^n e_i^2}.
 \item \m{\mat{X}\, \vec{b}} is the vector of \myemph{fitted values}.
 \item The \myemph{residual} for unit \m{i} is \m{e_i = y_i - [ \mat{X}\, \vec{b}]_i}. This is small when the fitted value is close to the data.
-\item Intuitively, the fit with smallest RSS has fitted values closest to the data, so should be preferred.
+\item Intuitively, the fit with smallest \m{\RSS} has fitted values closest to the data, so should be preferred.
 \item One could use some other criterion, e.g., minimizing the sum of absolute residuals, \m{\sum_{i=1}^n |e_i|}.
-\item We will find out that RSS is convenient for its mathematical and statistical properties.
+\item We will find out that \m{\RSS} is convenient for its mathematical and statistical properties.
 \end{myitemize}
 \end{frame}
 
@@ -519,21 +519,21 @@ For simple linear regression, the \myemph{residual sum of squares (RSS)} is
 \vspace{-3mm}
 
 \mydisplaymath{ 
-\mathrm{RSS} = \sum_{i=1}^n \big(y_i -  \slope x_i - \intercept \big)^2
+\RSS = \sum_{i=1}^n \big(y_i -  \slope x_i - \intercept \big)^2
 }
 
 \vspace{-1mm}
 
-\item To minimize \m{\mathrm{RSS}}, we differentiate. Differentiation will not be tested in quizzes and exams. We present it here to understand where the formula \myref{\LMiv} for \m{\vec{b}} comes from.
+\item To minimize \m{\RSS}, we differentiate. Differentiation will not be tested in quizzes and exams. We present it here to understand where the formula \myref{\LMiv} for \m{\vec{b}} comes from.
 
-\item Calculus fact: To find \m{\slope} and \m{\intercept} minimizing  \m{\mathrm{RSS}}, we can differentiate with respect to \m{\slope} and \m{\intercept} and set the derivatives equal to zero.
+\item Calculus fact: To find \m{\slope} and \m{\intercept} minimizing  \m{\RSS}, we can differentiate with respect to \m{\slope} and \m{\intercept} and set the derivatives equal to zero.
 
-\item Calculus fact: Differentiating \m{\mathrm{RSS}} with respect to \m{\slope} treating \m{\intercept} as a constant is called a \myemph{partial derivative}, written as \m{\partial \mathrm{RSS}/\partial \slope}.
+\item Calculus fact: Differentiating \m{\RSS} with respect to \m{\slope} treating \m{\intercept} as a constant is called a \myemph{partial derivative}, written as \m{\partial \RSS/\partial \slope}.
 
-\item Calculus fact: If we can find \m{\slope} and \m{\intercept} with \m{\partial \mathrm{RSS}/\partial \slope=0} and \m{\partial \mathrm{RSS}/\partial \intercept=0} we have found a \myemph{minimum or maximum} of \m{\mathrm{RSS}}.
+\item Calculus fact: If we can find \m{\slope} and \m{\intercept} with \m{\partial \RSS/\partial \slope=0} and \m{\partial \RSS/\partial \intercept=0} we have found a \myemph{minimum or maximum} of \m{\RSS}.
 
 \item
-\m{\mathrm{RSS}} is non-negative and can get arbitrarily large for bad choices of \m{\slope} and \m{\intercept}. It has a minimum but not a maximum.
+\m{\RSS} is non-negative and can get arbitrarily large for bad choices of \m{\slope} and \m{\intercept}. It has a minimum but not a maximum.
 
 
 \end{myitemize}
@@ -545,12 +545,12 @@ For simple linear regression, the \myemph{residual sum of squares (RSS)} is
 
 \vspace{-1mm}
 \begin{myitemize}
-\item Recall that \m{RSS=\sum_{i=1}^n \big(y_i -  \slope x_i -\intercept \big)^2}.
+\item Recall that \m{\RSS=\sum_{i=1}^n \big(y_i -  \slope x_i -\intercept \big)^2}.
 \end{myitemize}
 
 \vspace{1mm}
 
-\WorkedExample. Apply the chain rule to differentiate the \m{i}th term in the sum for \m{RSS}. Check that
+\WorkedExample. Apply the chain rule to differentiate the \m{i}th term in the sum for \m{\RSS}. Check that
 \mydisplaymath{
 \frac{\partial}{\partial \slope} \big(y_i -  \slope x_i -\intercept \big)^2 = (-x_i) \cdot 2 \big(y_i -  \slope x_i -\intercept \big)
 }
@@ -574,7 +574,7 @@ For simple linear regression, the \myemph{residual sum of squares (RSS)} is
 
 A similar calculation, which you can check if you want the exercise, gives
 \altdisplaymath{ 
-\frac{\partial}{\partial \intercept} \mathrm{RSS} = 2n\intercept - 2\sum_{i=1}^n y_i + 2 \slope \sum_{i=1}^n x_i.
+\frac{\partial}{\partial \intercept} \RSS = 2n\intercept - 2\sum_{i=1}^n y_i + 2 \slope \sum_{i=1}^n x_i.
 }
 
 \vspace{50mm}
@@ -622,7 +622,7 @@ This gives a pair of simultaneous linear equations for \m{\slope} and \m{\interc
 \mydisplaymath{
 \vec{b}=\big[\mat{X}^\transpose\mat{X}\big]^{-1}\mat{X}^\transpose\vec{y}
 }
-\item This shows \myref{\LMiv} solves \myref{\LSi} and so minimizes the RSS.
+\item This shows \myref{\LMiv} solves \myref{\LSi} and so minimizes the \m{\RSS}.
 
 \end{myitemize}
 \end{frame}

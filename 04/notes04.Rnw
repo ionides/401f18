@@ -169,7 +169,7 @@ Example: For a die, \m{\prob(X\in\{1,2,3,4,5,6\})=1}.
 \begin{frame}[fragile]
 \frametitle{Discrete random variables}
 \begin{myitemize}
-\item A \myemph{discrete random variable} is one where we can list all possible outcomes. Let's call them \m{x_1,x_2,\dots}. 
+\item \m{X} is a  \myemph{discrete random variable} if we can list all its possible outcomes. Let's call them \m{x_1,x_2,\dots}. 
 
 \item A discrete random variable is specified by probability that the random variable takes each possible outcome,
 \mydisplaymath{
@@ -319,7 +319,10 @@ set.seed(117)
 \begin{frame}[fragile]
 \frametitle{Finding probabilities for a continuous random variable}
 \begin{myitemize}
-\item A continuous random variable \m{X} has a \myemph{probability density function} \m{f(x)} with
+\item A continuous random variable \m{X} has a \myemph{probability density function} \m{f(x)} which is integrated to find the probability that \m{X} falls in any interval:
+
+\vspace{-3mm}
+
 \mydisplaymath{
 \prob(a < X < b) = \int_a^b f(x)\, dx
 }
@@ -327,6 +330,9 @@ set.seed(117)
 \mydisplaymath{
 f(x) =\frac{1}{\sqrt{2\pi\sigma^2}} e^{-(x-\mu)^2/2\sigma^2}
 }
+
+\vspace{-2mm}
+
 and so
 \mydisplaymath{
 \prob(a < X < b) = \int_a^b
@@ -436,7 +442,7 @@ hist(rexp(100),xlab="",main="")
 
 \vspace{-8mm}
 
-\item Normal random variables are the only ones we will need in this class.
+\item Normal random variables are the only ones we work with in this class.
 \item Let's investigate why the normal distribution is so important.
 \end{myitemize}
 \end{frame}
@@ -608,16 +614,42 @@ dice_hist(dice20,main="",xlab="")
 
 \begin{myitemize}
 \item We've already seen the \code{mean()} function which computes the sample mean of a numeric vector.
-\item One way to compute the expected value of a random variable is to take the sample mean of many realizations of the random variable
+\item One way to compute the expected value of a random variable is to take the sample mean of many realizations of the random variable.
+<<,echo=F>>=
+set.seed(1)
+@
 <<>>=
 x <- rnorm(10000,mean=20,sd=5)
 mean(x)
 @
-\item The expectation of a random variable is sometimes called its mean. 
+\item The same calculation can be done using \code{replicate()}:
+<<,echo=F>>=
+set.seed(1)
+@
+<<>>=
+y <- replicate(n=10000,rnorm(1,mean=20,sd=5))
+mean(y)
+@
+\item We can guess (correctly!) that the expected value of a normal random variable matches its \code{mean} parameter.
+\item The expected value of a random variable is sometimes called its mean. We prefer "expected value'' to distinguish from the ``sample mean.''
+
 \end{myitemize}
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{The expected value is not necessarily a possible value}
+\myquestion. Compute the expected value of a roll of a fair six-sided die.
+
+(a) By using the definition \m{\E[X] = \sum_{i=1}^\infty x_i p_i}.
+
+\answer{\vspace{30mm}}{TODO}
+
+(b) By averaging a large number of simulated dice using R. Write some R code that is a starting point for testing and debugging.
+
+\answer{\vspace{30mm}}
+
+\end{frame}
 
 %\end{document}
 
@@ -627,16 +659,43 @@ mean(x)
 \begin{myitemize}
 \item The \myemph{sample variance} of \m{\vect{y}=(y_1,\dots,y_n)} is
 \mydisplaymath{
- \var(\vect{y}) = \frac{1}{n} \sum_{i=1}^n (y_i-\bar{\vect{y}})^2
+ \varSample(\vect{y}) = \frac{1}{n-1} \sum_{i=1}^n (y_i-\bar{\vect{y}})^2
 }
 \item The \myemph{variance} of a random variable \m{X} is defined in terms of the expected value as
 \mydisplaymath{
- \var(X) = \E[ (X-\E(X))^2]
+ \var(X) = \E\Big[ \big(\,X-\E[X]\,\big)^2\Big]
 }
-
+\item If \m{X} is a random variable, then so is \m{Y=\big(\,X-\E[X]\,\big)^2}. Each possible outcome of \m{X} (say, \m{X=x}) matches an outcome \m{Y=\big(\,x-\E[X]\,\big)^2}.
+\item Collections of numbers have a {\it sample variance} computed by \m{\varSample} (not capitalized). Random variables have a {\it variance} computed with \m{\var} (capitalized). 
+\item People do not always make this distinction, but we will try to.
+\item In R, \code{var()} calculates the sample variance.
 \end{myitemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Standard deviation}
+
+\begin{myitemize}
+\item The \myemph{sample standard deviation} of \m{\vec{y}=(y_1,\dots,y_n)} is the square root of the sample variance.
+\mydisplaymath{
+\sdSample(\vect{y})=\sqrt{\varSample(\vect{y})}
+}
+\item The \myemph{standard deviation} of a random variable \m{X} is the square root of its variance.
+\mydisplaymath{
+\sd(X)=\sqrt{\var(X)}
+}
+\item In R, \code{sd()} computes the sample standard deviation.
+\item We can compute \m{\sd(X)} as the sample standard deviation of a large number of draws of the random variable \m{X}.
+<<,echo=F>>=
+set.seed(1)
+@
+<<>>=
+x <- rnorm(10000,mean=20,sd=5)
+sd(x)
+@
+\item As we might anticipate, this confirms that the \code{sd} parameter of the normal distribution matches its standard deviation.
+\end{myitemize}
+\end{frame}
 
 \end{document}
 
