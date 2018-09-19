@@ -697,6 +697,48 @@ sd(x)
 \end{myitemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Expectation, variance and standard deviation of $mX+c$}
+\begin{myitemize}
+\item Let \m{X} be a random variable and let \m{Y=mX+c}.
+\item \m{Y} is also a random variable. If \m{X} takes value \m{x}, \m{Y} takes value \m{mx+c}.
+\item Expectation is \myemph{linear}, meaning
+\mydisplaymath{
+\E[mX+c] = m\E[X]+c
+}
+\item Variance doesn't depend on \m{c}. It is a measure of \myemph{spread}. Adding a constant shifts the center of a distribution but doesn't change the spread.
+\item Variance is quadratic in \m{m}.
+\mydisplaymath{
+\var(mX+c)=m^2\, \var(X)
+}
+\item Standard deviation therefore scales with \m{m}.
+\mydisplaymath{
+\sd(mX+c)=m\,  \sd(X)
+}
+\item \m{\sd} scales nicely. \m{\var} can be easier to use for calculations.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The standard normal distribution}
+\begin{myitemize}
+\item Let \m{Z\sim\normal(0,1)}, so \m{\E[Z]=0}, \m{\sd(Z)=1}.
+\item \m{Z} is called a \myemph{standard normal random variable}.
+\item Let \m{X=\mu+\sigma Z}. 
+\item We calculate \m{\E[X]=\mu +\sigma\E[Z] = \mu} and \m{\sd(X)=\sigma \sd(Z) = \sigma}.
+\item A bell curve is still a bell curve if you shift or rescale it, so \m{X} also follows a normal distribution.
+\item Therefore, \m{X\sim\normal(\mu,\sigma)}.
+\item We can work the other way around: if \m{X\sim\normal(\mu,\sigma)} then \m{Z=(X-\mu)/\sigma} has \m{Z\sim\normal(0,1)}.
+\end{myitemize}
+\end{frame}
+
+
+
+
+
+
+
+
 \end{document}
 
 
