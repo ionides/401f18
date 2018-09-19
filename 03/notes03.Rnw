@@ -3,7 +3,7 @@
 
 \newcommand\CHAPTER{3}
 % \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
-% \newcommand\answer[2]{{\color{blue}{#2}}} % to show answers
+% \newcommand\answer[2]{{\color{red}{#2}}} % to show answers
  \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
@@ -69,20 +69,15 @@ library(broman) # used for myround
 \begin{myitemize}
 \item Recall the sample version of the linear model. 
 Data are \m{y_1,y_2,\dots,y_n} and on each unit \m{i} we have \m{p} explanatory variables \m{x_{i1}, x_{i2},\dots,x_{ip}}. 
-%\end{myitemize}
-
-%\vspace{-1mm}
 
 \altdisplaymath{\LMi \hspace{10mm}
   y_i = b_1 x_{i1} + b_2 x_{i2} + \dots + b_p x_{ip} + e_i \quad\mbox{for $i=1,2,\dots,n$}
 }
 
 \vspace{1mm}
-This is the \myemph{index form} of the sample version of the linear model.
+This is the \myemph{subscript form} of the sample version of a linear model.
 
-%\begin{myitemize}
 \item Using summation notation, we can equivalently write
-%\end{myitemize}
 
 \vspace{-1.5mm}
 
@@ -92,7 +87,7 @@ This is the \myemph{index form} of the sample version of the linear model.
 }
 \vspace{-1mm}
 
-This is the \myemph{summation variant} of the index form of the linear model.
+This is the \myemph{summation variant} of the subscript form of a linear model.
 
 %\begin{myitemize}
 \item We can also use matrix notation. 
@@ -101,8 +96,6 @@ Define the matrix of explanatory variables, \m{\mat{X}=[x_{ij}]_{n\times p}}.
 In matrix notation, writing \myref{\LMi} or \myref{\LMii} is exactly the same as
 
 \vspace{1mm}
-
-% \end{myitemize}
 
 \framebox{
 \altdisplaymath{
@@ -127,7 +120,7 @@ This is the \myemph{matrix form} of the sample version of the linear model.
 \item ``The \m{\mat{X}} matrix'' is not a great name since we would have the same model if we had called it \m{\mat{Z}}.
 \item Many names are used for \m{\mat{X}} for the many different purposes of linear models.
 \item Sometimes \m{\mat{X}} is called the \myemph{matrix of predictor variables} or \myemph{matrix of explanatory variables}.
-\item We call \m{\mat{X}} the \myemph{design matrix} in situations where \m{x_{ij}} is the setting of adjustable variable \m{j} for the \m{i}th run of an experiment. For example, \m{y_i} could be the stregth of an alloy made up of a fraction \m{x_{ij}} of metal \m{j} for \m{j=1,\dots,p-1}. We would also want to include an intercept, \m{x_{ip}=1}.
+\item We call \m{\mat{X}} the \myemph{design matrix} in situations where \m{x_{ij}} is the setting of adjustable variable \m{j} for the \m{i}th run of an experiment. For example, \m{y_i} could be the strength of an alloy made up of a fraction \m{x_{ij}} of metal \m{j} for \m{j=1,\dots,p-1}. 
 \item \m{\mat{X}} can also be called the \myemph{matrix of covariates}.
 \item Sometimes, \m{\vec{y}} is called the \myemph{dependent variable} and \m{\mat{X}} is the \myemph{matrix of independent variables}. Scientifically, an independent variable is one that can be set by the scientist. However, independence has a different technical meaning in statistics.
 \end{myitemize}
@@ -228,15 +221,48 @@ e_n
 
 (a) Write out this linear model in expanded matrix form.
 
-\answer{\vspace{30mm}}{TODO}
+\answer{\vspace{30mm}}{
+\[
+\left[ \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array}\right]
+=
+\left[ \begin{array}{c}
+x_{11} \\
+x_{21} \\
+\vdots \\
+x_{n1}
+\end{array}\right]
+b_1
++
+\left[ \begin{array}{c}
+1 \\
+1 \\
+\vdots \\
+1
+\end{array}\right]
+b_2
++
+\left[ \begin{array}{c}
+e_1 \\
+e_2 \\
+\vdots \\
+e_n
+\end{array}\right]
+\]
+}
 
 (b) Write out the model in subscript form. Hence, explain why \m{\vec{x}_2} is called the intercept.
 
-\answer{\vspace{16mm}}{TODO} 
-
+\answer{\vspace{16mm}}{The subscript form is $y_i = b_1 x_{i1} + b_2 +e_i$ for $i=1,\dots,n$. $b_2$, the coefficient for the column of ones, is the intercept for the line of fitted values, $y=b_1 x + b_2$.
+}
+ 
 (c) Would it be more proper to call \m{b_2} the intercept? 
 
-\answer{\vspace{16mm}}{TODO}
+\answer{\vspace{16mm}}{Yes, this matches the usual definition of intercept of a line. It is customary in linear models to use the same name for the variable and its coefficient.}
 
 \end{frame}
 
@@ -427,10 +453,14 @@ par(mai=c(1.1,1,0.4,1))
 \end{column}
 \begin{column}{0.4\textwidth}
 
-\vspace{5mm}
+\vspace{2mm}
 
 \myquestion.
 Learn about the \code{abline()} and \code{lines()} functions. Explain to yourself why the solid blue line and the dotted red line coincide. 
+
+\answer{\vspace{10mm}}{
+Look at \code{?abline} and \code{?lines}. The \code{lines()} connects the points $(x_i, \hat y_i)$. \code{ablines()} draws the fitted line that these points fall on.
+}
 
 \end{column}
 \end{columns}
@@ -462,7 +492,7 @@ Expand the summation by writing out all the $+$ signs, apply the distributive ru
 
 \vspace{-6mm}
 
-\mydisplaymath{
+\[
 \sum_{i=1}^n \intercept y_i 
 \hspace{1.5mm} = \hspace{1.5mm}
 \intercept y_1 + \intercept y_2 + \dots + \intercept y_n
@@ -470,7 +500,7 @@ Expand the summation by writing out all the $+$ signs, apply the distributive ru
 \intercept(y_1+\dots+y_n) 
 \hspace{1.5mm} = \hspace{1.5mm}
  \intercept \sum_{i=1}^n y_i.
-}
+\]
 }
 \end{frame}
 
@@ -488,14 +518,14 @@ Expand the summation by writing out all the $+$ signs, apply the distributive ru
 
 \answer{\vspace{55mm}}{
 Expand the sum, and apply basic addition. Note that there are $n$ terms in the sum.
-\mydisplaymath{
+\[
 \sum_{i=1}^n \intercept
 \hspace{1.5mm} = \hspace{1.5mm}
 \intercept + \intercept + \dots + \intercept \hspace{1.5mm}
 \mbox{($n$ times)}
 \hspace{1.5mm} = \hspace{1.5mm}
 n \intercept
-}
+\]
 
 \vspace{10mm}
 
@@ -555,18 +585,20 @@ For simple linear regression, the \myemph{residual sum of squares (RSS)} is
 \frac{\partial}{\partial \slope} \big(y_i -  \slope x_i -\intercept \big)^2 = (-x_i) \cdot 2 \big(y_i -  \slope x_i -\intercept \big)
 }
 
-\answer{\vspace{15mm}}{TODO}
+\answer{\vspace{15mm}}{
+Recall that $d/dx f\big(g(x)\big)= f^\prime\big(g(x)\big)g^\prime(x)$. Apply this with $f(m)=m^2$ and $g(m)=y_i - mx_i-c$.
+}
 
 \WorkedExample. Since the derivative of a sum is the sum of the derivatives, check that
 
 \vspace{-4mm}
 
 \mydisplaymath{
-\frac{\partial}{\partial \slope}\RSS = 
+\frac{\partial}{\partial \slope}\RSS 
  = 2\slope \sum_{i=1}^n x_i^2 - 2\sum_{i=1}^n x_iy_i + 2 \intercept \sum_{i=1}^n x_i.
 }
 
-\answer{\vspace{20mm}}{TODO}
+\answer{\vspace{20mm}}{Sum Example 3.1 over $i$, using the facts that $\sum_i(x_i+y_i)=\sum_i x_i + \sum_i y_i$ and $\sum_i cx_i= c\sum_i x_i$.}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -577,8 +609,17 @@ A similar calculation, which you can check if you want the exercise, gives
 \frac{\partial}{\partial \intercept} \RSS = 2n\intercept - 2\sum_{i=1}^n y_i + 2 \slope \sum_{i=1}^n x_i.
 }
 
-\vspace{50mm}
-
+\answer{\vspace{50mm}}{
+First differentiating one term in the sum,
+\[
+\frac{\partial}{\partial \intercept} \big(y_i -  \slope x_i -\intercept \big)^2 = (-1) \cdot 2 \big(y_i -  \slope x_i -\intercept \big)
+\]
+Then summing over $i$,
+\[
+\frac{\partial}{\partial \intercept}\RSS = \sum_{i=1}^n 2(\intercept+\slope x_i - y_i)
+\]
+This can be rearranged to give the answer.
+}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -679,7 +720,25 @@ For this \m{\mat{X}}, check that \m{\mat{X}^\transpose\mat{X} =
 \end{array}\right]
 }
 
-\answer{\vspace{30mm}}{TODO}
+\answer{\vspace{30mm}}{
+$
+\mat{X}^\transpose\mat{X} = 
+\left[
+\begin{array}{cccc}
+x_1 & x_2 & \dots & x_n \\
+1 & 1 & \dots & 1 \\
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+x_1 & 1 \\
+x_2 & 1 \\
+\vdots & \vdots \\
+x_n & 1
+\end{array}
+\right]
+$. Use $\sum_{i=1}^n 1 = n$.
+}
 
 \myquestion. \setcounter{tXy}{\theQcounter}
 Also, check that \m{\mat{X}^\transpose\vec{y} = 
@@ -689,7 +748,26 @@ Also, check that \m{\mat{X}^\transpose\vec{y} =
 \end{array}\right]
 }
 
-\answer{\vspace{30mm}}{TODO}
+\answer{\vspace{30mm}}{
+$
+\mat{X}^\transpose\vec{y} = 
+\left[
+\begin{array}{cccc}
+x_1 & x_2 & \dots & x_n \\
+1 & 1 & \dots & 1 \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+y_1 \\
+y_2 \\
+ \vdots \\
+y_n 
+\end{array}
+\right]
+$. Now multiply!
+}
+
 
 \end{frame}
 
@@ -717,7 +795,7 @@ Check that \myref{\LSi} in matrix form is
 \end{array}\right]
 }
 
-\answer{\vspace{30mm}}{TODO}
+\answer{\vspace{30mm}}{This follows directly from the definition of matrix multiplication}
 
 \begin{myitemize}
 \item 

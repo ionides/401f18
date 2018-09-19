@@ -442,7 +442,7 @@ hist(rexp(100),xlab="",main="")
 
 \vspace{-8mm}
 
-\item Normal random variables are the only ones we work with in this class.
+\item Normal random variables are the building block for all the random variables we work with in this class.
 \item Let's investigate why the normal distribution is so important.
 \end{myitemize}
 \end{frame}
