@@ -639,7 +639,7 @@ mean(y)
 
 \begin{frame}[fragile]
 \frametitle{The expected value is not necessarily a possible value}
-\myquestion. Compute the expected value of a roll of a fair six-sided die.
+\myquestion. Find the expected value of a roll of a fair six-sided die.
 
 (a) By using the definition \m{\E[X] = \sum_{i=1}^\infty x_i p_i}.
 
@@ -722,17 +722,91 @@ sd(x)
 \begin{frame}[fragile]
 \frametitle{The standard normal distribution}
 \begin{myitemize}
-\item Let \m{Z\sim\normal(0,1)}, so \m{\E[Z]=0}, \m{\sd(Z)=1}.
+\item Let \m{Z\sim\normal(0,1)}, so \m{\E[Z]=0} and \m{\sd(Z)=1}.
 \item \m{Z} is called a \myemph{standard normal random variable}.
 \item Let \m{X=\mu+\sigma Z}. 
-\item We calculate \m{\E[X]=\mu +\sigma\E[Z] = \mu} and \m{\sd(X)=\sigma \sd(Z) = \sigma}.
+\item We use linearity of expectation and the scaling property of standard deviation to calculate
+ \mydisplaymath{
+\E[X]=\mu +\sigma\, \E[Z] = \mu,  \hspace{15mm} \sd(X)=\sigma \, \sd(Z) = \sigma
+}
+
+\vspace{-2mm}
+
 \item A bell curve is still a bell curve if you shift or rescale it, so \m{X} also follows a normal distribution.
 \item Therefore, \m{X\sim\normal(\mu,\sigma)}.
 \item We can work the other way around: if \m{X\sim\normal(\mu,\sigma)} then \m{Z=(X-\mu)/\sigma} has \m{Z\sim\normal(0,1)}.
 \end{myitemize}
+
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Standardizing into standard units}
 
+
+\vspace{-1mm}
+
+\begin{myitemize}
+
+\item After subtracting the mean and dividing by the standard deviation, any normal random variable follows the standard normal distribution.
+
+\item This is called \myemph{standardizing}. We say we are working in \myemph{standard units}.
+
+\item Calculating in standard units was essential before computers: people used tables giving probabilities for the standard normal distribution.
+
+\end{myitemize}
+
+\vspace{-2mm}
+
+\begin{columns}[T]
+\begin{column}{0.6\textwidth}
+
+\vspace{-10mm}
+
+<<standard_normal_pdf,out.width="80mm",fig.width=5,fig.height=3.5,echo=F,purl=T>>=
+# Create data for the area to shade
+pnorm_plot2 <- function(q_lo,q_hi,mean,sd,...) {
+  coord.x <- seq(from=mean-3*sd,to=mean+3*sd,by=sd/100)
+  plot(coord.x,dnorm(coord.x,mean,sd),type="l",...)
+  shaded.coord.x <- coord.x[coord.x <= q_hi & coord.x >= q_lo]
+  polygon.x <- c(min(shaded.coord.x),shaded.coord.x,max(shaded.coord.x))
+  polygon.y <- c(0,dnorm(shaded.coord.x,mean,sd),0)  
+  polygon(polygon.x,polygon.y,col='skyblue')
+}
+pnorm_plot2(q_lo=-2,q_hi=2,mean=0,sd=1,main="",xlab="",ylab="probability density")
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+
+\vspace{5mm}
+
+<<>>=
+pnorm(2)-pnorm(-2)
+@
+\end{column}
+\end{columns}
+\vspace{-10mm}
+\begin{myitemize}
+\item Thinking in standard units remains helpful. For example, as shown by the shaded area above, 95\% of normal random variables are within 2 SD units of their mean.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\myquestion. 
+{\small \url{Wikipedia:List_of_average_human_height_worldwide}}
+says the average height of an American male aged 20-29 is 176.4 cm ($5' \, 9.5''$). Suppose the standard deviation of height is $2.5''$. The average height of an NBA basketball player is about $6'\, 7.5''$. 
+
+\vspace{1mm}
+
+(a) Write $6'\, 7.5''$ in standard units for this population.
+
+\answer{\vspace{20mm}}{TODO}
+
+(b) Estimate what percentage of male UM students are as tall as an average NBA player. Explain your assumptions. Sketch the answer as an area under the standard normal curve. Write this probability as an integral and show how to compute it via a call to \code{pnorm()}. 
+
+\answer{\vspace{25mm}}{TODO}
+
+\end{frame}
 
 
 
