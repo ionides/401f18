@@ -1,0 +1,194 @@
+---
+title: "Homework 1 Solutions, STATS 401 F18"
+author: "401 GSI Team"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+### sources
+The homework solutions used the class notes as a reference for code and answers.
+
+
+### Work through an R tutorial
+
+You should have R and RStudio installed (that was homework zero). 
+If you have never used R before, the following [swirl](https://swirlstats.com/) tutorial will get you started. 
+If you have used some R before, it is likely a good idea to work through the tutorial to make sure you have the required background for this course.
+More experienced users can help newer users get started.
+
+In R or RStudio, type ```install.packages("swirl")```  to download the swirl tutorial package from the internet. 
+Every line of code must be followed by the ```[ENTER]``` key, but usually we don't mention that. 
+The ```[ENTER]``` key is sometimes called ```[RETURN]```.
+
+Now swirl is installed on your computer, you can type ```library("swirl")``` to load the package into your R session.
+
+Finally, ```swirl()``` starts the tutorial program.
+Select ```1: R Programming``` by typing ```1 [ENTER]``` and then, again, hit ```1 [ENTER]``` to start ```Lesson 1: Basic Building Blocks```.
+
+
+Repeat this with ```Lesson 3: Sequences of Numbers``` and ```Lesson 4: Vectors```. We will not need the material in ```Lesson 2: Workspace and Files``` but you can do this tutorial too if you have time. 
+
+The lessons are designed to take 10-20 minutes each. In addition to introducing some knowledge, they give your fingers a chance to start practicing coding in R. You will have a chance to ask swirl questions during lab. 
+If possible, bring your laptop to lab. 
+
+**Q1**. Write a brief paragraph on what you did with swirl, which tutorials you successfully completed, and the technical or conceptual obstacles (if any) that you encountered and (hopefully) overcame.
+
+------
+
+### A data manipulation exercise
+
+Here we will test some of the basics of R data manipulation which you should know or should have learned by following the tutorials above. 
+We will look at the data in the file [femaleMiceWeights.csv](https://ionides.github.io/401f18/hw/hw01/femaleMiceWeights.csv) taken from [a study of diabetes](https://doi.org/10.2337/diabetes.53.suppl_3.S215).
+The body weight of mice (in grams) was measured after around two weeks on one of two diets (chow or high fat).
+These data are in comma separated variable (csv) format.
+You can read the data into R with
+```{r data, eval=T}
+mice <- read.csv("https://ionides.github.io/401f18/hw/hw01/femaleMiceWeights.csv")
+```
+
+**Q2**. (a) Is ```mice``` an R object of class ```data.frame``` or ```matrix```, and how can you tell? (b) What is the difference between a dataframe and a matrix in R? (c) What is the dimension of the ```mice``` dataset? (d) What are the units, and what are the variables?
+
+*Q2 answer*
+
+(a) 
+```{r}
+# determine what type of R object the mice datset is
+class(mice)
+```
+
+Using the ```class``` function, we can determine that the ```mice``` R object is of class ```data.frame```.
+
+(b) A dataframe in R can have columns of different types, e.g. integers and strings, and the columns can have names. However, a matrix can only contain vectors of the same type, e.g. all integers or all strings. All the columns must contain the same number of elements in both matrices and dataframes.
+
+(c) **See lecture notes 1 slide 11**
+```{r} 
+# find the dimension of the mice dataset
+dim(mice)
+``` 
+
+The mice dataset contains 24 observations and 2 variables.
+
+(d) The units of the dataset is each mouse that was observed. The mice dataset has a 'diet' variable and a 'bodyweight' variable. The 'diet' variable indicates whether the mouse was on the "hf" (high fat) or the "chow" diet, and the 'bodyweight' variable is the weight of the mouse in grams.
+
+**Q3**. What is the exact name of the column containing the weights? Use the function ```colnames()``` to report code that extracts this.
+
+*Q3 answer*
+
+```{r} 
+colnames(mice)
+``` 
+The name of column containing the weights is 'Bodyweight'.
+
+The ```[``` and ```]``` symbols can be used to extract specific rows and specific columns of the table. 
+
+**Q4**. What is the entry in the 12th row and second column? Give code to extract it.
+
+*Q4 answer*
+
+```{r}
+# get the bodyweight of the 12th mouse (entry in the 12th row and second column)
+mice[12,2]
+```
+
+The bodyweight of the 12th mouse is 26.25 grams.
+
+You should have seen that the ```$``` character can be used to extract a column from a table and return it as a vector. 
+
+**Q5**. Use ```$``` to extract the weight column and report the weight of the mouse in the 11th row and the code used to obtain it.
+
+*Q5 answer*
+
+```{r}
+# report the weight of the mouse in the 11th row of the weight column
+mice$Bodyweight[11]
+```
+
+The bodyweight of the 11th mouse is 26.91 grams.
+
+**Q6**. The length function returns the number of elements in a vector. Use ```length()``` to obtain the number of mice included in our dataset. Report your code.
+
+*Q6 answer*
+
+```{r}
+# number of mice using length
+length(mice$Bodyweight)
+```
+
+There are 24 mice in our dataset.
+
+**Q7**. To create a vector with the numbers 3 to 7, we can use ```seq(3,7)``` or, because they are consecutive, ```3:7```. 
+View the data and determine what rows are associated with the high fat diet (coded as ```hf```). 
+Use a sequence of indices to extract the vector of weights for the corresponding animals and then use the ```mean()``` function to compute their average weight. Report this mean weight and the code used to get it.
+
+*Q7 answer*
+
+The rows associated with the high fat diet mice are 13 through 24.
+
+```{r}
+# extract the hf diet mice
+hf_mice = mice[13:24,]
+
+# get the mean bodyweight of the hf diet mice
+mean(hf_mice$Bodyweight)
+
+# alternative code 
+mean(mice[13:24,]$Bodyweight)
+```
+
+The average bodyweight for high fat diet mice is 26.83 grams.
+
+------
+
+### Thinking about datasets used in class
+
+We only expect fairly superficial understanding of the science behind datasets. However, it is worth thinking about the data enough to allow common sense reasoning about the numbers we are studying. The following questions relate to datasets and statistical questions introduced in Chapter 1 of the notes.
+
+**Q8**. Is the life expectancy at birth in 2015 more or less than the lifespan you would expect for a baby born in 2015, or about the same? Explain.
+
+*Q8 answer*
+
+Since it was a bit difficult to see the graph from the slide 33 of notes 1, I replicated it here.
+
+```{r}
+# download the data for life expectancy; code from slides 4 and 5 of notes 1
+download.file(destfile = "life_expectancy.txt",
+              url = "https://ionides.github.io/401f18/01/life_expectancy.txt")
+
+# read in the life expectancy
+L <- read.table(file="life_expectancy.txt", header = TRUE)
+
+# fitting the linear model from slide 33
+L_fit <- lm(Total~Year,data=L)
+
+# plotting the linear model against the observed values
+plot(Total~Year,data=L, type="l", ylab="Total life expectancy")
+lines(L$Year,L_fit$fitted.values, lty="dotted")
+
+```
+
+Since the actual life expectancy for an average person born in 2015 is lower than the dotted line of the fitted linear model, the life expectancy at birth in 2015 is less than the lifespan I would expect for a baby born in 2015. 
+
+Ignoring the linear model we fit, I would expect that as technology progresses the expected lifespan of a person born in 2015 would increase and be larger than the life expectancy at birth in 2015 (since the life expectancy at birth in 2015 only accounts for the current technology).
+
+**Q9**. Do you think the following economic variables are pro-cyclical or counter-cyclical: (i) healthcare spending; (ii) construction of new homes. Explain.
+
+*Q9 answer*
+
+According to notes 1 slide 27, unemployment is counter-cyclical. I would expect that **healthcare spending by the government** would be counter-cyclical because during economic downturns, more people are unemployed and may be using unemployment benefits to cover medical expenses and less people would need medicare/medicaid during economic booms. However, I would expect that **individual/family healthcare spending** would be pro-cyclical since individuals and families are likely to be less willing to spend money on healthcare that is not urgent during a bust (lower economic activity).
+
+I would expect the construction of new homes to be pro-cyclical since during boom times (higher economic activity) individuals and families are more willing to buy houses and invest.
+
+------
+
+For your homework report, give answers to the questions above together with the code used to generate them. As with all homeworks for this course, don't forget to make a statement of sources as requested on the [syllabus](https://ionides.github.io/401f18/syllabus.html). Homework without this statement receives zero credit.
+
+------
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+Acknowledgement: This homework is derived from https://genomicsclass.github.io/book
+
+
+------
