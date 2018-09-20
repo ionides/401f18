@@ -34,9 +34,14 @@ Repeat this with ```Lesson 3: Sequences of Numbers``` and ```Lesson 4: Vectors``
 The lessons are designed to take 10-20 minutes each. In addition to introducing some knowledge, they give your fingers a chance to start practicing coding in R. You will have a chance to ask swirl questions during lab. 
 If possible, bring your laptop to lab. 
 
-**Q1**. **Write a brief paragraph on what you did with swirl, which tutorials you successfully completed, and the technical or conceptual obstacles (if any) that you encountered and (hopefully) overcame.**
+**Q1**. Write a brief paragraph on what you did with swirl, which tutorials you successfully completed, and the technical or conceptual obstacles (if any) that you encountered and (hopefully) overcame.
 
-*Q2 answer*. Credit was given as long as a sentence or more was written demonstrating engagement with the assignment.
+
+<font color="blue">
+*Q2 answer*. 
+
+Credit was given as long as a sentence or more was written demonstrating engagement with the assignment.
+</font>
 
 ------
 
@@ -53,6 +58,7 @@ mice <- read.csv("https://ionides.github.io/401f18/hw/hw01/femaleMiceWeights.csv
 
 **Q2**. **(a) Is ```mice``` an R object of class ```data.frame``` or ```matrix```, and how can you tell? (b) What is the difference between a dataframe and a matrix in R? (c) What is the dimension of the ```mice``` dataset? (d) What are the units, and what are the variables?**
 
+<font color="blue">
 *Q2 answer*
 
 (a) 
@@ -75,7 +81,11 @@ The mice dataset contains 24 observations and 2 variables.
 
 (d) The units of the dataset is each mouse that was observed. The mice dataset has a 'diet' variable and a 'bodyweight' variable. The 'diet' variable indicates whether the mouse was on the "hf" (high fat) or the "chow" diet, and the 'bodyweight' variable is the weight of the mouse in grams.
 
-**Q3**. **What is the exact name of the column containing the weights? Use the function ```colnames()``` to report code that extracts this.**
+</font>
+
+**Q3**. What is the exact name of the column containing the weights? Use the function ```colnames()``` to report code that extracts this.
+
+<font color="blue">
 
 *Q3 answer*
 
@@ -84,10 +94,13 @@ colnames(mice)
 ``` 
 The name of column containing the weights is 'Bodyweight'.
 
+</font>
+
 The ```[``` and ```]``` symbols can be used to extract specific rows and specific columns of the table. 
 
-**Q4**. **What is the entry in the 12th row and second column? Give code to extract it.**
+**Q4**. What is the entry in the 12th row and second column? Give code to extract it.
 
+<font color="blue">
 *Q4 answer*
 
 ```{r}
@@ -97,10 +110,13 @@ mice[12,2]
 
 The bodyweight of the 12th mouse is 26.25 grams.
 
+</font>
+
 You should have seen that the ```$``` character can be used to extract a column from a table and return it as a vector. 
 
-**Q5**. **Use ```$``` to extract the weight column and report the weight of the mouse in the 11th row and the code used to obtain it.**
+**Q5**. Use ```$``` to extract the weight column and report the weight of the mouse in the 11th row and the code used to obtain it.
 
+<font color="blue">
 *Q5 answer*
 
 ```{r}
@@ -110,8 +126,11 @@ mice$Bodyweight[11]
 
 The bodyweight of the 11th mouse is 26.91 grams.
 
-**Q6**. **The length function returns the number of elements in a vector. Use ```length()``` to obtain the number of mice included in our dataset. Report your code.**
+</font>
 
+**Q6**. The length function returns the number of elements in a vector. Use ```length()``` to obtain the number of mice included in our dataset. Report your code.
+
+<font color="blue">
 *Q6 answer*
 
 ```{r}
@@ -120,11 +139,13 @@ length(mice$Bodyweight)
 ```
 
 There are 24 mice in our dataset.
+</font>
 
-**Q7**. **To create a vector with the numbers 3 to 7, we can use ```seq(3,7)``` or, because they are consecutive, ```3:7```. 
+**Q7**. To create a vector with the numbers 3 to 7, we can use ```seq(3,7)``` or, because they are consecutive, ```3:7```. 
 View the data and determine what rows are associated with the high fat diet (coded as ```hf```). 
-Use a sequence of indices to extract the vector of weights for the corresponding animals and then use the ```mean()``` function to compute their average weight. Report this mean weight and the code used to get it.**
+Use a sequence of indices to extract the vector of weights for the corresponding animals and then use the ```mean()``` function to compute their average weight. Report this mean weight and the code used to get it.
 
+<font color="blue">
 *Q7 answer*
 
 The rows associated with the high fat diet mice are 13 through 24.
@@ -141,6 +162,7 @@ mean(mice[13:24,]$Bodyweight)
 ```
 
 The average bodyweight for high fat diet mice is 26.83 grams.
+</font>
 
 ------
 
@@ -148,8 +170,9 @@ The average bodyweight for high fat diet mice is 26.83 grams.
 
 We only expect fairly superficial understanding of the science behind datasets. However, it is worth thinking about the data enough to allow common sense reasoning about the numbers we are studying. The following questions relate to datasets and statistical questions introduced in Chapter 1 of the notes.
 
-**Q8**. **Is the life expectancy at birth in 2015 more or less than the lifespan you would expect for a baby born in 2015, or about the same? Explain.**
+**Q8**. Is the life expectancy at birth in 2015 more or less than the lifespan you would expect for a baby born in 2015, or about the same? Explain.
 
+<font color="blue">
 *Q8 answer*
 
 Since it was a bit difficult to see the graph from the slide 33 of notes 1, I replicated it here.
@@ -173,15 +196,17 @@ lines(L$Year,L_fit$fitted.values, lty="dotted")
 
 Life expectancy shows an increasing trend. This means that mortality rates have been decreasing over time, and it seems reasonable to suppose that trend will continue in the forseeable future. Therefore, as technology and public health progress, the mortality probability for a baby born in 2015 will be lower at each age than the mortality probability for an individual at that age in 2015. Life expectancy at birth in 2015 only accounts for the current state of technology at all ages. Therefore, an individual born in 2015 should be expected to live longer than the current life expectancy at birth. This is somewhat counter-intuitive: the name *life expectancy at birth in 2015* superficially seems like it should correspond to the life expectancy of a baby born in 2015.
 
+</font>
 
-**Q9**. **Do you think the following economic variables are pro-cyclical or counter-cyclical: (i) healthcare spending; (ii) construction of new homes. Explain.**
+**Q9**. Do you think the following economic variables are pro-cyclical or counter-cyclical: (i) healthcare spending; (ii) construction of new homes. Explain.
 
+<font color="blue">
 *Q9 answer*
 
 According to notes 1 slide 27, unemployment is counter-cyclical. I would expect that **healthcare spending by the government** would be counter-cyclical because during economic downturns, more people are unemployed and may be using unemployment benefits to cover medical expenses and less people would need medicare/medicaid during economic booms. However, I would expect that **individual/family healthcare spending** would be pro-cyclical since individuals and families are likely to be less willing to spend money on healthcare that is not urgent during a bust (lower economic activity).
 
 I would expect the construction of new homes to be pro-cyclical since during boom times (higher economic activity) individuals and families are more willing to buy houses and invest.
-
+</font>
 ------
 
 For your homework report, give answers to the questions above together with the code used to generate them. As with all homeworks for this course, don't forget to make a statement of sources as requested on the [syllabus](https://ionides.github.io/401f18/syllabus.html). Homework without this statement receives zero credit.
