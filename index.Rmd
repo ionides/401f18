@@ -51,14 +51,12 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 Due in lab on 9/7.
 
 * [Homework 1. Introduction to R](hw/hw01/hw01.html). 
-Due in lab on 9/14. 
-
-<!--
-[Solutions, as a text file of R commands](hw/hw01/sol_hw01.R).
--->
+Due in lab on 9/14.
+    * [HW 1 Solutions](hw/hw01/hw01_solutions.html)
 
 * [Homework 2. More swirl and some matrix exercises](hw/hw02/hw02.html). 
 Due in lab on 9/21. 
+
 <!--
 [Solutions, as a pdf file](hw/hw02/Hw2_Solutions.pdf) or [R code](hw/hw02/Hw2_Solutions.Rmd)
 -->
