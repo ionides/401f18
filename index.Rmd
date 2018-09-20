@@ -95,9 +95,10 @@ Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
 
 * [Lab 2. Summation Review and Apply()](Lab/Lab02/lab2_w18.pdf). Slides for 9/14.
     * [Lab 2 Solutions](Lab/Lab02/lab02_solutions.R) Solutions to lab ticket.
+    
+* [Lab 3. Basic Matrix Computations and the Linear Model](Lab/Lab03/lab03.pdf). Slides for 9/21.
 
 <!--
-* [Lab 3. Using matrices for fitting a linear model by least squares ](lab/lab03/lab03.pdf). Slides for 1/18 and 1/19. [Solutions](lab/lab03/sol_lab03.pdf).
 
 * [Lab 4. Summation and quiz review](lab/lab04/lab04.pdf). Slides for 1/25 and 1/26. [Sample quiz](lab/lab04/sample_quiz.pdf). 
 
