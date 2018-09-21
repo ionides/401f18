@@ -424,7 +424,7 @@ Next, we fit the linear model
 lmod2 = lm(project ~ ., data = df)
 lmod2
 ```
-In this case "y ~ ., data = df" tells R that the data are contained in df, where y is the response variable, and "." tells us to use all the remaining variables as predictors. Once again, R includes the intercept for us
+In this case "project ~ ., data = df" tells R that the data are contained in df, where "project" is the name of the response variable, and "." tells us to use all the remaining variables as predictors. Once again, R includes the intercept for us
 
 # In-lab activity (part 2)
 We have calculated the coefficients for the linear model (including an intercept term) using the lm() function and the data from part 1
