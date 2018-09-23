@@ -11,6 +11,13 @@
 \newcounter{CovSum}
 \newcounter{CovSumII}
 
+% \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
+ \newcommand\answer[2]{#1} % to show blank space
+<<R_answer,echo=F,purl=F>>=
+# ANS = TRUE
+ ANS=FALSE
+@
+
 \begin{document}
 
 % knitr set up
@@ -67,7 +74,7 @@ A \myemph{vector random variable} \m{\vec{X}=(X_1,X_2,\dots,X_n)} is a collectio
 \m{\vec{X}} can also be called a \myemph{multivariate random variable}.
 \item
 The case with \m{n=2} we call a \myemph{bivariate random variable}.
-\item In the bivariate case, we can say \m{X} and \m{Y} are \myemph{jointly distributed random variables} which is equivalent to saying \m{(X,Y)} is a vector random variable.
+\item Saying \m{X} and \m{Y} are \myemph{jointly distributed random variables} is equivalent to saying \m{(X,Y)} is a bivariate random variable.
 \item Vector random variables let us model relationships between quantities.
 \end{myitemize}
 \end{frame}
@@ -77,25 +84,62 @@ The case with \m{n=2} we call a \myemph{bivariate random variable}.
 
 \begin{myitemize}
 \item 
-The file ... contains midterm and final scores for a previous STATS 401 course. 
-\item
-A probability model lets us answer a question like, ``What is the probability of getting at least 70\% in the final if you get 60\% in the midterm''
-\item
-Let \m{x_i} and \m{y_i} be the midterm and final scores for individual \m{i=1,\dots,n}. We model these as \m{n} draws of a bivariate random variable \m{(X,Y)}.
-
-
+We will look at the anonymized test scores for a previous course. 
+<<download life expectancy data file,eval=F>>=
+download.file(destfile="grades.txt",
+  url="https://ionides.github.io/401f18/01/grades.txt")
+@
+\begin{verbatim}
+# Anonymized scores for a random subset of 50 students
+"total" "final" "quiz" "hw" "midterm"
+"1" 71.6 56.8 95 97 71.7
+"2" 70.1 60.2 85 99 58.3
+\end{verbatim}
 \end{myitemize}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{myitemize}
+\item
+A probability model lets us answer a question like, ``What is the probability that someone gets at least 70\% in both the midterm and the final''
+\end{myitemize}
+
+\vspace{-3mm}
+
+<<scores_plot,eval=F,purl=T>>=
+x <- read.table("grades.txt")
+plot(final~midterm,data=x)
+@
+\end{column}
+\begin{column}{0.5\textwidth}
+\vspace{-25mm}
+<<,out.width="55mm",fig.width=3.3,fig.height=4,eval=T,echo=F,purl=F>>=
+<<scores_plot>>
+@
+\end{column}
+\end{columns}
+
+%Let \m{x_i} and \m{y_i} be the midterm and final scores for individual \m{i=1,\dots,n}. We model these as \m{n} draws of a bivariate random variable \m{(X,Y)}.
+
+
+%\end{myitemize}
 
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{The bivariate normal distribution and covariance}
+
+\vspace{-1.5mm}
+
 \begin{myitemize}
 \item
-Let \m[X\sim \normal(\mu_X,\sigma_X)} and \m{Y\sim\normal(\mu_Y,sigma_Y)}.
+Let \m{X\sim \normal(\mu_X,\sigma_X)} and \m{Y\sim\normal(\mu_Y,\sigma_Y)}.
 \item 
-If \m{X} and \m{Y} are bivariate random variables we need another parameter to describe their dependence. If \{X} is big, does \m{Y} tend to be big, or small, or does the value of \m{X} make no difference to the outcome of \m{Y}?
-\item This parameter is called the \myemph{covariance}.
+If \m{X} and \m{Y} are bivariate random variables we need another parameter to describe their dependence. If \m{X} is big, does \m{Y} tend to be big, or small, or does the value of \m{X} make no difference to the outcome of \m{Y}?
+\item This parameter is the \myemph{covariance}, defined to be
+\mydisplaymath{
+\cov(X,Y)=\E \Big[ \big( X-\E[X]\, \big) \, \big( Y-\E[Y] \, \big) \Big]
+}
+
 \item The parameters of the bivariate normal distribution in matrix form are
 the \myemph{mean vector} \m{\vec{\mu}=(\mu_X,\mu_Y)} and the \myemph{variance/covariance matrix},
 \mydisplaymath{
@@ -108,18 +152,44 @@ the \myemph{mean vector} \m{\vec{\mu}=(\mu_X,\mu_Y)} and the \myemph{variance/co
 \item In R, the \code{mvtnorm} package lets us simulate the bivariate and multivariate normal distribution. It uses the vector and matrix form for the parameters.
 
 \end{myitemize}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Experimenting with the bivariate normal distribution}
-<<>>=
+
+<<mvn_plot,eval=F,echo=F,purl=T>>=
 library(mvtnorm)
-sim <- rmvnorm(n=100,
-  mean=c(X=3,Y=5),
-  sigma=matrix(c(5,3,3,4),2,2) )
-plot(Y~X,data=sim)
+mvn <- rmvnorm(n=50,
+  mean=c(X=65,Y=65),
+  sigma=matrix(
+    c(200,100,100,150),
+    2,2)
+)
+plot(Y~X,data=mvn)
 @
+
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\vspace{-15mm}
+<<,out.width="50mm",fig.width=3.3,fig.height=4,eval=T,echo=F,purl=F>>=
+set.seed(30)
+<<mvn_plot>>
+@
+\end{column}
+\begin{column}{0.5\textwidth}
+
+\vspace{-3mm}
+
+<<,eval=F,echo=T,purl=F>>=
+<<mvn_plot>>
+@
+\end{column}
+\end{columns}
+
+\vspace{-2mm}
+
 \begin{myitemize}
-\item We write \m{(X,Y)\sim MVN(\mu,\mat{V})}, where MVN abbreviates "multivariate normal".
+\item We write \m{(X,Y)\sim \MVN(\vec{\mu},\mat{V})}, where MVN is read "multivariate normal".
 \end{myitemize}
 \myquestion. What are \m{\mu_X}, \m{\mu_Y}, \m{\var(X)}, \m{\var(Y)}, and \m{\cov(X,Y)} for this example?
 
@@ -129,15 +199,14 @@ plot(Y~X,data=sim)
 
 \begin{frame}[fragile]
 \begin{myitemize}
-\mydisplaymath{
-\Cov(X,Y)=\E\Big[ \big( X-\E[X]\big) \big(Y-\E[Y]\big)\Big]
-}
-\item The \myemph{sample covariance} of \m{n} pairs of measurements \m{(x_1,y_1),\dots,(x_n,y_n)} is
+\item The covariance of \m{X} and \m{Y} \item The \myemph{sample covariance} of \m{n} pairs of measurements \m{(x_1,y_1),\dots,(x_n,y_n)} is
 \mydisplaymath{
 \covSample(\vec{x},\vec{y}) = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar x)(y_i -\bar y)
 }
 where \m{\bar x} and \m{\bar y} are the sample means of \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{y}=(y_1,\dots,y_n)}.
 
+\end{myitemize}
+\end{frame}
 
 
 

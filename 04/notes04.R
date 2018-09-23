@@ -82,3 +82,18 @@ set.seed(1)
 x <- rnorm(10000,mean=20,sd=5)
 sd(x)
 
+## ----standard_normal_pdf,out.width="80mm",fig.width=5,fig.height=3.5,echo=F,purl=T----
+# Create data for the area to shade
+pnorm_plot2 <- function(q_lo,q_hi,mean,sd,...) {
+  coord.x <- seq(from=mean-3*sd,to=mean+3*sd,by=sd/100)
+  plot(coord.x,dnorm(coord.x,mean,sd),type="l",...)
+  shaded.coord.x <- coord.x[coord.x <= q_hi & coord.x >= q_lo]
+  polygon.x <- c(min(shaded.coord.x),shaded.coord.x,max(shaded.coord.x))
+  polygon.y <- c(0,dnorm(shaded.coord.x,mean,sd),0)  
+  polygon(polygon.x,polygon.y,col='skyblue')
+}
+pnorm_plot2(q_lo=-2,q_hi=2,mean=0,sd=1,main="",xlab="",ylab="probability density")
+
+## ------------------------------------------------------------------------
+pnorm(2)-pnorm(-2)
+

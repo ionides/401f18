@@ -1,6 +1,24 @@
 ## ----setup,echo=F,results=F,cache=F--------------------------------------
 # library(broman) # used for myround 
 
+## ----download life expectancy data file,eval=F---------------------------
+## download.file(destfile="grades.txt",
+##   url="https://ionides.github.io/401f18/01/grades.txt")
+
+## ----scores_plot,eval=F,purl=T-------------------------------------------
+## x <- read.table("grades.txt")
+## plot(final~midterm,data=x)
+
+## ----mvn_plot,eval=F,echo=F,purl=T---------------------------------------
+## library(mvtnorm)
+## mvn <- rmvnorm(n=50,
+##   mean=c(X=65,Y=65),
+##   sigma=matrix(
+##     c(200,100,100,150),
+##     2,2)
+## )
+## plot(Y~X,data=mvn)
+
 ## ----reconstruct_variables,echo=F,eval=F---------------------------------
 ## L <- read.table(file="life_expectancy.txt",header=TRUE)
 ## L_fit <- lm(Total~Year,data=L)

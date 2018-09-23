@@ -593,7 +593,7 @@ dice_hist(dice20,main="",xlab="")
 \begin{myitemize}
 \item The \myemph{sample mean} or \myemph{average} of \m{\vect{y}=(y_1,\dots,y_n)} is
 \mydisplaymath{
- \bar{\vect{y}} = \frac{1}{n} \sum_{i=1}^n y_i
+ \bar{y} = \frac{1}{n} \sum_{i=1}^n y_i
 }
 \item The \myemph{expected value} of a random variable \m{X} taking possible values \m{x_1,x_2,\dots} with probabilities \m{p_1,p_2,\dots} is
 \mydisplaymath{
@@ -659,7 +659,7 @@ mean(y)
 \begin{myitemize}
 \item The \myemph{sample variance} of \m{\vect{y}=(y_1,\dots,y_n)} is
 \mydisplaymath{
- \varSample(\vect{y}) = \frac{1}{n-1} \sum_{i=1}^n (y_i-\bar{\vect{y}})^2
+ \varSample(\vect{y}) = \frac{1}{n-1} \sum_{i=1}^n (y_i-\bar{y})^2
 }
 \item The \myemph{variance} of a random variable \m{X} is defined in terms of the expected value as
 \mydisplaymath{
