@@ -87,6 +87,60 @@ Let \m{x_i} and \m{y_i} be the midterm and final scores for individual \m{i=1,\d
 \end{myitemize}
 
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The bivariate normal distribution and covariance}
+\begin{myitemize}
+\item
+Let \m[X\sim \normal(\mu_X,\sigma_X)} and \m{Y\sim\normal(\mu_Y,sigma_Y)}.
+\item 
+If \m{X} and \m{Y} are bivariate random variables we need another parameter to describe their dependence. If \{X} is big, does \m{Y} tend to be big, or small, or does the value of \m{X} make no difference to the outcome of \m{Y}?
+\item This parameter is called the \myemph{covariance}.
+\item The parameters of the bivariate normal distribution in matrix form are
+the \myemph{mean vector} \m{\vec{\mu}=(\mu_X,\mu_Y)} and the \myemph{variance/covariance matrix},
+\mydisplaymath{
+\mat{V}=\left[
+\begin{array}{cc}
+\var(X) & \cov(X,Y) \\
+\cov(Y,X) & \var(Y)
+\end{array} \right]
+}
+\item In R, the \code{mvtnorm} package lets us simulate the bivariate and multivariate normal distribution. It uses the vector and matrix form for the parameters.
+
+\end{myitemize}
+
+\begin{frame}[fragile]
+\frametitle{Experimenting with the bivariate normal distribution}
+<<>>=
+library(mvtnorm)
+sim <- rmvnorm(n=100,
+  mean=c(X=3,Y=5),
+  sigma=matrix(c(5,3,3,4),2,2) )
+plot(Y~X,data=sim)
+@
+\begin{myitemize}
+\item We write \m{(X,Y)\sim MVN(\mu,\mat{V})}, where MVN abbreviates "multivariate normal".
+\end{myitemize}
+\myquestion. What are \m{\mu_X}, \m{\mu_Y}, \m{\var(X)}, \m{\var(Y)}, and \m{\cov(X,Y)} for this example?
+
+\answer{\vspace{20mm}}{TODO}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{myitemize}
+\mydisplaymath{
+\Cov(X,Y)=\E\Big[ \big( X-\E[X]\big) \big(Y-\E[Y]\big)\Big]
+}
+\item The \myemph{sample covariance} of \m{n} pairs of measurements \m{(x_1,y_1),\dots,(x_n,y_n)} is
+\mydisplaymath{
+\covSample(\vec{x},\vec{y}) = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar x)(y_i -\bar y)
+}
+where \m{\bar x} and \m{\bar y} are the sample means of \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{y}=(y_1,\dots,y_n)}.
+
+
+
+
 \end{document}
 
 For bivariate random variables, we can write \m{(X,Y)} instead of \m{(X_1,X_2)
