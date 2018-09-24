@@ -25,12 +25,13 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 [(R code)](02/notes02.R).
 [(Annotations)](02/notes02annotated.pdf).
 
-3. [Fitting a linear model to data by least squares](03/notes03.pdf). [(R code)](03/notes03.R).
+3. [Fitting a linear model to data by least squares](03/notes03.pdf). 
+[(R code)](03/notes03.R).
+
+4. [Probability models](04/notes04.pdf).
+[(R code)](04/notes04.R).
 
 <!--
-4. [Toward a population version of the linear model](04/notes04.pdf).
-[Random variables (from 401W17)](04/401f17-chapter2.pdf).
-[Bivariate random variables (from 401W17)](04/401f17-chapter3.pdf).
  
 5. [Vector random variables](05/notes05.pdf). [(R code)](05/notes05.R).
 
@@ -63,6 +64,7 @@ Due in lab on 9/21.
 
 * [Homework 3. More swirl and fitting a linear model by least squares](hw/hw03/hw03.html). 
 Due in lab on 9/28. 
+
 <!--
 [Solutions](hw/hw03/sol_hw03.html).
 
