@@ -198,12 +198,19 @@ set.seed(30)
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{More on covariance}
 \begin{myitemize}
-\item The covariance of \m{X} and \m{Y} \item The \myemph{sample covariance} of \m{n} pairs of measurements \m{(x_1,y_1),\dots,(x_n,y_n)} is
+\item Covariance is \myemph{symmetric}: we see from the definition
+\mydisplaymath{
+\cov(X,Y)=\E \Big[ \big( X-\E[X]\, \big) \, \big( Y-\E[Y] \, \big) \Big] = \E \Big[ \big( Y-\E[Y]\, \big) \, \big( X-\E[X] \, \big) \Big] = \cov(Y,X)
+}
+\item Also, we see from the definition that \m{\cov(X,X)=\var(X)}.
+\item The \myemph{sample covariance} of \m{n} pairs of measurements \m{(x_1,y_1),\dots,(x_n,y_n)} is
 \mydisplaymath{
 \covSample(\vec{x},\vec{y}) = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar x)(y_i -\bar y)
 }
 where \m{\bar x} and \m{\bar y} are the sample means of \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{y}=(y_1,\dots,y_n)}.
+\item 
 
 \end{myitemize}
 \end{frame}
