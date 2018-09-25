@@ -45,11 +45,11 @@ where $n=68$ and $x_{i1}$ is the year corresponding to the $i$th row of the data
 \[ 
 \vec{y} = \mat{X}\vec{b} + \vec{e}
 \]
-where $\vec{y}=(y_1,\dots,y_n)$, $\mat{X}=[x_{ij}]_{n\times 2}$ and $\vec{e}=(e_1,\dots,e_n)$.
+where $\vec{y}=(y_1,\dots,y_n)$, $\mat{X}=[x_{ij}]_{n\times 2}$ and $\vec{e}=(e_1,\dots,e_n)$. It is helpful for checking and debugging R code to use variable names that match the math formula you are implementing. 
 
 (d) Let $\vec{x}$ be the vector of elements in the first column of $\mat{X}$, corresponding to the sequence of years for which we have unemployment data. Plot $\vec{y}$ against $\vec{x}$ as points, and add a line corresponding to plotting the vector of fitted values $\mat{X}\vec{b}$ against $\vec{x}$. From looking at this plot, do you think there has been a noticeable trend in unemployment since 1948? Describe in words the main patterns you see in the data.
 
-(e) Use `lm()` in R to fit the same linear model. Check that you get the same fitted values. Report the first 5 fitted values obtained by both `lm()` and the matrix computation.
+(e) Use `lm()` in R to fit the same linear model. Check that you get the same fitted values. Report the first 5 fitted values obtained by both `lm()` and by a matrix computation.
 
 
 

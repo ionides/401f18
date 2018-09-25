@@ -1,7 +1,7 @@
 %\documentclass[handout]{beamer}
 \documentclass{beamer}
 
-% \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
+%\newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
  \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
@@ -128,7 +128,7 @@ Example: For a die, \m{\prob(E)=\prob(X\ge 4)= 3/6 = 1/2}.
 \end{myitemize}
 \myquestion. When does this formal use of ``and'' and ``or'' agree with usual English usage? When does it disagree?
 
-\answer{\vspace{20mm}}
+\answer{\vspace{20mm}}{Sometimes ``or'' mean an exclusive or in usual English. Would you like a hot dog or a hamburger? ``And'' usually agrees with its technical meaning.}
 
 \end{frame}
 
@@ -159,7 +159,10 @@ Example: For a die, \m{\prob(X\in\{1,2,3,4,5,6\})=1}.
 
 \myquestion. You roll a red die and a blue die. Let \m{E=\{\mbox{red die shows 1}\}}, \m{F=\{\mbox{blue die shows 1}\}}, \m{G=\{\mbox{red die shows 6}\}}. (a) Are \m{E} and \m{F} mutually exclusive? (b) How about \m{E} and \m{G}? (c) How about \m{F} and \m{G}?
 
-\answer{\vspace{25mm}}{TODO}
+\answer{\vspace{25mm}}{
+\vspace{3mm}
+(a) No. It is possible for both events to happen, when the red die shows 1 and the blue die shows 1. (b) Yes, these are mutually exclusive. The red die cannot simultaneously show 1 and 6. (c) No. These events corrspond to different dice so can happen on the same roll. 
+}
 
 \end{frame}
 
@@ -181,7 +184,10 @@ Example: For a die, \m{\prob(X\in\{1,2,3,4,5,6\})=1}.
 \end{myitemize}
 \myquestion. Sketch the probability mass function for a fair die.
 
-\answer{\vspace{40mm}}
+\answer{\vspace{40mm}}{
+\vspace{5mm}
+Note difference between a probability mass function (pmf) and a histogram. Formally, the pmf is zero except at the possible values. We can interpret a histogram with bins of width 1 as a probability mass function for integer possible values.
+}
 
 \end{frame}
 
@@ -392,9 +398,18 @@ Example: \code{pnorm(25,mean=20,sd=5)} computes the shaded area above.
 
 Hint: To use \code{pnorm()}, think of the shaded area as the difference of two left tails.
 
-\answer{\vspace{80mm}}{TODO}
+\answer{\vspace{80mm}}{
+\vspace{5mm}
+To check on the sketch: the center should be at 10. The points of inflection should be $\pm$ one sd. As an integral, we want
+\[
+\int_0^10 \frac{1}{\sqrt{2\pi\times 10^2}}\exp\left\{\frac{(x-10)^2}{20}\right\}\, dx.
+\]
+In R, this is evaluated as \code{pnorm(10,mean=10,sd=10)-pnorm(0,mean=10,sd=10)}.
+}
 
 \end{frame}
+
+%\end{document}
 
 \begin{frame}[fragile]
 \frametitle{Other continuous distributions}
@@ -463,15 +478,24 @@ hist(rexp(100),xlab="",main="")
 \item Averaging is multiplying the sum by a constant (\m{1/n}). A bell curve is still a bell curve when we rescale by multiplication.
 
 \end{myitemize}
-\myquestion. Would you expect a histogram of student heights to follow a normal curve? Why? Why  not?
+\myquestion. Would you expect a histogram of student heights to follow a normal curve? Why? Why not?
 
-\answer{\vspace{15mm}}{TODO}
+\answer{\vspace{15mm}}{
+%\vspace{2mm}
+\small
+Height is the sum of many small contributions from genetics and the environment, suggesting a normal curve. Gender is a single large contribution, so a normal approximation could fit better broken down by gender. Genetic abnormalities or disease could lead to single large effects, giving rare outliers.
+%\vspace{2mm}
+}
 
 \myquestion. Would you expect a histogram of the daily change in the Dow Jones stock market index to follow a normal curve? Why? Why not?
 
-\answer{\vspace{15mm}}{TODO}
+\answer{\vspace{15mm}}{\small
+The Dow Jones index adds changes in stock prices for many companies. Many small factors affect each company: changes in costs and sales, analysts' opinions, or other industry-specific news. This might suggest a normal distribution. In fact, the distribution is longer-tailed since one important factor - market sentiment responding to major national and global economic news - is shared between all stocks.
+}
 
 \end{frame}
+
+%\end{document}
 
 \begin{frame}[fragile]
 \frametitle{Demonstrating the central limit theorem with dice}
@@ -576,11 +600,12 @@ dice_hist(dice20,main="",xlab="")
 
 \myquestion. Would you expect detrended data on life expectancy at birth to follow a normal distribution? Explain.
 
-\answer{\vspace{20mm}}{TODO}
+\answer{\vspace{20mm}}{Mortality due to common diseases is a result of individual bad luck. There may be small population-level variation in risk factors such as alcohol, drug abuse, tobacco, extreme weather, miles driven, gun ownership. Single disasters do not have much impact on mortality in USA, so a normal approximation is plausible.}
 
 \myquestion. Consider the mice weight data for HW1 with mice randomized to two treatments: a high fat diet and a usual lab diet. (a) Would you expect the weights of mice in each treatment group to follow a normal distribution? (b) If the experiment were replicated ten times, and an average weight calculated for each of these ten replications, would you expect the ten averages to follow a normal distribution? Are your answers different for (a) and (b)?
 
-\answer{\vspace{20mm}}{TODO}
+\answer{\vspace{20mm}}{The mice might have normally distributed weight, following similar considerations to height, above. Averages over many individuals should be closer to normally distributed, as demonstrated by the dice.
+}
 
 \end{frame}
 
@@ -593,7 +618,7 @@ dice_hist(dice20,main="",xlab="")
 \begin{myitemize}
 \item The \myemph{sample mean} or \myemph{average} of \m{\vect{y}=(y_1,\dots,y_n)} is
 \mydisplaymath{
- \bar{\vect{y}} = \frac{1}{n} \sum_{i=1}^n y_i
+ \bar{y} = \frac{1}{n} \sum_{i=1}^n y_i
 }
 \item The \myemph{expected value} of a random variable \m{X} taking possible values \m{x_1,x_2,\dots} with probabilities \m{p_1,p_2,\dots} is
 \mydisplaymath{
@@ -637,17 +662,25 @@ mean(y)
 
 \end{frame}
 
+%\end{document}
+
 \begin{frame}[fragile]
 \frametitle{The expected value is not necessarily a possible value}
-\myquestion. Compute the expected value of a roll of a fair six-sided die.
+\myquestion. Find the expected value of a roll of a fair six-sided die.
 
 (a) By using the definition \m{\E[X] = \sum_{i=1}^\infty x_i p_i}.
 
-\answer{\vspace{30mm}}{TODO}
+\answer{\vspace{30mm}}{
+\[
+\E[X]= \sum_{i=1}^6 i \times \frac{1}{6}= \big(1+2+3+4+5+6\big)\times \frac{1}{6} = 3.5
+\]
+}
 
 (b) By averaging a large number of simulated dice using R. Write some R code that is a starting point for testing and debugging.
 
-\answer{\vspace{30mm}}
+\answer{\vspace{30mm}}{
+\code{mean(sample(1:6,size=10000,replace=T))}
+}
 
 \end{frame}
 
@@ -659,7 +692,7 @@ mean(y)
 \begin{myitemize}
 \item The \myemph{sample variance} of \m{\vect{y}=(y_1,\dots,y_n)} is
 \mydisplaymath{
- \varSample(\vect{y}) = \frac{1}{n-1} \sum_{i=1}^n (y_i-\bar{\vect{y}})^2
+ \varSample(\vect{y}) = \frac{1}{n-1} \sum_{i=1}^n (y_i-\bar{y})^2
 }
 \item The \myemph{variance} of a random variable \m{X} is defined in terms of the expected value as
 \mydisplaymath{
@@ -697,6 +730,8 @@ sd(x)
 \end{myitemize}
 \end{frame}
 
+%\end{document}
+
 \begin{frame}[fragile]
 \frametitle{Expectation, variance and standard deviation of $mX+c$}
 \begin{myitemize}
@@ -722,17 +757,101 @@ sd(x)
 \begin{frame}[fragile]
 \frametitle{The standard normal distribution}
 \begin{myitemize}
-\item Let \m{Z\sim\normal(0,1)}, so \m{\E[Z]=0}, \m{\sd(Z)=1}.
+\item Let \m{Z\sim\normal(0,1)}, so \m{\E[Z]=0} and \m{\sd(Z)=1}.
 \item \m{Z} is called a \myemph{standard normal random variable}.
 \item Let \m{X=\mu+\sigma Z}. 
-\item We calculate \m{\E[X]=\mu +\sigma\E[Z] = \mu} and \m{\sd(X)=\sigma \sd(Z) = \sigma}.
+\item We use linearity of expectation and the scaling property of standard deviation to calculate
+ \mydisplaymath{
+\E[X]=\mu +\sigma\, \E[Z] = \mu,  \hspace{15mm} \sd(X)=\sigma \, \sd(Z) = \sigma
+}
+
+\vspace{-2mm}
+
 \item A bell curve is still a bell curve if you shift or rescale it, so \m{X} also follows a normal distribution.
 \item Therefore, \m{X\sim\normal(\mu,\sigma)}.
 \item We can work the other way around: if \m{X\sim\normal(\mu,\sigma)} then \m{Z=(X-\mu)/\sigma} has \m{Z\sim\normal(0,1)}.
 \end{myitemize}
+
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Standardizing into standard units}
 
+
+\vspace{-1mm}
+
+\begin{myitemize}
+
+\item After subtracting the mean and dividing by the standard deviation, any normal random variable follows the standard normal distribution.
+
+\item This is called \myemph{standardizing}. We say we are working in \myemph{standard units}.
+
+\item Calculating in standard units was essential before computers: people used tables giving probabilities for the standard normal distribution.
+
+\end{myitemize}
+
+\vspace{-2mm}
+
+\begin{columns}[T]
+\begin{column}{0.6\textwidth}
+
+\vspace{-10mm}
+
+<<standard_normal_pdf,out.width="80mm",fig.width=5,fig.height=3.5,echo=F,purl=T>>=
+# Create data for the area to shade
+pnorm_plot2 <- function(q_lo,q_hi,mean,sd,...) {
+  coord.x <- seq(from=mean-3*sd,to=mean+3*sd,by=sd/100)
+  plot(coord.x,dnorm(coord.x,mean,sd),type="l",...)
+  shaded.coord.x <- coord.x[coord.x <= q_hi & coord.x >= q_lo]
+  polygon.x <- c(min(shaded.coord.x),shaded.coord.x,max(shaded.coord.x))
+  polygon.y <- c(0,dnorm(shaded.coord.x,mean,sd),0)  
+  polygon(polygon.x,polygon.y,col='skyblue')
+}
+pnorm_plot2(q_lo=-2,q_hi=2,mean=0,sd=1,main="",xlab="",ylab="probability density")
+@
+\end{column}
+\begin{column}{0.3\textwidth}
+
+\vspace{5mm}
+
+<<>>=
+pnorm(2)-pnorm(-2)
+@
+\end{column}
+\end{columns}
+\vspace{-10mm}
+\begin{myitemize}
+\item Thinking in standard units remains helpful. For example, as shown by the shaded area above, 95\% of normal random variables are within 2 SD units of their mean.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\myquestion. 
+{\small \url{Wikipedia:List_of_average_human_height_worldwide}}
+says the average height of an American male aged 20-29 is 176.4 cm ($5' \, 9.5''$). Suppose the standard deviation of height is $2.5''$. The average height of an NBA basketball player is about $6'\, 7.5''$. 
+
+\vspace{1mm}
+
+(a) Write $6'\, 7.5''$ in standard units for this population.
+
+\answer{\vspace{20mm}}{ 
+$6'\, 7.5''$ is 3 standard units above the mean.
+}
+
+(b) Estimate what percentage of male UM students are as tall as an average NBA player. Explain your assumptions. Sketch the answer as an area under the standard normal curve. Write this probability as an integral and show how to compute it via a call to \code{pnorm()}. 
+
+\answer{\vspace{25mm}}{
+\[
+\mbox{\code{1-pnorm(3)}} = \int_3^{\infty}
+\frac{1}{\sqrt{2\pi}} e^{-x^2/2}\, dx
+\]
+}
+<<,purl=F,eval=ANS,echo=ANS>>=
+(1-pnorm(3))*100
+@
+
+\end{frame}
 
 
 

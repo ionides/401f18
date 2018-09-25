@@ -25,12 +25,13 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 [(R code)](02/notes02.R).
 [(Annotations)](02/notes02annotated.pdf).
 
-3. [Fitting a linear model to data by least squares](03/notes03.pdf). [(R code)](03/notes03.R).
+3. [Fitting a linear model to data by least squares](03/notes03.pdf). 
+[(R code)](03/notes03.R).
+
+4. [Probability models](04/notes04.pdf).
+[(R code)](04/notes04.R).
 
 <!--
-4. [Toward a population version of the linear model](04/notes04.pdf).
-[Random variables (from 401W17)](04/401f17-chapter2.pdf).
-[Bivariate random variables (from 401W17)](04/401f17-chapter3.pdf).
  
 5. [Vector random variables](05/notes05.pdf). [(R code)](05/notes05.R).
 
@@ -61,9 +62,11 @@ Due in lab on 9/21.
 [Solutions, as a pdf file](hw/hw02/Hw2_Solutions.pdf) or [R code](hw/hw02/Hw2_Solutions.Rmd)
 -->
 
+* [Homework 3. More swirl and fitting a linear model by least squares](hw/hw03/hw03.html). 
+Due in lab on 9/28. 
+
 <!--
-* [Homework 3. More swirl and fitting a linear model via matrix computations](hw/hw03/hw03.html). 
-Due in your lab on 1/25 or 1/26. [Solutions](hw/hw03/sol_hw03.html).
+[Solutions](hw/hw03/sol_hw03.html).
 
 * [Homework 4. Summation exercises and a historic data analysis](hw/hw04/hw04.html). 
 Due in your lab on 2/1 or 2/2. [Solutions](hw/hw04/sol_hw04.html).
@@ -94,9 +97,10 @@ Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
 
 * [Lab 2. Summation Review and Apply()](Lab/Lab02/lab2_w18.pdf). Slides for 9/14.
     * [Lab 2 Solutions](Lab/Lab02/lab02_solutions.R) Solutions to lab ticket.
+    
+* [Lab 3. Basic Matrix Computations and the Linear Model](Lab/Lab03/lab03.pdf). Slides for 9/21.
 
 <!--
-* [Lab 3. Using matrices for fitting a linear model by least squares ](lab/lab03/lab03.pdf). Slides for 1/18 and 1/19. [Solutions](lab/lab03/sol_lab03.pdf).
 
 * [Lab 4. Summation and quiz review](lab/lab04/lab04.pdf). Slides for 1/25 and 1/26. [Sample quiz](lab/lab04/sample_quiz.pdf). 
 

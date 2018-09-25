@@ -1,0 +1,115 @@
+---
+title: "Homework 4, STATS 401 F18"
+author: "Due in lab on 10/5"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+
+**For the summation questions, solutions can be hand-written or typed.
+For the data analysis exercise, write a brief report addressing the questions.
+For Questions 5, 6 and 7, you should report the results of the required calculations as well as your working. The latter should include reporting R code that you use. Please add enough explanation to help the reader understand what you did and why.
+Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+--------------
+
+### Practicing $\Sigma$ notation for sums.
+
+**Q1**. Usually sums are written in summation notation as $\sum_{i=1}^n$. Sometimes the lower limit is something other than 1. Evaluate $\sum_{i=m}^n 1$ where $m$ and $n$ are whole numbers with $m<n$. Check your formula gives the right answer in the most common case when $m=1$.
+
+**Q2**. Which of the following pairs of sums (if any) are necessarily equal? Explain your answer.
+
+(a) $\; \sum_{i=1}^m x_i$ and $\sum_{i=1}^n x_i$.
+
+(b) $\; \sum_{i=1}^n x_i$ and $\sum_{k=1}^n x_k$.
+
+(c) $\; \sum_{i=1}^n x_i$ and $\sum_{i=1}^n z_i$.
+
+(d) $\; \sum_{i=1}^n x_i$ and $\sum_{i=n+1}^{2n} x_i$.
+
+**Q3**. Evaluate $\sum_{i=1}^n \big(x_i - \bar x \big)$, where $\bar x = \frac{1}{n}\sum_{i=1}^n x_i$
+
+**Q4**. Let $\vec{1}=(1,1,\dots,1)$ and $\vec{x}=(x_1,x_2,\dots,x_n)$ be two vectors treated as $n\times 1$ matrices. Use $\Sigma$ notation to write an expression for the matrix product $\vec{1}^\transpose\vec{x}$.
+
+---------------
+
+### The normal distribution as a model for mice bodyweight
+
+**Q5**. This question investigates a normal distribution model for the mice bodyweights in the dataset from Homework 1. 
+```{r data, eval=F}
+mice <- read.csv("https://ionides.github.io/401f18/hw/hw01/femaleMiceWeights.csv")
+```
+For simplicity, we will consider only the twelve mice which received a high fat diet. 
+
+(a) Set up appropriate definitions so you can write formulas for the sample mean and sample standard deviation of the bodyweights of the twelve mice on a high fat diet. Your formulas should involve summation notation. Use `mean()` and `sd()` to evaluate these formulas in R for the `hf` treatment group in the `mice` dataset
+
+(b) Plot a histogram of the bodyweights of the twelve mice on a high fat diet.
+Add a line giving the probability density function of a normal distribution having mean and standard deviation parameters matching the sample mean and sample standard deviation. Comment on how well you think the data fit a normal distribution model.
+
+(c) Draw twelve random variables from the normal distribution with mean and standard deviation parameters matching the sample mean and standard deviation. Compute the histogram of these random numbers and add a normal density line following the same procedure you used in (b).
+
+(d) Compare your results from (b) and (c). Does (c) help you to understand whether the data are appropriately modeled as realizations of normal random variables? Explain. It may help you to run your code for (c) multiple times so you see many random histograms. If you do this, you can comment on what you see but you only have to report one histogram for (c).
+
+(e) Under a normal approximation, what percentage of observations should be more than one standard deviation from the mean? Write this percentage as an integral and show how to evaluate this integral using `pnorm()`. Compare this percentage to the actual percentage of mice more than one sample standard deviation from their sample mean.
+
+--------------
+
+### Exploring some new distributions
+
+There are two distributions other than the normal distribution which we will find useful later in this course. They are both derived from the normal distribution. These are the t distribution and the F distribution. The following questions investigate random variables drawn from these distributions, using the methods we developed in Chapter 4 while we were investigating the normal distribution. This is an exercise in working with random variables and also useful preparation for when these distributions arise later in the course. You will not be tested on your knowledge of these distributions before they arise in class: the goal here is to work through the process of learning about new distributions by simulation.
+
+**Q6**. **Student's t distribution**. This distribution is usually just called the t distribution.
+A random variable X is said to have t distribution on $n$ degrees of freedom if it can be written as
+
+$(Eq. 1) \displaystyle \hspace{30mm} X=\frac{Y}{\sqrt{\sum_{j=1}^n Z_j^2/n}}$
+
+where $Y$ and $Z_1,\dots,Z_n$ are draws from the standard normal distribution. We say $X\sim t(n)$. An R function to simulate a draw from the $t(n)$ distribution is
+```{r}
+my_t <- function(n){
+   rnorm(1) / sqrt(sum(rnorm(n)^2/n))
+}
+```
+
+(a) Use `replicate()` to draw a sample of size 10000 from the $t(6)$ distribution using `my_t()`. Plot a histogram of this sample using `hist()`. You will need to plot the histogram on the probability density scale rather than the count frequency scale. Also, you may need to play with the number of breaks along the x-axis to get the histogram looking good. Check `?hist` for the syntax on how to make fine adjustments to the plot.
+
+
+(b) Add to the histogram the probability density function of the $t(6)$ distribution calculated using `dt()` in R. `dt()` works very much like `dnorm()` except there is one parameter `df` (short for "degrees of freedom") rather than the two parameters `mean` and `sd`. You should look at `?dt` to check how to use this function. If the probability density curve matches the histogram, you have checked that you know how to simulate random variables with the $t(n)$ distribution. We could instead have used `rt()`, which is the R function for simulating t random variables analogous to `rnorm()` for simulating normal random variables. However, using our own formula to generate t random variables helps to understand what they are.
+
+(c) Also add to the histogram the probability density function of the standard normal distribution. Plot this density with dashed lines, using the `lty="dashed"` argument to `lines()`. Describe the difference between the $t(6)$ density function and the standard normal density function. Optionally, you can try to explain this difference in terms of the formula in Eq. 1 for simulating a t random variable.
+
+
+
+**Q7**. **The F distribution**. A random variable $X$ is said to have  F distribution on $m$ and $n$ degrees of freedom if it can be written as
+
+$(Eq. 2) \displaystyle \hspace{30mm} X=\frac{\sum_{i=1}^m Y_i^2/m}{\sum_{j=1}^n Z_j^2/n}$
+
+where $Y_1,\dots,Y_m$ and $Z_1,\dots,Z_n$ are draws from the standard normal distribution. We say $X\sim F(m,n)$. An R function to simulate a draw from the $F(m,n)$ distribution is
+```{r}
+my_F <- function(m,n){
+   sum(rnorm(m)^2/m) / sum(rnorm(n)^2/n)
+}
+```
+
+(a) Use `replicate()` to draw a sample of size 10000 from the $F(5,10)$ distribution using `my_F()`. Plot a histogram of this sample.
+
+(b) Add the probability density function of the $F(5,10)$ distribution calculated using `df()` in R. `df()` works very much like `dnorm()` except the parameters are `df1` and `df2` rather than `mean` and `sd`. You should look at `?df` to check how to use this function.
+
+(c) Suppose $U\sim t(n)$ and $V\sim F(1,n)$.  Use (Eq. 1) and (Eq. 2) to explain why $U^2$ has the same distribution as $V$.
+
+
+
+
+--------------
+
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+Acknowledgement: The second part of this homework draws on material from from https://genomicsclass.github.io/book
+
+------
