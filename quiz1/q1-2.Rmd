@@ -1,0 +1,35 @@
+\if \QLABELS1 Q1-2. \fi
+
+```{r,echo=F}
+randomMatrix <- function(p,q,values=-4:4){
+   matrix(sample(values,size=p*q,replace=TRUE),p,q)
+}
+```
+
+```{r,echo=F}
+A <- randomMatrix(2,3,values=-2:3)
+B <- randomMatrix(3,3,values=-2:3)
+```
+
+(a). Evaluate $\mat{A}\mat{B}$ when 
+```{r,echo=F,results='asis',cache=FALSE}
+xx("\\mat{A}=",A,", \\quad \\mat{B} = ",B,mtype="bmatrix",digits=0)
+```
+
+```{r,child="sol_q1a-2.Rmd",eval=SOL}
+```
+
+(b). For $\mat{A}$ as above, write down $\mat{A}^\transpose$.
+
+```{r,child="sol_q1b-2.Rmd",eval=SOL}
+```
+
+(c). For $\mat{A}$ as above, find $\mat{A}^{-1}$ if it exists.  If $\mat{B}^{-1}$ doesn't exist, explain how you know this.
+
+
+```{r,child="sol_q1c-2.Rmd",eval=SOL}
+```
+
+
+--------------
+

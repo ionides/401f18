@@ -1,0 +1,35 @@
+
+\if \QLABELS1 Q3-2. \fi
+
+(a) Which of the following code successfully construct the matrix 
+$\mathbb{A} = \begin{bmatrix}1 & 1\\2 & 2\\3 & 3\end{bmatrix}$
+
+(i). $\quad$ `A <- matrix(c(1,1,2,2,3,3) ,nrow=3)`
+
+(ii). $\quad$ `A <- cbind(c(1,1),c(2,2),c(3,3))`
+
+(iii). $\quad$ `A <- t(matrix(c(1,1,2,2,3,3) ,nrow=2))`
+
+(iv). $\quad$ `A <- c(c(1:3),c(1:3))`
+
+```{r,child="sol_q3a-2.Rmd",eval=SOL}
+```
+
+(b) Suppose `X` is a matrix in R. Which of the following is NOT equivalent to `X`?
+
+(a). `t(t(X))`
+
+(b). `X %*% matrix(1,ncol(X)`
+
+(c). `X*1`
+
+(d). `X%*%diag(ncol(X))`
+
+```{r,child="sol_q3b-2.Rmd",eval=SOL}
+```
+
+-----------------------------
+
+
+
+
