@@ -1,0 +1,19 @@
+
+\color{blue}
+
+**Solution**:
+
+Let $y_i$ be the freshman GPA for student $i$, $i=1,\dots,n$ with $n=705$. Let $x_i$ be the corresponding ACT score. The model in subscript form is
+\[
+y_i = b_1 x_i + b_2 + e_i, i=1,\dots,n
+\]
+where $e_i$ is the residual for student $i$.
+
+\color{black}
+
+
+
+
+
+
+

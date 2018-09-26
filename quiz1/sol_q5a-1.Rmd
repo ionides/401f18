@@ -1,0 +1,12 @@
+
+\color{blue}
+
+**Solution**:
+
+The center is at about 50. The points of inflection on the density are at about 40 and 60, which should be the mean plus/minus one standard deviation. It looks like about 95% of the area is between 30 and 70, which should be the mean plus/minus two standard deviations. These facts are consistent with a mean of 50 and an SD of 10.
+
+\color{black}
+
+
+
+

@@ -1,0 +1,13 @@
+
+\color{blue}
+
+**Solution**:
+
+```{r}
+1-pnorm(70,mean=50,sd=10)
+```
+
+It is acceptable not to label arguments, but then you have to get them in the right order!
+
+\color{black}
+

@@ -1,0 +1,5 @@
+**Solution**:
+
+The shaded area is $\prob(X>70)$.
+
+
