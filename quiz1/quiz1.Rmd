@@ -18,10 +18,7 @@ ALL <- TRUE
 SOL <- TRUE
 library(mat2tex)
 set.seed(2)
-opts_chunk$set(
-  cache=FALSE
-)
-
+knitr::opts_chunk$set(cache = FALSE)
 ```
 
 \ifthenelse{\isodd{0}}{

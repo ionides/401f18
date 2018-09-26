@@ -1,8 +1,37 @@
 \if \QLABELS1 Q5-1. \fi
 
-TBD
+The figure below shows the probability density function of a normal random variable $X$.  
 
-```{r,child="sol_q5-1.Rmd",eval=SOL}
+```{r,echo=F,out.width="100mm",fig.width=6,fig.height=4}
+pnorm_plot <- function(q_lo,q_hi,mean,sd,...) {
+  coord.x <- seq(from=mean-3*sd,to=mean+3*sd,by=sd/100)
+  plot(coord.x,dnorm(coord.x,mean,sd),type="l",...)
+  shaded.coord.x <- coord.x[coord.x <= q_hi & coord.x >= q_lo]
+  polygon.x <- c(min(shaded.coord.x),shaded.coord.x,max(shaded.coord.x))
+  polygon.y <- c(0,dnorm(shaded.coord.x,mean,sd),0)  
+  polygon(polygon.x,polygon.y,col='skyblue')
+}
+pnorm_plot(mean=50,sd=10,q_lo=70,q_hi=100,main="",xlab="",ylab="probability density")
+```
+
+(a) By looking at the probability density function, estimate the mean and standard deviation of $X$. Use these estimates for the subsequent parts of this question.
+
+```{r,child="sol_q5a-1.Rmd",eval=SOL}
+```
+
+(b) Write a probability statement about the random variable $X$ that corresponding to the shaded area. 
+
+```{r,child="sol_q5b-1.Rmd",eval=SOL}
+```
+
+(c) Write an integral corresponding to this shaded area. 
+
+```{r,child="sol_q5c-1.Rmd",eval=SOL}
+```
+
+(d) Write R code to evaluate this integral numerically.
+
+```{r,child="sol_q5d-1.Rmd",eval=SOL}
 ```
 
 -------------

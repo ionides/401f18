@@ -1,4 +1,9 @@
+
+\color{blue}
+
 **Solution**:
 
 TBD
+
+\color{black}
 
