@@ -2,7 +2,20 @@
 
 **Solution**:
 
-TBD
+Define the column vector of coefficients as $\vec{b} = (b_1, b_2)$. 
+Let $\vec{y}$ be the column vector $(y_1, \dots, y_n)$ and let 
+\[
+\mat{X} = \begin{bmatrix}
+x_1 & 1 \\
+\vdots & \vdots \\
+x_{n} & 1
+\end{bmatrix}
+\]
+Finally, let $\vec{e}=(e_1,\dots,e_n)$ be a column vector of residuals.
+The matrix form of the linear model is
+\[
+\vec{y} = \mat{X}\vec{b}+\vec{e}
+\]
 
 \color{black}
 

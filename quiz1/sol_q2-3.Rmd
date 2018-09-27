@@ -1,4 +1,10 @@
+
+\color{blue}
+
 **Solution**:
 
-TBD
+ $\sum_{k=m}^n a=(n-m+1)a$ since the sum has $(n-m+1)$ terms each of which is $a$. 
+
+\color{black}
+
 

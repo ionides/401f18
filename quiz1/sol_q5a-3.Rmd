@@ -1,0 +1,12 @@
+
+\color{blue}
+
+**Solution**:
+
+The center is at about `r mean5.3`. The points of inflection on the density are at about `r mean5.3-sd5.3` and `r mean5.3+sd5.3`, which should be the mean plus/minus one standard deviation. It looks like about 95% of the area is between `r mean5.3-2*sd5.3` and `r mean5.3+2*sd5.3`, which should be the mean plus/minus two standard deviations. These facts are consistent with a mean of `r mean5.3` and an SD of `r sd5.3`.
+
+\color{black}
+
+
+
+

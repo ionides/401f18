@@ -1,4 +1,18 @@
+
+\color{blue}
+
 **Solution**:
 
-TBD
+Only (iv). Here's what they give:
+
+```{r}
+x <- c(1,2,3,4,5,6,7,8,9,10,11)
+x[rep(c(TRUE,FALSE),each=5)]
+x[rep(c(TRUE,FALSE),times=5)]
+x[rep(c(TRUE,FALSE),length=9)]
+x[rep(c(TRUE,FALSE))][1:5]
+x[rep(c("TRUE","FALSE"),5)]
+```
+
+\color{black}
 

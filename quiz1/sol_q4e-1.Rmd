@@ -1,4 +1,14 @@
+
+\color{blue}
+
 **Solution**:
 
-TBD
+The fitted value for height $x_i$ of player $i$ is 
+\[
+\hat y_i = b_1 x_i + b_2
+\]
+This is the predicted value of weight from the best fit line for weight of an individual with height $x_i$.
+
+\color{black}
+
 

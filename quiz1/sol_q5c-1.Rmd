@@ -1,10 +1,11 @@
+
 \color{blue}
 
 **Solution**:
 
 \[
 \int_{70}^\infty \frac{1}{\sqrt{2\pi 10^2}}
-\exp\left\{ - \frac{(x-50)^2}{10^2}\right\}\, dx
+\exp\left\{ - \frac{(x-50)^2}{2\times 10^2}\right\}\, dx
 \]
 
 \color{black}

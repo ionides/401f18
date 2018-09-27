@@ -1,0 +1,15 @@
+
+\color{blue}
+
+**Solution**:
+
+The expected value is 
+\[
+0.25 \times 0 + 0.5 \times 1 + 0.25 \times 2 = 1
+\]
+
+\color{black}
+
+
+
+

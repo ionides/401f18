@@ -1,0 +1,13 @@
+
+\if \QLABELS1 Q2-4. \fi
+
+Evaluate $3\sum_{k = 1}^{5} 2 - 0.5\sum_{i = 2}^{11} 6$.
+
+```{r,child="sol_q2-4.Rmd",eval=SOL}
+```
+
+--------------------------
+
+
+
+

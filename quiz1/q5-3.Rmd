@@ -1,0 +1,51 @@
+
+\if \QLABELS1 Q5-3. \fi
+
+The figure below shows the probability density function of a normal random variable $X$.  
+
+```{r,echo=F,out.width="100mm",fig.width=6,fig.height=4}
+mean5.3 <- 0
+sd5.3 <- 10
+pnorm_plot_exterior <- function(q_lo,q_hi,mean,sd,...) {
+  coord.x <- seq(from=mean-3*sd,to=mean+3*sd,by=sd/100)
+  plot(coord.x,dnorm(coord.x,mean,sd),type="l",...)
+  shaded.coord.x.lo <- coord.x[coord.x <= q_lo]
+  shaded.coord.x.hi <- coord.x[coord.x >= q_hi]
+  polygon.x.lo <- c(min(shaded.coord.x.lo),shaded.coord.x.lo,max(shaded.coord.x.lo))
+  polygon.x.hi <- c(min(shaded.coord.x.hi),shaded.coord.x.hi,max(shaded.coord.x.hi))
+  polygon.y.lo <- c(0,dnorm(shaded.coord.x.lo,mean,sd),0)  
+  polygon.y.hi <- c(0,dnorm(shaded.coord.x.hi,mean,sd),0)  
+  polygon(polygon.x.lo,polygon.y.lo,col='skyblue')
+  polygon(polygon.x.hi,polygon.y.hi,col='skyblue')
+}
+pnorm_plot_exterior(
+  mean=mean5.3,
+  sd=sd5.3,
+  q_lo=mean5.3-sd5.3/2,
+  q_hi=mean5.3+sd5.3/2,
+  main="",xlab="",ylab="probability density")
+```
+
+(a) By looking at the probability density function, estimate the mean and standard deviation of $X$. Use these estimates for the subsequent parts of this question.
+
+```{r,child="sol_q5a-3.Rmd",eval=SOL}
+```
+
+(b) Write a probability statement about the random variable $X$ that corresponding to the shaded area. 
+
+```{r,child="sol_q5b-3.Rmd",eval=SOL}
+```
+
+(c) Write an integral corresponding to this shaded area. 
+
+```{r,child="sol_q5c-3.Rmd",eval=SOL}
+```
+
+(d) Write R code to evaluate this integral numerically.
+
+```{r,child="sol_q5d-3.Rmd",eval=SOL}
+```
+
+---------------------
+
+

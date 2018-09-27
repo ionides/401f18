@@ -4,7 +4,7 @@
 
 **Solution**:
 
-TBD
+$\sum_{i=k}^{k+3} (i+3) = k + (k+1) + (k+2) + (k+3) = 4k+6$.
 
 \color{black}
 

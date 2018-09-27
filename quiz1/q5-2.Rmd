@@ -1,0 +1,19 @@
+
+\if \QLABELS1 Q5-2. \fi
+
+Let $Y$ be a discrete random variable that takes values $0$, $1$, or $2$ with probabilities $0.25$, $0.5$, and $0.25$, respectively. 
+
+(a) What is the expected value of $Y$?
+
+```{r,child="sol_q5a-2.Rmd",eval=SOL}
+```
+
+(b) What is the variance of $Y$?
+
+```{r,child="sol_q5b-2.Rmd",eval=SOL}
+```
+
+
+--------------------------
+
+

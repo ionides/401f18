@@ -1,3 +1,4 @@
+
 \if \QLABELS1 Q4-1. \fi
 
 ```{r, echo=F}
@@ -32,9 +33,11 @@ abline(coef(gpa_lm))
 ```{r,child="sol_q4d-1.Rmd",eval=SOL}
 ```
 
-(e) Define the *fitted values* for this model and explain how they are calculated.
+(e) Write an equation using subscript notation for the *fitted value* for the $i$th baseball player. Write a sentence to explain the interpretation of this fitted value.
 
 ```{r,child="sol_q4e-1.Rmd",eval=SOL}
 ```
 
--------------
+----------------------------
+
+

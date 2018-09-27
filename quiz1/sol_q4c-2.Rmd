@@ -1,0 +1,14 @@
+
+\color{blue}
+
+**Solution**:
+
+We have the fitted value 
+\[ 
+\hat{y}_{10} = `r round(coef(weight_lm)[2],2)` \times 71 
+`r paste(ifelse(coef(weight_lm)[1]>0,"+","-"),
+abs(round(coef(weight_lm)[1],1)))` 
+\]
+
+\color{black}
+

@@ -1,0 +1,18 @@
+
+\color{blue}
+
+**Solution**:
+
+Define $\mathbb{X}$ and $\textbf{b}$ as above. Let $\hat{\textbf{y}}$ be the column vector $(\hat{y}_1, \dots \hat{y}_{100})$ where $\hat{y}_i$ is the fitted value corresponding to observation $i$. The fitted values are given by
+\[
+ \vec{{\hat y}} = \mat{X}\vec{b}
+\]
+Since $\vec{b}=(\mat{X}^\transpose\mat{X})^{-1} \mat{X}^\transpose \vec{y}$ we can also write
+\[
+ \vec{{\hat y}} = \mathbb{X}(\mat{X}^\transpose\mat{X})^{-1} \mat{X}^\transpose \vec{y}
+\]
+
+
+
+\color{black}
+

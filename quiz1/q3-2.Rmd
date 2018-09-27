@@ -1,7 +1,7 @@
 
 \if \QLABELS1 Q3-2. \fi
 
-(a) Which of the following code successfully construct the matrix 
+(a) Which one of the following lines of code successfully constructs the matrix 
 $\mathbb{A} = \begin{bmatrix}1 & 1\\2 & 2\\3 & 3\end{bmatrix}$
 
 > (i). $\quad$ `A <- matrix(c(1,1,2,2,3,3) ,nrow=3)`
@@ -17,13 +17,13 @@ $\mathbb{A} = \begin{bmatrix}1 & 1\\2 & 2\\3 & 3\end{bmatrix}$
 
 (b) Suppose `X` is a matrix in R. Which of the following is NOT equivalent to `X`?
 
-> (i). `t(t(X))`
+> (i).  $\quad$  `t(t(X))`
 
-> (ii). `X %*% matrix(1,ncol(X)`
+> (ii).  $\quad$  `X %*% matrix(1,ncol(X)`
 
-> (iii). `X*1`
+> (iii).  $\quad$  `X*1`
 
-> (iv). `X%*%diag(ncol(X))`
+> (iv).  $\quad$  `X%*%diag(ncol(X))`
 
 ```{r,child="sol_q3b-2.Rmd",eval=SOL}
 ```
