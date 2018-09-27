@@ -1,4 +1,10 @@
+
+\color{blue}
+
 **Solution**:
 
-TBD
+(i), since R fills matrices by columns.
+
+\color{black}
+
 

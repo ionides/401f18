@@ -1,4 +1,15 @@
+
+\color{blue}
+
 **Solution**:
 
-TBD
+The least squares choice of $\vec{b}$ is calculated using the equation 
+\[
+\vec{b} = (\mat{X}^\transpose \mat{X})^{-1}\mat{X}^\transpose\vec{y}
+\]
+
+\color{black}
+
+
+
 

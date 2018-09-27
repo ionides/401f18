@@ -1,5 +1,5 @@
 ---
-title: "Quiz 1, STATS 401 F18"
+title: "Quiz 1, STATS 401 W18"
 author: "In lab on 10/5"
 output:
   pdf_document:
@@ -31,7 +31,8 @@ knitr::opts_chunk$set(cache = FALSE)
 
 
 \newcommand\mat[1]{\mathbb{#1}}
-\newcommand\vect[1]{\boldsymbol{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\vect[1]{\vec{#1}}
 \newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
 \newcommand\prob{\mathrm{P}}
 \newcommand\E{\mathrm{E}}

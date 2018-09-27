@@ -1,4 +1,9 @@
+
+\color{blue}
+
 **Solution**:
 
-TBD
+(i). Indexing by `y>0` should pick out positive terms, but `NA` terms remain `NA` since R cannot tell if missing data are positive. 
+
+\color{black}
 

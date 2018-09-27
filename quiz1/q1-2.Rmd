@@ -24,7 +24,7 @@ xx("\\mat{A}=",A,", \\quad \\mat{B} = ",B,mtype="bmatrix",digits=0)
 ```{r,child="sol_q1b-2.Rmd",eval=SOL}
 ```
 
-(c). For $\mat{A}$ as above, find $\mat{A}^{-1}$ if it exists.  If $\mat{B}^{-1}$ doesn't exist, explain how you know this.
+(c). For $\mat{A}$ as above, find $\mat{A}^{-1}$ if it exists.  If $\mat{A}^{-1}$ doesn't exist, explain how you know this.
 
 
 ```{r,child="sol_q1c-2.Rmd",eval=SOL}

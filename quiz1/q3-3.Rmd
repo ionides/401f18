@@ -19,8 +19,7 @@ A <- t(matrix(c(rep(1,times=2),rep(3,times=2), 6, 4),ncol=3))
 ```{r,child="sol_q3a-3.Rmd",eval=SOL}
 ```
 
-(b) Which of the following successfully select the first five odd elements of the vector  
-$x = c(1,2,3,4,5,6,7,8,9,10,11)$?
+(b) Which of the following successfully select the first five odd elements of the vector `x <- c(1,2,3,4,5,6,7,8,9,10,11)`?
 (List all that apply. Do not list commands that will give an error)
 
 > (i) $\quad$ `x[rep(c(TRUE,FALSE),each=5)]`

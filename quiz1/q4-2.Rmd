@@ -1,36 +1,47 @@
+
 \if \QLABELS1 Q4-2. \fi
 
-Suppose we are interested in studying how well weight can be predicted by height. We collect the height and weight of 30 individuals and record them in the R vectors `height` and `weight`.
-
-```{r, echo = F}
-set.seed(401)
-height = round(runif(100,58,76))
-weight = height*1.5 + 40 + rnorm(100,0,10)
+A statistician employed by a major league baseball team is asked to assess the range of typical weights for major league baseball players of a given height. 
+She obtains data from \url{http://wiki.stat.ucla.edu/socr/index.php/SOCR_Data_MLB_HeightsWeights} and reads them into R as a dataframe including variables 'Height' (in inches) and 'Weight' (in pounds) for each of 1035 Major League Baseball players.
+She starts by analyzing just the first 100 players.
+```{r echo = F}
+dat <- read.table("baseball_players.txt",header=T)
+height <- dat$Height[1:100]
+weight <- dat$Weight[1:100]
 ```
 
-We fit a linear model and plot the data and the resulting fitted line using the following R code:
+She fits a linear model and plots the data and the resulting fitted line using the following R code:
 ```{r,out.width="100mm",fig.width=6,fig.height=4}
-weight_lm = lm(weight ~ height)
+weight_lm <- lm(weight ~ height)
 plot(height,weight)
 abline(coef(weight_lm))
 ```
 
-(a) Write out the linear model in subscript notation including the following coefficients from `weight_lm`. Make sure to define appropriate notation.
+(a) Write out the fitted linear model using subscript notation, including the following coefficients from `weight_lm`. 
+This means you are asked to use actual numbers, rather than letters, for the model coefficients.
+Make sure to define any notation you introduce.
 
-```{r, echo = F}
+```{r echo = T}
 round(coef(weight_lm),3)
+```
+
+```{r,child="sol_q4a-2.Rmd",eval=SOL}
 ```
 
 (b) Use matrix notation to explain how these coefficients were calculated.
 
-(c) The height for observation $i = 10$ is 66. Write out the formula for the fitted value for this observation. You do not need to simplify your calculation.
-
-(d) Use matrix notation to write out an expression for the fitted values of the model. Make sure to define appropriate notation.
-
-
-```{r,child="sol_q4-2.Rmd",eval=SOL}
+```{r,child="sol_q4b-2.Rmd",eval=SOL}
 ```
 
 
---------------
+(c) The tenth observation corresponds to Adam Stern, an outfielder for the Baltimore Orioles. His recorded height is 71 inches. Write out the formula for the fitted value for this observation. You do not need to simplify your calculation.
+
+```{r,child="sol_q4c-2.Rmd",eval=SOL}
+```
+
+(d) Use matrix notation to write out an expression for the fitted values of the model. Make sure to define appropriate notation.
+
+```{r,child="sol_q4d-2.Rmd",eval=SOL}
+```
+
 

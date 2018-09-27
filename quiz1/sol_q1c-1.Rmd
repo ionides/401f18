@@ -12,6 +12,7 @@ cat("$det(B)=0$ so the matrix $B$ is not invertible.")
 }
 ```
 
+
 \color{black}
 
 

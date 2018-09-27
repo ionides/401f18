@@ -35,6 +35,3 @@ pnorm_plot(mean=50,sd=10,q_lo=70,q_hi=100,main="",xlab="",ylab="probability dens
 ```
 
 -------------
-
-
-

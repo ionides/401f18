@@ -1,10 +1,9 @@
 
-
 \color{blue}
 
 **Solution**:
 
-The shaded area is $\prob(X>70)$.
+The shaded area is $\prob(-5<X<5)$.
 
 \color{black}
 

@@ -1,0 +1,13 @@
+\color{blue}
+
+**Solution**:
+
+\[
+\int_{-5}^5 \frac{1}{\sqrt{2\pi 10^2}}
+\exp\left\{ - \frac{x^2}{2\times 10^2}\right\}\, dx
+\]
+
+\color{black}
+
+
+

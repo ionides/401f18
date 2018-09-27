@@ -1,4 +1,8 @@
+
+\color{blue}
+
 **Solution**:
 
-TBD
+ $\sum_{i=1}^{30} 10 - \sum_{i=10}^{20} 20 = 30\times 10 - 11\times 20 = 300-220=80$.
 
+\color{black}

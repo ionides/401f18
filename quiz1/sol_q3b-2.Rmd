@@ -3,7 +3,7 @@
 
 **Solution**:
 
-TBD
+(ii). for (i), the transpose of the transpose gets back the original matrix. (iii) is elementwise multiplication by 1. (iv) is matrix multiplication with the identity matrix. 
 
 \color{black}
 
