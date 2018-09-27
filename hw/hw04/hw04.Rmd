@@ -15,7 +15,7 @@ csl: ecology.csl
 
 **For the summation questions, solutions can be hand-written or typed.
 For the data analysis exercise, write a brief report addressing the questions.
-For Questions 5, 6 and 7, you should report the results of the required calculations as well as your working. The latter should include reporting R code that you use. Please add enough explanation to help the reader understand what you did and why.
+For Questions 5, 6 and 7, you should report the results of the required calculations as well as your working. Presentation of your working should include reporting R code that you use. Please add enough explanation to help the reader understand what you did and why.
 Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
 
 --------------
@@ -68,7 +68,7 @@ There are two distributions other than the normal distribution which we will fin
 **Q6**. **Student's t distribution**. This distribution is usually just called the t distribution.
 A random variable X is said to have t distribution on $n$ degrees of freedom if it can be written as
 
-$(Eq. 1) \displaystyle \hspace{30mm} X=\frac{Y}{\sqrt{\sum_{j=1}^n Z_j^2/n}}$
+$\mbox{(Eq. 1)} \displaystyle \hspace{30mm} X=\frac{Y}{\sqrt{\sum_{j=1}^n Z_j^2/n}}$
 
 where $Y$ and $Z_1,\dots,Z_n$ are draws from the standard normal distribution. We say $X\sim t(n)$. An R function to simulate a draw from the $t(n)$ distribution is
 ```{r}
@@ -88,7 +88,7 @@ my_t <- function(n){
 
 **Q7**. **The F distribution**. A random variable $X$ is said to have  F distribution on $m$ and $n$ degrees of freedom if it can be written as
 
-$(Eq. 2) \displaystyle \hspace{30mm} X=\frac{\sum_{i=1}^m Y_i^2/m}{\sum_{j=1}^n Z_j^2/n}$
+$\mbox{(Eq. 2)} \displaystyle \hspace{30mm} X=\frac{\sum_{i=1}^m Y_i^2/m}{\sum_{j=1}^n Z_j^2/n}$
 
 where $Y_1,\dots,Y_m$ and $Z_1,\dots,Z_n$ are draws from the standard normal distribution. We say $X\sim F(m,n)$. An R function to simulate a draw from the $F(m,n)$ distribution is
 ```{r}
@@ -101,7 +101,7 @@ my_F <- function(m,n){
 
 (b) Add the probability density function of the $F(5,10)$ distribution calculated using `df()` in R. `df()` works very much like `dnorm()` except the parameters are `df1` and `df2` rather than `mean` and `sd`. You should look at `?df` to check how to use this function.
 
-(c) Suppose $U\sim t(n)$ and $V\sim F(1,n)$.  Use (Eq. 1) and (Eq. 2) to explain why $U^2$ has the same distribution as $V$.
+(c) Suppose $U\sim t(n)$ and $V\sim F(1,n)$.  Compare (Eq. 1) with the special case of (Eq. 2) where $m=1$. Hence, explain why $U^2$ has the same distribution as $V$.
 
 
 

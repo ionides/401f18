@@ -127,7 +127,7 @@ $(document).ready(function () {
 </div>
 
 
-<p><strong>For the summation questions, solutions can be hand-written or typed. For the data analysis exercise, write a brief report addressing the questions. For Questions 5, 6 and 7, you should report the results of the required calculations as well as your working. The latter should include reporting R code that you use. Please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of <em>Sources</em> is required to get credit for the homework.</strong></p>
+<p><strong>For the summation questions, solutions can be hand-written or typed. For the data analysis exercise, write a brief report addressing the questions. For Questions 5, 6 and 7, you should report the results of the required calculations as well as your working. Presentation of your working should include reporting R code that you use. Please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of <em>Sources</em> is required to get credit for the homework.</strong></p>
 <hr />
 <div id="practicing-sigma-notation-for-sums." class="section level3">
 <h3>Practicing <span class="math inline">\(\Sigma\)</span> notation for sums.</h3>
@@ -161,7 +161,7 @@ $(document).ready(function () {
 <h3>Exploring some new distributions</h3>
 <p>There are two distributions other than the normal distribution which we will find useful later in this course. They are both derived from the normal distribution. These are the t distribution and the F distribution. The following questions investigate random variables drawn from these distributions, using the methods we developed in Chapter 4 while we were investigating the normal distribution. This is an exercise in working with random variables and also useful preparation for when these distributions arise later in the course. You will not be tested on your knowledge of these distributions before they arise in class: the goal here is to work through the process of learning about new distributions by simulation.</p>
 <p><strong>Q6</strong>. <strong>Student’s t distribution</strong>. This distribution is usually just called the t distribution. A random variable X is said to have t distribution on <span class="math inline">\(n\)</span> degrees of freedom if it can be written as</p>
-<p><span class="math inline">\((Eq. 1) \displaystyle \hspace{30mm} X=\frac{Y}{\sqrt{\sum_{j=1}^n Z_j^2/n}}\)</span></p>
+<p><span class="math inline">\(\mbox{(Eq. 1)} \displaystyle \hspace{30mm} X=\frac{Y}{\sqrt{\sum_{j=1}^n Z_j^2/n}}\)</span></p>
 <p>where <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z_1,\dots,Z_n\)</span> are draws from the standard normal distribution. We say <span class="math inline">\(X\sim t(n)\)</span>. An R function to simulate a draw from the <span class="math inline">\(t(n)\)</span> distribution is</p>
 <pre class="r"><code>my_t &lt;- function(n){
    rnorm(1) / sqrt(sum(rnorm(n)^2/n))
@@ -172,7 +172,7 @@ $(document).ready(function () {
 <li><p>Also add to the histogram the probability density function of the standard normal distribution. Plot this density with dashed lines, using the <code>lty=&quot;dashed&quot;</code> argument to <code>lines()</code>. Describe the difference between the <span class="math inline">\(t(6)\)</span> density function and the standard normal density function. Optionally, you can try to explain this difference in terms of the formula in Eq. 1 for simulating a t random variable.</p></li>
 </ol>
 <p><strong>Q7</strong>. <strong>The F distribution</strong>. A random variable <span class="math inline">\(X\)</span> is said to have F distribution on <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span> degrees of freedom if it can be written as</p>
-<p><span class="math inline">\((Eq. 2) \displaystyle \hspace{30mm} X=\frac{\sum_{i=1}^m Y_i^2/m}{\sum_{j=1}^n Z_j^2/n}\)</span></p>
+<p><span class="math inline">\(\mbox{(Eq. 2)} \displaystyle \hspace{30mm} X=\frac{\sum_{i=1}^m Y_i^2/m}{\sum_{j=1}^n Z_j^2/n}\)</span></p>
 <p>where <span class="math inline">\(Y_1,\dots,Y_m\)</span> and <span class="math inline">\(Z_1,\dots,Z_n\)</span> are draws from the standard normal distribution. We say <span class="math inline">\(X\sim F(m,n)\)</span>. An R function to simulate a draw from the <span class="math inline">\(F(m,n)\)</span> distribution is</p>
 <pre class="r"><code>my_F &lt;- function(m,n){
    sum(rnorm(m)^2/m) / sum(rnorm(n)^2/n)
@@ -180,7 +180,7 @@ $(document).ready(function () {
 <ol style="list-style-type: lower-alpha">
 <li><p>Use <code>replicate()</code> to draw a sample of size 10000 from the <span class="math inline">\(F(5,10)\)</span> distribution using <code>my_F()</code>. Plot a histogram of this sample.</p></li>
 <li><p>Add the probability density function of the <span class="math inline">\(F(5,10)\)</span> distribution calculated using <code>df()</code> in R. <code>df()</code> works very much like <code>dnorm()</code> except the parameters are <code>df1</code> and <code>df2</code> rather than <code>mean</code> and <code>sd</code>. You should look at <code>?df</code> to check how to use this function.</p></li>
-<li><p>Suppose <span class="math inline">\(U\sim t(n)\)</span> and <span class="math inline">\(V\sim F(1,n)\)</span>. Use (Eq. 1) and (Eq. 2) to explain why <span class="math inline">\(U^2\)</span> has the same distribution as <span class="math inline">\(V\)</span>.</p></li>
+<li><p>Suppose <span class="math inline">\(U\sim t(n)\)</span> and <span class="math inline">\(V\sim F(1,n)\)</span>. Compare (Eq. 1) with the special case of (Eq. 2) where <span class="math inline">\(m=1\)</span>. Hence, explain why <span class="math inline">\(U^2\)</span> has the same distribution as <span class="math inline">\(V\)</span>.</p></li>
 </ol>
 <hr />
 <p>License: This material is provided under an <a href="https://ionides.github.io/401w18/LICENSE">MIT license</a><br> Acknowledgement: The second part of this homework draws on material from from <a href="https://genomicsclass.github.io/book" class="uri">https://genomicsclass.github.io/book</a></p>
