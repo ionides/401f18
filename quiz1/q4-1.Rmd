@@ -1,0 +1,40 @@
+\if \QLABELS1 Q4-1. \fi
+
+```{r, echo=F}
+gpa <- read.table("gpa.txt",header=T)
+```
+
+The admissions officer at a large state university wants to assess how well academic success can be predicted based on information available at admission. She collects data on freshman GPA and highschool ACT exam scores for 705 students in an R dataframe called `gpa`.
+The plot below shows a line fitted to a scatterplot of the points in the dataset.
+```{r,out.width="100mm",fig.width=6,fig.height=4}
+gpa_lm <- lm(GPA~ACT,data=gpa)
+plot(GPA~ACT,data=gpa)
+abline(coef(gpa_lm))
+```
+
+(a) Explain in words the criterion that is used to obtain the fitted line in the plot above.
+
+```{r,child="sol_q4a-1.Rmd",eval=SOL}
+```
+
+(b) Defining appropriate notation, write an equation for the fitted model in subscript form. At this point, you don't have to explain how the coefficients are calculated.
+
+```{r,child="sol_q4b-1.Rmd",eval=SOL}
+```
+
+(c) Defining appropriate notation, write an equation for the fitted model in matrix form. You still don't have to explain how the coefficients are calculated.
+
+```{r,child="sol_q4c-1.Rmd",eval=SOL}
+```
+
+(d) Now, explain using matrix notation how the model coefficients are calculated. 
+
+```{r,child="sol_q4d-1.Rmd",eval=SOL}
+```
+
+(e) Define the *fitted values* for this model and explain how they are calculated.
+
+```{r,child="sol_q4e-1.Rmd",eval=SOL}
+```
+
+-------------

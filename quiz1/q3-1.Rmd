@@ -1,0 +1,35 @@
+
+\if \QLABELS1 Q3-1. \fi
+
+(a) Which of the following is the output of `matrix(c(rep(0,times=4),rep(1,times=4)),ncol=2)`
+
+```{r,echo=F,results='asis'}
+xx(      "\\mathrm{(i)}.\\;", matrix(c(rep(0,times=4),rep(1,times=4)),ncol=2),
+"\\quad \\quad \\quad \\mathrm{(ii)}.\\;", matrix(c(rep(0,times=4),rep(1,times=4)),ncol=2,byrow=T),
+" \\quad \\quad \\quad \\mathrm{(iii)}.\\;", matrix(rep(c(0,1),times=4),ncol=2),
+" \\quad \\quad \\quad \\mathrm{(iv)}.\\;", matrix(c(rep(0,times=4),rep(1,times=4)),ncol=4),
+mtype="bmatrix",digits=0)
+```
+
+```{r,child="sol_q3a-1.Rmd",eval=SOL}
+```
+
+(b) Suppose we define an R vector by `y <- c(3,NA,-1,4,NA,-2)`. What will `y[y>0]` give you?
+
+> (i). A vector of the positive elements and NA values of `y`.
+
+> (ii). A vector of the negative elements of `y`.
+
+> (iii). A vector of all `NA`s.
+
+> (iv). A vector of `TRUE`s and `FALSE`s.
+
+> (v). A vector of `TRUE`s and `FALSE`s and `NA`s.
+
+
+```{r,child="sol_q3b-1.Rmd",eval=SOL}
+```
+
+---------------------------
+
+

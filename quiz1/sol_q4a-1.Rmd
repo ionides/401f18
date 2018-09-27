@@ -1,0 +1,9 @@
+
+\color{blue}
+
+**Solution**:
+
+The line is fitted by least squares. This minimizes the sum of squared residuals, where the residual for each student is the difference between the value of GPA for that student and the value predicted by their ACT score. 
+
+\color{black}
+

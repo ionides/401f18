@@ -1,0 +1,16 @@
+
+\color{blue}
+
+**Solution**:
+
+Only square matrices can be invertible. $\mat{A}$ is $2\times 3$ and so cannot have an inverse.
+
+\color{black}
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+\if \QLABELS1 Q2-1. \fi
+
+Calculate $\sum_{i=k}^{k+3} (i+3)$, where $k$ is a whole number.  Your answer should depend on $k$.
+
+```{r,child="sol_q2-1.Rmd",eval=SOL}
+```
+
+-------------------

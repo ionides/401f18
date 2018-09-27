@@ -1,0 +1,13 @@
+
+\if \QLABELS1 Q2-3. \fi
+
+Calculate $\sum_{k=m}^n a$, where $m$ and $n$ are whole numbers and $a$ is a real number.
+
+```{r,child="sol_q2-3.Rmd",eval=SOL}
+```
+
+--------------------------
+
+
+
+

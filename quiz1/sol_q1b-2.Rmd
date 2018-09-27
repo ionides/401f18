@@ -1,0 +1,17 @@
+
+\color{blue}
+
+**Solution**:
+
+```{r,results='asis',echo=FALSE,cache=FALSE}
+xx("\\mat{A}^\\transpose=",t(A),mtype="bmatrix",digits=0)
+```
+
+\color{black}
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+\color{blue}
+
+**Solution**:
+
+```{r,results='asis',echo=FALSE,cache=FALSE}
+xx("\\mat{A}\\mat{B}=",A%*%B,mtype="bmatrix",digits=0)
+```
+
+\color{black}
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+
+\if \QLABELS1 Q2-2. \fi
+
+Evaluate $\sum_{i=1}^{30} 10 - \sum_{i=10}^{20} 20$.
+
+```{r,child="sol_q2-2.Rmd",eval=SOL}
+```
+
+---------------------
+
+
