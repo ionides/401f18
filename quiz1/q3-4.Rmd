@@ -1,0 +1,24 @@
+\if \QLABELS1 Q3-4. \fi
+
+Define the matrix `A` as:
+```{r echo=FALSE}
+A = matrix(c(0,1,1,3,3,2),nrow = 3)
+A
+```
+
+What is the output of `apply(A,2,mean)`?
+
+> (i). A vector of length 3 corresponding to the average of each row of `A`.
+
+> (ii). A vector of length 2 corresponding to the average of each column of `A`.
+
+> (iii). The mean of all the values in `A`. 
+
+> (iv). The mean of the second column of `A`.
+
+> (v). The mean of the second row of `A`.
+
+```{r,child="sol_q3-4.Rmd",eval=SOL}
+```
+
+--------------------------

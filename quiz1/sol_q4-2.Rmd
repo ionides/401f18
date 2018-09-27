@@ -1,0 +1,23 @@
+\color{blue}
+
+**Solution**:
+
+(a) Let $y_i$ be the weight of observation $i$, $i = 1, \dots, 100$, and $x_i$ be the corresponding height. The model in subscript form is $$y_i = 1.591 \times x_i + 32.822 + e_i, \text{ } i = 1, \dots, 100$$
+
+where $e_i$ is the residual for observation $i$.
+
+(b) Define the column vector of coefficients as $\textbf{b} = (1.591, 32.822)$. Let $\textbf{y}$ be the column vector $(y_1, \dots, y_{100})$ and let $$\mathbb{X} = \begin{bmatrix}
+x_1 & 1 \\
+\vdots & \vdots \\
+x_{100} & 1
+\end{bmatrix}
+$$ 
+We obtain $\textbf{b}$ using the equation $$\textbf{b} = (\mathbb{X}^\top \mathbb{X})^{-1}\mathbb{X}^\top\textbf{y}$$
+
+(c) We have the fitted value $$\hat{y}_{10} = 1.591 \times 66 + 32.822$$
+
+(d) Define $\mathbb{X}$ and $\textbf{b}$ as above. Let $\hat{\textbf{y}}$ be the column vector $(\hat{y}_1, \dots \hat{y}_{100})$ where $\hat{y}_i$ is the fitted value corresponding to observation $i$. The fitted values are given by:
+
+$$ \hat{\textbf{y}} = \mathbb{X}\textbf{b}$$
+
+\color{black}

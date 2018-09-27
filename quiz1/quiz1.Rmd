@@ -1,5 +1,5 @@
 ---
-title: "Quiz 1, STATS 401 W18"
+title: "Quiz 1, STATS 401 F18"
 author: "In lab on 10/5"
 output:
   pdf_document:
