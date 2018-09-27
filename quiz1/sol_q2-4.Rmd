@@ -1,0 +1,7 @@
+\color{blue}
+
+**Solution**:
+
+$3\sum_{k = 1}^{5} 2 - 0.5\sum_{i = 2}^{11} 6 = 3 \times 10 - 0.5 \times 60 = 0$
+
+\color{black}

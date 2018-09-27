@@ -1,0 +1,36 @@
+\if \QLABELS1 Q4-2. \fi
+
+Suppose we are interested in studying how well weight can be predicted by height. We collect the height and weight of 30 individuals and record them in the R vectors `height` and `weight`.
+
+```{r, echo = F}
+set.seed(401)
+height = round(runif(100,58,76))
+weight = height*1.5 + 40 + rnorm(100,0,10)
+```
+
+We fit a linear model and plot the data and the resulting fitted line using the following R code:
+```{r,out.width="100mm",fig.width=6,fig.height=4}
+weight_lm = lm(weight ~ height)
+plot(height,weight)
+abline(coef(weight_lm))
+```
+
+(a) Write out the linear model in subscript notation including the following coefficients from `weight_lm`. Make sure to define appropriate notation.
+
+```{r, echo = F}
+round(coef(weight_lm),3)
+```
+
+(b) Use matrix notation to explain how these coefficients were calculated.
+
+(c) The height for observation $i = 10$ is 66. Write out the formula for the fitted value for this observation. You do not need to simplify your calculation.
+
+(d) Use matrix notation to write out an expression for the fitted values of the model. Make sure to define appropriate notation.
+
+
+```{r,child="sol_q4-2.Rmd",eval=SOL}
+```
+
+
+--------------
+

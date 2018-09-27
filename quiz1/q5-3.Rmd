@@ -1,0 +1,8 @@
+\if \QLABELS1 Q5-3. \fi
+
+The probability density function of the standard exponential distribution is $e^{-x}$ for $x \ge 0$. Suppose $X$ is a standard exponential random variable. Write out an integral corresponding to $\text{P}(1 \le X \le 5)$.
+
+```{r,child="sol_q5-3.Rmd",eval=SOL}
+```
+
+-------------------
