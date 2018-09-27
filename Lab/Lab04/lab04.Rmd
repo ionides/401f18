@@ -73,7 +73,7 @@ where $(y_i - mx_i - c)$ is the residual of observation i
 - Recall: **random variable** X is a random number with probabilities assigned to the outcomes
 - Recall: A random variable can take on discrete (e.g. a die: {1, 2, 3, 4, 5, 6}) or continuous values (e.g. weight following a normal distribution)
 
-\vspace{-10mm}
+\vspace{10mm}
 - \textcolor{blue}{Suggestion: Review from STATS 250 the concepts of expected value and variance and the properties of common distrbutions such as the normal.}
 
 # In Lab Exercises (Part 1)
