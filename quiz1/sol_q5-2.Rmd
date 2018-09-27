@@ -1,0 +1,11 @@
+\color{blue}
+
+**Solution**:
+
+(a) The expected value is $$0.25 \times 0 + 0.5 \times 1 + 0.25 \times 2 = 1$$
+(b) The variance is $$ 0.25 \times (0-1)^2 + 0.5 \times (1-1)^2 + 0.25 \times (2-1)^2 = 0.5$$
+
+Alternatively, we can calculate the expected value of $X^2$ first: $$\text{E}(X^2) = 0.25 \times 0^2 + 0.5 \times 1^2 + 0.25 \times 2^2 = 0.5 \times 1 + 0.25 \times 4 = 1.5$$
+
+and then $$\text{Var}(X) = 1.5 - 1^2 = 0.5$$
+\color{black}
