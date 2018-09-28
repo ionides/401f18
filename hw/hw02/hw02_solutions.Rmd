@@ -1,0 +1,366 @@
+---
+title: "Homework 2, STATS 401 F18"
+author: "Due in your lab on 9/21"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+\newcommand\mat[1]{\mathbb{#1}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+
+```{r, echo=FALSE}
+## uses mat2tex from https://github.com/markheckmann/mat2tex
+devtools::install_github("markheckmann/mat2tex")
+library(mat2tex)
+```
+
+
+### More swirl lessons
+
+Continuing from Homework 1, complete the following swirl modules: ```Lesson 5: Missing Values```, ```Lesson 6: Subsetting Vectors```, ```Lesson 7: Matrices and Data Frames```, ```Lesson 9: Functions```. We will not need the material in ```Lesson 8: Logic```, but you can do this too if you like. You will have a chance to ask swirl questions in lab if difficulties arise. In this class, we will emphasize using existing functions rather than writing our own, but it will help you to understand how new functions are made.
+
+**Q1**. Write a brief comment on what you did with swirl, which tutorials you successfully completed, and the technical or conceptual obstacles (if any) that you encountered and (hopefully) overcame. This could be as little as a single sentence.
+
+---------------
+
+### Matrix exercises
+
+In Q2-Q8, you are asked to carry out and check examples of each matrix operation we have covered in class, both by hand and using a computer. The code provided can be used to make more examples by changing the value of `set.seed` used to generate the random numbers. Computers use a random number generator that is actually a deterministic algorithm which produces a long sequence of numbers that behave much like random numbers. The seed tells the algorithm where to start reading off numbers from this sequence.
+
+Particularly if you are in the 25% of the class that that has no previous experience working with matrices, you are recommended to do extra examples until you are comfortable working them by hand.
+
+We will generates exercises using the following function:
+```{r randomMatrix}
+# randomMatrix() generates a p x q matrix with elements chosen randomly from the given values
+randomMatrix <- function(p,q,values=-4:4){
+   matrix(sample(values,size=p*q,replace=TRUE),p,q)
+}
+```
+This produces a $p\times q$ matrix with random entries which are, by default, drawn with replacement from the sequence $-4,-3,\dots,0,\dots,3,4$. 
+Let's use ```randomMatrix``` to produce two $2\times 2$ matrices $\mat{A}$ and $\mat{B}$, setting the seed of the random number generator so that the function returns the same matrix each time
+```{r AB}
+set.seed(5)
+A <- randomMatrix(2,2)
+B <- randomMatrix(2,2)
+```
+```{r showAB}
+A
+B
+```
+
+**Q2. Matrix addition**.  Compute by hand the matrix sum
+```{r sum, results='asis',cache=FALSE, echo=FALSE}
+xx("\\mat{A}+\\mat{B} = ",A,"+",B,digits=0,mtype="bmatrix")
+```
+Then check your calculation using R. Report your answer and your R code.
+
+<font color="blue">
+*Q2 answer*. 
+
+```{r,results='asis',cache=FALSE, echo=FALSE, eval=FALSE}
+xx("\\mat{A}+\\mat{B} = ",A,"+",B, "=", A+B, digits=0,mtype="bmatrix")
+```
+
+$$
+\mathbb{A}+\mathbb{B}=
+\begin{bmatrix}
+    -3+ (-4) &  4+0\\
+    2+2 &  -2+3
+\end{bmatrix} = 
+\begin{bmatrix}
+    -7 &  4\\
+    4 &  1
+\end{bmatrix}
+$$
+
+```{r}
+A+B
+```
+
+
+
+</font>
+
+**Q3. Scalar times matrix multiplication**. Compute by hand the following product of a scalar and a matrix
+```{r scalar_mult,echo=FALSE,results='asis'}
+xx("2 \\mat{A} = ", "2",A,digits=0,mtype="bmatrix")
+```
+Then check your calculation using R. Report your answer and your R code.
+
+<font color="blue">
+*Q3 answer*. 
+$$
+2\mathbb{A}=
+\begin{bmatrix}
+    2(-3)&  2(-4)\\
+    2(2) &  2(-2)
+\end{bmatrix} = 
+\begin{bmatrix}
+    -6 &  -8\\
+    4 &  -4
+\end{bmatrix}
+$$
+
+Confirming with R
+```{r}
+2*A
+```
+
+</font>
+
+
+**Q4. Multiplying two square matrices**. Compute by hand the matrix product
+```{r AB_prod,echo=FALSE,results='asis'}
+xx("\\mat{A}\\,\\mat{B} = ",A,B,digits=0,mtype="bmatrix")
+```
+Then check your calculation using R. Report your answer and your R code.  Also report whether you successfully found the answer calculating my hand.
+
+<font color="blue">
+*Q4 answer*. 
+$$
+\mathbb{A}\mathbb{B}=
+\begin{bmatrix}
+    12+8&  10+12\\
+    -8 + (-4) &  0+(-6)
+\end{bmatrix} = 
+\begin{bmatrix}
+    20 &  12\\
+    -12 &  6
+\end{bmatrix}
+$$
+
+Confirming with R
+```{r}
+A%*%B
+```
+
+Thus, we successfully found the answer calculating by hand.
+</font>
+
+**Q5. Multiplying two rectangular matrices**. Compute by hand the product $\mat{C}\mat{D}$ where 
+$\mat{C}$ and $\mat{D}$ are given by
+```{r CD_prod}
+set.seed(7)
+C <- randomMatrix(2,3)
+D <- randomMatrix(3,2)
+```
+Then check your calculation using R. Report your answer and your R code. Also report whether you successfully found the answer calculating my hand.
+
+<font color="blue">
+*Q5 answer*. 
+
+$$
+\mathbb{C}\mathbb{D}=
+\begin{bmatrix}
+    -4 + (-12)+6 &  0+9+4\\
+    1+(-16) + (-9) &  0+12+(-6)
+\end{bmatrix} = 
+\begin{bmatrix}
+    -10 &  13\\
+    -24 &  6
+\end{bmatrix}
+$$
+
+
+Confirming with R
+```{r}
+set.seed(7)
+C <- randomMatrix(2,3)
+D <- randomMatrix(3,2)
+C%*%D
+```
+
+Thus, we successfully found the answer calculating by hand.
+</font>
+
+**Q6. Multiplying a matrix and a column vector**. Compute by hand the matrix product
+```{r EF_prod,echo=FALSE,results='asis'}
+Emat <- randomMatrix(4,4,-3:3)
+Fmat <- randomMatrix(4,1,-3:3)
+xx("\\mat{E}\\,\\mat{F} = ",Emat,Fmat,digits=0,mtype="bmatrix")
+```
+Then check your calculation using R. Report your answer and your R code.  Also report whether you successfully found the answer calculating my hand.
+
+<font color="blue">
+*Q6 answer*. 
+
+$$
+\mathbb{E}\mathbb{F}=
+\begin{bmatrix}
+    6 + 0 +1+(-6)\\
+    -9+3+(-1)+6\\
+    0+(-3)+3+(-2)\\
+    -9+1+3+0
+\end{bmatrix} = 
+\begin{bmatrix}
+    1\\
+    -1\\
+    -2\\
+    -5
+\end{bmatrix}
+$$
+
+Confirming with R
+```{r}
+# Defining E
+E <- matrix(c(2,-3,0,-3,0,-3,3,-1,1,-1,3,3,3,-3,1,0),4)
+F_vec <- matrix(c(3,-1,1,-2),ncol=1)
+E%*%F_vec
+```
+Thus, we successfully found the answer calculating by hand.
+</font>
+
+**Q7. Inverting a $2\times 2$ matrix**. Compute by hand the matrix inverse
+```{r inverse,echo=FALSE,results='asis'}
+xx("\\mat{A}^{-1} = ",A,"^{-1}", digits=0,mtype="bmatrix")
+```
+Then check your calculation using R. Report your answer and your R code. Also report whether you successfully found the answer calculating my hand.
+
+Generate more examples using ```randomMatrix(2,2)``` until you are confident about inverting $2\times 2$ matrices by hand.
+
+<font color="blue">
+*Q7 answer*. 
+
+$$
+\text{Det}(\mathbb{A})=(-3)(-2)-(4)(2) = -2\\
+\implies \mathbb{A}^{-1} = -\frac{1}{2}
+\begin{bmatrix}
+    -2 &  -4\\
+    -2 &  -3
+\end{bmatrix} = 
+\begin{bmatrix}
+    1 &  2\\
+    1 &  1.5
+\end{bmatrix}
+$$
+
+Confirming with R
+```{r}
+solve(A)
+```
+
+Thus, we successfully found the answer calculating by hand.
+</font>
+
+**Q8. Transposing a matrix**. Compute by hand the transpose of $\mat{C}$,
+```{r transpose,echo=FALSE,results='asis'}
+xx("\\mat{C}^{\\transpose} = ",C,"^{T}", digits=0,mtype="bmatrix")
+```
+Then check your calculation using R. Report your answer and your R code. Also report whether you successfully found the answer calculating my hand.
+
+<font color="blue">
+*Q8 answer*. 
+
+Transposing a matrix means interchanging the columns and the rows.
+$$
+\mathbb{A}^T = 
+\begin{bmatrix}
+    4 &  -1\\
+    -3 &  -4\\
+    -2 & 3
+\end{bmatrix}
+$$
+
+Confirming with R
+```{r}
+t(A)
+```
+
+Thus, we successfully found the answer calculating by hand.
+</font>
+
+**Q9. Checking dimensions for a matrix product**. Let $\underset{2\times 2}{\mat{A}}$, $\underset{2\times 2}{\mat{B}}$, $\underset{2\times 3}{\mat{C}}$, $\underset{3\times 2}{\mat{D}}$, $\underset{4\times 4}{\mat{E}}$ and $\underset{4\times 1}{\mat{F}}$
+ be six matrices with the specified dimensions. Which of the following matrix products are possible:
+
+(a) $\; \mat{A}\, \mat{C}$
+(b) $\; \mat{B}\,\mat{C}^\transpose$
+(c) $\; \mat{C}\,\mat{D}$
+(d) $\; \mat{C}^\transpose\,\mat{D}^\transpose$
+(e) $\; \mat{D}^\transpose\,\mat{C}$
+(f) $\; \mat{F}\,\mat{E}$
+(g) $\; \mat{F}^\transpose\mat{E}$
+(h) $\; \mat{F}^\transpose\,\mat{E}^\transpose$
+ 
+```{r linear_system,echo=F,results=F}
+set.seed(8)
+L <- randomMatrix(4,4)
+b <- randomMatrix(4,1)
+my_sign <- function(a)ifelse(a==0,"",ifelse(a>0,"+","-"))
+my_abs <- function(a,x)ifelse(a==0,"",ifelse(abs(a)==1,x,paste(abs(a),x)))
+my_nonzero <- function(a,x)ifelse(a==0,"",paste(a,x))
+```
+
+<font color="blue">
+*Q9 answer*.  
+
+a, c, e, g and h.  
+The others have incompatible dimensions, that is, the number of columns of the first matrix in the product (matrix on the left) is not equal to the number of rows of the second matrix (matrix on the right).
+</font>
+
+**Q10. Solve the following system of linear equations using R.**
+$$\begin{array}{ccccccccc}
+`r my_nonzero(L[1,1],"w")` &`r my_sign(L[1,2])`& `r my_abs(L[1,2],"x")` &`r my_sign(L[1,3])`& `r my_abs(L[1,3],"y")` &`r my_sign(L[1,4])` & `r my_abs(L[1,4],"z")` &=& `r b[1,1]` \\
+`r my_nonzero(L[2,1],"w")` &`r my_sign(L[2,2])`& `r my_abs(L[2,2],"x")` &`r my_sign(L[2,3])`& `r my_abs(L[2,3],"y")` &`r my_sign(L[2,4])` & `r my_abs(L[2,4],"z")` &=&  `r b[2,1]`\\
+`r my_nonzero(L[3,1],"w")` &`r my_sign(L[3,2])`& `r my_abs(L[3,2],"x")` &`r my_sign(L[3,3])`& `r my_abs(L[3,3],"y")` &`r my_sign(L[3,4])` & `r my_abs(L[3,4],"z")` &=& `r b[3,1]` \\
+`r my_nonzero(L[4,1],"w")` &`r my_sign(L[4,2])`& `r my_abs(L[4,2],"x")` &`r my_sign(L[4,3])`& `r my_abs(L[4,3],"y")` &`r my_sign(L[4,4])` & `r my_abs(L[4,4],"z")` &=& `r b[4,1]`
+\end{array}$$
+Report the solution (to 3 significant figures)  and your R code. You are not required to solve this by hand.
+
+<font color="blue">
+*Q10 answer*.  
+We will express this problem in the matrix form and solve that.  
+Matrix form of the problem is
+$$
+\begin{bmatrix}
+  0 & -2 & 2 & -1\\
+  -3 & 2 & 1 & 0\\
+  3 & -2 & 0 & 3\\
+  1 & 4 & 4 & 4
+\end{bmatrix}
+\begin{bmatrix}
+  w\\
+  x\\
+  y\\
+  z
+\end{bmatrix} = 
+\begin{bmatrix}
+    4\\
+    -2\\
+    -2\\
+    0
+\end{bmatrix}
+$$
+
+Let us label the matrices as $\mathbb{M_1},\mathbb{X},\mathbb{M_2}$ respectively. Hence, the system of equations is 
+$$
+\mathbb{M_1}\mathbb{X}=\mathbb{M_2}
+$$
+The solution to which can be obtained by 
+$$
+\mathbb{X} = \mathbb{M_1}^{-1} \mathbb{M_2}
+$$
+
+Let us now compute this using R. We will first define the matrices and then solve for $\mathbb{X}$ to get the values of the variables.
+```{r}
+# Defining matrices
+M1 <- matrix(c(0,-2,2,-1,-3,2,1,0,3,-2,0,-3,1,4,-4,4), byrow=TRUE, ncol=4)
+M2 <- matrix(c(-4,-2,-2,0),ncol=1)
+
+solve(M1)%*%M2
+```
+
+Thus we have that $w=-5.428571$, $x=-5.214286$, $y=-7.857143$, $z=-1.285714$.
+</font>
+
+**As usual, you also need to make a _Sources_ statement, which will let the grader know whether you completed the homework based on class and lab materials alone or whether you made use of additional resources.**
+
+------
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+
+
+------
