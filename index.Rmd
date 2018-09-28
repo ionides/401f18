@@ -133,11 +133,9 @@ Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
 
 ## Quiz materials
 
+* [Questions in the quiz 1 generator](quiz1/all_quiz1.pdf). [Solutions](quiz1/all_quiz1_sol.pdf).
+
 <!--
-* [Information and practice for quiz 1](quiz1/quiz1.html).
-
-* A [list of questions in the quiz 1  generator](quiz1/quiz1-all.html).
-
 * Quiz 2 will have 4 questions, with one question of each type (normal approximations; prediction; estimates and confidence intervals; F-tests) drawn randomly.
 
 * A  [list of questions in the quiz 2 generator](quiz2/quiz2.pdf) with some [solutions](quiz2/quiz2+sol.pdf).
