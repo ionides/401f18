@@ -12,6 +12,8 @@ csl: ecology.csl
 
 The [syllabus](syllabus.html) gives the course description, contact information, grading scheme, and other course information.
 
+[STATS 250 Help Card](STATS250 Full Help Card.pdf).
+
 
 ----------
 
@@ -105,10 +107,12 @@ Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
     
 * [Lab 3. Basic Matrix Computations and the Linear Model](Lab/Lab03/lab03.pdf). Slides for 9/21.
 
+
+
+* [Lab 4. Summation, Matrix computation and Linear Model Review](Lab/Lab04/lab04.pdf). Slides for 9/28. 
+    * [Lab 4 Solutions](Lab/Lab04/lab04_solutions.pdf). 
+
 <!--
-
-* [Lab 4. Summation and quiz review](lab/lab04/lab04.pdf). Slides for 1/25 and 1/26. [Sample quiz](lab/lab04/sample_quiz.pdf). 
-
 * Lab 5. Quiz 1.
 
 * [Lab 6. Variance, covariance and standard errors for the linear model](lab/lab06/lab06.pdf). Slides for 2/8 and 2/9.
