@@ -2,11 +2,11 @@
 # library(broman) # used for myround 
 
 ## ----download life expectancy data file,eval=F---------------------------
-## download.file(destfile="grades.txt",
-##   url="https://ionides.github.io/401f18/01/grades.txt")
+## download.file(destfile="course_progress.txt",
+##  url="https://ionides.github.io/401f18/01/course_progress.txt")
 
 ## ----scores_plot,eval=F,purl=T-------------------------------------------
-## x <- read.table("grades.txt")
+## x <- read.table("course_progress.txt")
 ## plot(final~midterm,data=x)
 
 ## ----mvn_plot,eval=F,echo=F,purl=T---------------------------------------
@@ -19,29 +19,38 @@
 ## )
 ## plot(Y~X,data=mvn)
 
-## ----reconstruct_variables,echo=F,eval=F---------------------------------
-## L <- read.table(file="life_expectancy.txt",header=TRUE)
-## L_fit <- lm(Total~Year,data=L)
-## L_detrended <- L_fit$residuals
-## U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
-## U_annual <- apply(U[,2:13],1,mean)
-## U_detrended <- lm(U_annual~U$Year)$residuals
-## L_detrended <- subset(L_detrended,L$Year %in% U$Year)
+## ----eval=T--------------------------------------------------------------
+var(x$midterm)
+var(x$final)
+cov(x$midterm,x$final)
 
-## ----detrended_lm--------------------------------------------------------
-lm1 <- lm(L_detrended~U_detrended) ; summary(lm1)
+## ----eval=T--------------------------------------------------------------
+cor(x$midterm,x$final)
 
-## ----summary-------------------------------------------------------------
-names(summary(lm1))
-summary(lm1)$coefficients
+## ----mvn_cor_plot,eval=F,echo=F,purl=T,cache=F---------------------------
+## library(mvtnorm)
+## mvn <- rmvnorm(n=100,
+##   mean=c(X=0,Y=0),
+##   sigma=matrix(
+##     c(1,rho,rho,1),
+##     2,2)
+## )
 
-## ----model_matrix--------------------------------------------------------
-X <- model.matrix(lm1)
-head(X)
+## ----eval=T,cache=F------------------------------------------------------
+rho <- 0
 
-## ----se------------------------------------------------------------------
-s <- sqrt(sum(resid(lm1)^2)/(nrow(X)-ncol(X))) ; s
-V <- s^2 * solve(t(X)%*%X)
-sqrt(diag(V))
-summary(lm1)$coefficients
+## ----echo=T--------------------------------------------------------------
+library(mvtnorm)
+mvn <- rmvnorm(n=100,
+  mean=c(X=0,Y=0),
+  sigma=matrix(
+    c(1,rho,rho,1),
+    2,2)
+)
+
+## ----eval=T,cache=F------------------------------------------------------
+rho <- -0.8
+
+## ----eval=T--------------------------------------------------------------
+rho <- 0.95
 
