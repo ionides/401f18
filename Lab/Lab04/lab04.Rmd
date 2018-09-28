@@ -79,7 +79,7 @@ where $(y_i - mx_i - c)$ is the residual of observation i
 # In Lab Exercises (Part 1)
 
 - Show $\sum_{i=1}^n(x_i - \bar{x})^2 = \sum_{i=1}^n(x_i^2) - n(\bar{x})^2$.
-- Show how **y** = $\mathbb{X}$**b**, with n observations, can be written as a sum. (**y**$_{n\times1}, \mathbb{X}_{n\times{p}}$, **b**$_{n\times1}$)
+- Show how **y** = $\mathbb{X}$**b**, with n observations, can be written as a sum. (**y**$_{n\times1}, \mathbb{X}_{n\times{p}}$, **b**$_{p\times1}$)
 - Show how $\sum_{i=1}^n 3x_i$ can be written in matrix form.
 
 # In Lab Exercises (Part 2)
@@ -89,7 +89,7 @@ where $(y_i - mx_i - c)$ is the residual of observation i
   - What is the expected value of Y?
   - What is the variance of Y?
   
-  - (Challenge): Suppose instead that Y is a continuous random variable from [0,3]. What would be a natural extension of the calculation of the expected value of Y; i.e. how would you sum across[0,3]? (No calculations necessary.)
+  - (Challenge): Suppose instead that Y is a continuous random variable from [0,3]. What would be a natural extension of the calculation of the expected value of Y; i.e. how would you sum across [0,3]? (No calculations necessary.)
 
 # In Lab Exercises (Part 3)
 
