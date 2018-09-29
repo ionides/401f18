@@ -69,11 +69,13 @@ draws random variables with mean `mu` and variance/covariance matrix `V`. (This 
 
 (b) Set `V` to be a $3\times 3$ symmetric matrix of your choice.
 
-(c) Draw a large sample from the multivariate normal distribution with these parameters using `rmvnorm()`. There may be some trial and error in choosing `V` to make this work without error - in which case you can look ahead to part (e).
+(c) Draw a large sample from the multivariate normal distribution with these parameters using `rmvnorm()`. There may be some fiddling required to choose a `V` that makes this work without error - in which case you can look ahead to part (f).
 
-(d) Check the sample mean and sample variance/covariance matrix are close to `mu` and `V`
+(d) Compute the sample mean and sample variance/covariance matrix for the multivariate random variables you simulated, and check they are close to `mu` and `V`.
 
-(e) Not all symmetric matrices are valid variance/covariance matrices. In particular, variances have to be non-negative and so the diagonal entries of the variance/covariance matrix must be non-negative. Covariances can be negative. However, variables with small variance can't have large covariance. To see this, since the correlation is between -1 and 1, we have an inequality
+(e) Make a pairs plot of your three simulated variables. By looking at the pairs plot, guess the three correlations between the three possible choices of pairs of these variables. Compute the correlations using `V` and see how close your guess was. 
+
+(f) Not all symmetric matrices are valid variance/covariance matrices. In particular, variances have to be non-negative and so the diagonal entries of the variance/covariance matrix must be non-negative. Covariances can be negative. However, variables with small variance can't have large covariance. To see this, since the correlation is between -1 and 1, we have an inequality
 \[
 \left| \frac{\cov(X,Y)}{\sqrt{\var(X)\var(Y)}} \right| \le 1
 \]
