@@ -1,0 +1,100 @@
+---
+title: "Homework 5, STATS 401 F18"
+author: "Due in lab on 10/12"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+
+**For the summation questions, solutions can be hand-written or typed.
+For the data analysis exercise, write a brief report addressing the questions.
+For Questions 5, 6 and 7, you should report the results of the required calculations as well as your working. Presentation of your working should include reporting R code that you use. Please add enough explanation to help the reader understand what you did and why.
+Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+--------------
+
+### Symmetric matrices
+
+$\mat{A}=[a_{ij}]_{p\times p}$ is a **symmetric matrix** if $a_{ij}=a_{ji}$ for all $i$ and $j$.
+This means the matrix has reflective symmetry across its **leading diagonal**. Recall that variance/covariance matrices are symmetric because $\cov(X_i,X_j)= \cov(X_j,X_i)$ due to the symmetry of covariance.
+
+An example of a symmetric matix is
+
+```{r M1,echo=F,results='asis',cache=FALSE}
+library(mat2tex)
+xx(matrix(c(2,3,-1,3,1,4,-1,4,7),3,3),mtype="bmatrix",digits=0)
+```
+
+An equivalent definition is that $\mat{A}$ is symmetric if $\mat{A}=\mat{A}^\transpose$. Reflection across the leading diagonal swaps rows and columns, which is exactly the same as transposing. 
+
+**Q1**. Let $\mat{A}$ be a symmetric $p\times p$ matrix and let $\mat{B}$ be any $p\times q$ matrix. Let
+\[
+\mat{C} = \mat{B}^\transpose \mat{A}\mat{B}
+\]
+Show that $\mat{C}$ is equal to its own tranpose and hence show that $\mat{C}$ is a symmetric matrix.
+
+Hint: Apply the rules of matrix multiplication and transposition to simplify $\mat{C}^\transpose = \big(\mat{B}^\transpose \mat{A}\mat{B}\big)^\transpose$. Using the fact that $\mat{A}$ is symmetric, this simplification should give you an expression equal to $\mat{C}$.
+
+
+--------------
+
+**Q2**. Working with the bivariate normal distribution.
+
+* Let $\vec{x}$ and $\vec{y}$ 
+
+* Compute the sample covariance matrix
+
+* Work out the sample correlation
+
+* Make a scatter plot using pairs() - for 3d
+
+* Use rmvnorm() to simulate multivariate normal random variables with mean and variance/covariance parameters matching the sample mean and sample covariance. 
+
+-------------
+
+**Q3**. Working with the multivariate normal distribution, in three dimensions.
+
+Carry out a simulation experiment to verify that
+```mvnorm(n,mean=mu,sigma=V```
+draws random variables with mean `mu` and variance/covariance matrix `V`. (This differs slightly from `rnorm()` for which the arguments are mean and standard deviation rather than mean and variance.) Specifically, carry out the following steps.
+
+(a) Set `mu` to be a length 3 vector of your choice.
+
+(b) Set `V` to be a $3\times 3$ symmetric matrix of your choice.
+
+(c) Draw a large sample from the multivariate normal distribution with these parameters using `rmvnorm()`. There may be some trial and error in choosing `V` to make this work without error - in which case you can look ahead to part (e).
+
+(d) Check the sample mean and sample variance/covariance matrix are close to `mu` and `V`
+
+(e) Not all symmetric matrices are valid variance/covariance matrices. In particular, variances have to be non-negative and so the diagonal entries of the variance/covariance matrix must be non-negative. Covariances can be negative. However, variables with small variance can't have large covariance. To see this, since the correlation is between -1 and 1, we have an inequality
+\[
+\left| \frac{\cov(X,Y)}{\sqrt{\var(X)\var(Y)}} \right| \le 1
+\]
+which gives us
+\[
+\big[ \cov(X,Y) \big]^2 \le \var(X) \times \var(Y).
+\]
+Try to carry out step (c) with a non-valid variance/covariance matrix and report on what happens. If your original variance/covariance matrix was not valid, re-run your code for (a-d) with a valid choice of `V`.
+
+
+
+
+
+---------------
+
+
+
+--------------
+
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+Acknowledgement: The second part of this homework draws on material from from https://genomicsclass.github.io/book
+
+------
