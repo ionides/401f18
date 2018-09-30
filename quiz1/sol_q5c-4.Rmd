@@ -1,0 +1,16 @@
+
+
+\color{blue}
+
+**Solution**:
+
+The variance of $Y$ is $$ 0.4 \times (0-1)^2 + 0.3 \times (1-1)^2 + 0.2 \times (2-1)^2 + 0.1 \times (3-1)^2= 2$$
+
+Alternatively, we can calculate the expected value of $X^2$ first: $$\text{E}(X^2) = 0.4 \times 0^2 + 0.3 \times 1^2 + 0.2 \times 2^2 + 0.1 \times 3^2= 2$$
+
+and then $$\text{Var}(X) = 2 - 1^2 = 1$$
+
+\color{black}
+
+
+

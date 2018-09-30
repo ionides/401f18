@@ -1,0 +1,14 @@
+
+
+\color{blue}
+
+**Solution**:
+
+The average score of 20 students is 40. Hence, the total score of the 20 students is $20 \times 40 = 800$.
+The average score of 21 students is 41. Hence, the total score of the 21 students is $\21 \times 41 = 861.$
+Hence, the midterm score of the 21st student is $861 - 800 = 61$.
+
+\color{black}
+
+
+
