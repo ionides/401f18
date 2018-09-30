@@ -1,0 +1,36 @@
+
+\if \QLABELS1 Q4-3. \fi
+
+```{r, echo=F}
+library(faraway)
+data("sat")
+sat <- sat[,c("expend","total")]
+colnames(sat) <- c("expenditure","SAT")
+```
+
+The government wants to study the relationship between expenditures on public education and test results in 1994-95. The following dataset contains the expenditure and the average SAT score for each of the 50 states. 
+
+The plot below shows a line fitted to a scatterplot of the points in the dataset.
+```{r}
+sat_lm <- lm(SAT~expenditure,data=sat)
+plot(SAT~expenditure,data=sat)
+abline(coef(sat_lm))
+```
+
+(a) Write out the regression model in subscript form (including an intercept term).
+
+
+The table below shows the head of the dataset (the first 6 entries).
+```{r,out.width="100mm",fig.width=6,fig.height=4}
+head(sat)
+```
+
+(b)Write out the corresponding design matrix. You only need to put in actual numbers for the first 5 rows, use ... after that and specify the dimension of the matrix.
+
+(c) Explain how the model coefficients are evaluated. Name the method and give the appropriate formulae.
+
+(d) Describe in one line what trend you observe from the plot (what would you interpret from this data). Is this what you would've expected? What could be a possible justification for the trend being observed?
+
+----------------------------
+
+
