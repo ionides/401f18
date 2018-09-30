@@ -1,0 +1,22 @@
+
+\if \QLABELS1 Q5-4. \fi
+
+Let $Y$ be a random variable that takes values $0$, $1$, $2$ or $3$. Probability $Y=0$ is 0.4, $Y=1$ is 0.3 and $Y=2$ is 0.2.  
+
+(a) What is the probability of $Y=3$?
+
+```{r,child="sol_q5a-4.Rmd",eval=SOL}
+```
+
+(b) Assume $Y$ denotes the number of heads upon tossing a weighted coin tree times. If you and your friend want to place a bet at the number of heads in three tosses of the coin, what would your bet be?
+
+```{r,child="sol_q5b-5.Rmd",eval=SOL}
+```
+
+(c) Find the variance of $Y$.
+```{r,child="sol_q5c-5.Rmd",eval=SOL}
+```
+
+--------------------------
+
+
