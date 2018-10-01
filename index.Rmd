@@ -17,7 +17,7 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 
 ----------
 
-## Class notes
+## Class notes 
 
 1. [Getting started](01/notes01.pdf). 
 [(R code)](01/notes01.R).
