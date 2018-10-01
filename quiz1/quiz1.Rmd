@@ -91,7 +91,6 @@ file.append("tmp1.Rmd",q1_files)
 ```
 
 
-
 ### Q2. Summation exercises
 ```{r q2-all-list,include=F}
 q2_files <- list.files(full.names=T,pattern="^q2")

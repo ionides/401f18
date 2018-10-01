@@ -2,14 +2,25 @@
 
 **Solution**:
 
-(a) We know that $P(Y=0) + P(Y=1) + P(Y=2) + P(Y=3) = 1$. Hence, $ 0.4 + 0.3+0.2+P(Y=3) = 1\implies P(Y=3) = 1-0.9 = 0.1$.
+(a) We know that $P(Y=0) + P(Y=1) + P(Y=2) + P(Y=3) = 1$. Hence, $0.4 + 0.3+0.2+P(Y=3) = 1\implies P(Y=3) = 1-0.9 = 0.1$.
 
-(b) The expected number of heads is precisely the expected value of $Y$, which is $$ 0.4 \times 0 + 0.3 \times 1 + 0.2 \times 2 + 0.1 \times 3 = 1$$.
+(b) The expected number of heads is precisely the expected value of $Y$, which is
+\[
+0.4 \times 0 + 0.3 \times 1 + 0.2 \times 2 + 0.1 \times 3 = 1.
+\]
 Hence, we would bet on observing 1 head after three coin tosses.
 
-(c) The variance of $Y$ is $$ 0.4 \times (0-1)^2 + 0.3 \times (1-1)^2 + 0.2 \times (2-1)^2 + 0.1 \times (3-1)^2= 2$$
+(c) The variance of $Y$ is
+\[
+0.4 \times (0-1)^2 + 0.3 \times (1-1)^2 + 0.2 \times (2-1)^2 + 0.1 \times (3-1)^2= 2
+\]
+Alternatively, we can calculate the expected value of $X^2$ first:
+\[
+\E(X^2) = 0.4 \times 0^2 + 0.3 \times 1^2 + 0.2 \times 2^2 + 0.1 \times 3^2= 2
+\]
+and then
+\[
+\var(X) = 2 - 1^2 = 1
+\]
 
-Alternatively, we can calculate the expected value of $X^2$ first: $$\text{E}(X^2) = 0.4 \times 0^2 + 0.3 \times 1^2 + 0.2 \times 2^2 + 0.1 \times 3^2= 2$$
-
-and then $$\text{Var}(X) = 2 - 1^2 = 1$$
 \color{black}
