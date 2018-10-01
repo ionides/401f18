@@ -5,6 +5,12 @@ date: "9/17/2018"
 output: html_document
 ---
 
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -39,7 +45,7 @@ y <- apply(data[,2:ncol(data)],1,mean)
 ```
 
 ### (b)
-Recall from class notes (Notes03,LM3 and Notes03, slide15) that the design matrix for such a model will simply be $\mat{X}=[\mathbf{x_1} \mathbf{x_2]}$ where $\mathbf{x_1}$ is the vector of years (that is, its $i^{th}$ entry corresponds to the $i^{th}$ year in the dataset) and $\mathbf{x_2}$ is simply a vector of 1s (of length equal to the number of observations in the dataset). Let us now construct this matrix
+Recall from class notes (Notes03,LM3 and Notes03, slide15) that the design matrix for such a model will be $\mat{X}=[\mathbf{x_1} \mathbf{x_2]}$ where $\mathbf{x_1}$ is the vector of years (that is, its $i^{th}$ entry corresponds to the $i^{th}$ year in the dataset) and $\mathbf{x_2}$ is a vector of 1s (of length equal to the number of observations in the dataset). Let us now construct this matrix
 ```{r, Q2(b)}
 #(b)
 ## Extract vector of years
@@ -62,7 +68,7 @@ b
 ```
 
 ### (d)
-Here, we have to simply rename the first column ($\mathbf{x_1}$) as $\mathbf{x}$.
+Here, we have to rename the first column ($\mathbf{x_1}$) as $\mathbf{x}$.
 ```{r, Q2(d)}
 # (d)
 ## Define x
@@ -93,11 +99,21 @@ table(round(lm1$fitted.values - fitted_values,4))
 ```
 
 ## Q3
-While in general, if $\mat{A},\mat{B}$ are two invertible square matrices, then $\mat{(AB)}^{-1} = \mat{B}^{-1}\mat{A}^{-1}$.  
-Here, (a) is not correct since X may not be an invertible matrix (infact X is mostly not even square). This means that $\mat{A}^{-1}$ and $[\mat{A}^T]^{-1}$ may not exist at all. Thus, the following steps can not follow. If $\mat{A}^{-1}$ and $[\mat{A}^T]^{-1}$ did exist though, then (b), (c) and (d) would be true and this product would infact equal identity in that case.
+If $\mat{A},\mat{B}$ are two invertible square matrices, we have the property that $\mat{(AB)}^{-1} = \mat{B}^{-1}\mat{A}^{-1}$.  
+However, this formula runs into difficulties if $\mat{A}$ or $\mat{B}$ is not invertible.
+This is the problem in the argument.
+In fact, $\mat{X}$ is usually not invertible. One way to see this is that $\mat{X}$ being invertible implies there is an exact solution to the system of equations $\mat{X}\vec{b}=\vec{y}$ given by $\vec{b}=\mat{X}^{-1}\vec{y}$. 
+You may know that to determine $p$ variables in a system of linear equations, we need $p$ equations. Fewer than $p$ equations and we won't have enough information to solve for $p$ variables. 
+More than $p$ equations and likely there won't be a solution.
+Thus, only a square matrix is invertible. 
+For us, $n$ is the number of data points and $p$ is the number of coefficients in the linear model so usually $p$ is much less than $n$. 
+Thus, $\mat{X}$ is not square and cannot be invertible.
+
+If $\mat{X}$ were invertible then (a) would be true. The following steps (b), (c) and (d) are correct matrix calculations and so this product would in fact equal identity in that case.
 
 ## Q4
-Since $\mat{A}$ is a square matrix whose determinant is $6 \neq 0$, its inverse exists. Now, we know that $\mat{A}\mat{A}^{-1} = \mat{I}$ where $mat{I}$ is a diagonal matrix as well. Also, from above we know that $\mat{A}\mat{A}^{-1}$ is the same as multiplying the first columns of $\mat{A}^{-1}$ by 1,2, and 3 respectively. Hence, the natural guess would be that \[
+Since $\mat{A}$ is a square matrix whose determinant is $6 \neq 0$, its inverse exists. 
+Now, we know that $\mat{A}\mat{A}^{-1} = \mat{I}$ where $mat{I}$ is a diagonal matrix as well. Also, from above we know that $\mat{A}\mat{A}^{-1}$ is the same as multiplying the first columns of $\mat{A}^{-1}$ by 1,2, and 3 respectively. Hence, the natural guess would be that \[
 \mat{A}^{-1} = \left[
 \begin{array}{ccc}
 1 & 0 & 0 \\

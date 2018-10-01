@@ -60,17 +60,12 @@ Due in lab on 9/14.
 
 * [Homework 2. More swirl and some matrix exercises](hw/hw02/hw02.html). 
 Due in lab on 9/21. 
+    * [HW 2 Solutions](hw/hw02/hw02_solutions.html)
 
-<!--
-[Solutions, as a pdf file](hw/hw02/Hw2_Solutions.pdf) or [R code](hw/hw02/Hw2_Solutions.Rmd)
--->
 
 * [Homework 3. More swirl and fitting a linear model by least squares](hw/hw03/hw03.html). 
 Due in lab on 9/28. 
-
-<!--
-[Solutions](hw/hw03/sol_hw03.html).
--->
+    * [HW 3 Solutions](hw/hw03/hw03_solutions.html)
 
 * [Homework 4. Probability exercises and some summation](hw/hw04/hw04.html). 
 Due in lab on 10/5. 

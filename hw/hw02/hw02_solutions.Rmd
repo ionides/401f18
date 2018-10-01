@@ -12,7 +12,7 @@ csl: ecology.csl
 \newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
 \newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, include=FALSE	  }
 ## uses mat2tex from https://github.com/markheckmann/mat2tex
 devtools::install_github("markheckmann/mat2tex")
 library(mat2tex)
@@ -24,6 +24,12 @@ library(mat2tex)
 Continuing from Homework 1, complete the following swirl modules: ```Lesson 5: Missing Values```, ```Lesson 6: Subsetting Vectors```, ```Lesson 7: Matrices and Data Frames```, ```Lesson 9: Functions```. We will not need the material in ```Lesson 8: Logic```, but you can do this too if you like. You will have a chance to ask swirl questions in lab if difficulties arise. In this class, we will emphasize using existing functions rather than writing our own, but it will help you to understand how new functions are made.
 
 **Q1**. Write a brief comment on what you did with swirl, which tutorials you successfully completed, and the technical or conceptual obstacles (if any) that you encountered and (hopefully) overcame. This could be as little as a single sentence.
+
+<font color="blue">
+*Q1 answer*. 
+
+Credit was given as long as a sentence or more was written demonstrating engagement with the assignment.
+</font>
 
 ---------------
 
@@ -257,7 +263,7 @@ Then check your calculation using R. Report your answer and your R code. Also re
 
 Transposing a matrix means interchanging the columns and the rows.
 $$
-\mathbb{A}^T = 
+\mathbb{C}^T = 
 \begin{bmatrix}
     4 &  -1\\
     -3 &  -4\\
@@ -267,7 +273,7 @@ $$
 
 Confirming with R
 ```{r}
-t(A)
+t(C)
 ```
 
 Thus, we successfully found the answer calculating by hand.
@@ -313,7 +319,7 @@ Report the solution (to 3 significant figures)  and your R code. You are not req
 <font color="blue">
 *Q10 answer*.  
 We will express this problem in the matrix form and solve that.  
-Matrix form of the problem is
+The matrix form of the problem is
 $$
 \begin{bmatrix}
   0 & -2 & 2 & -1\\
