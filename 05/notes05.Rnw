@@ -149,7 +149,7 @@ the \myemph{mean vector} \m{\vec{\mu}=(\mu_X,\mu_Y)} and the \myemph{variance/co
 \cov(Y,X) & \var(Y)
 \end{array} \right]
 }
-\item In R, the \code{mvtnorm} package lets us simulate the bivariate and multivariate normal distribution. It uses the vector and matrix form for the parameters.
+\item In R, the \code{mvtnorm} package lets us simulate the bivariate and multivariate normal distribution via the \code{rmvnorm()} function. It has the mean vector and variance/covariance matrix as arguments.
 
 \end{myitemize}
 \end{frame}
