@@ -26,7 +26,7 @@ library(knitr)
 opts_chunk$set(
 #  cache=FALSE,
   cache=TRUE,
-  eval=F,
+  eval=T,
   include=TRUE,
   echo=TRUE,
   purl=TRUE,
@@ -439,40 +439,45 @@ In words, covariance is the mean product of deviations from average. These devia
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{The variance matrix of a vector random variable}
+\frametitle{The variance/covariance matrix of vector random variables}
 
 \vspace{-1.5mm}
 
 \begin{myitemize}
-\item Let \m{\vec{X}=(X_1,\dots,X_n)} be a vector random variable.
-\item For any pair of elements, say \m{X_i} and \m{X_j}, we can compute the usual scalar covariance, \m{v_{ij}=\cov(X_i,X_j)}.
-\item The variance matrix \m{\mat{V}=[v_{ij}]_{n\times n}} collects together all these covariances.
-\mydisplaymath{
-\mat{V}=\left[ 
-\begin{array}{cccc}
-\cov(X_1,X_1) & \cov(X_1,X_2) & \dots & \cov(X_1,X_n) 
-\\
-\cov(X_2,X_1) & \cov(X_2,X_2) &  & \cov(X_2,X_n) 
-\\
-\vdots &  & \ddots & \vdots
-\\
-\cov(X_n,X_1) & \cov(X_n,X_2) & \dots & \cov(X_n,X_n) 
-\end{array}
-\right]
-}
-\item The diagonal entries of \m{\mat{V}} are \m{v_{ii}=\cov(X_i,X_i) = \var(X_i)} for \m{i=1,\dots,n}. This lets us write the variance matrix as
+\item Let \m{\vec{X}=(X_1,\dots,X_p)} be a vector random variable. For any pair of elements, say \m{X_i} and \m{X_j}, we can compute the usual scalar covariance, \m{v_{ij}=\cov(X_i,X_j)}.
+\item The variance/covariance matrix \m{\mat{V}=[v_{ij}]_{p\times p}} collects together all these covariances.
 \mydisplaymath{
 \mat{V}
 =
+\var(\vec{X})
+=
 \left[ 
 \begin{array}{cccc}
-\var(X_1) & \cov(X_1,X_2) & \dots & \cov(X_1,X_n) 
+\cov(X_1,X_1) & \cov(X_1,X_2) & \dots & \cov(X_1,X_p) 
 \\
-\cov(X_2,X_1) & \var(X_2) &  & \cov(X_2,X_n) 
+\cov(X_2,X_1) & \cov(X_2,X_2) &  & \cov(X_2,X_p) 
 \\
 \vdots &  & \ddots & \vdots
 \\
-\cov(X_n,X_1) & \cov(X_n,X_2) & \dots & \var(X_n) 
+\cov(X_p,X_1) & \cov(X_p,X_2) & \dots & \cov(X_p,X_p) 
+\end{array}
+\right]
+}
+\item The diagonal entries of \m{\mat{V}} are \m{v_{ii}=\cov(X_i,X_i) = \var(X_i)} for \m{i=1,\dots,p} so the variance/covariance matrix can be written as
+\mydisplaymath{
+\mat{V}
+=
+\var(\vec{X})
+=
+\left[ 
+\begin{array}{cccc}
+\var(X_1) & \cov(X_1,X_2) & \dots & \cov(X_1,X_p) 
+\\
+\cov(X_2,X_1) & \var(X_2) &  & \cov(X_2,X_p) 
+\\
+\vdots &  & \ddots & \vdots
+\\
+\cov(X_p,X_1) & \cov(X_p,X_2) & \dots & \var(X_p) 
 \end{array}
 \right]
 }
@@ -490,20 +495,194 @@ In words, covariance is the mean product of deviations from average. These devia
 \mydisplaymath{
 \cor(\vec{X})=\left[ 
 \begin{array}{cccc}
-1 & \cor(X_1,X_2) & \dots & \cor(X_1,X_n) 
+1 & \cor(X_1,X_2) & \dots & \cor(X_1,X_p) 
 \\
-\cor(X_2,X_1) & 1 &  & \cor(X_2,X_n) 
+\cor(X_2,X_1) & 1 &  & \cor(X_2,X_p) 
 \\
 \vdots &  & \ddots & \vdots
 \\
-\cor(X_n,X_1) & \cor(X_n,X_2) & \dots & 1 
+\cor(X_p,X_1) & \cor(X_p,X_2) & \dots & 1 
 \end{array}
 \right]
 }
 \item Multivariate distributions can be very complicated.
 \item The variance/covariance and correlation matrices deal only with \myemph{pairwise} relationships between variables.
 \item Pairwise relationships can be graphed.
-%\item Remarkably, the multivariate normal distribution depends 
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The sample variance/covariance matrix}
+
+\vspace{-1mm}
+
+\begin{myitemize} 
+\item The \myemph{sample variance/covariance matrix} places all the sample variances and covariances in a matrix.
+\item Let \m{\mat{X}=[x_{ij}]_{n\times p}} be a data matrix made up of \m{p} data vectors \m{\vec{x}_1, \vec{x}_2, \dots, \vec{x_p}} each of length \m{n}.
+\mydisplaymath{
+\varSample(\mat{X})
+=
+\left[ 
+\begin{array}{cccc}
+\varSample(\vec{x}_1) & \covSample(\vec{x}_1,\vec{x}_2) & \dots & \covSample(\vec{x}_1,\vec{x}_p) 
+\\
+\covSample(\vec{x}_2,\vec{x}_1) & \varSample(\vec{x}_2) &  & \covSample(\vec{x}_2,\vec{x}_p) 
+\\
+\vdots &  & \ddots & \vdots
+\\
+\covSample(\vec{x}_p,\vec{x}_1) & \covSample(\vec{x}_p,\vec{x}_2) & \dots & \varSample(\vec{x}_p) 
+\end{array}
+\right]
+}
+\item R uses the same notation. If \code{x} is a matrix or dataframe, \code{var(x)} returns the sample variance/covariance matrix.
+<<,echo=T,eval=T>>=
+var(x)
+@
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The sample correlation matrix}
+
+\vspace{-1mm}
+
+\begin{myitemize} 
+\item The \myemph{sample correlation matrix} places all the sample correlations in a matrix.
+\item Let \m{\mat{X}=[x_{ij}]_{n\times p}} be a data matrix made up of \m{p} data vectors \m{\vec{x}_1, \vec{x}_2, \dots, \vec{x_p}} each of length \m{n}.
+\mydisplaymath{
+\corSample(\mat{X})
+=
+\left[ 
+\begin{array}{cccc}
+1 & \corSample(\vec{x}_1,\vec{x}_2) & \dots & \corSample(\vec{x}_1,\vec{x}_p) 
+\\
+\corSample(\vec{x}_2,\vec{x}_1) & 1 &  & \corSample(\vec{x}_2,\vec{x}_p) 
+\\
+\vdots &  & \ddots & \vdots
+\\
+\corSample(\vec{x}_p,\vec{x}_1) & \corSample(\vec{x}_p,\vec{x}_2) & \dots & 1 
+\end{array}
+\right]
+}
+\item R uses the same notation. If \code{x} is a matrix or dataframe, \code{cor(x)} returns the sample correlation matrix.
+<<,echo=T,eval=T>>=
+cor(x)
+@
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+<<scores_pairs,eval=F,echo=T>>=
+pairs(x)
+@
+
+\vspace{-5mm}
+
+<<,out.width="95mm",fig.width=5.5,fig.height=5.5,eval=T,echo=F>>=
+<<scores_pairs>>
+@
+
+\end{frame}
+
+\begin{frame}[fragile]
+<<mvn_pairs,eval=F,echo=T>>=
+mvn <- rmvnorm(50,mean=apply(x,2,mean),sigma=var(x))
+pairs(mvn)
+@
+
+\vspace{-5mm}
+
+<<,out.width="90mm",fig.width=5.5,fig.height=5.5,eval=T,echo=F>>=
+set.seed(70)
+<<mvn_pairs>>
+@
+
+\end{frame}
+
+\begin{frame}[fragile]
+\myquestion. From looking at the scatterplots, what are the strengths and weaknesses of a multivariate normal model for test scores in this course?
+
+\answer{\vspace{30mm}}{TODO}
+
+\myquestion. To what extent is it appropriate to summarize the data by the mean and variance/covariance matrix (or correlation matrix) when the normal approximation is dubious?
+
+\answer{\vspace{30mm}}{TODO}
+
+\end{frame}
+
+\begin{frame}[fragile]
+%\frametitle{Variance/covariance of a linear combination}
+\frametitle{Linear combinations}
+
+\vspace{-1.5mm}
+
+\begin{myitemize}
+\item Let \m{\vec{X}=(X_1,\dots,X_p)} be a vector random variable with mean vector \m{\vec{\mu}=(\mu_1,\dots,\mu_p)} and \m{p\times p} variance/covariance matrix \m{\mat{V}}.
+\item Let \m{\mat{X}} be a \m{n\times p} data matrix.
+\item Let \m{\mat{A}} be a \m{q\times p} matrix.
+\item \m{\vec{Z}=\mat{A}\vec{X}} is a collection of \m{q} linear combinations of the \m{p} random variables in the vector \m{\vec{X}}, viewed as a \myemph{column} vector.
+\item \m{\mat{Z}=\mat{X}\mat{A}^\transpose} is an \m{n\times q} collection of linear combinations of the \m{p} data points in each \myemph{row} of \m{\mat{X}}.
+\item Mental gymnastics are required: vectors are often interpreted as \myemph{column vectors} (e.g., \m{p\times 1} matrices) but the vector of measurements for each unit is a \myemph{row vector} when considered as a row of an \m{n\times p} data matrix. 
+
+\end{myitemize}
+
+\vspace{2.5mm}
+
+\myquestion. How would you construct a simulated data matrix \m{\mat{Z}_\mathrm{sim}} from \m{n} realizations \m{\vec{Z}_1,\dots,\vec{Z}_n} of the random column vector \m{\vec{Z}=\mat{A}\vec{X}}? Be careful with transposes and keep track of dimensions.
+
+\end{frame}
+
+\begin{frame}
+\answer{{\bf Solution}:
+
+\vspace{35mm}}{TODO}
+
+\begin{myitemize}
+\item There is a useful matrix variance/covariance formula for a linear combination.
+
+\vspace{-1mm}
+
+\mydisplaymath{
+\var(\mat{A}\, \vec{X}) = \mat{A}\, \var(\vec{X})\, \mat{A}^\transpose 
+\hspace{20mm}
+\varSample(\mat{X}\, \mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose
+}
+\end{myitemize}
+
+\vspace{5mm}
+
+\myquestion. Add dimensions to each term in these equations to check they make sense.
+
+\answer{\vspace{15mm}}{TODO}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Testing the variance/covariance formula}
+
+\vspace{-1mm}
+
+\begin{myitemize}
+\item Suppose that the overall course score is weighted 40\% on the final and 20\% on each of the miterm, homework and quiz.
+\item We can find the sample variance of the overall score two different ways. 
+\end{myitemize}
+
+\vspace{1mm}
+
+(i) Directly computing the overall score for each student.
+<<>>= 
+weights <- c(final=0.4,quiz=0.2,hw=0.2,midterm=0.2)
+overall <- as.matrix(x) %*% weights
+var(overall)
+@
+(ii) Using \m{\varSample(\mat{X}\, \mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose}.
+<<>>=
+weights %*% var(x) %*% weights
+@
+
+\vspace{-1mm}
+
+\begin{myitemize}
+\item R interprets the vector `weights` as a row or column vector as necessary.
 \end{myitemize}
 \end{frame}
 
