@@ -1,0 +1,20 @@
+\color{blue}
+
+**Solution**:
+
+The design matrix $\mat{X}$ is a $50 \times 2$ matrix,
+\[
+\mat{X} = \begin{bmatrix}
+4.405 & 1 \\
+8.963 & 1 \\
+4.778 & 1 \\
+4.459 & 1 \\
+4.992 & 1 \\
+5.443 & 1 \\
+\vdots & \vdots \\
+\end{bmatrix}
+\]
+We could also put the column of ones first. This should be consistent with how you write your model. If $b_1$ is the intercept and $b_2$ the slope, then the first column should contain the ones.
+
+\color{black}
+

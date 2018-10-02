@@ -1,0 +1,19 @@
+
+\color{blue}
+
+**Solution**:
+
+We see below that the answer is (vii) [(ii) and (iv) only].
+Indexing a matrix by a $n\times 2$ numeric vector makes a vector with elements picked out by each row of the indexing vector. 
+Indexing a matrix by a logical matrix picks out the `TRUE` terms.
+(i) is somewhat unusual: this form picks out all the rows and columns identified, with possible replication. Try, for example, `A[c(1,1,1),c(1,2,1,2)]`.
+```{r}
+A <- matrix(c(1,2,0,2),2,2)
+A[c(1,1),c(2,2)]
+A[rbind(c(1,1),c(2,2))]
+A[cbind(c(1,1),c(2,2))]
+A[matrix(c(TRUE,FALSE,FALSE,TRUE),2)]
+```
+
+\color{black}
+

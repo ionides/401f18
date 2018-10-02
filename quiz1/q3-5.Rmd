@@ -1,0 +1,44 @@
+
+\if \QLABELS1 Q3-5. \fi
+
+(a) 
+Which of the following successfully select the diagonal elements of the matrix  
+$\mathbb{A} = \begin{bmatrix}1 & 0\\2 & 2\end{bmatrix}$ represented in R by `A<-matrix(c(1,0,2,2),2,2)`?
+
+> (i). $\quad$ `A[c(1,1),c(2,2)]`
+
+> (ii).$\quad$ `A[rbind(c(1,1),c(2,2))]`
+
+> (iii). $\quad$  `A[cbind(c(1,1),c(2,2))]`
+
+> (iv). $\quad$ `A[matrix(c(TRUE,FALSE,FALSE,TRUE),2)]`
+
+> (v). $\quad$ all of (i,ii,iii,iv)
+
+> (vi). $\quad$ none of (i,ii,iii,iv)
+
+> (vii). $\quad$ (ii) and (iv) only 
+
+> (viii). $\quad$ (i)  and (ii) only
+ 
+```{r,child="sol_q3a-5.Rmd",eval=SOL}
+```
+
+ 
+(b)
+Suppose we define a vector `x <- c(3,0,-1,4,0,-2)`. What will `which(x==0)` give you?
+
+> (i). A vector of the 0 elements of x.
+
+> (ii). A vectors of 0's.
+
+> (iii). A vector of `TRUE`'s and `FALSE`'s.
+
+> (iv). The vector of the indices of the 0 values.
+
+```{r,child="sol_q3b-5.Rmd",eval=SOL}
+```
+
+
+----------------
+

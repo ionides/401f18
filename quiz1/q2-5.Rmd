@@ -1,0 +1,11 @@
+
+\if \QLABELS1 Q2-5. \fi
+
+Evaluate $\sum_{i=1}^{3} i(i-1)$.
+
+```{r,child="sol_q2-5.Rmd",eval=SOL}
+```
+
+---------------------
+
+

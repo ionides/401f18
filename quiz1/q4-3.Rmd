@@ -1,0 +1,48 @@
+
+\if \QLABELS1 Q4-3. \fi
+
+```{r, echo=F}
+library(faraway)
+data("sat")
+sat <- sat[,c("expend","total")]
+colnames(sat) <- c("expenditure","SAT")
+```
+
+The government wants to understand the relationship between expenditures on public education and test results. The dataset `SAT` contains the per-pupil annual expenditure (in thousands of dollars) and the average SAT score for each of the 50 states in 1994-95. 
+The plot below shows a line fitted to a scatterplot of the points in the dataset.
+```{r,out.width="100mm",fig.width=6,fig.height=4}
+sat_lm <- lm(SAT~expenditure,data=sat)
+plot(SAT~expenditure,data=sat)
+abline(coef(sat_lm))
+```
+
+(a) Write out the regression model in subscript form (including an intercept term). Use letters, rather than actual numbers, for the model coefficients: you don't have the actual numbers at this point.
+Make sure to define any notation you introduce.
+
+
+```{r,child="sol_q4a-3.Rmd",eval=SOL}
+```
+
+The table below shows the head of the dataset (the first 6 rows).
+```{r,out.width="100mm",fig.width=6,fig.height=4}
+head(sat)
+```
+
+(b) Write out the corresponding design matrix. You only need to put in actual numbers for the first 5 rows, use ... after that and specify the dimension of the matrix.
+
+```{r,child="sol_q4b-3.Rmd",eval=SOL}
+```
+
+(c) Explain how the model coefficients are evaluated. Name the method and give the appropriate formula.
+
+```{r,child="sol_q4c-3.Rmd",eval=SOL}
+```
+
+(d) Describe in one line what trend you observe from the plot (what would you interpret from this data). Is this what you would've expected? What could be a possible justification for the trend being observed?
+
+```{r,child="sol_q4d-3.Rmd",eval=SOL}
+```
+
+----------------------------
+
+

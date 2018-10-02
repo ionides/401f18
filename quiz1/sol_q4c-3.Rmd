@@ -1,0 +1,16 @@
+
+\color{blue}
+
+**Solution**:
+
+
+Let $\vec{y}$ be the column vector $(y_1, \dots, y_n)$ of average SAT scores in each of the $n=50$ states.
+Define the column vector of coefficients as $\vec{b} = (b_1, b_2)$. 
+Let $\mat{X}$ be the design matrix defined above. 
+We obtain $\vec{b}$ by using the equation for the least squares fit,
+\[
+\vec{b} = (\mat{X}^\transpose \mat{X})^{-1}\mat{X}^\transpose\vec{y}
+\]
+
+\color{black}
+

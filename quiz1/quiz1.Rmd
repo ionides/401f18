@@ -14,8 +14,8 @@ csl: ecology.csl
 ```{r preliminaries,echo=F,cache=F}
 ALL <- TRUE
 #ALL <- FALSE
-SOL <- FALSE
-#SOL <- TRUE
+#SOL <- FALSE
+SOL <- TRUE
 library(mat2tex)
 set.seed(2)
 knitr::opts_chunk$set(cache = FALSE)
@@ -75,7 +75,9 @@ q: vector of quantiles.
 p: vector of probabilities.
 ```
 
----------------
+(5) $\quad\quad$If a random variable is normally distributed, the probability it falls within one standard deviation of the mean is 68%, within two standard deviations of the mean is 95%, and within three standard deviations of the mean is 99.7%.
+
+-------------------------
 
 
 ### Q1. Matrix exercises
@@ -89,7 +91,6 @@ file.append("tmp1.Rmd",q1_files)
 ```
 ```{r q1-all, child = "tmp1.Rmd",eval=ALL}
 ```
-
 
 
 ### Q2. Summation exercises

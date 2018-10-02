@@ -1,0 +1,13 @@
+
+\color{blue}
+
+**Solution**:
+
+Let $y_i$ be the average SAT score in state $i$, $i=1,\dots,n$ with $n=50$. Let $x_i$ be the corresponding per-pupil expenditure. The model in subscript form is
+\[
+y_i = b_1 x_i + b_2 + e_i, i=1,\dots,n
+\]
+where $e_i$ is the residual for state $i$.
+
+\color{black}
+

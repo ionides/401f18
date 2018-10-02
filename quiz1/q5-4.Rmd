@@ -1,0 +1,19 @@
+
+\if \QLABELS1 Q5-4. \fi
+
+The average midterm score of 19 students is 40 out of a maximum of 75. The professor realizes that she missed one student and upon including his score, the average went up by one point and became 41.
+
+(a) What is the midterm score of the 21st student?
+
+```{r,child="sol_q5a-4.Rmd",eval=SOL}
+```
+
+(b) Suppose the sample mean and variance are 41 and 36, and we model the midterm scores as being a draw from a normal distributed with these parameters. What is the chance that a student drawn at random gets over 59? Write your answer as a call to `pnorm()` and also give an approximate answer based on your knowledge of the normal distribution.
+
+
+```{r,child="sol_q5b-4.Rmd",eval=SOL}
+```
+
+--------------------------
+
+

@@ -26,7 +26,7 @@ library(knitr)
 opts_chunk$set(
 #  cache=FALSE,
   cache=TRUE,
-  eval=F,
+  eval=T,
   include=TRUE,
   echo=TRUE,
   purl=TRUE,
@@ -86,18 +86,22 @@ The case with \m{n=2} we call a \myemph{bivariate random variable}.
 \item 
 We will look at the anonymized test scores for a previous course. 
 <<download life expectancy data file,eval=F>>=
-download.file(destfile="grades.txt",
-  url="https://ionides.github.io/401f18/01/grades.txt")
+download.file(destfile="course_progress.txt",
+ url="https://ionides.github.io/401f18/01/course_progress.txt")
 @
 \begin{verbatim}
 # Anonymized scores for a random subset of 50 students
-"total" "final" "quiz" "hw" "midterm"
-"1" 71.6 56.8 95 97 71.7
-"2" 70.1 60.2 85 99 58.3
+"final" "quiz" "hw" "midterm"
+"1" 52.3 76.7 91 61.7
+"2" 68.2 65.4 94.5 48.3
+"3" 78.4 91.2 95.5 80
 \end{verbatim}
 \end{myitemize}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
+
+\vspace{-1.5mm}
+
 \begin{myitemize}
 \item
 A probability model lets us answer a question like, ``What is the probability that someone gets at least 70\% in both the midterm and the final''
@@ -106,22 +110,18 @@ A probability model lets us answer a question like, ``What is the probability th
 \vspace{-3mm}
 
 <<scores_plot,eval=F,purl=T>>=
-x <- read.table("grades.txt")
+x <- read.table("course_progress.txt")
 plot(final~midterm,data=x)
 @
 \end{column}
 \begin{column}{0.5\textwidth}
-\vspace{-25mm}
+\vspace{-30mm}
 <<,out.width="55mm",fig.width=3.3,fig.height=4,eval=T,echo=F,purl=F>>=
 <<scores_plot>>
 @
 \end{column}
 \end{columns}
 
-%Let \m{x_i} and \m{y_i} be the midterm and final scores for individual \m{i=1,\dots,n}. We model these as \m{n} draws of a bivariate random variable \m{(X,Y)}.
-
-
-%\end{myitemize}
 
 \end{frame}
 
@@ -149,7 +149,7 @@ the \myemph{mean vector} \m{\vec{\mu}=(\mu_X,\mu_Y)} and the \myemph{variance/co
 \cov(Y,X) & \var(Y)
 \end{array} \right]
 }
-\item In R, the \code{mvtnorm} package lets us simulate the bivariate and multivariate normal distribution. It uses the vector and matrix form for the parameters.
+\item In R, the \code{mvtnorm} package lets us simulate the bivariate and multivariate normal distribution via the \code{rmvnorm()} function. It has the mean vector and variance/covariance matrix as arguments.
 
 \end{myitemize}
 \end{frame}
@@ -171,8 +171,8 @@ plot(Y~X,data=mvn)
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
 \vspace{-15mm}
-<<,out.width="50mm",fig.width=3.3,fig.height=4,eval=T,echo=F,purl=F>>=
-set.seed(30)
+<<,out.width="50mm",fig.width=3.3,fig.height=4,eval=T,echo=F,purl=F,cache=F>>=
+set.seed(21)
 <<mvn_plot>>
 @
 \end{column}
@@ -186,23 +186,65 @@ set.seed(30)
 \end{column}
 \end{columns}
 
-\vspace{-2mm}
+\vspace{-3mm}
 
 \begin{myitemize}
 \item We write \m{(X,Y)\sim \MVN(\vec{\mu},\mat{V})}, where MVN is read "multivariate normal".
 \end{myitemize}
-\myquestion. What are \m{\mu_X}, \m{\mu_Y}, \m{\var(X)}, \m{\var(Y)}, and \m{\cov(X,Y)} for this example?
+\myquestion. What are \m{\mu_X}, \m{\mu_Y}, \m{\var(X)}, \m{\var(Y)}, and \m{\cov(X,Y)} for this simulation?
 
 \answer{\vspace{20mm}}{TODO}
 
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{The bivariate normal as a model for exam scores}
+%\begin{myitemize}
+%\item 
+
+\myquestion. Compare the data on midterm and final scores with the simulation. Does a normal model seem to fit? Would you expect it to? Why, and why not?
+
+
+
+
+
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\end{column}
+\begin{column}{0.4\textwidth}
+
+\vspace{-15mm}
+<<,out.width="38mm",fig.width=3.3,fig.height=4,eval=T,echo=F,purl=F>>=
+<<scores_plot>>
+@
+
+\vspace{-10mm}
+
+<<,out.width="38mm",fig.width=3.3,fig.height=4,eval=T,echo=F,purl=F,cache=F>>=
+set.seed(21)
+<<mvn_plot>>
+@
+\end{column}
+\end{columns}
+
+
+\answer{\vspace{40mm}}{TODO}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
 \frametitle{More on covariance}
 \begin{myitemize}
 \item Covariance is \myemph{symmetric}: we see from the definition
 \mydisplaymath{
-\cov(X,Y)=\E \Big[ \big( X-\E[X]\, \big) \, \big( Y-\E[Y] \, \big) \Big] = \E \Big[ \big( Y-\E[Y]\, \big) \, \big( X-\E[X] \, \big) \Big] = \cov(Y,X)
+%\hspace{-2mm}
+\begin{array}{rcccl}
+\vspace{4mm}
+\cov(X,Y)&=&\E \Big[ \big( X-\E[X]\, \big) \, \big( Y-\E[Y] \, \big) \Big] &&
+\\
+&=& \E \Big[ \big( Y-\E[Y]\, \big) \, \big( X-\E[X] \, \big) \Big] &=& \cov(Y,X)
+\end{array}
 }
 \item Also, we see from the definition that \m{\cov(X,X)=\var(X)}.
 \item The \myemph{sample covariance} of \m{n} pairs of measurements \m{(x_1,y_1),\dots,(x_n,y_n)} is
@@ -210,504 +252,440 @@ set.seed(30)
 \covSample(\vec{x},\vec{y}) = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar x)(y_i -\bar y)
 }
 where \m{\bar x} and \m{\bar y} are the sample means of \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{y}=(y_1,\dots,y_n)}.
-\item 
-
-\end{myitemize}
-\end{frame}
-
-
-
-\end{document}
-
-For bivariate random variables, we can write \m{(X,Y)} instead of \m{(X_1,X_2)
-
-If we have a collection of random variables \m{Y_1,Y_2,\dots,Y_n} we can gather them together into a vector random variable \m{\vect{Y}}.
-
-\item
-Suppose that, for each \m{i=1,\dots,n} we have \m{\E[Y_i]=\mu_i}. Then, we write \m{\E[\vect{Y}]=\vect{\mu}} for \m{\vect{\mu}=(\mu_1,\dots,\mu_n)}.
-
-\item
-Now, write \m{\cov(Y_i,Y_j)=V_{ij}} for \m{i\neq j} and  \m{\var(Y_i)=\cov(Y_i,Y_i)=V_{ij}}. We call \m{\mat{V}=[V_{ij}]_{n\times n}} the \myemph{variance-covariance matrix} for \m{\vect{Y}}.
-
-\item
-We can also call \m{\mat{V}} the \myemph{covariance matrix} or, more simply, just the \myemph{variance matrix}. We write \m{\mat{V}=\var(\vect{Y})}.
-
-\end{myitemize}
-
-\begin{frame}[fragile]
-\frametitle{Expectation of vector random variables}
-\begin{myitemize}
-\item Suppose \m{\vec{X}=(X_1,\dots,X_n)} is a vector random variable. Suppose \m{\E[X_i]=\mu_i} for each \m{i=1,\dots,n}. Let $\vec{\mu}=(\mu_1,\dots,\mu_n)$. We define the \myemph{expectation of a vector random variable} to be
-\mydisplaymath{
- \E[\vec{X}] = \vec{\mu}
-}
-\item This is just a vector of the \myemph{marginal expectations} of each element of the vector.
-\item A key property is that \myemph{the expectation of a sum is the sum of the expectations}. Together with the univariate property $\E[aX]=a\E[X]$, this gives
-\mydisplaymath{
-\E\left[\sum_{i=1}^n a_iX_i\right]= \sum_{i=1}^n a_i\E[X_i]
-}
-\item Let \m{\vec{Y}=\mat{A}\vec{X}} for some matrix \m{\mat{A}=[a_{ij}]_{m\times n}}.
-A matrix version of the linearity property of expectation is
-\mydisplaymath{
-\E[\mat{A}\vec{X}+\vec{b}] = \mat{A}\E[X]+\vec{b}
-}
-
-
-
-{\bf Example}. Let \m{\vect{\epsilon}=(\epsilon_1,\epsilon_2,\dots,\epsilon_n)} be a vector consisting of \m{n} independent random variables, each with mean zero and variance \m{\sigma^2}. This is a common model for \myemph{measurement error} on \m{n} measurements. We have
-
-\vspace{-5mm}
-
-\mydisplaymath{\E[\vect{\epsilon}]=\vect{0},\hspace{2cm} \var(\vect{\epsilon})=\sigma^2 \mat{I}}
-
-\vspace{-2mm}
-
-where \m{\vect{0}=(0,\dots,0)} and \m{\mat{I}} is the \m{n\times n} identity matrix.
-The off-diagonal entries of \m{\var(\vect{\epsilon})} are zero since \m{\cov(\epsilon_i,\epsilon_j)=0} for \m{i\neq j}. For measurement error models, we break our usual rule of using upper case letters for random variables.
-
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Example. A population version of the linear model}
-
-\vspace{-2mm}
-
-\begin{myitemize}
-\item First recall the sample version, which is
-
-\altdisplaymath{
-\LMiii \hspace{16mm}
- \vect{y} = \mat{X}\, \vect{b} + \vect{e},
-}
-
-where \m{\vect{y}} is the measured response, 
-\m{\mat{X}} is an \m{n\times p}  matrix of explanatory variables, \m{\vect{b}} is chosen by least squares, and \m{\vect{e}} is the resulting vector of residuals.
-
-\item We want to build a random vector \m{\vect{Y}} that provides a population model for the data \m{\vect{y}}. We write this as
-
-%\vspace{-2mm}
-
-\framebox{
-\altdisplaymath{
-\LMvi \hspace{16mm}
- \vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}
-}
-\hspace{10mm}\rule[-3mm]{0mm}{9mm}
-}
-
-%\vspace{-2mm}
-
-where \m{\mat{X}} is the same explanatory matrix as in \myref{\LMiii}, \m{\vect{\beta}=(\beta_1,\dots,\beta_p)} is an unknown coefficient vector (we don't know the true population coefficient!) and \m{\vect{\epsilon}} is measurement error with \m{\E[\vect{\epsilon}]=\vect{0}} and \m{\var(\vect{\epsilon})=\sigma^2\mat{I}}.
-
-\item Our model \myref{\LMvi} asserts that the process which generated the response data \m{\vect{y}} was like drawing a random vector \m{\vect{Y}} consructed using a random measurement error model with known matrix \m{\mat{X}} for some fixed but unknown value of \m{\vect{\beta}}.
 
 \end{myitemize}
 
 \end{frame}
 
-
 \begin{frame}[fragile]
-\frametitle{Motivation for finding the means and variances of linear combinations of random variables}
-%of the least squares estimate for $\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}$}
-
-\begin{myitemize}
-\item Recall that the main purpose of having a probability model is so that we can investigate the chance variation due to picking the sample.
-\item Recall that for \myref{\LMiii}, the least squares estimate is \m{ \vect{b} = \big( \mat{X}^\transpose \mat{X} \big) ^{-1}\,  \mat{X}^\transpose \vect{y}
-}.
-\item This is a \myemph{statistic}, which means a function of the data and not a random variable. We cannot properly talk about the mean and variance of \m{\vect{b}}.
-\item We can work out the mean and variance of \m{\big( \mat{X}^\transpose \mat{X} \big) ^{-1}\,  \mat{X}^\transpose \vect{Y}}, as long as we know how to work out the mean and variance of linear combinations.
-\item As long as  \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} is a \myemph{useful probability model} for the relationship between the response variable \m{\vect{y}} and the explanatory variable \m{\mat{X}}, calculations done with this model may be useful.
-
-\end{myitemize}
-
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{A digression on ``useful'' models}
-
-``Now it would be very remarkable if any system existing in the real world could be exactly represented by any simple model. However, cunningly chosen parsimonious models often do provide remarkably useful approximations. For example, the law $PV = RT$ relating pressure $P$, volume $V$ and temperature $T$ of an \emph{ideal} gas via a constant $R$ is not exactly true for any real gas, but it frequently provides a useful approximation and furthermore its structure is informative since it springs from a physical view of the behavior of gas molecules.
-For such a model there is no need to ask the question `Is the model true?'. If \emph{truth} is to be the \emph{whole truth} the answer must be \emph{No}. The only question of interest is `Is the model illuminating and useful.' '' (Box, 1978)
-
-``\myemph{Essentially, all models are wrong, but some are useful.}'' \\ (Box and Draper, 1987)
-
-\begin{myitemize}
-\item Perhaps the most useful statistical model ever is \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}.
-\item Anything so widely used is also widely abused. Our task is to understand \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} so that we can be users and not abusers.
-\end{myitemize}
-
-\end{frame}
-
-%\end{document}
-
-
-\begin{frame}[fragile]
-\frametitle{Mean of a linear combination, in matrix form}
-
-\vspace{-2mm}
-
-\begin{myitemize}
-\item The linear property of expectation lets us take expectation through a summation. 
-For any constants \m{a_{ij}}, with \m{1\le i\le n} and \m{1\le j\le n}, we get
-
-\vspace{-2mm}
-
-\mydisplaymath{
-\E\Big[\sum_{j=1}^n a_{ij}Y_j\Big] = \sum_{j=1}^n a_{ij}\E[Y_j].
-}
-
-\vspace{-1mm}
-
-\item In matrix form, with \m{\mat{A}=[a_{ij}]}, this is 
-\framebox{
- \m{
- \E\left[\mat{A}\vect{Y}\right] = \mat{A}\E[\vect{Y}].
- }
-\rule[-3mm]{0mm}{9mm}
-}
-\end{myitemize}
-
-
-{\bf Example}. For \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}, we have
-\framebox{
- \m{
- \E[\vect{Y}] = \mat{X}\vect{\beta} + \E[\vect{\epsilon}] = \mat{X}\vect{\beta}
- }
-\rule[-3mm]{0mm}{9mm}
-}
-
-{\bf Example}. 
-For 
-\m{\vect{\hat\beta}= \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \vect{Y}}, we have
-
-\framebox{
- \m{
- \E[\vect{\hat\beta}]= \E\big[\big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \vect{Y}] = \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \E[\vect{Y}]
-= \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \mat{X}\vect{\beta}
-= \vect{\beta}
- }
-}
-
-\begin{myitemize}
-\item Interpretation: If the data \m{\vect{y}} are well modeled as a draw from the probability model 
-\m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}, then the least squares estimate \m{\vect{b}} is well modeled by a random vector centered around \m{\vect{\beta}}.
-\end{myitemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Linearity of expectation}
+\frametitle{Scaling covariance to give correlation}
 
 \vspace{-1mm}
 
 \begin{myitemize}
-\item We have seen several versions of the same property that expectations can be moved through sums and multiplicative constants:
-\myeqnarray{
-\E[aX+b]&=&a\E[X]+b, 
-\\
-\E\left[\sum_{i=1}^n a_{i}Y_i\right] &=& \sum_{i=1}^n a_{i}\E[Y_i], 
-\\
-\E\left[\sum_{j=1}^n a_{ij}Y_j\right] &=& \sum_{j=1}^n a_{ij}\E[Y_j].
-\\
-\E[\mat{A}\vect{Y}] &=& \mat{A}\E[\vect{Y}]
-}
 
-\vspace{-5mm}
-
-\item These properties are collectively known as \myemph{linearity}.
-\item Why? Maybe because these properties mean that linear equations for random variables lead to linear equations for their expectations.
-%\item For example, for the linear relationship \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} we take expectations of both sides to get \m{\E[\vect{Y}]=\mat{X}\vect{\beta}+\E[\vect{\epsilon}]}, using the fact that \m{\mat{X}} and \m{\vect{\beta}} are constants. 
-
-\item The linearity property means \m{\E} follows a \myemph{distributive rule}. We can distribute \m{\E} across sums just as we are used to doing in basic arithmetic.
-
+\item The standard deviation of a random variable is interpretable as its scale.
+\item Variance is interpretable as the square of standard deviation
+<<,eval=T>>=
+var(x$midterm)
+var(x$final)
+cov(x$midterm,x$final)
+@
+\item Covariance is interpretable when scaled to give the \myemph{correlation}
+\mydisplaymath{
+\hspace{-2mm}
+\cor(X,Y)=\frac{\cov(X,Y)}{\sqrt{\var(X)\var(Y)}} 
+\hspace{20mm}
+\corSample(\vec{x},\vec{y})=\frac{\covSample(\vec{x},\vec{y})}{\sqrt{\varSample(\vec{x})\varSample(\vec{y})}}
+} 
+<<,eval=T>>=
+cor(x$midterm,x$final)
+@
 \end{myitemize}
 
 \end{frame}
 
 
 \begin{frame}[fragile]
-\frametitle{Exercises using linearity}
 
-\vspace{-1mm}
+<<mvn_cor_plot,eval=F,echo=F,purl=T,cache=F>>=
+library(mvtnorm)
+mvn <- rmvnorm(n=100,
+  mean=c(X=0,Y=0),
+  sigma=matrix(
+    c(1,rho,rho,1),
+    2,2)
+)
+@
 
-\myquestion. Use basic properties of expectation, and the definition of covariance, to show that 
-\framebox{
-\m{\cov\big(aX+b,cY+d\big)=ac\,\cov(X,Y)}.
-\rule[-3mm]{0mm}{9mm}
-}
 
-\vspace{28mm}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+<<,eval=T,cache=F>>=
+rho <- 0
+@
+\vspace{-12mm}
+<<,out.width="45mm",fig.width=3.3,fig.height=4,eval=T,echo=F,purl=F,cache=F>>=
+set.seed(79)
+<<mvn_cor_plot>>
+plot(X~Y,data=mvn,xlab="",ylab="")
+@
 
-\myquestion. Show that  \m{\cov(X,Y+Z)=\cov(X,Y)+\cov(X,Z)} and
-\m{\cov\big(X,\sum_{j=1}^n Y_j\big)=\sum_{j=1}^n\cov(X,Y_j)}.
+\vspace{-10mm}
 
-\setcounter{CovSum}{\theQcounter}
+<<,echo=T>>=
+<<mvn_cor_plot>>
+@
+\end{column}
 
-\vspace{28mm}
+\begin{column}{0.45\textwidth}
+<<,eval=T,cache=F>>=
+rho <- -0.8
+@
+\vspace{-12mm}
+<<,eval=T,out.width="45mm",fig.width=3.3,fig.height=4,echo=F,purl=F,cache=F>>=
+set.seed(81)
+<<mvn_cor_plot>>
+plot(X~Y,data=mvn,xlab="",ylab="")
+@
 
+\vspace{-10mm}
+
+<<,eval=T>>=
+rho <- 0.95
+@
+\vspace{-12mm}
+<<,eval=T,out.width="45mm",fig.width=3.3,fig.height=4,echo=F,purl=F>>=
+set.seed(82)
+<<mvn_cor_plot>>
+plot(X~Y,data=mvn,xlab="",ylab="")
+@
+
+\end{column}
+\end{columns}
 
 \end{frame}
 
-%\end{document}
-
-\begin{frame}[fragile]
-\frametitle{Moving sums through covariance}
-
-\vspace{-1mm}
-
-\myquestion. Using Question~\CHAPTER.\theCovSum, show that
-\framebox{
-\m{\cov\big(\sum_{i=1}^m Y_i,\sum_{j=1}^n Z_j\big)=\sum_{i=1}^{m}\sum_{j=1}^n \cov(Y_i,Z_j)}.
-\rule[-3mm]{0mm}{9mm}
-}
-
-\setcounter{CovSumII}{\theQcounter}
-
-\vspace{40mm}
+\begin{frame}
+\frametitle{More on interpreting correlation}
 
 \begin{myitemize}
-\item This formula is sometimes called the \myemph{bilinearity} of covariance, since \m{\cov(Y,Z)} is linear in \m{Y} and linear in \m{Z}. 
-\item This is also our first use of double summation.
-\item Think of \m{\sum_{i=1}^m\sum_{j=1}^n} as summing all the entries in an \m{m\times n} table, or equivalently, summing entries in an \m{m\times n} matrix of covariances.
+\item Random variables with a correlation of $\pm 1$ (or data with a sample correlation of $\pm 1$) are \myemph{linearly dependent}.
+\item Random variables with a correlation of 0 (or data with a sample correlation of 0) are \myemph{uncorrelated}.
+\item Random variables with a covariance of 0 are also uncorrelated!
+
 \end{myitemize}
 
+\myquestion. Suppose two data vectors \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{y}=(y_1,\dots,y_n)} have been \myemph{standardized}. That is, each data point has had the sample mean substracted and then been divided by the sample standard deviation. You calculate \m{\covSample(\vec{x},\vec{y})=0.8}. What is the sample correlation, \m{\corSample(\vec{x},\vec{y})}?
 
+\answer{\vspace{25mm}}
 
 \end{frame}
 
-%\end{document}
-
 \begin{frame}[fragile]
-\frametitle{Variance of a sum}
+\frametitle{The variance of a sum}
+\begin{myitemize}
+\item A basic property of covariance is
 
-\vspace{-1.5mm}
+\vspace{1.5mm}
 
-\myquestion. Using Question~\CHAPTER.\theCovSumII, show that
-\framebox{
-\m{
-\var\big(\sum_{i=1}^n Y_i\big)=\sum_{i=1}^n\var(Y_i) + 2\sum_{i<j}\cov(X_i,X_j)
-}.
-\rule[-3mm]{0mm}{9mm}
+\m{\mbox{(Eq. C1)}\hspace{20mm}
+\var(X+Y)=\var(X)+\var(Y) + 2\, \cov(X,Y)
 }
-
-\vspace{36mm}
-\begin{myitemize}
-\item Thinking of \m{\sum_{i=1}^n\sum_{j=1}^n} as summing all the entries in an \m{n\times n} table, \m{\sum_{i<j}} means summing over all the entries above the diagonal. 
-\item \myemph{Covariance is symmetric}, meaning \m{\cov(Y,Z)=\cov(Z,Y)}, and so the table of covariances is symmetric about its diagonal.
-\item Thinking of the table of covariances as a matrix, the covariance matrix is called a \myemph{symmetric matrix}.
-\end{myitemize}
-\end{frame}
-
-%\end{document}
-
-\begin{frame}[fragile]
-\frametitle{The covariance matrix of a linear combination}
-
-\begin{myitemize}
-\item Suppose the length \m{n} random vector \m{\vect{Y}} has variance matrix \m{\mat{V}_Y}.
-\item Let \m{\mat{A}=[a_{ij}]} be an \m{m\times n} matrix and let \m{\vect{Z}=\mat{A}\vect{Y}}.
-\item \m{\vect{Z}} is a length \m{m} random vector. Call its variance matrix \m{\mat{V}_Z}. 
-\item 
-Can we find \m{\mat{V}_Z} if we know \m{\mat{V}_Y} and \m{\mat{A}}?
-\item Doing this will let us find the variances and correlations between any collection of linear combinations of \m{\vect{Y}}, a useful thing for working with the linear model.
-\end{myitemize}
-
-\vspace{2mm}
-
-\hrule
 
 \vspace{1mm}
 
-\begin{myitemize}
-\item To find the entries in the \m{m\times m} covariance matrix \m{\mat{V}_Z}, we need to work out
-\m{\cov(Z_i,Z_j)} for each entry \m{(i,j)} in the matrix.
-\item Recall that \m{Z_i = \sum_{k=1}^n a_{ik}Y_k}. 
-\item Since \m{Z_i} and \m{Z_j} are linear combinations of \m{\vect{Y}}, we can use our formulas for bilinearity of covariance (a consequence of linearity of expectation combined with the definition of covariance) to find \m{\cov(Z_i,Z_j)}.
+\item Sample covariance has the same formula,
+
+\vspace{1.5mm}
+
+\m{\mbox{(Eq. C2)}\hspace{20mm}
+\varSample(\vec{x}+\vec{y})=\varSample(\vec{x})+\varSample(\vec{y}) + 2\, \covSample(\vec{x},\vec{y})
+}
+
+\vspace{1mm}
+
+
+\item These nice formulas mean it can be easier to calculate using variances and covariances rather than standard deviations and correlations. 
+
 \end{myitemize}
-\end{frame}
 
+\myquestion. Rewrite (Eq. C1) to give a formula for \m{\sd(X+Y)} in terms of \m{\sd(X)}, \m{\sd(Y)} and \m{\cor(X,Y)}.
 
-\begin{frame}[fragile]
-\frametitle{Covariance of $Z_i=[\mat{A}\vect{Y}]_i$ and $Z_j=[\mat{A}\vect{Y}]_j$}
-\myquestion. Show that \m{\cov(Z_i,Z_j) = \sum_{k=1}^n\sum_{\ell=1}^n a_{ik}a_{j\ell}[\mat{V}_Y]_{k\ell}}
-
-\vspace{30mm}
-
-\myquestion. Show that 
-\framebox{
- \m{
- \mat{V}_Z
- = \mat{A} \mat{V}_Y \mat{A}^\transpose
- }.
-\rule[-3mm]{0mm}{9mm}
-}
-
-\vspace{30mm}
+\answer{\vspace{30mm}}{TODO}
 
 \end{frame}
 
-%\end{document}
-
 \begin{frame}[fragile]
-\frametitle{Covariance of the least squares coefficients}
-
+\frametitle{More properties of covariance}
 \begin{myitemize}
-\item The covariance matrix formula we just developed can be written as
-\framebox{
-\m{\var(\mat{A}\vect{Y})
-= \mat{A}\var(\vect{Y}) \mat{A}^\transpose}.
-\rule[-3mm]{0mm}{9mm}
-}
-\end{myitemize}
-\myquestion.
-Consider the linear model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} with \m{\E[\vect{\epsilon}]=\vect{0}} and \m{\var(\vect{\epsilon})=\sigma^2\mat{I}}.
- Apply this variance formula to
-\m{\vect{\hat\beta}= \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \vect{Y}} 
-to get
-\framebox{
- \m{\var(\vect{\hat\beta})
-  =\sigma^2 \big( \mat{X}^\transpose \mat{X} \big)^{-1}
- }
-\rule[-3mm]{0mm}{9mm}
+\item Covariance is not affected by adding constants to either variable
+
+\vspace{2mm}
+
+\m{\mbox{(Eq. C3)}\hspace{20mm}
+\cov(X+a,Y+b)=\cov(X,Y)
 }
 
-\vspace{40mm}
+\vspace{1mm}
 
+\item Recall the definition \m{\cov(X,Y)=\E \big[ \big( X-\E[X]\, \big) \, \big( Y-\E[Y] \, \big) \big]}.
+In words, covariance is the mean product of deviations from average. These deviations are unchanged when we add a constant to the variable.
 
-\end{frame}
+\item Covariance scales \myemph{bilinearly} with each variable
 
+\vspace{2mm}
 
-\begin{frame}[fragile]
-\frametitle{Standard errors for the linear model}
-
-\begin{myitemize}
-\item The formula  \m{\var(\vect{\hat\beta})
-  =\sigma^2 \big( \mat{X}^\transpose \mat{X} \big)^{-1}
- } needs extra work to be useful for data analysis. 
-\item In practice, we know the model matrix \m{\mat{X}} but we don't know the measurement standard deviation \m{\sigma}.
-\item An estimate of the measurement error is the sample standard deviation of the residuals. 
-\item 
-For  \m{\vect{y} = \mat{X}\, \vect{b} + \vect{e}} with \m{\mat{X}} being \m{n\times p}, an estimate of \m{\sigma} is
-\framebox{
-\m{ 
- s = 
- \sqrt{\frac{1}{n-p} \sum_{i=1}^n \big(y_i - \hat y_i\big)^2}
- =
- \sqrt{\frac{1}{n-p} \sum_{i=1}^n \big(y_i - [\mat{X}\vect{b}]_i\big)^2}
+\m{\mbox{(Eq. C3)}\hspace{20mm}
+\cov(aX,bY)=ab \, \cov(X,Y)
 }
-\rule[-3mm]{0mm}{9mm}
+
+\vspace{1mm}
+
+\item Covariance distributes across sums
+
+\vspace{2mm}
+
+\m{\mbox{(Eq. C4)}\hspace{20mm}
+\cov(X,Y+Z)= \cov(X,Y) + \cov(X,Z)
 }
-\item We will discuss later why we choose to divide by \m{n-p}.
-\item The \myemph{standard error} of \m{b_k} for \m{k=1,\dots,p} is 
-\framebox{
-\m{ \SE(b_k) = s \, \sqrt{ \big[\big(\mat{X}^\transpose \mat{X} \big)^{-1} \big]_{kk} }
-}
-\rule[-3mm]{0mm}{9mm}
-}
-\item \m{SE(b_k)} is an estimate of \m{\sqrt{\big[\var(\vect{\hat\beta})\big]_{kk}}}.
-\item Let's check we now understand how \code{lm()} gets standard errors in R. 
+
+\vspace{1mm}
+
+\item Sample covariances also have these properties. You can test them in R using bivariate normal random variables, constructed as previously using `rmvnorm()`.
+
 \end{myitemize}
 
 \end{frame}
 
 \begin{frame}[fragile]
-<<reconstruct_variables,echo=F,eval=F>>=
-L <- read.table(file="life_expectancy.txt",header=TRUE)
-L_fit <- lm(Total~Year,data=L)
-L_detrended <- L_fit$residuals
-U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
-U_annual <- apply(U[,2:13],1,mean)
-U_detrended <- lm(U_annual~U$Year)$residuals
-L_detrended <- subset(L_detrended,L$Year %in% U$Year)
-@
-
-<<detrended_lm>>= 
-lm1 <- lm(L_detrended~U_detrended) ; summary(lm1)
-@
-
-
-\end{frame}
-
-%\end{document}
-
-\begin{frame}[fragile]
-\frametitle{How does R obtain linear model standard errors?}
+\frametitle{The variance/covariance matrix of vector random variables}
 
 \vspace{-1.5mm}
 
 \begin{myitemize}
-\item The previous slide shows output from our analysis of unemployment and mortality from Chapter~1.
-\item Let's first extract the estimates and their standard errors from R, a good step toward reproducible data analysis.
+\item Let \m{\vec{X}=(X_1,\dots,X_p)} be a vector random variable. For any pair of elements, say \m{X_i} and \m{X_j}, we can compute the usual scalar covariance, \m{v_{ij}=\cov(X_i,X_j)}.
+\item The variance/covariance matrix \m{\mat{V}=[v_{ij}]_{p\times p}} collects together all these covariances.
+\mydisplaymath{
+\mat{V}
+=
+\var(\vec{X})
+=
+\left[ 
+\begin{array}{cccc}
+\cov(X_1,X_1) & \cov(X_1,X_2) & \dots & \cov(X_1,X_p) 
+\\
+\cov(X_2,X_1) & \cov(X_2,X_2) &  & \cov(X_2,X_p) 
+\\
+\vdots &  & \ddots & \vdots
+\\
+\cov(X_p,X_1) & \cov(X_p,X_2) & \dots & \cov(X_p,X_p) 
+\end{array}
+\right]
+}
+\item The diagonal entries of \m{\mat{V}} are \m{v_{ii}=\cov(X_i,X_i) = \var(X_i)} for \m{i=1,\dots,p} so the variance/covariance matrix can be written as
+\mydisplaymath{
+\mat{V}
+=
+\var(\vec{X})
+=
+\left[ 
+\begin{array}{cccc}
+\var(X_1) & \cov(X_1,X_2) & \dots & \cov(X_1,X_p) 
+\\
+\cov(X_2,X_1) & \var(X_2) &  & \cov(X_2,X_p) 
+\\
+\vdots &  & \ddots & \vdots
+\\
+\cov(X_p,X_1) & \cov(X_p,X_2) & \dots & \var(X_p) 
+\end{array}
+\right]
+}
+
 \end{myitemize}
 
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The correlation matrix}
+\begin{myitemize}
+\item Covariance is harder to interpret than correlation, but easier for calculations.
+\item We can put together all the correlations into a correlation matrix, using the fact that \m{\cor(X_i,X_i)=1}.
+\mydisplaymath{
+\cor(\vec{X})=\left[ 
+\begin{array}{cccc}
+1 & \cor(X_1,X_2) & \dots & \cor(X_1,X_p) 
+\\
+\cor(X_2,X_1) & 1 &  & \cor(X_2,X_p) 
+\\
+\vdots &  & \ddots & \vdots
+\\
+\cor(X_p,X_1) & \cor(X_p,X_2) & \dots & 1 
+\end{array}
+\right]
+}
+\item Multivariate distributions can be very complicated.
+\item The variance/covariance and correlation matrices deal only with \myemph{pairwise} relationships between variables.
+\item Pairwise relationships can be graphed.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The sample variance/covariance matrix}
+
 \vspace{-1mm}
 
-<<summary>>=
-names(summary(lm1))
-summary(lm1)$coefficients
+\begin{myitemize} 
+\item The \myemph{sample variance/covariance matrix} places all the sample variances and covariances in a matrix.
+\item Let \m{\mat{X}=[x_{ij}]_{n\times p}} be a data matrix made up of \m{p} data vectors \m{\vec{x}_1, \vec{x}_2, \dots, \vec{x_p}} each of length \m{n}.
+\mydisplaymath{
+\varSample(\mat{X})
+=
+\left[ 
+\begin{array}{cccc}
+\varSample(\vec{x}_1) & \covSample(\vec{x}_1,\vec{x}_2) & \dots & \covSample(\vec{x}_1,\vec{x}_p) 
+\\
+\covSample(\vec{x}_2,\vec{x}_1) & \varSample(\vec{x}_2) &  & \covSample(\vec{x}_2,\vec{x}_p) 
+\\
+\vdots &  & \ddots & \vdots
+\\
+\covSample(\vec{x}_p,\vec{x}_1) & \covSample(\vec{x}_p,\vec{x}_2) & \dots & \varSample(\vec{x}_p) 
+\end{array}
+\right]
+}
+\item R uses the same notation. If \code{x} is a matrix or dataframe, \code{var(x)} returns the sample variance/covariance matrix.
+<<,echo=T,eval=T>>=
+var(x)
+@
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The sample correlation matrix}
+
+\vspace{-1mm}
+
+\begin{myitemize} 
+\item The \myemph{sample correlation matrix} places all the sample correlations in a matrix.
+\item Let \m{\mat{X}=[x_{ij}]_{n\times p}} be a data matrix made up of \m{p} data vectors \m{\vec{x}_1, \vec{x}_2, \dots, \vec{x_p}} each of length \m{n}.
+\mydisplaymath{
+\corSample(\mat{X})
+=
+\left[ 
+\begin{array}{cccc}
+1 & \corSample(\vec{x}_1,\vec{x}_2) & \dots & \corSample(\vec{x}_1,\vec{x}_p) 
+\\
+\corSample(\vec{x}_2,\vec{x}_1) & 1 &  & \corSample(\vec{x}_2,\vec{x}_p) 
+\\
+\vdots &  & \ddots & \vdots
+\\
+\corSample(\vec{x}_p,\vec{x}_1) & \corSample(\vec{x}_p,\vec{x}_2) & \dots & 1 
+\end{array}
+\right]
+}
+\item R uses the same notation. If \code{x} is a matrix or dataframe, \code{cor(x)} returns the sample correlation matrix.
+<<,echo=T,eval=T>>=
+cor(x)
+@
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+<<scores_pairs,eval=F,echo=T>>=
+pairs(x)
+@
+
+\vspace{-5mm}
+
+<<,out.width="95mm",fig.width=5.5,fig.height=5.5,eval=T,echo=F>>=
+<<scores_pairs>>
 @
 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Extracting the design matrix}
+<<mvn_pairs,eval=F,echo=T>>=
+mvn <- rmvnorm(50,mean=apply(x,2,mean),sigma=var(x))
+pairs(mvn)
+@
 
-<<model_matrix>>=
-X <- model.matrix(lm1)
-head(X)
+\vspace{-5mm}
+
+<<,out.width="90mm",fig.width=5.5,fig.height=5.5,eval=T,echo=F>>=
+set.seed(70)
+<<mvn_pairs>>
 @
 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Computing the SE directly}
+\myquestion. From looking at the scatterplots, what are the strengths and weaknesses of a multivariate normal model for test scores in this course?
+
+\answer{\vspace{30mm}}{TODO}
+
+\myquestion. To what extent is it appropriate to summarize the data by the mean and variance/covariance matrix (or correlation matrix) when the normal approximation is dubious?
+
+\answer{\vspace{30mm}}{TODO}
+
+\end{frame}
+
+\begin{frame}[fragile]
+%\frametitle{Variance/covariance of a linear combination}
+\frametitle{Linear combinations}
+
+\vspace{-1.5mm}
+
+\begin{myitemize}
+\item Let \m{\vec{X}=(X_1,\dots,X_p)} be a vector random variable with mean vector \m{\vec{\mu}=(\mu_1,\dots,\mu_p)} and \m{p\times p} variance/covariance matrix \m{\mat{V}}.
+\item Let \m{\mat{X}} be a \m{n\times p} data matrix.
+\item Let \m{\mat{A}} be a \m{q\times p} matrix.
+\item \m{\vec{Z}=\mat{A}\vec{X}} is a collection of \m{q} linear combinations of the \m{p} random variables in the vector \m{\vec{X}}, viewed as a \myemph{column} vector.
+\item \m{\mat{Z}=\mat{X}\mat{A}^\transpose} is an \m{n\times q} collection of linear combinations of the \m{p} data points in each \myemph{row} of \m{\mat{X}}.
+\item Mental gymnastics are required: vectors are often interpreted as \myemph{column vectors} (e.g., \m{p\times 1} matrices) but the vector of measurements for each unit is a \myemph{row vector} when considered as a row of an \m{n\times p} data matrix. 
+
+\end{myitemize}
+
+\vspace{2.5mm}
+
+\myquestion. How would you construct a simulated data matrix \m{\mat{Z}_\mathrm{sim}} from \m{n} realizations \m{\vec{Z}_1,\dots,\vec{Z}_n} of the random column vector \m{\vec{Z}=\mat{A}\vec{X}}? Be careful with transposes and keep track of dimensions.
+
+\end{frame}
+
+\begin{frame}
+\answer{{\bf Solution}:
+
+\vspace{35mm}}{TODO}
+
+\begin{myitemize}
+\item There is a useful matrix variance/covariance formula for a linear combination.
 
 \vspace{-1mm}
 
-<<se>>=
-s <- sqrt(sum(resid(lm1)^2)/(nrow(X)-ncol(X))) ; s
-V <- s^2 * solve(t(X)%*%X)
-sqrt(diag(V))
-summary(lm1)$coefficients
+\mydisplaymath{
+\var(\mat{A}\, \vec{X}) = \mat{A}\, \var(\vec{X})\, \mat{A}^\transpose 
+\hspace{20mm}
+\varSample(\mat{X}\, \mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose
+}
+\end{myitemize}
+
+\vspace{5mm}
+
+\myquestion. Add dimensions to each term in these equations to check they make sense.
+
+\answer{\vspace{15mm}}{TODO}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Testing the variance/covariance formula}
+
+\vspace{-1mm}
+
+\begin{myitemize}
+\item Suppose that the overall course score is weighted 40\% on the final and 20\% on each of the miterm, homework and quiz.
+\item We can find the sample variance of the overall score two different ways. 
+\end{myitemize}
+
+\vspace{1mm}
+
+(i) Directly computing the overall score for each student.
+<<>>= 
+weights <- c(final=0.4,quiz=0.2,hw=0.2,midterm=0.2)
+overall <- as.matrix(x) %*% weights
+var(overall)
+@
+(ii) Using \m{\varSample(\mat{X}\, \mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose}.
+<<>>=
+weights %*% var(x) %*% weights
 @
 
+\vspace{-1mm}
+
+\begin{myitemize}
+\item R interprets the vector `weights` as a row or column vector as necessary.
+\end{myitemize}
 \end{frame}
 
 \end{document}
 
-
-
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{}
-
-\begin{myitemize}
-\item 
-\end{myitemize}
-
-\end{frame}
-
-vector-valued rv definition
-bivariate rv definition
-
-independence definition
-
-why does independence mean multiplying probabilities?
-example: roll two fair dice. 
-
-bivariate rvs
-
-the bivariate normal distribution
-
-covariance and correlation
-
-the multivariate normal distribution
- this implies every pair of rvs is bivariate normal.
-
-the covariance matrix
-
-the covariance matrix of a linear combination
-
-simple linear regression when (X_i,Y_i) are multivariate normal
 
