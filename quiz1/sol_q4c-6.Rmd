@@ -1,0 +1,18 @@
+
+\color{blue}
+
+**Solution**:
+
+The residuals are calculated as **e** = **y ** - $\mathbb{X}$**b** where $\vec{y}$ be the column vector of average prices $(y_1, \dots, y_{52})$, $\vec{b}$ be the column vector $(b_1, b_2)$ where $b_1$ and $b_2$ are the estimated coefficients from the linear model, and 
+\[
+\mat{X} = \begin{bmatrix}
+x_1 & 1 \\
+\vdots & \vdots \\
+x_{52} & 1
+\end{bmatrix}
+\]
+
+is the design matrix.
+
+\color{black}
+

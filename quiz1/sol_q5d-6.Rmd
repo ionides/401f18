@@ -1,0 +1,13 @@
+
+\color{blue}
+
+**Solution**:
+
+```{r}
+pnorm(42.5, mean=50, sd=5) + pnorm(57.5, mean=50, sd=5, lower.tail = FALSE)
+```
+
+It is acceptable not to label arguments, but then you have to get them in the right order!
+
+\color{black}
+

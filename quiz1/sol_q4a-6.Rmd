@@ -1,0 +1,15 @@
+
+\color{blue}
+
+**Solution**:
+
+Let $y_i$ be the number of small Hass avacodos sold for week $i$, $i = 1, \dots, 52$, and $x_i$ be the corresponding average price. The model in subscript form is 
+\[
+y_i =  `r round(coef(price_lm)[2],2)` \times x_i 
+`r paste(ifelse(coef(price_lm)[1]>0,"+","-"),abs(round(coef(price_lm)[1],1)))` 
++ e_i, \quad i = 1, \dots, 52
+\]
+where $e_i$ is the residual for observation $i$.
+
+\color{black}
+

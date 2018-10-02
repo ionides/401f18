@@ -1,0 +1,10 @@
+\color{blue}
+
+**Solution**:
+
+(ii). A vector of length 3 corresponding to the standard devation of each row of `A`, excluding the first column.
+
+\color{black}
+
+
+

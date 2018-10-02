@@ -1,0 +1,10 @@
+
+\color{blue}
+
+**Solution**:
+
+(i) and (iv) are both correct. (i) is the easiest to follow since the columns are layed out directly in the code. However, (iv) is easy to type and still relatively easy to follow if one is familiar with the matrix function.
+
+\color{black}
+
+

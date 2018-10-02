@@ -1,0 +1,11 @@
+
+\color{blue}
+
+**Solution**:
+
+The shaded area is $\prob(X < 42.5$ or $X > 57.5)$.
+
+\color{black}
+
+
+

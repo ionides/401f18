@@ -1,0 +1,12 @@
+
+\color{blue}
+
+**Solution**:
+
+$e_i$ = 4763 - ( `r round(coef(price_lm)[1],2)`$ + 1.48 \times$`r round(coef(price_lm)[2],2)`)
+
+$e_i$ = 3557.22
+
+
+\color{black}
+

@@ -1,0 +1,20 @@
+
+\color{blue}
+
+**Solution**:
+
+Define the column vector of coefficients as $\vec{b} = (
+`r round(coef(price_lm)[2],2)` , 
+`r round(coef(price_lm)[1],1)`
+)$. Let $\vec{y}$ be the column vector $(y_1, \dots, y_{52})$ and let 
+\[
+\mat{X} = \begin{bmatrix}
+x_1 & 1 \\
+\vdots & \vdots \\
+x_{52} & 1
+\end{bmatrix}
+\] 
+We obtain $\vec{b}$ using the equation $$\vec{b} = (\mat{X}^\transpose \mat{X})^{-1}\mat{X}^\transpose\vec{y}$$
+
+\color{black}
+
