@@ -1,0 +1,14 @@
+
+\color{blue}
+
+**Solution**:
+
+(iv). 
+
+```{r}
+x <- c(3,0,-1,4,0,-2)
+which(x==0)
+```
+
+\color{black}
+

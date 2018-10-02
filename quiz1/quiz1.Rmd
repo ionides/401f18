@@ -75,7 +75,9 @@ q: vector of quantiles.
 p: vector of probabilities.
 ```
 
----------------
+(5) $\quad\quad$If a random variable is normally distributed, the probability it falls within one standard deviation of the mean is 68%, within two standard deviations of the mean is 95%, and within three standard deviations of the mean is 99.7%.
+
+-------------------------
 
 
 ### Q1. Matrix exercises

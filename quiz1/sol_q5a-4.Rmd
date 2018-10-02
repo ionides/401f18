@@ -4,7 +4,9 @@
 
 **Solution**:
 
-We know that $P(Y=0) + P(Y=1) + P(Y=2) + P(Y=3) = 1$. Hence, $0.4 + 0.3+0.2+P(Y=3) = 1$ which implies $P(Y=3) = 1-0.9 = 0.1$.
+The average score of 20 students is 40. Hence, the total score of the 20 students is $20 \times 40 = 800$.
+The average score of 21 students is 41. Hence, the total score of the 21 students is $21 \times 41 = 861.$
+Hence, the midterm score of the 21st student is $861 - 800 = 61$.
 
 \color{black}
 

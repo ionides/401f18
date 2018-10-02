@@ -1,0 +1,11 @@
+
+\color{blue}
+
+**Solution**:
+
+One might expect increasing expenditure on education to correspond to higher test scores. We see an opposite pattern, with higher expenditure associated with lower SAT scores. Superficially, this is surprising. Possible explanations are (i) higher expenditure might lead to many more people taking SAT, which could drive down the average test scores. (ii) The association could be driven by selection on who takes ACT with expenditure being just a proxy for geography: For example, some southern states which tend to spend less on education also historically tend to take ACT rather than SAT, and maybe only higher-achieving students considering out-of-state universities tend to take SAT from those states. 
+
+You are welcome to propose other possible explanations.
+
+\color{black}
+
