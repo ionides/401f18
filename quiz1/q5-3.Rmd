@@ -18,7 +18,8 @@ pnorm_plot_exterior <- function(q_lo,q_hi,mean,sd,...) {
   polygon(polygon.x.lo,polygon.y.lo,col='skyblue')
   polygon(polygon.x.hi,polygon.y.hi,col='skyblue')
 }
-pnorm_plot_exterior(
+
+pnorm_plot(
   mean=mean5.3,
   sd=sd5.3,
   q_lo=mean5.3-sd5.3/2,

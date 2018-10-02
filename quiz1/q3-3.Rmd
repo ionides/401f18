@@ -28,7 +28,7 @@ A <- t(matrix(c(rep(1,times=2),rep(3,times=2), 6, 4),ncol=3))
 
 > (iii) $\quad$ `x[rep(c(TRUE,FALSE),length=9)]`
 
-> (iv) $\quad$ `x[rep(c(TRUE,FALSE)][1:5]`
+> (iv) $\quad$ `x[rep(c(TRUE,FALSE))][1:5]`
 
 > (v) $\quad$ `x[rep(c("TRUE","FALSE"),5)]`
 

@@ -1,5 +1,5 @@
 
-\if \QLABELS1 Q4-6. \fi
+\if \QLABELS1 Q4-4. \fi
 
 A statistician employed by an avocado producer is asked to assess the relationship between avocado prices and sales volumn for small Hass avocados. She obtains data from \url{https://www.kaggle.com/neuromusic/avocado-prices} and reads them into R as a dataframe. She keeps only the 2016 data for organic avocados sold in the Detroit area and plots the average price in dollars ('AveragePrice') against the number of small Hass avocados sold ('X4046'). This results in a dataset with 52 observations.
 
@@ -41,7 +41,7 @@ round(coef(price_lm),3)
 ```{r,child="sol_q4c-6.Rmd",eval=SOL}
 ```
 
-(d) From the scatter plot above, the statistician notices a potential outlier. This potential outlier corresponds to the the second week in January 2016. This week organic small Hass avocados sold for an average of $1.48 with a total of 4,763 sold. Calculate the residual for this observation.
+(d) From the scatter plot above, the statistician notices a potential outlier. This potential outlier corresponds to the the second week in January 2016. This week organic small Hass avocados sold for an average of $1.48 with a total of 4,763 sold. Write a numeric expression for the residual of this observation---you are not expected to evaluate it.
 
 ```{r,child="sol_q4d-6.Rmd",eval=SOL}
 ```

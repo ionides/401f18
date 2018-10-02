@@ -1,5 +1,5 @@
 
-\if \QLABELS1 Q5-6. \fi
+\if \QLABELS1 Q5-5. \fi
 
 The figure below shows the probability density function of a normal random variable $X$.  
 

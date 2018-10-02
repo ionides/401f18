@@ -11,9 +11,10 @@ The right tail is
 ```{r}
 1-pnorm(5,mean=0,sd=10)
 ```
-We need to add these up to get the total shaded area.
+We could have used symmetry to avoid calculating the same thing twice.
+Subtracting these tails from 1 gives the total shaded area.
 ```{r}
-pnorm(-5,mean=0,sd=10)+1-pnorm(5,mean=0,sd=10)
+1-pnorm(-5,mean=0,sd=10)- (1-pnorm(5,mean=0,sd=10))
 ```
 
 It is acceptable not to label arguments, but then you have to get them in the right order!

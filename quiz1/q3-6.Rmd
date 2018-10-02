@@ -1,5 +1,5 @@
 
-\if \QLABELS1 Q3-4. \fi
+\if \QLABELS1 Q3-6. \fi
 
 (a) 
 Define the matrix `A` as:

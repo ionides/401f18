@@ -5,9 +5,7 @@
 \[
 \int_{-\infty}^{42.5} \frac{1}{\sqrt{2\pi 5^2}}
 \exp\left\{ - \frac{(x - 50)^2}{2\times 5^2}\right\}\, dx
-
 + 
-
 \int_{57.5}^{\infty} \frac{1}{\sqrt{2\pi 5^2}}
 \exp\left\{ - \frac{(x - 50)^2}{2\times 5^2}\right\}\, dx
 \]
