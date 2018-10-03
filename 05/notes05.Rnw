@@ -3,15 +3,11 @@
 
 \input{../header.tex}
 \newcommand\CHAPTER{5}
-%\newcommand\LSi{\mathrm{(LS1)}}
-%\newcommand\LSii{\mathrm{(LS2)}}
-%\newcounter{tXX}
-%\newcounter{tXy}
-%\newcounter{matrixLSi}
 \newcounter{CovSum}
 \newcounter{CovSumII}
 
 % \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
+% \newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
  \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
@@ -193,23 +189,39 @@ set.seed(21)
 \end{myitemize}
 \myquestion. What are \m{\mu_X}, \m{\mu_Y}, \m{\var(X)}, \m{\var(Y)}, and \m{\cov(X,Y)} for this simulation?
 
-\answer{\vspace{20mm}}{TODO}
-
+\answer{\vspace{20mm}}{
+The mean vector is $\vec{mu}=(\mu_X,\mu_Y)=(65,65)$.
+The variance/covariance matrix is 
+$\left[
+\begin{array}{cc}
+\var(X) & \cov(X,Y) \\
+\cov(Y,X) & \var(Y)
+\end{array} 
+\right]
+=
+\left[
+\begin{array}{cc}
+200 & 100 \\
+100 & 150
+\end{array} 
+\right]$
+}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{The bivariate normal as a model for exam scores}
-%\begin{myitemize}
-%\item 
 
 \myquestion. Compare the data on midterm and final scores with the simulation. Does a normal model seem to fit? Would you expect it to? Why, and why not?
 
 
 
-
-
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
+
+\answer{\vspace{40mm}}{
+An exam is made up of many questions and parts of questions, so chance variability can follow a normal curve. Maybe there is some inherent skill that could follow a normal curve for similar reasons, but this is less clear. 
+}
+
 \end{column}
 \begin{column}{0.4\textwidth}
 
@@ -228,7 +240,7 @@ set.seed(21)
 \end{columns}
 
 
-\answer{\vspace{40mm}}{TODO}
+
 
 \end{frame}
 
@@ -358,7 +370,7 @@ plot(X~Y,data=mvn,xlab="",ylab="")
 
 \myquestion. Suppose two data vectors \m{\vec{x}=(x_1,\dots,x_n)} and \m{\vec{y}=(y_1,\dots,y_n)} have been \myemph{standardized}. That is, each data point has had the sample mean substracted and then been divided by the sample standard deviation. You calculate \m{\covSample(\vec{x},\vec{y})=0.8}. What is the sample correlation, \m{\corSample(\vec{x},\vec{y})}?
 
-\answer{\vspace{25mm}}
+\answer{\vspace{25mm}}{For standardized variables, the covariance and correlation are the same.}
 
 \end{frame}
 
@@ -392,7 +404,15 @@ plot(X~Y,data=mvn,xlab="",ylab="")
 
 \myquestion. Rewrite (Eq. C1) to give a formula for \m{\sd(X+Y)} in terms of \m{\sd(X)}, \m{\sd(Y)} and \m{\cor(X,Y)}.
 
-\answer{\vspace{30mm}}{TODO}
+\answer{\vspace{40mm}}{
+\[
+[\sd(X+Y)]^2 = [\sd(X)]^2 + [\sd(Y)]^2 + \cor(X,Y)\sd(X)\sd(Y)
+\]
+and so
+\[
+\sd(X+Y) = \sqrt{[\sd(X)]^2 + [\sd(Y)]^2 + \cor(X,Y)\sd(X)\sd(Y)}
+\]
+}
 
 \end{frame}
 
@@ -602,11 +622,14 @@ set.seed(70)
 \begin{frame}[fragile]
 \myquestion. From looking at the scatterplots, what are the strengths and weaknesses of a multivariate normal model for test scores in this course?
 
-\answer{\vspace{30mm}}{TODO}
+\answer{\vspace{30mm}}{
+`hw` does not have a bell-shaped distribution. It has most of the measurements bunched around 95\% and a long left tail. Likely, the homework scores were dominated by a few rare events concerning whether the work was completed and turned in, with scores being close to 100% on completed homework. The quiz shows some of this pattern, but to a lower extent.
+}
 
 \myquestion. To what extent is it appropriate to summarize the data by the mean and variance/covariance matrix (or correlation matrix) when the normal approximation is dubious?
 
-\answer{\vspace{30mm}}{TODO}
+\answer{\vspace{30mm}}{The sample mean, variance and covariance (or sample mean, standard deviation and correlation) are useful for non-normal data. They tell you everything needed to describe a normal distribution but for non-normal data there may be aspects not revealed by these numbers. Plot the data! 
+}
 
 \end{frame}
 
@@ -635,7 +658,22 @@ set.seed(70)
 \begin{frame}
 \answer{{\bf Solution}:
 
-\vspace{35mm}}{TODO}
+\vspace{35mm}}{
+$\vec{Z}$ is $q\times 1$. Each realization should correspond to a row of an $n\times q$ data matrix comparable to $\mat{Z}$, so 
+\[ 
+\vspace{-3mm}
+\mat{Z}_\mathrm{sim} = 
+\left[
+\begin{array}{c}
+\vec{Z}_1^\transpose \\
+\vec{Z}_2^\transpose \\
+\vdots \\
+\vec{Z}_n^\transpose
+\end{array}
+\right]
+\vspace{-3mm}
+\]
+}
 
 \begin{myitemize}
 \item There is a useful matrix variance/covariance formula for a linear combination.
@@ -653,7 +691,45 @@ set.seed(70)
 
 \myquestion. Add dimensions to each term in these equations to check they make sense.
 
-\answer{\vspace{15mm}}{TODO}
+\answer{\vspace{15mm}}{
+\vspace{-5mm}
+\[
+\underbrace{
+\var( 
+  \underset{q\times p }{\mat{A}}\,
+  \underset{p\times 1}{\vec{X}}
+)
+}_{q\times q}
+= 
+\underset{q\times p}{\mat{A}}
+\, 
+\underbrace{
+\var(
+  \underset{p\times 1}{\vec{X}}
+)
+}_{p\times p}
+\, 
+\underset{p\times q}{\mat{A}^\transpose}
+\hspace{10mm}
+\underbrace{
+\varSample(
+  \underset{n\times p}{\mat{X}} \,
+  \underset{p\times q}{\mat{A}^\transpose}
+)
+}_{q\times q}
+= 
+\underset{q\times p}{\mat{A}}
+\, 
+\underbrace{
+\varSample(
+  \underset{n\times p}{\mat{X}}
+)
+}_{p\times p}
+ \, 
+\underset{p\times q}{\mat{A}^\transpose}
+\]
+}
+
 \end{frame}
 
 \begin{frame}[fragile]

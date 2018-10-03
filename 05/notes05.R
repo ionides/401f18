@@ -54,3 +54,32 @@ rho <- -0.8
 ## ----eval=T--------------------------------------------------------------
 rho <- 0.95
 
+## ----echo=T,eval=T-------------------------------------------------------
+var(x)
+
+## ----echo=T,eval=T-------------------------------------------------------
+cor(x)
+
+## ----scores_pairs,eval=F,echo=T------------------------------------------
+## pairs(x)
+
+## ----out.width="95mm",fig.width=5.5,fig.height=5.5,eval=T,echo=F---------
+pairs(x)
+
+## ----mvn_pairs,eval=F,echo=T---------------------------------------------
+## mvn <- rmvnorm(50,mean=apply(x,2,mean),sigma=var(x))
+## pairs(mvn)
+
+## ----out.width="90mm",fig.width=5.5,fig.height=5.5,eval=T,echo=F---------
+set.seed(70)
+mvn <- rmvnorm(50,mean=apply(x,2,mean),sigma=var(x))
+pairs(mvn)
+
+## ------------------------------------------------------------------------
+weights <- c(final=0.4,quiz=0.2,hw=0.2,midterm=0.2)
+overall <- as.matrix(x) %*% weights
+var(overall)
+
+## ------------------------------------------------------------------------
+weights %*% var(x) %*% weights
+
