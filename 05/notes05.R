@@ -3,7 +3,7 @@
 
 ## ----download life expectancy data file,eval=F---------------------------
 ## download.file(destfile="course_progress.txt",
-##  url="https://ionides.github.io/401f18/01/course_progress.txt")
+##  url="https://ionides.github.io/401f18/05/course_progress.txt")
 
 ## ----scores_plot,eval=F,purl=T-------------------------------------------
 ## x <- read.table("course_progress.txt")

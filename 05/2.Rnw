@@ -762,6 +762,77 @@ weights %*% var(x) %*% weights
 \end{myitemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Independence}
+\begin{myitemize}
+\item Two events \m{E} and \m{F} are \myemph{independent} if
+\mydisplaymath{
+\prob(\mbox{$E$ and $F$})= \prob(E) \times \prob(F)
+}
+\end{myitemize}
+\WorkedExample. Suppose we have a red die and a blue die. They are idea fair dice, so the values should be independent. What is the chance they both show a six? 
+
+(a) Using the definition of independence.
+
+\answer{\vspace{20mm}}{todo}
+
+(b) By considering equally likely outcomes, without using the definition.
+
+\answer{\vspace{20mm}}{todo}
+
+\begin{myitemize}
+\item The multiplication rule agrees with an intuitive idea of independence.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Independence of random variables}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item \m{X} and \m{Y} are \myemph{independent random variables} if, for any intervals \m{[a,b]} and \m{[c,d]},
+
+\vspace{-5mm}
+
+\mydisplaymath{
+\prob(\mbox{$a<X<b$ and $c<Y<d$})= \prob(a<X<b) \times \prob(c<Y<d)
+}
+
+\vspace{-2mm}
+
+\item This definition extends to vector random variables. \m{\vec{X}=(X_1,\dots,X_n)} is a \myemph{vector of independent random variables} if for any collection of intervals \m{[a_i,b_i]}, \m{1\le i\le n},
+\mydisplaymath{
+\hspace{-3mm}
+\prob(a_1{<}X_1<{b}_1, \dots, a_n{<}X_n{<}b_n)= \prob(a_1{<}X_1{<}b_1) \times\dots\times \prob(a_n{<}X_n{<}b_n)
+}
+
+\vspace{-1mm}
+
+\item \m{\vec{X}=(X_1,\dots,X_n)} is a \myemph{vector of independent identically distributed (iid) random variables} if, in addition, each element of \m{\vec{X}} has the same distribution.
+\item 
+``\m{X_1,\dots,X_n} are \m{n} random variables with the \m{\normal(\mu,\sigma)} distribution''
+
+\centerline{is written more formally as}
+
+\centerline{``Let \m{X_1,\dots,X_n \sim \iid \;  \normal(\mu,\sigma)}.''}
+\end{myitemize}
+
+\vspace{2mm}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Independent vs uncorrelated}
+\begin{myitemize}
+\item If \m{X} and \m{Y} are independent they are uncorrelated. 
+\item The converse is not necessarily true.
+\item \myemph{For normal random variables, the converse is true}.
+\item If \m{X} and \m{Y} are bivariate normal random variables, and \m{\cov(X,Y)=0}, then \m{X} and \m{Y} are independent.
+\item The following slide demonstrated the possibility of being uncorrelated but not independent (for non-normal random variables).
+\end{myitemize}
+\end{frame}
+
 \end{document}
 
 
