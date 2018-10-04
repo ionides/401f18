@@ -14,8 +14,8 @@ csl: ecology.csl
 ```{r preliminaries,echo=F,cache=F}
 ALL <- TRUE
 #ALL <- FALSE
-SOL <- FALSE
-#SOL <- TRUE
+#SOL <- FALSE
+SOL <- TRUE
 library(mat2tex)
 set.seed(5)
 knitr::opts_chunk$set(cache = FALSE)
