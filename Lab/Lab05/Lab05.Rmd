@@ -1,0 +1,104 @@
+---
+title: "Stats 401 Lab 5"
+author: "Sanjana Gupta"
+date: "10/5/2018"
+output:
+  beamer_presentation:
+  colortheme: dolphin
+incremental: no
+ioslides_presentation:
+  incremental: no
+fontsize: 18pt
+---
+# Announcements
+
+- Homework 4 is due today
+- Quiz 1 is today 
+  - We will begin in 20 minutes
+  - length of quiz: 40 minutes
+- Quick R review before quiz
+
+
+# Interacting with R-studio
+
+There are two ways to interact with R-Studio  
+
+- Console (the bottom left panel)  
+    - this is where R shows the results of any command  
+    - directly type commands here  
+    - commands typed here are forgotten upon closing R-Studio  
+
+- Script editor
+    - type commands here and save the script, that way you have a record of what you did
+    - select commands to run (by highlighting the relevant lines) and hit 'ctrl+enter'
+
+
+# Console vs Scripts in R-Studio
+
+So, it might be better to write R-scripts for homework solutions etc so that  
+
+- you do not need to scroll to find previous commands
+- you can refer back to the code at later stages  
+
+
+# Shortcuts/ useful features to know  
+- Console
+    - Use the 'up arrow' to get the last expression typed 
+    - type Last.Value to get the value of the last evaluated expression
+    - Press Esc to stop evaluating the current expression
+    
+- Script editor
+    - To start a new script, click File> New Script
+    - Use `#` to write a comment. There is no block commenting in R.
+    - If you type more than one expression on the same line, use semicolons (;) between the commands
+
+
+# Working Directory  
+
+- This is the directory you are currently working in. When we load datasets into R by simply specifying the file name
+(without file path), this is where R looks for the file.
+- When we load/save datasets or save graphs, to avoid typing the path every time we can specify
+a working directory.
+- To set the working directory click File > Change dir... or type setwd(file path)
+
+# Workspace  
+- The workspace is where all the objects you create during a session are located.
+- When you close R you will be prompted to “Save workspace image?” If
+you say yes, the next time you open R from the same working directory the
+workspace will be restored, that is, all of the objects you created during
+your last session will still be available.
+
+- *Note: Depending on what you are working on, it is usually wiser to write a script and then run the entire script with each new session. This way you know exactly what objects you have created; sometimes lingering objects can cause errors in programs (maybe something you typed in the console at some point but have forgotten about).*  
+*If a particular object is very important then save it to a file.*
+
+# Managing the Workspace
+- To list all the variables created during your session: ls()
+- To see what libraries and dataframes have been loaded: search()
+- To remove an object: rm(*object names*)
+- To remove all objects: rm(list=ls())
+
+# Small example
+```{r, eval=TRUE, echo=TRUE}
+# Calculate the mean and median of 1,2,3,4,5
+x <- c(1,2,3,4,5) # Store the vector
+mu = mean(x)
+md = median(x)
+
+# See all the stored variables
+ls()
+
+# Remove the mean and the median and check if they 
+# were removed successfully
+rm(mu,md); ls()
+```
+
+# Working example
+
+Let's write a short R-script together!
+
+# Quiz 1
+
+- Duration: 40 minutes.
+- Scratch paper is available (raise your hand if you want any)
+
+- ALL THE BEST!
