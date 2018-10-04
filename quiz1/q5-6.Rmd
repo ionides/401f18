@@ -31,20 +31,28 @@ pnorm_plot_exterior(
 ```{r,child="sol_q5a-6.Rmd",eval=SOL}
 ```
 
+\exam{\vspace{2cm}}
+
 (b) Write a probability statement about the random variable $X$ corresponding to the shaded area. 
 
 ```{r,child="sol_q5b-6.Rmd",eval=SOL}
 ```
+
+\exam{\vspace{2cm}}
 
 (c) Write an integral corresponding to this shaded area. 
 
 ```{r,child="sol_q5c-6.Rmd",eval=SOL}
 ```
 
+\exam{\vspace{3cm}}
+
 (d) Write R code to evaluate this integral numerically.
 
 ```{r,child="sol_q5d-6.Rmd",eval=SOL}
 ```
+
+\exam{\vspace{2cm}}
 
 ---------------------
 

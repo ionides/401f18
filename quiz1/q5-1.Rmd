@@ -19,19 +19,27 @@ pnorm_plot(mean=50,sd=10,q_lo=70,q_hi=100,main="",xlab="",ylab="probability dens
 ```{r,child="sol_q5a-1.Rmd",eval=SOL}
 ```
 
+\exam{\vspace{3cm}}
+
 (b) Write a probability statement about the random variable $X$ that corresponding to the shaded area. 
 
 ```{r,child="sol_q5b-1.Rmd",eval=SOL}
 ```
+
+\exam{\vspace{3cm}}
 
 (c) Write an integral corresponding to this shaded area. 
 
 ```{r,child="sol_q5c-1.Rmd",eval=SOL}
 ```
 
+\exam{\vspace{4cm}}
+
 (d) Write R code to evaluate this integral numerically.
 
 ```{r,child="sol_q5d-1.Rmd",eval=SOL}
 ```
+
+\exam{\vspace{3cm}}
 
 -------------

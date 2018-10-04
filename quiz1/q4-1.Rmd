@@ -18,25 +18,35 @@ abline(coef(gpa_lm))
 ```{r,child="sol_q4a-1.Rmd",eval=SOL}
 ```
 
+\exam{\newpage}
+
 (b) Defining appropriate notation, write an equation for the fitted model in subscript form. At this point, you don't have to explain how the coefficients are calculated.
 
 ```{r,child="sol_q4b-1.Rmd",eval=SOL}
 ```
+
+\exam{\vspace{4cm}}
 
 (c) Defining appropriate notation, write an equation for the fitted model in matrix form. You still don't have to explain how the coefficients are calculated.
 
 ```{r,child="sol_q4c-1.Rmd",eval=SOL}
 ```
 
+\exam{\vspace{5cm}}
+
 (d) Now, explain using matrix notation how the model coefficients are calculated. 
 
 ```{r,child="sol_q4d-1.Rmd",eval=SOL}
 ```
 
-(e) Write an equation using subscript notation for the *fitted value* for the $i$th baseball player. Write a sentence to explain the interpretation of this fitted value.
+\exam{\vspace{4cm}}
+
+(e) Write an equation using subscript notation for the *fitted value* for the $i$th student. Write a sentence to explain the interpretation of this fitted value.
 
 ```{r,child="sol_q4e-1.Rmd",eval=SOL}
 ```
+
+\exam{\vspace{4cm}}
 
 ----------------------------
 

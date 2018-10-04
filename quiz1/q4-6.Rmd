@@ -31,19 +31,29 @@ round(coef(price_lm),3)
 ```{r,child="sol_q4a-6.Rmd",eval=SOL}
 ```
 
+\exam{\newpage}
+
 (b) Use matrix notation to explain how these coefficients were calculated.
 
 ```{r,child="sol_q4b-6.Rmd",eval=SOL}
 ```
+
+\exam{\vspace{5cm}}
 
 (c) Use matrix notation to write out an expression for the residual values of the model. Make sure to define appropriate notation.
 
 ```{r,child="sol_q4c-6.Rmd",eval=SOL}
 ```
 
+\exam{\vspace{5cm}}
+
 (d) From the scatter plot above, the statistician notices a potential outlier. This potential outlier corresponds to the the second week in January 2016. This week organic small Hass avocados sold for an average of $1.48 with a total of 4,763 sold. Write a numeric expression for the residual of this observation---you are not expected to evaluate it.
 
 ```{r,child="sol_q4d-6.Rmd",eval=SOL}
 ```
+
+\exam{\vspace{5cm}}
+
+--------------------------------
 
 
