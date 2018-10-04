@@ -4,8 +4,8 @@
 The figure below shows the probability density function of a normal random variable $X$.  
 
 ```{r,echo=F,out.width="100mm",fig.width=6,fig.height=4}
-mean5.3 <- 50
-sd5.3 <- 5
+mean5.6 <- 50
+sd5.6 <- 5
 pnorm_plot_exterior <- function(q_lo,q_hi,mean,sd,...) {
   coord.x <- seq(from=mean-3*sd,to=mean+3*sd,by=sd/100)
   plot(coord.x,dnorm(coord.x,mean,sd),type="l",...)
@@ -19,10 +19,10 @@ pnorm_plot_exterior <- function(q_lo,q_hi,mean,sd,...) {
   polygon(polygon.x.hi,polygon.y.hi,col='skyblue')
 }
 pnorm_plot_exterior(
-  mean=mean5.3,
-  sd=sd5.3,
-  q_lo=mean5.3-3*sd5.3/2,
-  q_hi=mean5.3+3*sd5.3/2,
+  mean=mean5.6,
+  sd=sd5.6,
+  q_lo=mean5.6-3*sd5.6/2,
+  q_hi=mean5.6+3*sd5.6/2,
   main="",xlab="",ylab="probability density")
 ```
 
