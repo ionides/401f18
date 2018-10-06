@@ -362,7 +362,7 @@ plot(X~Y,data=mvn,xlab="",ylab="")
 \frametitle{More on interpreting correlation}
 
 \begin{myitemize}
-\item Random variables with a correlation of $\pm 1$ (or data with a sample correlation of $\pm 1$) are \myemph{linearly dependent}.
+\item Random variables with a correlation of $\pm 1$ (or data with a sample correlation of $\pm 1$) are called \myemph{linearly dependent} or \myemph{colinear}.
 \item Random variables with a correlation of 0 (or data with a sample correlation of 0) are \myemph{uncorrelated}.
 \item Random variables with a covariance of 0 are also uncorrelated!
 
@@ -649,16 +649,17 @@ set.seed(70)
 
 \end{myitemize}
 
-\vspace{2.5mm}
-
-\myquestion. How would you construct a simulated data matrix \m{\mat{Z}_\mathrm{sim}} from \m{n} realizations \m{\vec{Z}_1,\dots,\vec{Z}_n} of the random column vector \m{\vec{Z}=\mat{A}\vec{X}}? Be careful with transposes and keep track of dimensions.
-
 \end{frame}
 
-\begin{frame}
-\answer{{\bf Solution}:
+\begin{frame}[fragile]
+\frametitle{Variables of length $p$ as column vectors or row vectors}
 
-\vspace{35mm}}{
+\myquestion. How would you construct a simulated data matrix \m{\mat{Z}_\mathrm{sim}} from \m{n} realizations \m{\vec{Z}_1,\dots,\vec{Z}_n} of the random column vector \m{\vec{Z}=\mat{A}\vec{X}}? 
+
+Hint: You are expected to write a matrix constructing \m{\mat{Z}_\mathrm{sim}} by stacking together 
+\m{\vec{Z}_1,\dots,\vec{Z}_n}. Be careful with transposes and keep track of dimensions. Recall that \m{\mat{Z_\mathrm{sim}}} should be \m{n\times p}.
+
+\answer{\vspace{50mm}}{
 $\vec{Z}$ is $q\times 1$. Each realization should correspond to a row of an $n\times q$ data matrix comparable to $\mat{Z}$, so 
 \[ 
 \vspace{-3mm}
@@ -675,23 +676,71 @@ $\vec{Z}$ is $q\times 1$. Each realization should correspond to a row of an $n\t
 \]
 }
 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Expectation and variance of linear combinations}
+
 \begin{myitemize}
-\item There is a useful matrix variance/covariance formula for a linear combination.
-
-\vspace{-1mm}
-
+\item The expectation of a vector random variable is the vector of expectations of each element.
+If \m{\vec{X}=(X_1,\dots,X_n)} then
 \mydisplaymath{
-\var(\mat{A}\, \vec{X}) = \mat{A}\, \var(\vec{X})\, \mat{A}^\transpose 
+\E[\vec{X}]=(\E[X_1],\E[X_2],\dots,\E[X_n])
+}
+\item The expectation of a sum is the sum of the expectations.
+
+\vspace{2mm}
+
+\centerline{
+  \framebox{
+    \m{ 
+       \E[X+Y]=\E[X]+\E[Y]
+    }
+  }
+}
+
+\vspace{1mm}
+
+\item This formula extends to any linear combination of \m{n} random variables. If \m{\vec{Z}=\mat{A}\vec{X}} then \m{\E[Z]=\mat{A}\E[X]}. In other words,
+
+\vspace{2mm}
+
+\centerline{
+  \framebox{
+    \m{
+    \E[\mat{A}\, \vec{X}]= \mat{A}\, \E[\vec{X}]
+    }
+  }
+}
+
+\vspace{1mm}
+
+\item There is a useful matrix variance/covariance formula for a linear combination, which also works for sample variance/covariance. 
+
+\vspace{2mm}
+
+%\mydisplaymath{
+\framebox{
+  \m{
+    \var(\mat{A}\, \vec{X}) = \mat{A}\, \var(\vec{X})\, \mat{A}^\transpose 
+  }
+}
 \hspace{20mm}
-\varSample(\mat{X}\, \mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose
+\framebox{
+  \m{
+    \varSample(\mat{X}\, \mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose
+  }
 }
 \end{myitemize}
 
-\vspace{5mm}
+\end{frame}
 
-\myquestion. Add dimensions to each term in these equations to check they make sense.
+\begin{frame}
+\frametitle{Exercises with the matrix variance/covariance formula}
 
-\answer{\vspace{15mm}}{
+\myquestion. Add dimensions to each quantity in the equations \m{ \var(\mat{A}\, \vec{X}) = \mat{A}\, \var(\vec{X})\, \mat{A}^\transpose } and \m{\varSample(\mat{X}\, \mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose}.
+
+\answer{\vspace{20mm}}{
 \vspace{-5mm}
 \[
 \underbrace{
@@ -729,6 +778,12 @@ $\vec{Z}$ is $q\times 1$. Each realization should correspond to a row of an $n\t
 \underset{p\times q}{\mat{A}^\transpose}
 \]
 }
+
+
+\myquestion.  Let \m{\mat{A}=[1 \dots 1]} be the \m{1\times p} row vector of ones. Let \m{\vec{X}=(X_1,\dots,X_p)} be a vector random variable with variance/covariance matrix \m{\mat{V}=[V_{ij}]_{p\times p}}. Evaluate the variance/covariance formula in this case. Hence, find
+\m{\var(\bar X)} where \m{\bar X = (1/p)\sum_{i=1}^p X_i}.
+
+\answer{\vspace{50mm}}{todo}
 
 \end{frame}
 
@@ -774,11 +829,14 @@ weights %*% var(x) %*% weights
 
 (a) Using the definition of independence.
 
-\answer{\vspace{20mm}}{todo}
+\answer{\vspace{20mm}}{
+$\prob\big(\{\mbox{red is 6}\} \mbox{ and } \{\mbox{blue is 6}\} \big)=
+\prob(\mbox{red is 6}) \, prob(\mbox{blue is 6}) = 1/6 \times 1/6 = 1/36
+}
 
 (b) By considering equally likely outcomes, without using the definition.
 
-\answer{\vspace{20mm}}{todo}
+\answer{\vspace{20mm}}{There are $6\times 6=36$ possible outcomes $(\mbox{red die},\mbox{blue die})$. By symmetry, all are equally likely, so the outcome $(6,6)$ has probability $1/36$.}
 
 \begin{myitemize}
 \item The multiplication rule agrees with an intuitive idea of independence.
@@ -901,86 +959,76 @@ plot(x,y)
 \begin{frame}[fragile]
 \frametitle{The measurement error model}
 \begin{myitemize}
-%\item Suppose we make \m{n} observations \m{x_1,\dots,x_n} of a quantity whose actual value is \m{\mu}. We have 
 
 \item Let \m{\vect{\epsilon}=(\epsilon_1,\epsilon_2,\dots,\epsilon_n)} be a vector consisting of \m{n} independent normal random variables, each with mean zero and variance \m{\sigma^2}.
 \item This is a common model for \myemph{measurement error} on \m{n} measurements.
 
-\vspace{-5mm}
+\item The mean vector and variance/covariance matrix are
+\vspace{-2mm}
 
 \mydisplaymath{\E[\vect{\epsilon}]=\vect{0},\hspace{2cm} \var(\vect{\epsilon})=\sigma^2 \mat{I}}
 
-\vspace{-2mm}
+%\vspace{-2mm}
 
 where \m{\vect{0}=(0,\dots,0)} and \m{\mat{I}} is the \m{n\times n} identity matrix.
 
 
-\item The off-diagonal entries of \m{\var(\vect{\epsilon})} are zero since \m{\cov(\epsilon_i,\epsilon_j)=0} for \m{i\neq j}.
+%\item The off-diagonal entries of \m{\var(\vect{\epsilon})} are zero since \m{\cov(\epsilon_i,\epsilon_j)=0} for \m{i\neq j}.
 
 \item For the measurement error model, we break our usual rule of using upper case letters for random variables.
 
 \item We can write \m{\vect{\epsilon}\sim\MVN(\vect{0},\sigma^2\mat{I})} or \m{\vect{\epsilon}\sim\iid\; \normal(0,\sigma)}.
 
+\item \m{\vec{\epsilon}} models \myemph{unbiased} measurements (meaning \m{\E[\epsilon_i]=0}) subject to \myemph{additive Gaussian error}.
 
 \end{myitemize}
+
+\vspace{1mm}
+
+Example: 5 repeated measurements \m{x_1,\dots,x_5} of the speed of light could be modeled as \m{X_i = \mu + \epsilon_i} for \m{i=1,\dots,5}, where \m{\mu} is the unknown true value of this quantity.
 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Example. A population version of the linear model}
+\frametitle{A probability model for the linear model}
 
 \vspace{-2mm}
 
 \begin{myitemize}
-\item First recall the sample version, which is
+\item First recall the sample version of the linear model, which is
 
-\altdisplaymath{
-\LMiii \hspace{16mm}
+\vspace{-3mm}
+
+\mydisplaymath{
  \vect{y} = \mat{X}\, \vect{b} + \vect{e},
 }
 
+\vspace{1mm}
+
 where \m{\vect{y}} is the measured response, 
-\m{\mat{X}} is an \m{n\times p}  matrix of explanatory variables, \m{\vect{b}} is chosen by least squares, and \m{\vect{e}} is the resulting vector of residuals.
+\m{\mat{X}} is an \m{n\times p}  matrix of explanatory variables, \m{\vect{b}} is chosen by least squares, and \m{\vect{e}} is the vector of residuals.
 
-\item We want to build a random vector \m{\vect{Y}} that provides a population model for the data \m{\vect{y}}. We write this as
+\item We want to build a random vector \m{\vect{Y}} that provides a probability model for the data \m{\vect{y}}. We write this as
 
-%\vspace{-2mm}
+\vspace{2mm}
 
-\framebox{
-\altdisplaymath{
-\LMvi \hspace{16mm}
- \vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}
+\centerline{
+  \framebox{
+    \m{
+       \vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}
+       \rule[-2mm]{0mm}{7mm}
+    }
+  }
 }
-\hspace{10mm}\rule[-3mm]{0mm}{9mm}
-}
+\vspace{2mm}
 
-%\vspace{-2mm}
+where \m{\mat{X}} is the explanatory matrix, \m{\vect{\beta}=(\beta_1,\dots,\beta_p)} is an unknown coefficient vector (we don't know the true population coefficient!) and \m{\vect{\epsilon}} is Gaussian measurement error with \m{\E[\vect{\epsilon}]=\vect{0}} and \m{\var(\vect{\epsilon})=\sigma^2\mat{I}}.
 
-where \m{\mat{X}} is the same explanatory matrix as in \myref{\LMiii}, \m{\vect{\beta}=(\beta_1,\dots,\beta_p)} is an unknown coefficient vector (we don't know the true population coefficient!) and \m{\vect{\epsilon}} is measurement error with \m{\E[\vect{\epsilon}]=\vect{0}} and \m{\var(\vect{\epsilon})=\sigma^2\mat{I}}.
-
-\item Our model \myref{\LMvi} asserts that the process which generated the response data \m{\vect{y}} was like drawing a random vector \m{\vect{Y}} consructed using a random measurement error model with known matrix \m{\mat{X}} for some fixed but unknown value of \m{\vect{\beta}}.
+\item Our model \myref{\LMvi} asserts that the process which generated the response data \m{\vect{y}} was like drawing a random vector \m{\vect{Y}} constructed using a random measurement error model with known matrix \m{\mat{X}} for some fixed but unknown value of \m{\vect{\beta}}.
 
 \end{myitemize}
 
 \end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Motivation for finding the means and variances of linear combinations of random variables}
-%of the least squares estimate for $\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}$}
-
-\begin{myitemize}
-\item Recall that the main purpose of having a probability model is so that we can investigate the chance variation due to picking the sample.
-\item Recall that for \myref{\LMiii}, the least squares estimate is \m{ \vect{b} = \big( \mat{X}^\transpose \mat{X} \big) ^{-1}\,  \mat{X}^\transpose \vect{y}
-}.
-\item This is a \myemph{statistic}, which means a function of the data and not a random variable. We cannot properly talk about the mean and variance of \m{\vect{b}}.
-\item We can work out the mean and variance of \m{\big( \mat{X}^\transpose \mat{X} \big) ^{-1}\,  \mat{X}^\transpose \vect{Y}}, as long as we know how to work out the mean and variance of linear combinations.
-\item As long as  \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} is a \myemph{useful probability model} for the relationship between the response variable \m{\vect{y}} and the explanatory variable \m{\mat{X}}, calculations done with this model may be useful.
-
-\end{myitemize}
-
-\end{frame}
-
 
 \begin{frame}[fragile]
 \frametitle{A digression on ``useful'' models}
@@ -992,86 +1040,65 @@ For such a model there is no need to ask the question `Is the model true?'. If \
 
 \begin{myitemize}
 \item Perhaps the most useful statistical model ever is \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}.
-\item Anything so widely used is also widely abused. Our task is to understand \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} so that we can be users and not abusers.
+\item Anything so widely used is also widely abused. Our task is to understand \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} so that we can use it wisely.
 \end{myitemize}
 
 \end{frame}
-
-%\end{document}
-
 
 \begin{frame}
+\frametitle{Expectation and variance/covariance of $\vec{Y}$}
+\begin{myitemize}
+\item Recall the linear model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} 
+ where \m{\vec{epsilon}\sim \MVN(\vect{0},\sigma^2\mat{I})}.
+\end{myitemize}
 
-{\bf Example}. For \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}, we have
-\framebox{
- \m{
- \E[\vect{Y}] = \mat{X}\vect{\beta} + \E[\vect{\epsilon}] = \mat{X}\vect{\beta}
- }
-\rule[-3mm]{0mm}{9mm}
+\myquestion. What is the expected value, \m{\E[\vect{Y}]}?
+
+\answer{\vspace{30mm}}{todo}
+
+\myquestion. What is the variance/covariance matrix, \m{\var(\vect{Y})}?
+ 
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Expectation of the least squares coefficient}
+
+\WorkedExample.
+Let \m{\vect{\hat\beta}= \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \vect{Y}}. This is the probability model for the coefficient \m{\vect{b}= \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \vect{y}} calculated using the data \m{\vec{y}}.
+Use linearity to calculate \m{\E[\vect{\hat\beta}]}.
+
+\vspace{2mm}
+
+{\bf Solution}:
+\mydisplaymath{
+\begin{array}{rcl}
+\E[\vect{\hat\beta}] &=& \E\big[ \, \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \vect{Y} \, \big]
+\\
+&=& \rule[-2mm]{0mm}{7mm}
+ \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \, \E\big[ \vect{Y} \big]
+\\
+&=& \rule[-2mm]{0mm}{7mm}
+ \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \mat{X}\, \vec{\beta}
+\\
+&=& \rule[-2mm]{0mm}{7mm}
+\vec{\beta}
+\end{array}
 }
-
-{\bf Example}. 
-For 
-\m{\vect{\hat\beta}= \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \vect{Y}}, we have
-
-\framebox{
- \m{
- \E[\vect{\hat\beta}]= \E\big[\big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \vect{Y}] = \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \E[\vect{Y}]
-= \big( \mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose \mat{X}\vect{\beta}
-= \vect{\beta}
- }
-}
-
 \begin{myitemize}
 \item Interpretation: If the data \m{\vect{y}} are well modeled as a draw from the probability model 
-\m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}, then the least squares estimate \m{\vect{b}} is well modeled by a random vector centered around \m{\vect{\beta}}.
+\m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}, then the least squares estimate \m{\vect{b}} is well modeled by a random vector with mean \m{\vect{\beta}}.
 \end{myitemize}
 \end{frame}
 
-
 \begin{frame}[fragile]
-\frametitle{Linearity of expectation}
+\frametitle{Variance/covariance matrix of the least squares coefficients}
 
-\vspace{-1mm}
+\myquestion. Use the formula \m{\var(\mat{A}\vec{Y})=\mat{A}\var(Y)\mat{A}^\transpose} to find \m{\var(\vec{\hat\beta})}. Hint: what should be our choice of \m{\mat{A}} so that \m{\vec{\hat\beta}= \mat{A}\vec{Y}}?
 
-\begin{myitemize}
-\item We have seen several versions of the same property that expectations can be moved through sums and multiplicative constants:
-\myeqnarray{
-\E[aX+b]&=&a\E[X]+b, 
-\\
-\E\left[\sum_{i=1}^n a_{i}Y_i\right] &=& \sum_{i=1}^n a_{i}\E[Y_i], 
-\\
-\E\left[\sum_{j=1}^n a_{ij}Y_j\right] &=& \sum_{j=1}^n a_{ij}\E[Y_j].
-\\
-\E[\mat{A}\vect{Y}] &=& \mat{A}\E[\vect{Y}]
-}
+\answer{\vspace{50mm}}{todo}
 
-\vspace{-5mm}
-
-\item These properties are collectively known as \myemph{linearity}.
-\item Why? Maybe because these properties mean that linear equations for random variables lead to linear equations for their expectations.
-%\item For example, for the linear relationship \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} we take expectations of both sides to get \m{\E[\vect{Y}]=\mat{X}\vect{\beta}+\E[\vect{\epsilon}]}, using the fact that \m{\mat{X}} and \m{\vect{\beta}} are constants. 
-
-\item The linearity property means \m{\E} follows a \myemph{distributive rule}. We can distribute \m{\E} across sums just as we are used to doing in basic arithmetic.
-
-\end{myitemize}
-
-\end{frame}
-
-%\end{document}
-
-
-\begin{frame}[fragile]
-\frametitle{Covariance of the least squares coefficients}
-
-\begin{myitemize}
-\item The covariance matrix formula we just developed can be written as
-\framebox{
-\m{\var(\mat{A}\vect{Y})
-= \mat{A}\var(\vect{Y}) \mat{A}^\transpose}.
-\rule[-3mm]{0mm}{9mm}
-}
-\end{myitemize}
 \myquestion.
 Consider the linear model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} with \m{\E[\vect{\epsilon}]=\vect{0}} and \m{\var(\vect{\epsilon})=\sigma^2\mat{I}}.
  Apply this variance formula to
@@ -1134,6 +1161,7 @@ U_annual <- apply(U[,2:13],1,mean)
 U_detrended <- lm(U_annual~U$Year)$residuals
 L_detrended <- subset(L_detrended,L$Year %in% U$Year)
 @
+
 
 <<detrended_lm>>= 
 lm1 <- lm(L_detrended~U_detrended) ; summary(lm1)
