@@ -83,3 +83,63 @@ var(overall)
 ## ------------------------------------------------------------------------
 weights %*% var(x) %*% weights
 
+## ----echo=F--------------------------------------------------------------
+set.seed(368) 
+
+## ----normal_uncorrelated,echo=T,eval=T-----------------------------------
+x <- rnorm(20)
+y <- rnorm(20)
+
+## ------------------------------------------------------------------------
+cor(x,y)
+
+## ----plot_normal_uncorrelated,echo=T,eval=F------------------------------
+## plot(x,y)
+
+## ----quadratic_uncorrelated,eval=T,echo=T--------------------------------
+x <- seq(-2,2,length=20)
+y <- x^2
+
+## ------------------------------------------------------------------------
+cor(x,y)
+
+## ----plot_quadratic_uncorrelated,eval=F,echo=T---------------------------
+## plot(x,y)
+
+## ----reconstruct_variables,echo=F----------------------------------------
+L <- read.table(file="life_expectancy.txt",header=TRUE)
+L_fit <- lm(Total~Year,data=L)
+L_detrended <- L_fit$residuals
+U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
+U_annual <- apply(U[,2:13],1,mean)
+U_detrended <- lm(U_annual~U$Year)$residuals
+L_detrended <- subset(L_detrended,L$Year %in% U$Year)
+
+## ----detrended_lm--------------------------------------------------------
+lm1 <- lm(L_detrended~U_detrended) ; summary(lm1)
+
+## ----summary-------------------------------------------------------------
+names(summary(lm1))
+summary(lm1)$coefficients
+
+## ----model_matrix--------------------------------------------------------
+X <- model.matrix(lm1)
+head(X)
+
+## ----se------------------------------------------------------------------
+s <- sqrt(sum(resid(lm1)^2)/(nrow(X)-ncol(X))) ; s
+V <- s^2 * solve(t(X)%*%X)
+sqrt(diag(V))
+
+## ------------------------------------------------------------------------
+summary(lm1)$coefficients
+
+## ----var_from_summary----------------------------------------------------
+s <- summary(lm1)$sigma
+XX <- summary(lm1)$cov.unscaled
+s^2 * XX
+
+## ----var_from_direct_calculation-----------------------------------------
+X <- model.matrix(lm1)
+sum(resid(lm1)^2)/(nrow(X)-ncol(X)) * solve(t(X)%*%X)
+
