@@ -33,6 +33,7 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 
 4. [Probability models](04/notes04.pdf).
 [(R code)](04/notes04.R).
+[(Annotations)](04/notes04annotated.pdf).
  
 5. [Vector random variables](05/notes05.pdf). [(R code)](05/notes05.R).
 
