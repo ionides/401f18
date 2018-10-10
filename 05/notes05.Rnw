@@ -604,6 +604,9 @@ pairs(x)
 
 \end{frame}
 
+%\end{document}
+
+
 \begin{frame}[fragile]
 <<mvn_pairs,eval=F,echo=T>>=
 mvn <- rmvnorm(50,mean=apply(x,2,mean),sigma=var(x))
@@ -833,7 +836,7 @@ weights %*% var(x) %*% weights
 
 \answer{\vspace{20mm}}{
 $\prob\big(\{\mbox{red is 6}\} \mbox{ and } \{\mbox{blue is 6}\} \big)=
-\prob(\mbox{red is 6}) \, prob(\mbox{blue is 6}) = 1/6 \times 1/6 = 1/36
+\prob(\mbox{red is 6}) \, prob(\mbox{blue is 6}) = 1/6 \times 1/6 = 1/36$
 }
 
 (b) By considering equally likely outcomes, without using the definition.
@@ -957,6 +960,7 @@ plot(x,y)
 \end{columns}
 \end{frame}
 
+%\end{document}
 
 \begin{frame}[fragile]
 \frametitle{The measurement error model}
@@ -1058,11 +1062,15 @@ For such a model there is no need to ask the question `Is the model true?'. If \
 
 \myquestion. What is the expected value, \m{\E[\vect{Y}]}?
 
-\answer{\vspace{30mm}}{todo}
+\answer{\vspace{30mm}}{It may be helpful to write this in subscript form. For each $i$, 
+$\E[Y_i]=\E[\sum_{j=1}^p x_{ij}\beta_j + \epsilon_i] = \sum_{j=1}^px_{ij}\beta_i$. So,
+$\E[\vec{Y}]=\mat{X}\vec{\beta}$. We can also just do matrix calculations.}
 
 \myquestion. What is the variance/covariance matrix, \m{\var(\vect{Y})}?
  
-\answer{\vspace{35mm}}{todo}
+\answer{\vspace{35mm}}{Using subscript form,
+$\cov(Y_i,Y_j)=\cov\left(\sum_{k=1}^p x_{ik}\beta_k + \epsilon_i, \sum_{\ell=1}^p x_{j\ell}\beta_\ell + \epsilon_j \right) = \cov(\epsilon_i,\epsilon_j)$. Since $\vec{\epsilon} \sim\MVN(\vec{0},\sigma^2\mat{I})$, this gives $\cov(\vec{Y})=\sigma^2\mat{I}$.
+}
 
 \end{frame}
 
@@ -1112,11 +1120,9 @@ Recall
 \]
 Then, the variance/covariance formula gives (after some lines of algebra)
 \framebox{
- \m{\var(\vect{\hat\beta})
-  =\sigma^2 \big( \mat{X}^\transpose \mat{X} \big)^{-1}
- }
-\rule[-3mm]{0mm}{9mm}
-}
+  $\var(\vect{\hat\beta}) =\sigma^2 \big( \mat{X}^\transpose \mat{X} \big)^{-1}$
+  \rule[-3mm]{0mm}{9mm}
+  }
 }
 
 \vspace{40mm}
