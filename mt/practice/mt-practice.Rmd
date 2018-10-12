@@ -1,0 +1,428 @@
+---
+title: "Practice midterm exam, STATS 401 F18"
+output:
+  pdf_document:
+  toc: no
+header-includes:
+   - \usepackage{ifthen}
+html_document:
+  theme: flatly
+toc: no
+word_document:
+  toc: no
+csl: ecology.csl
+---
+  
+
+```{r preliminaries,echo=F,cache=F}
+ALL <- TRUE
+ALL <- FALSE
+SOL <- FALSE
+#SOL <- TRUE
+set.seed(12)
+# library(mat2tex)
+```
+
+
+\ifthenelse{\isodd{1}}{
+ \newcommand\exam[1]{#1} %% exam paper
+ \newcommand\solution[1]{}
+}{ 
+ \newcommand\exam[1]{} %% solutions
+ \newcommand\solution[1]{ {\bf Solution}. {#1}}
+} 
+
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\vect[1]{\vec{#1}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\prob{\mathrm{P}}
+\newcommand\E{\mathrm{E}}
+\newcommand\SE{\mathrm{SE}}
+\newcommand\code[1]{\texttt{#1}}
+
+\newcommand\normal{\mathrm{normal}}
+\newcommand\iid{\mathrm{iid}}
+\newcommand\MVN{\mathrm{MVN}}
+\newcommand\RSS{\mathrm{RSS}}
+\newcommand\SST{\mathrm{SST}}
+\newcommand\pval{\mathrm{pval}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov}}
+\newcommand\corSample{\mathrm{cor}}
+\newcommand\cor{\mathrm{Cor}}
+
+\newcommand\actMult{3}
+
+\exam{
+$\quad\quad\quad$ \textbf{Name}:
+
+$\quad\quad\quad$ \textbf{UMID}:
+}
+
+-----------
+  
+**Instructions. You have a time allowance of 80 minutes.  The exam is closed book. Any electronic devices in your possession must be turned off and remain in a bag on the floor. This includes cell phones, calculators and internet-enabled watches. If you need extra paper, please number the pages and put your name and UMID on each page.**
+  
+-----------
+
+\exam{  
+  
+{\bf You are not allowed to bring any notes into the exam.}
+
+{\bf The following formulas will be provided. To use these formulas properly, you need to make appropriate definitions of the necessary quantities.}
+
+(1)$\quad\quad\mathbf{b}=\big(\mathbb{X}^\top \mathbb{X} \big)^{-1}\, \mathbb{X}^\top\mathbf{y}$
+
+(2)$\quad\quad\var(\hat{\mathbf{\beta}})= \sigma^2 \big( \mathbb{X}^\top \mathbb{X} \big)^{-1}$
+
+(3)$\quad\quad\var(\mathbb{A}\mathbf{Y})=\mathbb{A}\var(\mathbf{Y})\mathbb{A}^\top$
+
+(4)$\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
+
+(5)$\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
+
+\vspace{1cm} 
+
+From \code{?pnorm}:
+
+\code{pnorm(q, mean = 0, sd = 1)\\
+qnorm(p, mean = 0, sd = 1)\\
+q: vector of quantiles.\\
+p: vector of probabilities.\\
+}
+
+}
+
+\exam{\newpage}
+
+Q1. A summation exercise.
+
+Let $\mat{X}=[x_{ij}]$ be a $3\times 2$ matrix with $(i,j)$ entry given by $x_{ij}=2i$.
+
+(a) [1 point] Write out $\mat{X}$, evaluating each of the six entries of the matrix.
+
+\exam{\vspace{5cm}}
+
+\solution{
+
+\[ \mat{X}=\begin{bmatrix} 2 & 2 \\ 4& 4 \\ 6 & 6 \end{bmatrix}\]
+}
+
+(b) [1 point] Hence, evaluate the double sum $\sum_{i=1}^3\sum_{j=1}^2 2i$.
+
+\exam{\vspace{5cm}}
+
+\solution{
+
+$\sum_{i=1}^3\sum_{j=1}^2 2i = 24$.
+
+}
+
+(c) [2 points] Evaluate $\mat{X}^\transpose\mat{X}$ where
+$$
+\mat{X}=
+\begin{bmatrix}
+x_1 & 1 \\
+x_2 & 1 \\
+\vdots & \vdots  \\
+x_n & 1
+\end{bmatrix}
+$$
+
+\solution{
+
+\[\mat{X}^\transpose\mat{X} = \begin{bmatrix}
+\sum_{i=1}^n x_i^2 & \sum_{i=1}^n x_i \\
+\sum_{i=1}^n x_i & n
+\end{bmatrix}\]
+}
+
+\exam{\newpage}
+
+Q2. Manipulating vectors and matrices in R.
+
+(a) [2 points] Write the output of 
+```{r, eval = F}
+matrix(c(rep(1,2), rep(0, 2), rep(0,2), rep(1,2)), nrow = 4)
+```
+
+\solution{
+\[
+\begin{bmatrix}
+1 & 0 \\
+1 & 0 \\
+0 & 1 \\
+0 & 1
+\end{bmatrix}
+\]
+}
+
+\exam{\vspace{9cm}}
+
+(b) [1 point] Which of the following is the output to `pnorm(c(-2,2))`
+
+
+---------------------------
+
+
+(i) 
+```
+[1] 0.02275013 0.97724987
+```
+
+(ii) 
+```
+Error in pnorm(c(-2,2)) : vector argument to scalar function
+```
+
+(iii) 
+```
+[1] 0.1586553 0.8413447
+```
+
+(iv) 
+```
+0.02275013
+Warning message:
+In pnorm(c(-2,2)) :
+Vector argument to scalar function. 
+Function applied to only the first vector component.
+```
+
+(v) 
+```
+0.1586553
+Warning message:
+In pnorm(c(-2,2)) :
+Vector argument to scalar function. 
+Function applied to only the first vector component.
+```
+
+
+------------------
+
+
+\solution{(i)}
+
+\exam{\newpage}
+
+
+Q3. Investigating a probability distribution. 
+
+Homework 4 involved investigating the t and F distributions. Recall that $X_{t}\sim t(n)$ and $X_F\sim F(m,n)$ if
+\[
+X_{t}=\frac{Y}{\sqrt{\sum_{j=1}^n Z_j^2/n}}
+\]
+\[
+X_F=\frac{\sum_{i=1}^m Y_i^2/m}{\sum_{j=1}^n Z_j^2/n}
+\]
+where $Y$, $Y_1,\dots,Y_m$ and $Z_1,\dots,Z_n$ are independent $\normal[0,1]$ random variables.
+Another related distribution is the chi-squared distribution. We say $X\sim\chi^2(n)$ if
+\[
+X= \sum_{i=1}^n Z_i^2
+\]
+where $Z_1,\dots,Z_n\sim\iid \; \normal[0,1]$.
+Code simulating a sample from the chi-squared distribution with $n=3$ and comparing it to the chi-squared density function is given below. The code for the shaded tail is not given.
+
+```{r echo=T,eval=F}
+X <- rchisq(50,df=3)
+hist(X,prob=T)
+x <- seq(from=0,to=max(X),length=200)
+y <- dchisq(x,df=3)
+lines(x,y)
+```
+
+
+```{r, echo=F,eval=T,out.width="100mm",fig.width=6,fig.height=4}
+set.seed(81)
+X <- rchisq(50,df=3)
+hist(X,prob=T,main="",ylim=c(0,0.25))
+x <- seq(from=0,to=max(X),length=200)
+y <- dchisq(x,df=3)
+lines(x,y)
+shaded.x <- x[x>7]
+polygon.x <- c(min(shaded.x),shaded.x,max(shaded.x))
+polygon.y <- c(0,dchisq(shaded.x,df=3),0)  
+polygon(polygon.x,polygon.y,col='skyblue')
+
+```
+
+(a) [2 points] Do you think that the chi-squared density function will look like a normal curve if we picked a large value of $n$? Explain your reasoning.
+
+\solution{
+Yes. $X$ is written as a sum of $n$ random variables, so as $n$ gets large a central limit theorem should apply. We could also note that these random variables all have the same distribution and they are independent, so we do not expect any single event to dominate the sum. For the examples we have seen in class, if a variable is the sum of many contributions and no single contribution dominates then a normal approximation is appropriate.
+}
+
+\exam{\newpage}
+
+(b) [2 points] Guess an R command that will give the area under the probability density curve to the right of 7, corresponding to the shaded right tail on the plot. The shading may or may not be printed well on your copy of the exam, but that is not critical to the question. You are not expected to have previously seen how the chi-squared distribution works in R, but you can assume it works similarly to things you have seen: it does!
+
+\solution{
+`1-pchisq(6,df=3)`
+}
+
+\exam{\vspace{9cm}}
+
+(c) [2 points] Describe a way to numerically obtain the expected value, $\E[X]$, when $X\sim\chi^2(3)$. Your description should include either R code or mathematical notation. Also, explain why your approach is valid.
+
+\solution{
+The expected value of a random variable is the average of a large number of draws from that distribution. Therefore, we can numerically obtain the expected value from a large sample obtained using `rchisq()`, for example `mean(rchisq(10000,df=3))`. This will not give an exact answer, since there will be some chance variation in the sample average, but for a large sample it will be close.
+}
+
+\exam{\vspace{9cm}}
+
+
+\exam{\newpage}
+
+Q4. Fitting a linear model by least squares 
+
+The director of admissions at a large state university wants to assess how well academic success can be predicted based on information available at admission. 
+She collects a dataset of 705 students.
+She decides to take freshman GPA as the response variable, and she has access to ACT exam scores and percentile ranking of each student within their high school. 
+
+```{r read_data}
+gpa <- read.table("gpa.txt",header=T)
+```
+
+```{r clean_data,echo=F}
+gpa <- gpa[,2:4]
+```
+
+```{r head}
+head(gpa)
+```
+
+(a). Write the sample version of a linear model to address this question in subscript form.
+
+\solution{[2 points]
+
+The model is
+\[ y_i=b_1x_{i1}+b_2x_{i2}+b_3+e_i,
+\quad i=1,\dots,n
+\]
+where $y_i$ is freshman GPA for as the response variable for student $i$, $x_{i1}$ is the ACT exam score for this student, $x_{i2}$ is the percentile ranking of the student within their high school, and $n=705$. $e_i$ is the residual error for student $i$. $b_1$, $b_2$ and $b_3$ are coefficients chosen by least squares. 
+}
+
+\exam{\newpage}
+
+(b). Write the sample version of this linear model in matrix form. Some of the quantities you have to define may be the same as the quantities you defined previously. Nevertheless, please make this model description self-contained. 
+
+\solution{[2 points]
+
+The model is
+\[ \vect{y}=\mat{X}\vect{b} + \vect{e},
+\]
+where
+
+\begin{itemize}
+\item $\vect{y}=(y_1,\dots,y_n)$ is a vector of freshman GPA scores with $n=705$
+
+\item $\mat{X}=[x_{ij}]$ is a $n\times 3$ matrix with $x_{i1}$ being the ACT exam score for student $i$, $x_{i2}$ being the percentile ranking of the student within their high school, and $x_{i3}=1$ for $i=1,\dots,n$.
+
+\item $\vect{b}=(b_1,b_2,b_3)$ is a vector of coefficients, chosen by least squares.
+
+\item $\vect{e}=(e_1,\dots,e_n)$ is a vector of residuals.
+
+\item All vectors are interpreted as column vectors.
+
+\end{itemize}
+
+}
+
+\exam{\vspace{11cm}}
+
+(c). The following output fits a linear model in R.
+```{r lm_patients}
+gpa_lm <- lm(GPA~ACT+High_School,data=gpa) 
+summary(gpa_lm)
+```
+Explain how the coefficient estimates and the residual standard error presented in this output were calculated.
+
+\solution{[2 points]
+
+The coefficient estimates are the vector $\vect{b}$ from F2, calculated by least squares using the formula
+\[
+\vect{b}=\big(\mat{X}^\transpose \mat{X}\big)^{-1} \mat{X}^\transpose \vect{y}.
+\]
+}
+
+\exam{\vspace{8cm}}
+
+(d). Explain what the __fitted values__ are for a linear model. Comment briefly on what the admissions director should learn (if anything) from the following plot of the freshman GPA of each patient plotted against the fitted value.
+```{r fitted_patients}
+plot(x=fitted.values(gpa_lm),y=gpa$GPA)
+abline(a=0,b=1)
+```
+
+\solution{[2 points]
+
+The fitted values are the values of the response variables with the rersidual errors removed. The vector $\vect{\hat y}=(\hat y_1,\dots,\hat y_n)$ of fitted values is calculated as
+\[
+\vect{\hat y}= \mat{X}\vect{b} = \mat{X}\big(\mat{X}^\transpose \mat{X}\big)^{-1} \mat{X}^\transpose \vect{y}.
+\]
+Plotting the response against the fitted values, we see that the explanatory variables can explain around 1 GPA point out of the total spread of around 3 GPA points. Other things to look for are (a) there are no noticeable extreme points, known as outliers; (b) the points are roughly football shaped, but with somewhat higher variability at lower values of fitted GPA.
+}
+
+\exam{\vspace{8cm}}
+
+\exam{\newpage}
+
+Q5. Working with the mean, variance, and covariance with a normal approximation.
+
+The sample variance/covariance matrix for the GPA dataset is
+```{r}
+V <- var(gpa)
+round(V,2)
+```
+
+(a) [1 point] Write a numeric calculation using values in this matrix to give the sample correlation between ACT score and high school rank.
+
+\solution{
+}
+
+\exam{\vspace{6cm}}
+
+(b) [2 points] An admissions officer proposes using the sum of high school rank and (ACT score multiplied by $\actMult$) as an admission criterion. Write a calculation using matrix multiplication to compute the sample standard deviation of this quantity in terms of the matrix
+```{r,results='asis',echo=FALSE,cache=FALSE}
+library(mat2tex)
+xx("\\mat{V}=",
+  matrix(c("V_{11}","V_{21}","V_{31}","V_{12}","V_{2,2}","V_{32}","V_{13}","V_{23}","V_{33}"),3,3),
+  "=" , V,mtype="bmatrix",digits=2)
+```
+
+\exam{\newpage}
+
+
+The sample means of each variable are given by
+```{r}
+mu <- apply(gpa,2,mean)
+mu
+``` 
+
+(c) [1 point] Let $\vec{\mu}=(\mu_1,\mu_2,\mu_3)$ be a mathematical representation of `mu`. 
+The sample mean of the sum of high school rank and (ACT score times $\actMult$) is $\mu_\mathrm{sum}=\mu_2+3\mu_3$.
+Write a matrix calculation to give $\mu_\mathrm{sum}$ in terms of $\vec{\mu}$.
+
+\exam{\vspace{4cm}}
+
+(d) Suppose the standard deviation calculated in part (b) is called $\sigma_\mathrm{sum}$. 
+Let $X$ be a normal random variable with mean $\mu_\mathrm{sum}$ and standard deviation $\sigma_\mathrm{sum}$. Write a probability statement using a normal approximation to find the chance that a random applicant will have a sum of high school rank plus ($\actMult$ times ACT score) larger than 180. Write an integral that evaluates to this probability.
+
+\exam{\vspace{4cm}}
+
+(e) Suppose $\sigma_\mathrm{sum}$ and $\mu_\mathrm{sum}$ have been calculated in R and assigned variable names `sigma_sum` and `mu_sum`. Write an R expression to obtain numerically the probability you wrote in (d).
+
+
+\exam{\vspace{4cm}}
+
+
+
+--------
+License: This material is provided under an [MIT license] (https://ionides.github.io/401f18/LICENSE)
+
+
