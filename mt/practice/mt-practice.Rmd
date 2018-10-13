@@ -24,7 +24,7 @@ set.seed(12)
 ```
 
 
-\ifthenelse{\isodd{1}}{
+\ifthenelse{\isodd{0}}{
  \newcommand\exam[1]{#1} %% exam paper
  \newcommand\solution[1]{}
 }{ 
@@ -263,7 +263,7 @@ Yes. $X$ is written as a sum of $n$ random variables, so as $n$ gets large a cen
 (b) [2 points] Guess an R command that will give the area under the probability density curve to the right of 7, corresponding to the shaded right tail on the plot. The shading may or may not be printed well on your copy of the exam, but that is not critical to the question. You are not expected to have previously seen how the chi-squared distribution works in R, but you can assume it works similarly to things you have seen: it does!
 
 \solution{
-`1-pchisq(6,df=3)`
+\code{1-pchisq(6,df=3)}
 }
 
 \exam{\vspace{9cm}}
@@ -380,9 +380,13 @@ V <- var(gpa)
 round(V,2)
 ```
 
-(a) [1 point] Write a numeric calculation using values in this matrix to give the sample correlation between ACT score and high school rank.
+(a) [1 point] Write a numeric calculation using values in this matrix to give the sample correlation between ACT score and high school rank. You are not expected to evaluate it.
 
-\solution{
+\solution{The sample covariance is `r round(V["High_School","ACT"],2)`. The sample variances are  `r round(V["High_School","High_School"],2)` and  `r round(V["ACT","ACT"],2)`. The correlation is
+\[ \frac{`r round(V["High_School","ACT"],2)`}{\sqrt{
+ `r round(V["High_School","High_School"],2)` \times `r round(V["ACT","ACT"],2)`
+ }}
+ \]
 }
 
 \exam{\vspace{6cm}}
@@ -406,17 +410,34 @@ mu
 
 (c) [1 point] Let $\vec{\mu}=(\mu_1,\mu_2,\mu_3)$ be a mathematical representation of `mu`. 
 The sample mean of the sum of high school rank and (ACT score times $\actMult$) is $\mu_\mathrm{sum}=\mu_2+3\mu_3$.
-Write a matrix calculation to give $\mu_\mathrm{sum}$ in terms of $\vec{\mu}$.
+Write a matrix multiplication that gives $\mu_\mathrm{sum}$ in terms of $\vec{\mu}$.
+
+\solution{
+Taking $\vec{\mu}$ to be a column vector, we have
+\[ \mu_\mathrm{sum}=\begin{bmatrix}0 & 1 & 2 \end{bmatrix}\begin{bmatrix}\mu_1 \\ \mu_2 \\ \mu_3 \end{bmatrix}
+\]
+An alternative solution could represent $\vec{\mu}$ as a row vector.
+}
 
 \exam{\vspace{4cm}}
 
 (d) Suppose the standard deviation calculated in part (b) is called $\sigma_\mathrm{sum}$. 
 Let $X$ be a normal random variable with mean $\mu_\mathrm{sum}$ and standard deviation $\sigma_\mathrm{sum}$. Write a probability statement using a normal approximation to find the chance that a random applicant will have a sum of high school rank plus ($\actMult$ times ACT score) larger than 180. Write an integral that evaluates to this probability.
 
+\solution{
+\[
+\prob(X>180) = \int_{180}^\infty \frac{1}{\sqrt{2\pi\sigma_\mathrm{sum}^2}}
+e^{-(x-\mu_\mathrm{sum})^2/2\sigma_\mathrm{sum}^2} \, dx
+\]
+}
+
 \exam{\vspace{4cm}}
 
 (e) Suppose $\sigma_\mathrm{sum}$ and $\mu_\mathrm{sum}$ have been calculated in R and assigned variable names `sigma_sum` and `mu_sum`. Write an R expression to obtain numerically the probability you wrote in (d).
 
+\solution{
+\url{1-pnorm(180,mean=mu_sum,sd=sigma_sum)}
+}
 
 \exam{\vspace{4cm}}
 
