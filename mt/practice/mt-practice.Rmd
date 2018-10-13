@@ -24,7 +24,7 @@ set.seed(12)
 ```
 
 
-\ifthenelse{\isodd{0}}{
+\ifthenelse{\isodd{1}}{
  \newcommand\exam[1]{#1} %% exam paper
  \newcommand\solution[1]{}
 }{ 
@@ -42,6 +42,7 @@ set.seed(12)
 \newcommand\code[1]{\texttt{#1}}
 
 \newcommand\normal{\mathrm{normal}}
+\newcommand\chisq{\mathrm{chisq}}
 \newcommand\iid{\mathrm{iid}}
 \newcommand\MVN{\mathrm{MVN}}
 \newcommand\RSS{\mathrm{RSS}}
@@ -78,13 +79,15 @@ $\quad\quad\quad$ \textbf{UMID}:
 
 (1)$\quad\quad\mathbf{b}=\big(\mathbb{X}^\top \mathbb{X} \big)^{-1}\, \mathbb{X}^\top\mathbf{y}$
 
-(2)$\quad\quad\var(\hat{\mathbf{\beta}})= \sigma^2 \big( \mathbb{X}^\top \mathbb{X} \big)^{-1}$
+(2)$\quad\quad\var(\mathbb{A}\mathbf{Y})=\mathbb{A}\var(\mathbf{Y})\mathbb{A}^\top$
 
-(3)$\quad\quad\var(\mathbb{A}\mathbf{Y})=\mathbb{A}\var(\mathbf{Y})\mathbb{A}^\top$
+(3)$\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
 
-(4)$\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
+(4)$\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
 
-(5)$\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
+(5) $\quad\quad$The probability density function of the standard normal distribution is $\frac{1}{\sqrt{2\pi}} e^{-x^2/2}$
+
+(6) $\quad\quad$If a random variable is normally distributed, the probability it falls within one standard deviation of the mean is 68%, within two standard deviations of the mean is 95%, and within three standard deviations of the mean is 99.7%.
 
 \vspace{1cm} 
 
@@ -100,11 +103,9 @@ p: vector of probabilities.\\
 
 \exam{\newpage}
 
-Q1. A summation exercise.
+**Q1**. Summation and matrix exercises.
 
-Let $\mat{X}=[x_{ij}]$ be a $3\times 2$ matrix with $(i,j)$ entry given by $x_{ij}=2i$.
-
-(a) [1 point] Write out $\mat{X}$, evaluating each of the six entries of the matrix.
+(a) [1 point] Let $\mat{X}=[x_{ij}]$ be a $3\times 2$ matrix with $(i,j)$ entry given by $x_{ij}=2i$. Write out $\mat{X}$, evaluating each of the six entries of the matrix.
 
 \exam{\vspace{5cm}}
 
@@ -117,10 +118,10 @@ Let $\mat{X}=[x_{ij}]$ be a $3\times 2$ matrix with $(i,j)$ entry given by $x_{i
 
 \exam{\vspace{5cm}}
 
-\solution{
-
-$\sum_{i=1}^3\sum_{j=1}^2 2i = 24$.
-
+\solution{The double sum adds up all $(i,j)$ entries in the matrix, so
+\[
+\sum_{i=1}^3\sum_{j=1}^2 2i = 24.
+\]
 }
 
 (c) [2 points] Evaluate $\mat{X}^\transpose\mat{X}$ where
@@ -144,7 +145,7 @@ $$
 
 \exam{\newpage}
 
-Q2. Manipulating vectors and matrices in R.
+**Q2**. Manipulating vectors and matrices in R.
 
 (a) [2 points] Write the output of 
 ```{r, eval = F}
@@ -212,7 +213,7 @@ Function applied to only the first vector component.
 \exam{\newpage}
 
 
-Q3. Investigating a probability distribution. 
+**Q3**. Investigating a probability distribution. 
 
 Homework 4 involved investigating the t and F distributions. Recall that $X_{t}\sim t(n)$ and $X_F\sim F(m,n)$ if
 \[
@@ -222,12 +223,12 @@ X_{t}=\frac{Y}{\sqrt{\sum_{j=1}^n Z_j^2/n}}
 X_F=\frac{\sum_{i=1}^m Y_i^2/m}{\sum_{j=1}^n Z_j^2/n}
 \]
 where $Y$, $Y_1,\dots,Y_m$ and $Z_1,\dots,Z_n$ are independent $\normal[0,1]$ random variables.
-Another related distribution is the chi-squared distribution. We say $X\sim\chi^2(n)$ if
+Another related distribution is the chi-square distribution. We say $X\sim\chisq(n)$ if
 \[
 X= \sum_{i=1}^n Z_i^2
 \]
 where $Z_1,\dots,Z_n\sim\iid \; \normal[0,1]$.
-Code simulating a sample from the chi-squared distribution with $n=3$ and comparing it to the chi-squared density function is given below. The code for the shaded tail is not given.
+Code simulating a sample from the chi-square distribution with $n=3$ and comparing it to the chi-square density function is given below. The code for the shaded tail is not given.
 
 ```{r echo=T,eval=F}
 X <- rchisq(50,df=3)
@@ -252,7 +253,7 @@ polygon(polygon.x,polygon.y,col='skyblue')
 
 ```
 
-(a) [2 points] Do you think that the chi-squared density function will look like a normal curve if we picked a large value of $n$? Explain your reasoning.
+(a) [2 points] Do you think that the chi-square density function will look like a normal curve if we picked a large value of $n$? Explain your reasoning.
 
 \solution{
 Yes. $X$ is written as a sum of $n$ random variables, so as $n$ gets large a central limit theorem should apply. We could also note that these random variables all have the same distribution and they are independent, so we do not expect any single event to dominate the sum. For the examples we have seen in class, if a variable is the sum of many contributions and no single contribution dominates then a normal approximation is appropriate.
@@ -263,15 +264,15 @@ Yes. $X$ is written as a sum of $n$ random variables, so as $n$ gets large a cen
 (b) [2 points] Guess an R command that will give the area under the probability density curve to the right of 7, corresponding to the shaded right tail on the plot. The shading may or may not be printed well on your copy of the exam, but that is not critical to the question. You are not expected to have previously seen how the chi-squared distribution works in R, but you can assume it works similarly to things you have seen: it does!
 
 \solution{
-\code{1-pchisq(6,df=3)}
+\code{1-pchisq(7,df=3)}
 }
 
 \exam{\vspace{9cm}}
 
-(c) [2 points] Describe a way to numerically obtain the expected value, $\E[X]$, when $X\sim\chi^2(3)$. Your description should include either R code or mathematical notation. Also, explain why your approach is valid.
+(c) [2 points] Describe a way to numerically obtain the expected value, $\E[X]$, when $X\sim\chisq(3)$. Your description should include either R code or mathematical notation. Also, explain why your approach is valid.
 
 \solution{
-The expected value of a random variable is the average of a large number of draws from that distribution. Therefore, we can numerically obtain the expected value from a large sample obtained using `rchisq()`, for example `mean(rchisq(10000,df=3))`. This will not give an exact answer, since there will be some chance variation in the sample average, but for a large sample it will be close.
+The expected value of a random variable is the average of a large number of draws from that distribution. Therefore, we can numerically obtain the expected value from a large sample obtained using \code{rchisq()}, for example \code{mean(rchisq(10000,df=3))}. This will not give an exact answer, since there will be some chance variation in the sample average, but for a large sample it will be close.
 }
 
 \exam{\vspace{9cm}}
@@ -279,7 +280,7 @@ The expected value of a random variable is the average of a large number of draw
 
 \exam{\newpage}
 
-Q4. Fitting a linear model by least squares 
+**Q4**. Fitting a linear model by least squares 
 
 The director of admissions at a large state university wants to assess how well academic success can be predicted based on information available at admission. 
 She collects a dataset of 705 students.
@@ -372,7 +373,7 @@ Plotting the response against the fitted values, we see that the explanatory var
 
 \exam{\newpage}
 
-Q5. Working with the mean, variance, and covariance with a normal approximation.
+**Q5**. Working with the mean, variance, and covariance with a normal approximation.
 
 The sample variance/covariance matrix for the GPA dataset is
 ```{r}
@@ -391,13 +392,23 @@ round(V,2)
 
 \exam{\vspace{6cm}}
 
-(b) [2 points] An admissions officer proposes using the sum of high school rank and (ACT score multiplied by $\actMult$) as an admission criterion. Write a calculation using matrix multiplication to compute the sample standard deviation of this quantity in terms of the matrix
+(b) [2 points] An admissions officer proposes using the sum of high school rank and (ACT score multiplied by $\actMult$) as an admission criterion. Write a calculation using matrix multiplication to compute the sample variance of this quantity in terms of the matrix
 ```{r,results='asis',echo=FALSE,cache=FALSE}
 library(mat2tex)
 xx("\\mat{V}=",
   matrix(c("V_{11}","V_{21}","V_{31}","V_{12}","V_{2,2}","V_{32}","V_{13}","V_{23}","V_{33}"),3,3),
   "=" , V,mtype="bmatrix",digits=2)
 ```
+
+\solution{The sample variance is $\mat{A} \mat{V}\mat{A}^\transpose$ where $\mat{A}=\begin{bmatrix}0 & 1 & 3 \end{bmatrix}$ is the row vector corresponding to the linear combination of $0 \times \mbox{GPA} + 1 \times \mbox{High school rank} + 3 \times \mbox{ACT}$. 
+
+If you write this out in full, it is
+\[
+\begin{bmatrix}0 & 1 & 3 \end{bmatrix}
+\begin{bmatrix} V_{11} & V_{12} & V_{13} \\ V_{21} & V_{22} & V_{23} \\ V_{31} & V_{32} & V_{33} \end{bmatrix}
+\begin{bmatrix}0 \\ 1 \\ 3 \end{bmatrix}
+\]
+}
 
 \exam{\newpage}
 
@@ -414,7 +425,7 @@ Write a matrix multiplication that gives $\mu_\mathrm{sum}$ in terms of $\vec{\m
 
 \solution{
 Taking $\vec{\mu}$ to be a column vector, we have
-\[ \mu_\mathrm{sum}=\begin{bmatrix}0 & 1 & 2 \end{bmatrix}\begin{bmatrix}\mu_1 \\ \mu_2 \\ \mu_3 \end{bmatrix}
+\[ \mu_\mathrm{sum}=\begin{bmatrix}0 & 1 & 3 \end{bmatrix}\begin{bmatrix}\mu_1 \\ \mu_2 \\ \mu_3 \end{bmatrix}
 \]
 An alternative solution could represent $\vec{\mu}$ as a row vector.
 }

@@ -153,11 +153,13 @@ Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
 ## Midterm exam materials
 
 <!--
-
 * [Information and outline for the midterm](mt/info.html).
+-->
 
-* [Practice midterm exam](mt/practice/practice-mt.html).
+* [Practice midterm exam](mt/practice/mt-practice.pdf).
+[Solutions](mt/practice/sol_mt-practice.pdf).
 
+<!--
 * [Exam](mt/mt401w18/mt401w18.pdf). [Solutions](mt/mt401w18/mt401w18sol.pdf).
 -->
 
