@@ -12,7 +12,6 @@ csl: ecology.csl
 
 The [syllabus](syllabus.html) gives the course description, contact information, grading scheme, and other course information.
 
-[STATS 250 Help Card](STATS250 Full Help Card.pdf).
 
 
 ----------
@@ -36,6 +35,7 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 [(Annotations)](04/notes04annotated.pdf).
  
 5. [Vector random variables](05/notes05.pdf). [(R code)](05/notes05.R).
+[(Annotations)](05/notes05annotated.pdf).
 
 <!--
 
@@ -97,6 +97,7 @@ Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
 
 ## Lab materials
 
+* [STATS 250 Help Card](STATS250 Full Help Card.pdf).
 
 * [Lab 1. Introduction to R](Lab/Lab01/lab01.pdf) Slides for 9/7.
     * [CH01PR19.txt](Lab/Lab01/CH01PR19.txt) Dataset of ACT scores and GPAs of college freshmen.
