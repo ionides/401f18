@@ -1,0 +1,152 @@
+---
+title: "HW04 Solutions"
+author: "STATS401 team"
+output: html_document
+---
+
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE}
+set.seed(401)
+```
+
+## Q1
+The answer is $n-m+1$. For the case where $m = 1$, we can see that the formula correctly gives us $\sum_{i = 1}^{n} 1 = n-1+1 = n$.
+
+## Q2
+(a) These are not necessarily equal. For example, suppose $m < n$. Then $\sum_{i = 1}^{n} x_i = \sum_{i = 1}^{m} x_i + \sum_{i = m+1}^{n} x_i$ and so the two sides are not equal unless $\sum_{i = m+1}^{n} x_i = 0$
+(b) These are equal. $i$ and $k$ are arbitrary indexing variables.
+(c) These are not necessarily equal. For example, if $x_i = 1$ for all $i$, and $z_i = 2$ for all $i$, then the two values will be different.
+(d) These are not necessarily equal. For example, if $x_i = 1$ for all $i = 1, \dots, n$, and $x_i = 2$ for all $i = n+1, \dots, 2n$, then the two values will be different.
+
+## Q3
+Because $\bar{x}$ can be treated as a constant we have $\sum_{i = 1}^{n} (x_i - \bar{x}) = \sum_{i = 1}^{n} x_i - \sum_{i = 1}^{n}\bar{x} = \sum_{i = 1}^{n} x_i - n\bar{x}$.
+
+However, $n\bar{x} = n\frac{1}{n}\sum_{i = 1}^{n}x_i = \sum_{i = 1}^{n}x_i$, so the above quantity is zero.
+
+## Q4
+$\textbf{1}^\top\textbf{x} = \begin{bmatrix} 1 & 1 & \dots & 1\end{bmatrix}\begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n\end{bmatrix} = x_1 + x_2 + \dots + x_n = \sum_{i = 1}^{n}x_i$
+
+## Q5
+First, load the data
+```{r}
+mice <- read.csv("https://ionides.github.io/401f18/hw/hw01/femaleMiceWeights.csv")
+```
+
+(a) Let $x_i, i = 1, 2, \dots, 12$ be the weights for the 12 mice on the high fat diet. 
+
+The sample mean is given by $\bar{x} = \sum_{i = 1}^{12}x_i$. The sample standard deviation is given by $s = \sqrt{\frac{1}{11}\sum_{i = 1}^{12}(x_i - \bar{x})^2}$.
+
+To obtain these values in R, we first subset to the high fat diet:
+```{r}
+data_hf = mice[mice$Diet == "hf",2] 
+```
+
+We then use the mean and sd function to obtain the desired values:
+```{r}
+sample_mean = mean(data_hf)
+sample_sd = sd(data_hf)
+sample_mean
+sample_sd
+```
+
+(b)
+```{r}
+hist(data_hf, freq = FALSE)
+normal.x = seq(from = min(data_hf), to = max(data_hf),length = 100)
+normal.y = dnorm(normal.x, mean = sample_mean, sd = sample_sd)
+lines(normal.x,normal.y,col = "blue")
+```
+
+It does not appear that the data fit a normal distribution model well. The data are slightly skewed and have a much thicker tail.
+
+(c)
+```{r}
+normal_draws = rnorm(12,sample_mean,sample_sd)
+
+hist(normal_draws, freq = FALSE)
+normal.x = seq(from = min(normal_draws), to = max(normal_draws),length = 100)
+normal.y = dnorm(normal.x, mean = sample_mean, sd = sample_sd)
+lines(normal.x,normal.y,col = "blue")
+```
+
+(d)
+Even though the data in (c) were actually drawn from a normal distribution, it does not appear that the data fit a normal distribution model any better than the mice data. If we were to repeat this procedure, we would notice a similar trend quite often. This tells us that it is not necessarily reasonable to assume that a normal distribution model is not appropriate based off the 12 data points we collected.
+
+(e) The percentage is given by: $\int_{1}^\infty \frac{1}{\sqrt{2\pi}}\exp(\frac{-x^2}{2}) + \int_{-\infty}^1 \frac{1}{\sqrt{2\pi}}\exp(\frac{-x^2}{2})$
+
+We can evaluate this in R using:
+```{r}
+1-pnorm(1) + pnorm(-1)
+```
+
+Alternatively, we can obtain the same result by symmetry:
+```{r}
+2*pnorm(-1)
+```
+
+3.
+We can calculate the amount more than 1 sample standard deviation above or 1 sample standard deviation below the sample mean as follows:
+```{r}
+above = sum(data_hf > sample_mean + sample_sd)
+below = sum(data_hf < sample_mean - sample_sd)
+```
+
+Then we calculate the percentage more than 1 sample standard deviation away from the sample mean:
+```{r}
+(above+below)/12
+```
+
+This value is fairly close to the value given under a normal approximation.
+
+## Q6
+```{r}
+my_t <- function(n){
+  rnorm(1) / sqrt(sum(rnorm(n)^2/n))
+}
+```
+
+(a)-(c)
+```{r}
+t_draws = replicate(10000,my_t(6))
+hist(t_draws, breaks = 15, freq = FALSE)
+
+x = seq(from = min(t_draws), to = max(t_draws),length = 100)
+t.y = dt(x, df = 6)
+normal.y = dnorm(x, 0, 1)
+
+lines(x,t.y, col = "blue")
+lines(x,normal.y, col = "blue",lty = "dashed")
+```
+
+Both densities are unimodal and symmetric; however, the t distribution has thicker tails than the normal distribution.
+
+## Q7
+
+```{r}
+my_F <- function(m,n){
+   sum(rnorm(m)^2/m) / sum(rnorm(n)^2/n)
+}
+```
+
+(a)-(b)
+```{r}
+f_draws = replicate(10000,my_F(5,10))
+hist(f_draws, breaks = 15, freq = FALSE)
+
+x = seq(from = min(t_draws), to = max(t_draws),length = 100)
+f.y = df(x, df1 = 5, df2 = 10)
+
+lines(x,f.y, col = "blue")
+```
+
+(c)
+When $m = 1$, we can write Eq 2 as $V = \frac{\sum_{i=1}^{1}Y_i^2/1}{\sum_{j=1}^{n}Z_j^2/n} = \frac{Y_1^2}{\sum_{j=1}^{n}Z_j^2/n}$, where $Y_1, Z_1, \dots, Z_n$ are draws from a standard normal distribution. This corresponds exactly to the square of Eq 1. We can therefore conclude $V$ has the same distribution as $U^2$.
