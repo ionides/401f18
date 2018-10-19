@@ -70,10 +70,8 @@ Due in lab on 9/28.
 
 * [Homework 4. Probability exercises and some summation](hw/hw04/hw04.html). 
 Due in lab on 10/5. 
+    * [HW 4 Solutions](hw/hw04/hw04_sol.html).
 
-<!--
-[Solutions](hw/hw04/sol_hw04.html).
--->
 
 * [Homework 5. Covariance and correlation and symmetric matrices](hw/hw05/hw05.html). 
 Due in lab on 10/19. 
