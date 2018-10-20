@@ -1,0 +1,464 @@
+---
+title: "Homework 5, STATS 401 F18"
+author: "Due in lab on 10/19"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov}}
+\newcommand\corSample{\mathrm{cor}}
+\newcommand\cor{\mathrm{Cor}}
+
+**Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+--------------
+
+### Symmetric matrices
+
+$\mat{A}=[a_{ij}]_{p\times p}$ is a **symmetric matrix** if $a_{ij}=a_{ji}$ for all $i$ and $j$.
+This means the matrix has reflective symmetry across its **leading diagonal**. Recall that variance/covariance matrices are symmetric because $\cov(X_i,X_j)= \cov(X_j,X_i)$ due to the symmetry of covariance.
+
+An example of a symmetric matrix is
+
+```{r M1,echo=F,results='asis',cache=FALSE}
+library(mat2tex)
+xx(matrix(c(2,3,-1,3,1,4,-1,4,7),3,3),mtype="bmatrix",digits=0)
+```
+
+An equivalent definition is that $\mat{A}$ is symmetric if $\mat{A}=\mat{A}^\transpose$. Transposing swaps rows and columns, which is exactly the same thing as reflection across the leading diagonal.
+Thus, a matrix is equal to its transpose if and only if it has reflective symmetry across the leading diagonal. Checking whether a matrix is equal to its transpose can be a good way to see if a matrix is symmetric since we have already used rules for transposing matrix products and inverses. 
+
+**Q1**. Let $\mat{A}$ be a symmetric $p\times p$ matrix and let $\mat{B}$ be any $p\times q$ matrix. Let
+\[
+\mat{C} = \mat{B}^\transpose \mat{A}\mat{B}
+\]
+Show that $\mat{C}$ is equal to its own transpose and hence show that $\mat{C}$ is a symmetric $q\times q$ matrix.
+
+<font color="blue">
+*Q1 Solution*. 
+
+$$
+\mathbb{C}^T = (\mathbb{B}^T \mathbb{AB})^T \\
+\mathbb{C}^T = \mathbb{B}^T \mathbb{A}^T (\mathbb{B^T})^T \\
+\mathbb{C}^T = \mathbb{B}^T \mathbb{AB}
+$$
+Therefore $\mathbb{C}^T = \mathbb{C}$.
+
+</font>
+
+Hint: Apply the rules of matrix multiplication and transposition to simplify $\mat{C}^\transpose = \big(\mat{B}^\transpose \mat{A}\mat{B}\big)^\transpose$. 
+Using the assumption that $\mat{A}$ is symmetric, this simplification should give you an expression equal to $\mat{C}$.
+
+**Q2**. Let $\mat{A}$ be a symmetric $p\times p$ matrix with an inverse $\mat{A}^{-1}$. Is  $\mat{A}^{-1}$ symmetric?
+
+(a) Calculate an example using R to check this.
+
+<font color = "blue">
+*Question 2a Solution*.
+
+Let $$\mathbb{A} = \begin{bmatrix} 1 & 2 & 3 \\ 2 & 1 & 4 \\ 3 & 4 & 1 \end{bmatrix}$$
+
+Using R to solve, we obtain that $$\mathbb{A}^{-1} = \begin{bmatrix} -0.75 & 0.5 & 0.25 \\ 0.50 & -0.4 & 0.10 \\ 0.25 & 0.1 & -0.15 \end{bmatrix}$$ which is also a symmetric matrix.
+
+</font>
+    
+(b) Explain this result using properties of the matrix transpose and inverse.
+
+<font color = "blue">
+*Question 2b Solution*.
+
+Note: We want to show that $(\mathbb{A}^{-1})^T = \mathbb{A}^{-1}$
+
+Let $\mathbb{A}$ be a non-singular (has an inverse) and symmetric matrix.
+Then there exists an $\mathbb{A}^{-1}$ such that $\mathbb{A}^{-1}\mathbb{A} = \mathbb{AA}^{-1} = \mathbb{I}$.
+
+Note that $\mathbb{I} = \mathbb{I}^T$ and $\mathbb{A}^{-1}\mathbb{A} = \mathbb{AA}^{-1} = \mathbb{I}$
+
+
+Then,
+
+$$
+(\mathbb{A}^{-1}\mathbb{A})^T = \mathbb{I}^T \\
+\mathbb{A}^T(\mathbb{A}^{-1})^T = \mathbb{I} \\
+\mathbb{A}(\mathbb{A}^{-1})^T = \mathbb{AA}^{-1} \\
+\mathbb{A}^{-1}\mathbb{A}(\mathbb{A}^{-1})^T = \mathbb{A}^{-1}\mathbb{AA}^{-1} \\
+\mathbb{I}(\mathbb{A}^{-1})^T = \mathbb{IA}^{-1} \\
+(\mathbb{A}^{-1})^T = \mathbb{A}^{-1}
+$$
+
+</font>
+
+--------------
+
+**Q3**. Investigating multivariate data.
+
+Carbon dioxide ($CO_2$) levels in the atmosphere have been increasingly steadily. The longest data recording this are the measurements taken at Mauna Loa observatory in Hawaii. An increasing trend in $CO_2$ matches increasing trends in both global economic activity and the global population. Which provides a better explanation? To address this, one may have to look at variations around the trend. However, on shorter timescales, fluctuating geophysical processes such as volcanic activity and the El Nino Southern Oscillation (ENSO) may be dominant. In addition, one can wonder whether existing data measuring global $CO_2$ emissions do a better job than overall economic activity for explaining fluctuations of $CO_2$ around its increasing trend. The following dataset collects together indices measuring all these phenomena.
+
+```{r,eval=F} 
+download.file(destfile="climate.txt",
+  url="https://ionides.github.io/401f18/hw/hw05/climate.txt")
+```
+
+```{r}
+X <- read.table("climate.txt",header=TRUE)
+head(X)
+```
+
+* CO2: Mean annual concentrations of atmospheric CO2 (in parts per million by volume) at Mauna Loa observatory.
+
+* GDP: World gross domestic product from World Development Indicators database (data.worldbank.org/data-catalog/world-development-indicators) of the World Bank
+
+* Pop: World population from World Development Indicators database (data.worldbank.org/data-catalog/world-development-indicators) of the World Bank
+
+* ENSO: El Nino Southern Oscillation index from NOAA sources (www.esrl.noaa.gov/psd/people/klaus.wolter/MEI/table.html)
+
+* Emissions: estimated emissions of CO2 (million Kt) from World Development Indicators database (data.worldbank.org/data-catalog/world-development-indicators) of the World Bank
+
+(a) Create new variables called `diff_CO2` `diff_GDP` `diff_pop` and `diff_emissions` that measure the percentage annual change in each variable. A trick to do this is to take the difference of the logarithm. In addition, it is necessary to add a missing value (`NA`) at the start since the annual change is not available in the first year of the dataset. For example,
+
+```{r}
+X$diff_CO2 <- c(NA,diff(log(X$CO2)))
+```
+
+<font color = "blue">
+*Question 3a Solution*.
+
+```{r}
+X$diff_CO2 <- c(NA,diff(log(X$CO2)))
+X$diff_GDP <- c(NA,diff(log(X$GDP)))
+X$diff_pop <- c(NA,diff(log(X$Pop)))
+X$diff_emissions <- c(NA,diff(log(X$Emissions)))
+```
+
+</font>
+
+(b) Make a pairs plot of the variables `diff_CO2`, `diff_GDP`, `diff_pop`, `diff_emissions`, `ENSO` and `Volcanic`. You will likely have to look at `?pairs` to study the syntax of `pairs()`.
+
+<font color = "blue">
+*Question 3b Solution*.
+
+```{r}
+pairs_plot_vars <- X[, c("diff_CO2", "diff_GDP", "diff_pop", "diff_emissions", "ENSO", "Volcanic")]
+pairs(pairs_plot_vars)
+```
+
+</font>
+
+(c) Describe what you see in the pairs plot. Which variables seem to approximately follow a joint normal distribution and which do not? Can you explain any of these results by whether or not a central limit theorem is applicable to the quantities? 
+
+<font color = "blue">
+*Question 3c Solution*.
+
+(`diff_CO2` and `diff_GDP`), (`diff_CO2` and `diff_emissions`), (`diff_pop` and `diff_emissions`), (`diff_pop` and `ENSO`), and (`diff_emissions` and `ENSO`) appear to follow joint normal distributions. The Central Limit Theorem (CLT) may apply to the joint distribution of (`diff_pop` and `diff_emissions`) and (`diff_GDP` and `ENSO`).
+
+</font>
+
+
+(d) Calculate the sample correlation matrix of these variables using `cor()`. If any of the measurements are `NA` the sample correlation will show up as `NA`. You can subset the data to consider only the years when all these variables were measured.
+
+<font color = "blue">
+*Question 3d Solution*.
+
+```{r}
+# remove the observations that contain missing values
+corr_vars <- na.omit(pairs_plot_vars)
+cor(corr_vars)
+```
+
+</font>
+
+(e) Interpret the sample correlation matrix. Global climate and the global economy are complex systems, and it is unlikely that a preliminary analysis such as (d) is going to be highly revealing. More likely, some of the results will be surprising and some may not readily make sense. Comment on what does and does not make sense to you in the sample correlation matrix, and then discuss the limitations of this analysis and things that might be done to overcome these limitations. You are not asked to carry out additional analysis, though you can if you want to!
+
+<font color = "blue">
+*Question 3e Solution*.
+
+Note: It is not surprising that the signs and values of the pairwise correlations follow the trends that we saw in the `pairs()` plot in part b.
+
+It initially surprising that $CO_2$ levels would decrease as GDP, population, and emissions rise. However, this may be driven by changes in technology or changes in the make-up of emissions (for instance emitting a different gas as opposed to $CO_2$). It is somewhat surprising that $CO_2$ declines so sharply with increases in Volcanic activity but increases as the El Nino index rises.
+
+It is not surprising that GDP would increase as population increases and that emissions would increase with increases in GDP and the population. It is also not surprising that GDP would decline when ENSO and volcanic activity increase as natural disasters tend to destroy a lot of capital of a region.
+
+The correlations of population with ENSO and volcanic activity do not have readily identifiable causes and may just be spurious correlations.
+
+</font>
+
+
+-------------
+
+**Q4**. Working with the multivariate normal distribution in three dimensions.
+
+This question guides you through a simulation experiment to verify that
+`mvnorm(n,mean=mu,sigma=V)`
+draws random variables with mean `mu` and variance/covariance matrix `V`. This differs slightly from `rnorm()` for which the arguments are mean and standard deviation rather than mean and variance. 
+
+Carry out the following steps in R.
+
+(a) Set `mu` to be a length 3 vector of your choice.
+
+<font color = "blue">
+*Question 4a Solution*.
+
+```{r}
+mu = matrix(c(1,2,3))
+```
+
+</font>
+
+
+(b) Set `V` to be a $3\times 3$ symmetric matrix of your choice.
+
+<font color = "blue">
+*Question 4b Solution*.
+
+```{r}
+# create a variance/covariance matrix
+V = matrix(c(3,2,1,2,5,1,1,1,6), nrow = 3)
+V
+
+# check that it is positive semi-definite
+eigen(V)$values
+```
+
+Since my $\mathbb{V}$ have eigenvalues that are all greater than 0, I won't get the warning message mentioned in part c.
+
+</font>
+
+(c) Draw a large sample from the multivariate normal distribution with these parameters using `rmvnorm()`. There may be some fiddling required to choose a `V` that makes this work without the warning message
+```
+Warning message:
+In rmvnorm: sigma is numerically not positive semidefinite
+```
+in which case you can look ahead to part (f).
+
+<font color = "blue">
+*Question 4c Solution*.
+
+```{r}
+# Draw a large sample from the multivariate normal distribution
+library(mvtnorm)
+mvn_sample <- rmvnorm(1000, mu, V)
+```
+
+</font>
+
+
+(d) Compute the sample mean and sample variance/covariance matrix for the multivariate random variables you simulated, and check they are close to `mu` and `V`.
+
+<font color = "blue">
+*Question 4d Solution*.
+
+```{r}
+# sample mean
+apply(mvn_sample, 2, mean)
+
+# sample covariance matrix
+cov(mvn_sample)
+```
+
+The sample vector mean and covariance matrix are close to the true values.
+
+</font>
+
+(e) Make a pairs plot of your three simulated variables using the `pairs()` function. By looking at the pairs plot, guess the three correlations between the three possible choices of pairs of these variables. Then compute the exact correlations from `V` and see how close your guess was. 
+
+<font color = "blue">
+*Question 4e Solution*.
+
+```{r}
+pairs(mvn_sample)
+```
+
+Guess: The correlation between variable 1 and variable 2 is around 0.6. The correlation between variable 1 and variable 2 is around 0.3. Variable 2 and variable 3 have a correlation close to 0.
+
+The calculated correlation matrix is the following:
+
+```{r}
+cor(mvn_sample)
+```
+
+</font>
+
+(f) Not all symmetric matrices are valid variance/covariance matrices. In particular, variances have to be non-negative and so the diagonal entries of the variance/covariance matrix must be non-negative. Covariances can be negative. However, variables with small variance can't have large covariance. To see this, since the correlation is between -1 and 1, we have an inequality
+\[
+\left| \frac{\cov(X,Y)}{\sqrt{\var(X)\var(Y)}} \right| \le 1
+\]
+which gives us
+\[
+\big[ \cov(X,Y) \big]^2 \le \var(X) \times \var(Y).
+\]
+Try to carry out step (c) and (d) with a non-valid variance/covariance matrix and report on what happens. If your original variance/covariance matrix was not valid, re-run your code for (a-d) with a valid choice of `V`.
+
+<font color = "blue">
+*Question 4f Solution*.
+
+```{r}
+
+# create a variance/covariance matrix
+V = matrix(c(1,2,3,2,5,1,3,1,6), nrow = 3)
+V
+
+# Draw a large sample from the multivariate normal distribution
+mvn_sample <- rmvnorm(1000, mu, V)
+
+# sample mean
+apply(mvn_sample, 2, mean)
+
+# sample covariance matrix
+cov(mvn_sample)
+
+# pairs plot of the sample
+pairs(mvn_sample)
+
+# correlation matrix
+cor(mvn_sample)
+```
+
+My correlation between variable 1 and variable 2 is fairly high at 0.63, nad my correlation between variable 2 and variable 3 is very high with a correlation of 0.88. This indicates that my variables may not be independent; variable 2 may be linearly related to variable 3.
+
+</font>
+
+
+**Q5**. Working with means and variances of linear combinations.
+
+Let $\vec{X}=(X_1,X_2,X_3,X_4)$ be a vector random variable with mean vector $(1,2,3,4)$ and variance/covariance matrix 
+```{r M2,echo=F,results='asis',cache=FALSE}
+library(mat2tex)
+V <-matrix(c(
+  1,1,1,1,
+  1,2,2,2,
+  1,2,3,3,
+  1,2,3,4
+),nrow=4)
+xx("\\mat{V} = ",V,mtype="bmatrix",digits=0)
+```
+
+(a) Find the mean and variance of $\sum_{i=1}^4X_i$. 
+
+<font color = "blue">
+*Question 5a Solution*.
+
+Note: I can re-write $\sum_{i=1}^4X_i$ as $\begin{bmatrix} 1 & 1 & 1 & 1 \end{bmatrix}\begin{bmatrix} X_1 \\ X_2 \\ X_3 \\ X_4 \end{bmatrix}$. Let $\mathbb{A}_{1 \times 4}= \begin{bmatrix} 1 & 1 & 1 & 1 \end{bmatrix}$.
+
+Then 
+
+$$
+E[\mathbb{A}\boldsymbol{X}] = \mathbb{A}E[\boldsymbol{X}] \\
+\mathbb{A}E[\boldsymbol{X}] = \begin{bmatrix} 1 & 1 & 1 & 1 \end{bmatrix}\begin{bmatrix} 1 \\ 2 \\ 3 \\ 4 \end{bmatrix} \\
+= 10
+$$
+
+and 
+
+$$
+Var(\mathbb{A}\boldsymbol{X}) = \mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T \\
+\mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T = \begin{bmatrix} 1 & 1 & 1 & 1 \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 2 & 2 \\ 1 & 2 & 3 & 3 \\ 1 & 2 & 3 & 4 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix} \\
+\mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T = 30
+$$
+
+</font>
+
+(b) Find the mean and variance of $\bar X = \frac{1}{4} \sum_{i=1}^4 X_i$.
+
+<font color = "blue">
+*Question 5b Solution*.
+
+Note: I can re-write $\frac{1}{4}\sum_{i=1}^4X_i$ as $\begin{bmatrix} \frac{1}{4} & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} \end{bmatrix}\begin{bmatrix} X_1 \\ X_2 \\ X_3 \\ X_4 \end{bmatrix}$. Let $\mathbb{A}_{1 \times 4}= \begin{bmatrix} \frac{1}{4} & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} \end{bmatrix}$.
+
+Then 
+
+$$
+E[\mathbb{A}\boldsymbol{X}] = \mathbb{A}E[\boldsymbol{X}] \\
+\mathbb{A}E[\boldsymbol{X}] = \begin{bmatrix} \frac{1}{4} & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} \end{bmatrix}\begin{bmatrix} 1 \\ 2 \\ 3 \\ 4 \end{bmatrix} \\
+= 2.5
+$$
+and 
+
+$$
+Var(\mathbb{A}\boldsymbol{X}) = \mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T \\
+\mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T = \begin{bmatrix} \frac{1}{4} & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 2 & 2 \\ 1 & 2 & 3 & 3 \\ 1 & 2 & 3 & 4 \end{bmatrix}\begin{bmatrix} \frac{1}{4} \\ \frac{1}{4} \\ \frac{1}{4} \\ \frac{1}{4} \end{bmatrix} \\
+\mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T = 1.875
+$$
+
+</font>
+
+(c) Use matrix methods to find the mean and variance of the **linear combination** $X_1+2X_2+3X_3+4X_4$. You do not have to do the calculation by hand. Report the required calculation using mathematical notation and carry out the computation using R.
+
+<font color = "blue">
+*Question 5c Solution*.
+
+Note: I can re-write $\frac{1}{4}\sum_{i=1}^4X_i$ as $\begin{bmatrix} 1 & 2 & 3 & 4 \end{bmatrix}\begin{bmatrix} X_1 \\ X_2 \\ X_3 \\ X_4 \end{bmatrix}$. Let $\mathbb{A}_{1 \times 4}= \begin{bmatrix} 1 & 2 & 3 & 4 \end{bmatrix}$.
+
+Then 
+
+$$
+E[\mathbb{A}\boldsymbol{X}] = \mathbb{A}E[\boldsymbol{X}] \\
+\mathbb{A}E[\boldsymbol{X}] = \begin{bmatrix} 1 & 2 & 3 & 4 \end{bmatrix}\begin{bmatrix} 1 \\ 2 \\ 3 \\ 4 \end{bmatrix} \\
+= 30
+$$
+and 
+
+$$
+Var(\mathbb{A}\boldsymbol{X}) = \mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T \\
+\mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T = \begin{bmatrix} 1 & 2 & 3 & 4 \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 2 & 2 \\ 1 & 2 & 3 & 3 \\ 1 & 2 & 3 & 4 \end{bmatrix}\begin{bmatrix} 1 \\ 2 \\ 3 \\ 4 \end{bmatrix} \\
+\mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T = 246
+$$
+
+</font>
+
+(d) Suppose that $\vec{X}$ is a multivariate normal vector random variable with the mean and variance/covariance matrix given above. Find the probability that $X_4$ is greater than $X_3$. Explain your reasoning, and report an R calculation. Hint: Rewrite the event $\{X_4>X_3\}$ as a statement about the linear combination $X_4-X_3$. Work out the mean and variance of $X_4-X_3$ using the same approach you used for part (c). Then, use the property that a linear combination of multivariate normal random variables is normally distributed.
+
+<font color = "blue">
+*Question 5c Solution*.
+
+$P(X_4>X_3) = P(X_4 - X_3 > 0)$
+
+Note:
+$$
+X_4 - X_3 = 0X_1 + 0X_2 - X_3 + X_4
+$$
+
+Then we can rewrite this as $\mathbb{A}\boldsymbol{X}$ where $\mathbb{A}_{1 \times 4} = \begin{bmatrix} 0 & 0 & -1 & 1 \end{bmatrix}$.
+
+Then
+
+$$
+E[\mathbb{A}\boldsymbol{X}] = \mathbb{A}E[\boldsymbol{X}] \\
+\mathbb{A}E[\boldsymbol{X}] = \begin{bmatrix} 0 & 0 & -1 & 1 \end{bmatrix}\begin{bmatrix} 1 \\ 2 \\ 3 \\ 4 \end{bmatrix} \\
+= 1
+$$
+
+and
+
+$$
+Var(\mathbb{A}\boldsymbol{X}) = \mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T \\
+\mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T = \begin{bmatrix} 0 & 0 & -1 & 1 \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 2 & 2 \\ 1 & 2 & 3 & 3 \\ 1 & 2 & 3 & 4 \end{bmatrix} \begin{bmatrix} 0 \\ 0 \\ -1 \\ 1 \end{bmatrix} \\
+\mathbb{A}Var(\boldsymbol{X})\mathbb{A}^T = 1
+$$
+
+Then $P(X_4>X_3) = P(X_4 - X_3 > 0)$ can be found using `pnorm(0, 1, 1, lower.tail = F)`.
+
+Thus, $P(X_4 - X_3 > 0) = 0.8413447$.
+
+</font>
+
+---------------
+
+--------------
+
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+Acknowledgment: The climate dataset comes from from https://https://doi.org/10.1016/j.envsci.2012.03.008
+
+------

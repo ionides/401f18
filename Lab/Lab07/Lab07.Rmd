@@ -66,11 +66,11 @@ where
 
 # $\boldsymbol{\hat \beta}$
 
-Recall: $\boldsymbol{b} = (\mathbb{X}^T\mathbb{X})^{-1}\mathbb{X}\boldsymbol{y}$
+Recall: $\boldsymbol{b} = (\mathbb{X}^T\mathbb{X})^{-1}\mathbb{X}^T\boldsymbol{y}$
 
 Similar to the probability model for $\boldsymbol{y} = \mathbb{X}\boldsymbol{b} + \boldsymbol{e}$, $\boldsymbol{b}$ has a probability model.
 
-$\boldsymbol{\hat \beta} = (\mathbb{X}^T\mathbb{X})^{-1}\mathbb{X}\boldsymbol{Y}$
+$\boldsymbol{\hat \beta} = (\mathbb{X}^T\mathbb{X})^{-1}\mathbb{X}^T\boldsymbol{Y}$
   
 Key idea: We have a population model for the response variables ($\boldsymbol{Y}$). We can estimate the true coefficients using $\boldsymbol{\hat\beta}$, e.g. $\boldsymbol{\hat\beta}$ is an estimator for $\boldsymbol{\beta}$. However, since we only get a random draw of $\boldsymbol{Y}$, known as $\boldsymbol{y}$, we can only use a realization of $\boldsymbol{\hat \beta}$ known as $\boldsymbol{b}$, e.g. $\boldsymbol{b}$ is an estimate of $\boldsymbol{\beta}$.
 
@@ -121,7 +121,7 @@ $$\mathbb{V} = \begin{bmatrix} 6 & 2 & 3 \\ 2 & 4 & 5 \\ 3 & 5 & 1\end{bmatrix}$
 
 \begin{center} $W_1$ is the sum of $Y_1, Y_2,$, and $Y_3$.\end{center}
 \begin{center} $W_2$ is the sum of $Y_1$, ($Y_2$ multiplied by 2), and ($Y_3$ multiplied by -1).\end{center}
-\begin{center} $W_3$ is the sum of ($Y_1$ multiplied by 3), and ($Y_2$ and $Y_3$ both multiplied by -1). \end{center}
+\begin{center} $W_3$ is the sum of $Y_1$, and ($Y_2$ and $Y_3$ both multiplied by -1). \end{center}
 
 a. State the above in matrix notation.
 b. Find the expectation of the random vector $\boldsymbol{W}$.
@@ -172,17 +172,17 @@ $y_i = 0.24x_{i,1} + 0.05x_{i,2} + 0.01x_{i,3} + 0.31  + e_i$, where
 
 $W_1 = [1,1,1]\begin{bmatrix} Y_1 \\ Y_2 \\ Y_3\end{bmatrix}$. Let $\mathbb{A}_1 = [1,1,1]$
 $W_2 = [1,2,-1]\begin{bmatrix} Y_1 \\ Y_2 \\ Y_3\end{bmatrix}$ Let $\mathbb{A}_2 = [1,2,-1]$
-$W_3 = [3,-1,-1]\begin{bmatrix} Y_1 \\ Y_2 \\ Y_3\end{bmatrix}$ Let $\mathbb{A}_3 = [3,-1,-1]$
+$W_3 = [1,-1,-1]\begin{bmatrix} Y_1 \\ Y_2 \\ Y_3\end{bmatrix}$ Let $\mathbb{A}_3 = [1,-1,-1]$
 
 Let $\mathbb{A} = \begin{bmatrix} \mathbb{A}_1 \\ \mathbb{A}_2 \\ \mathbb{A}_3\end{bmatrix}$. In other words,
 
-$$\mathbb{A} = \begin{bmatrix} 1 & 1 & 1 \\ 1 & 2 & -1 \\ 3 & -1 & -1 \end{bmatrix}$$
+$$\mathbb{A} = \begin{bmatrix} 1 & 1 & 1 \\ 1 & 2 & -1 \\ 1 & -1 & -1 \end{bmatrix}$$
 
 # Lab Activity Solutions (Part 3)
 
-Then $E[\boldsymbol{W}] = \begin{bmatrix} 12 \\ 4 \\ -4\end{bmatrix}$
+Then $E[\boldsymbol{W}] = \begin{bmatrix} 12 \\ 4 \\ -8\end{bmatrix}$
 
-Then $Var(\boldsymbol{W}) = \begin{bmatrix} 31 & 24 & 13 \\ 24 & 5 & 4 \\ 13 & 4 & 39 \end{bmatrix}$
+Then $Var(\boldsymbol{W}) = \begin{bmatrix} 31 & 24 & -9 \\ 24 & 5 & -10 \\ -9 & -10 & 39 \end{bmatrix}$
 
 # Exam Questions
 
@@ -197,6 +197,6 @@ Using the same random variables as Lab Activity Part 3.
 
 # Lab Ticket Solutions
 
-1. $\mathbb{A} = [1, -1, 0]$. $E[\mathbb{A}\boldsymbol{Y}] = -2$ and $Var(\mathbb{A}\boldsymbol{Y}) = 6$. Then $P(Y_1 > Y_2)$ = `pnorm(0, -2, 6, lower.tail = F)` = 0.3694413.
+1. $\mathbb{A} = [1, -1, 0]$. $E[\mathbb{A}\boldsymbol{Y}] = -2$ and $Var(\mathbb{A}\boldsymbol{Y}) = 6$. Then $P(Y_1 > Y_2)$ = `pnorm(0, -2, sqrt(6), lower.tail = F)` = 0.2071081.
 
-1. $\mathbb{A} = [-2, 2, 2]$. $E[\mathbb{A}\boldsymbol{Y}] = 16$ and $Var(\mathbb{A}\boldsymbol{Y}) = 44$. Then $P(W_1 > W_3)$ = `pnorm(0, 16, 44, lower.tail = F)` = 0.6419352.
+1. $\mathbb{A} = [0, 2, 2]$. $E[\mathbb{A}\boldsymbol{Y}] = 20$ and $Var(\mathbb{A}\boldsymbol{Y}) = 60$. Then $P(W_1 > W_3)$ = `pnorm(0, 20, sqrt(60), lower.tail = F)` = 0.9950884.
