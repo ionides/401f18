@@ -1,0 +1,145 @@
+---
+title: "Stats 401 Lab 6"
+author: "Ed Wu"
+date: "10/12/2018"
+output:
+  beamer_presentation:
+  colortheme: dolphin
+incremental: no
+ioslides_presentation:
+  incremental: no
+fontsize: 18pt
+---
+
+# Lab Activity (Part 1)
+1. If $\text{Cor}(W,Z) = 0.5$, what is the correlation of $\text{Cor}(2W,Z+1)$?
+
+2. Let $(X,Y)$ take the values $(0,1),(1,1),(1,2)$, each with probability 1/3
+    - What is the covariance of $X$ and $Y$?
+    - We take a sample of size 5: $(0,1), (0,1), (1,2), (1,1), (1,2)$. What is sample covariance?
+    
+# Lab Activity (Part 1) Solutions
+## Question 1 Part 1
+
+$$
+\begin{aligned}
+Cor(2W,Z+1) = \frac{Cov(2W, Z + 1)}{\sqrt{var(2W)var(Z+1)}} \\ \\
+Cov(2W, Z + 1) = E[2W - E(2W)]E[(Z+1) - E(Z+1)] \\
+= E[2W - 2E(W)]E[Z+1 - (E(Z) + 1)] \\
+= 2E[W - E(W)]E[Z - E(Z)] \\
+= 2Cov(W, Z)
+\end{aligned}
+$$
+
+# Lab Activity (Part 1) Solutions, cont.
+## Question 1 Part 1 (cont)
+
+$$
+\begin{aligned}
+Var(2W) = 4Var(W) \\
+Var(Z + 1) = Var(Z) \\
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+Cor(2W,Z+1) = \frac{2Cov(W, Z)}{\sqrt{4Var(W)Var(Z)}} \\ \\
+= \frac{Cov(W, Z)}{\sqrt{Var(W)Var(Z)}} \\ \\
+= Cor(W,Z) = 0.5
+\end{aligned}
+$$
+
+# Lab Activity (Part 1) Solutions, cont.
+## Question 1 Part 2
+
+$$
+\begin{aligned}
+cov(x,y) = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y}) \\
+= \frac{1}{4-1}\sum_{i=1}^4(x_i - \bar{x})(y_i - \bar{y}) \\
+= \frac{1}{4}\sum_{i=1}^4(x_i - \bar{x})(y_i - \bar{y}) \\
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\bar{x} = \frac{3}{5} \\ \\
+\bar{y} = \frac{7}{5}
+\end{aligned}
+$$
+
+# Lab Activity (Part 1) Solutions, cont.
+## Question 1 Part 2
+
+$$
+\begin{aligned}
+cov(x,y) = \frac{1}{4}\sum_{i=1}^4(x_i - \frac{3}{5})(y_i - \frac{7}{5}) \\
+= \frac{1}{4}[(0 - \frac{3}{5})(1 - \frac{7}{5}) + (0 - \frac{3}{5})(1 - \frac{7}{5}) + \\
+(1 - \frac{3}{5})(2 - \frac{7}{5}) + (1 - \frac{3}{5})(1 - \frac{7}{5}) + \\
+(1 - \frac{3}{5})(2 - \frac{7}{5})] \\
+= \frac{1}{4}[(- \frac{3}{5})(- \frac{2}{5}) + (- \frac{3}{5})(- \frac{2}{5}) + \\
+(\frac{2}{5})(\frac{3}{5}) + (\frac{2}{5})(- \frac{2}{5}) + \\
+(\frac{2}{5})(\frac{3}{5})]
+\end{aligned}
+$$
+
+# Lab Activity (Part 1) Solutions, cont.
+## Question 1 Part 2 cont.
+
+$$
+\begin{aligned}
+= \frac{1}{4}[\frac{6}{25} + \frac{6}{25} + \frac{6}{25} -\frac{4}{25} + \frac{6}{25}] \\
+= \frac{1}{4} \times \frac{20}{25} \\
+= \frac{5}{25} = \frac{1}{5}
+\end{aligned}
+$$
+
+# Lab Activity (Part 2)
+The scatterplot below was generated from a bivariate normal distribution with mean vector $(0,0)$ 
+```{r, warning = FALSE, echo = FALSE,out.width="45mm",fig.width=4,fig.height=4,fig.align = 'center'}
+library(mvtnorm)
+data_ii = rmvnorm(1000, mean = c(0,0), sigma = matrix(c(1,-0.75,-0.75,1),nrow = 2))
+plot(data_ii[,1],data_ii[,2],xlab = "x",ylab = "y")
+```
+
+Which of the following is the variance-covariance matrix?
+
+1. $\begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}$; 2. $\begin{bmatrix} 1 & 0.25 \\ 0.25 & 1\end{bmatrix}$; **3. $\begin{bmatrix} 1 & -0.75 \\ -0.75 & 1\end{bmatrix}$**
+
+# Lab Activity (Part 2)
+The scatterplot below was generated from a bivariate normal distribution with mean vector $(0,0)$ 
+```{r, warning = FALSE, echo = FALSE,out.width="45mm",fig.width=4,fig.height=4,fig.align = 'center'}
+library(mvtnorm)
+data_ii = rmvnorm(1000, mean = c(0,0), sigma = matrix(c(1,0.2,0.2,1),nrow = 2))
+plot(data_ii[,1],data_ii[,2],xlab = "x",ylab = "y")
+```
+
+Which of the following is the variance-covariance matrix?
+
+1. $\begin{bmatrix} 1 & -0.2 \\ -0.2 & 1\end{bmatrix}$; **2. $\begin{bmatrix} 1 & 0.2 \\ 0.2 & 1\end{bmatrix}$**; 3. $\begin{bmatrix} 1 & 0.7 \\ 0.7 & 1\end{bmatrix}$
+
+# Lab Activity (Part 2)
+The scatterplot below was generated from a bivariate normal distribution with mean vector $(0,0)$ 
+```{r, warning = FALSE, echo = FALSE,out.width="45mm",fig.width=4,fig.height=4,fig.align = 'center'}
+library(mvtnorm)
+data_ii = rmvnorm(1000, mean = c(0,0), sigma = matrix(c(1,0,0,1),nrow = 2))
+plot(data_ii[,1],data_ii[,2],xlab = "x",ylab = "y")
+```
+
+Which of the following is the variance-covariance matrix?
+
+**1. $\begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}$**; 2. $\begin{bmatrix} 1 & 0.25 \\ 0.25 & 1\end{bmatrix}$; 3. $\begin{bmatrix} 1 & -0.75 \\ -0.75 & 1\end{bmatrix}$
+
+# Lab Ticket
+1. Why is $\begin{bmatrix} 4 & 0 \\ 0.25 & 4\end{bmatrix}$ not a valid variance-covariance matrix?
+
+2. Let $(X,Y)$ be bivariate normal with mean $(6,4)$ and variance-covariance matrix $\mathbb{V} = \begin{bmatrix} 4 & 0 \\ 0 & 9\end{bmatrix}$. 
+    - What are the mean and standard deviation of $Y$?
+    - What is the covariance of $X$ and $Y$?
+    
+# Lab Ticket Solutions
+
+1. It is not a valid variance-covariance because it is not symmetric.
+
+2. (a.) The mean of Y is 4 and the standard deviation of Y is 3.
+
+2. (b.) The covariance of $X$ and $Y$ is 0; this does not mean that they are independent.
