@@ -315,7 +315,7 @@ pairs(mvn_sample)
 cor(mvn_sample)
 ```
 
-My correlation between variable 1 and variable 2 is fairly high at 0.63, nad my correlation between variable 2 and variable 3 is very high with a correlation of 0.88. This indicates that my variables may not be independent; variable 2 may be linearly related to variable 3.
+My correlation between variable 1 and variable 2 is fairly high at 0.63, and my correlation between variable 2 and variable 3 is very high with a correlation of 0.88. This indicates that my variables may not be independent; variable 2 may be linearly related to variable 3.
 
 </font>
 

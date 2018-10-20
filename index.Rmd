@@ -73,11 +73,9 @@ Due in lab on 10/5.
 
 * [Homework 5. Covariance and correlation and symmetric matrices](hw/hw05/hw05.html). 
 Due in lab on 10/19. 
+    * [HW 5 Solutions](hw/hw05/hw05_solutions.html).
 
 <!--
-
-[Solutions](hw/hw05/sol_hw05.html).
-
 
 * [Homework 6. Variance, covariance and standard errors for fitting a linear model](hw/hw06/hw06.html). 
 Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
