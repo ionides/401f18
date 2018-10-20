@@ -49,11 +49,11 @@ Show that $\mat{C}$ is equal to its own transpose and hence show that $\mat{C}$ 
 <font color="blue">
 *Q1 Solution*. 
 
-$$
-\mathbb{C}^T = (\mathbb{B}^T \mathbb{AB})^T \\
-\mathbb{C}^T = \mathbb{B}^T \mathbb{A}^T (\mathbb{B^T})^T \\
-\mathbb{C}^T = \mathbb{B}^T \mathbb{AB}
-$$
+\begin{eqnarray*}
+\mathbb{C}^T &=& (\mathbb{B}^T \mathbb{AB})^T \\
+     &=& \mathbb{B}^T \mathbb{A}^T (\mathbb{B^T})^T \\
+      &=& \mathbb{B}^T \mathbb{AB}
+\end{eqnarray*}
 Therefore $\mathbb{C}^T = \mathbb{C}$.
 
 </font>
@@ -79,24 +79,14 @@ Using R to solve, we obtain that $$\mathbb{A}^{-1} = \begin{bmatrix} -0.75 & 0.5
 <font color = "blue">
 *Question 2b Solution*.
 
-Note: We want to show that $(\mathbb{A}^{-1})^T = \mathbb{A}^{-1}$
-
-Let $\mathbb{A}$ be a non-singular (has an inverse) and symmetric matrix.
-Then there exists an $\mathbb{A}^{-1}$ such that $\mathbb{A}^{-1}\mathbb{A} = \mathbb{AA}^{-1} = \mathbb{I}$.
-
-Note that $\mathbb{I} = \mathbb{I}^T$ and $\mathbb{A}^{-1}\mathbb{A} = \mathbb{AA}^{-1} = \mathbb{I}$
-
-
-Then,
-
+We want to show that $(\mathbb{A}^{-1})^T = \mathbb{A}^{-1}$.
+We are assuming that $\mathbb{A}$ is a symmetric matrix which has an inverse $\mat{A}^{-1}$.
+Some basic properties of the matrix transpose and inverse are $\mathbb{A}^{-1}\mathbb{A} = \mathbb{AA}^{-1} = \mathbb{I}$ and $(\mat{A}^{-1})^\transpose = (\mat{A}^\transpose)^{-1}$. Using the second of these properties, together with the symmetry property that $\mat{A}^\transpose = \mat{A}$,  we calculate
 $$
-(\mathbb{A}^{-1}\mathbb{A})^T = \mathbb{I}^T \\
-\mathbb{A}^T(\mathbb{A}^{-1})^T = \mathbb{I} \\
-\mathbb{A}(\mathbb{A}^{-1})^T = \mathbb{AA}^{-1} \\
-\mathbb{A}^{-1}\mathbb{A}(\mathbb{A}^{-1})^T = \mathbb{A}^{-1}\mathbb{AA}^{-1} \\
-\mathbb{I}(\mathbb{A}^{-1})^T = \mathbb{IA}^{-1} \\
-(\mathbb{A}^{-1})^T = \mathbb{A}^{-1}
+(\mat{A}^{-1})^\transpose = (\mat{A}^\transpose)^{-1} = \mat{A}^{-1}.
 $$
+We have checked that $(\mat{A}^{-1})^\transpose = \mat{A}^{-1}$ which shows that $\mat{A}^{-1}$ is itself symmetric.
+
 
 </font>
 
@@ -161,7 +151,9 @@ pairs(pairs_plot_vars)
 <font color = "blue">
 *Question 3c Solution*.
 
-(`diff_CO2` and `diff_GDP`), (`diff_CO2` and `diff_emissions`), (`diff_pop` and `diff_emissions`), (`diff_pop` and `ENSO`), and (`diff_emissions` and `ENSO`) appear to follow joint normal distributions. The Central Limit Theorem (CLT) may apply to the joint distribution of (`diff_pop` and `diff_emissions`) and (`diff_GDP` and `ENSO`).
+(`diff_CO2` and `diff_GDP`), (`diff_CO2` and `diff_emissions`), (`diff_pop` and `diff_emissions`), (`diff_pop` and `ENSO`), and (`diff_emissions` and `ENSO`) appear to follow joint normal distributions, since their pairwise scatterplots are approximately football shaped.
+
+A normal distribution due to the central limit theorem is expected when a quantity is the sum of many smaller quantities. Many global processes, including human socioeconomic activity, is the sum of a large number of small contributions spread across the globe and so variation may be expected to follow a normal curve. By contrast, volcanic activity is driven by a few rare giant volcanic erruptions and so is not subject to the central limit theorem. ENSO measures a single global phenomenon, the El Nino Southern Oscillation, which cannot readily be broken down as the sum of many small things so there may be no clear reason why a central limit theorem should apply to it. However, the ENSO index appears roughly normally distributed anyhow. The central limit principle does not forbid the normal distribution occurring for other reasons, it just says that the normal distribution will arise when the quantity is the sum of many small and approximately independent contributions. 
 
 </font>
 
@@ -188,9 +180,7 @@ Note: It is not surprising that the signs and values of the pairwise correlation
 
 It initially surprising that $CO_2$ levels would decrease as GDP, population, and emissions rise. However, this may be driven by changes in technology or changes in the make-up of emissions (for instance emitting a different gas as opposed to $CO_2$). It is somewhat surprising that $CO_2$ declines so sharply with increases in Volcanic activity but increases as the El Nino index rises.
 
-It is not surprising that GDP would increase as population increases and that emissions would increase with increases in GDP and the population. It is also not surprising that GDP would decline when ENSO and volcanic activity increase as natural disasters tend to destroy a lot of capital of a region.
-
-The correlations of population with ENSO and volcanic activity do not have readily identifiable causes and may just be spurious correlations.
+It is not surprising that GDP would increase as population increases and that emissions would increase with increases in GDP and the population. The correlation between GDP and volcanic activity is close to zero, which might be expected because volcanic activity has little effect on most of the global economic activities. The correlation between ENSO and GDP is also quite small, and might be due to chance variation. Similarly, the correlations of population with ENSO and volcanic activity do not have readily identifiable causes and may just be spurious correlations.
 
 </font>
 
