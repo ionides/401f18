@@ -151,7 +151,7 @@ pairs(pairs_plot_vars)
 <font color = "blue">
 *Question 3c Solution*.
 
-(`diff_CO2` and `diff_GDP`), (`diff_CO2` and `diff_emissions`), (`diff_pop` and `diff_emissions`), (`diff_pop` and `ENSO`), and (`diff_emissions` and `ENSO`) appear to follow joint normal distributions, since their pairwise scatterplots are approximately football shaped.
+(`diff_CO2` and `diff_GDP`), (`diff_CO2` and `diff_emissions`), (`diff_pop` and `diff_emissions`), (`diff_pop` and `ENSO`), (`diff_emissions` and `ENSO`), (`diff_GDP` and `diff_emissions`), and (`diff_GDP` and `diff_pop`) appear to follow joint normal distributions, since their pairwise scatterplots are approximately football shaped. Note: There appear to be some potential outliers.
 
 A normal distribution due to the central limit theorem is expected when a quantity is the sum of many smaller quantities. Many global processes, including human socioeconomic activity, is the sum of a large number of small contributions spread across the globe and so variation may be expected to follow a normal curve. By contrast, volcanic activity is driven by a few rare giant volcanic erruptions and so is not subject to the central limit theorem. ENSO measures a single global phenomenon, the El Nino Southern Oscillation, which cannot readily be broken down as the sum of many small things so there may be no clear reason why a central limit theorem should apply to it. However, the ENSO index appears roughly normally distributed anyhow. The central limit principle does not forbid the normal distribution occurring for other reasons, it just says that the normal distribution will arise when the quantity is the sum of many small and approximately independent contributions. 
 
