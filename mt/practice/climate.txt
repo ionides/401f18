@@ -3,7 +3,6 @@
 # GDP: World gross domestic product from World Development Indicators database (data.worldbank.org/data-catalog/world-development-indicators) of the World Bank
 # Pop: World population from World Development Indicators database (data.worldbank.org/data-catalog/world-development-indicators) of the World Bank
 # ENSO: El Nino Southern Oscillation index from NOAA sources (www.esrl.noaa.gov/psd/people/klaus.wolter/MEI/table.html)
-# Volcanic: An index of monthly estimated sulfate aerosols derived from NOAA data (ftp.ncdc.noaa.gov/pub/data/paleo/climate_forcing/volcanic_aerosols/ammann2003b_volcanics.txt)
 # Emissions: estimated emissions of CO2 (million Kt) from World Development Indicators database (data.worldbank.org/data-catalog/world-development-indicators) of the World Bank
 Year	CO2	GDP	Pop	ENSO	Volcanic	Emissions
 1958	NA	NA	NA	0.9054	0.0042	NA

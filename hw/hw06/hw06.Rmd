@@ -1,0 +1,125 @@
+---
+title: "Homework 6, STATS 401 F18"
+author: "Due in lab on 10/26"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+\newcommand\prob{\mathrm{P}}
+\newcommand\E{\mathrm{E}}
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov}}
+\newcommand\corSample{\mathrm{cor}}
+\newcommand\cor{\mathrm{Cor}}
+\newcommand\normal{\mathrm{normal}}
+\newcommand\iid{\mathrm{iid}}
+\newcommand\MVN{\mathrm{MVN}}
+
+**Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+--------------
+
+## Working with the probability model for the linear model.
+
+In principle, once we have a probability model for a linear model we can calculate the probability of any outcome related to the model that we might be interested in. This homework leads you through two such calculations. We can calculate the probability by simulating many realizations from the probability model. For some events related to the linear model, we can also work out the probability in terms of the normal probability density function.
+
+We investigate the probability model $\vec{Y}=\mat{X}\vec{\beta} + \vec{\epsilon}$ with $\vec{\epsilon}\sim\MVN(0,\sigma^2\mat{I})$,  applied to fluctuations of life expectancy and unemployment around a linear trend. We will base our analysis on the dataset below, which we have seen repeatedly. The previous discussions of the data and scientific background will not be presented here; you should review them as needed.
+
+The data can be downloaded using
+```{r download data,eval=F}
+download.file(destfile="life_expectancy.txt",
+  url="https://ionides.github.io/401f18/hw/hw06/life_expectancy.txt")
+download.file(destfile="unemployment.csv",
+  url="https://ionides.github.io/401f18/hw/hw06/unemployment.csv")
+```
+We can then obtain residuals from fitting a linear trend and build a dataframe for the years common to both datasets, as follows
+```{r reconstruct_variables}
+L <- read.table(file="life_expectancy.txt",header=TRUE)
+U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
+U_annual <- apply(U[,2:13],1,mean)
+L_subset <- subset(L$Total,L$Year %in% U$Year)
+health <- data.frame(year=U$Year,u=U_annual,l=L_subset)
+x <- lm(u~year,data=health)$residuals
+y <- lm(l~year,data=health)$residuals
+```
+Now we consider a model we have investigated earlier to assess whether the fluctuations of life expectancy can be statistically explained by fluctuations in the unemployment rate. 
+Let $\vec{y}=(y_1,\dots,y_n)$ be a vector of detrended total life expectancy for each of the $n=68$ years. 
+Let $\vec{x}=(x_1,\dots,x_n)$ be a vector of the corresponding unemployment rates. 
+We consider the probability model
+\[ Y_i = \beta_1 x_i + \beta_2 + \epsilon_i,  \quad \epsilon_i\sim\iid\;\normal(0,\sigma),\quad i=1,\dots,n.
+\]
+This defines a probability model for any values of $\beta_1$, $\beta_2$ and $\sigma$. The value of the vector $\vec{x}$ is considered known and fixed.
+We will call the *fitted probability model* the particular case when these parameters correspond to the least squares choices $\beta_1=b_1$ and $\beta_2=b_2$, with $\sigma=s$ being the sample estimate of the standard deviation computed from the residuals. This notation corresponds to the sample simple linear regression model
+\[
+ y_i = b_1 x_i + b_2 + e_i, \quad i=1,\dots,n
+\]
+computed in R using
+```{r}
+lm_fit <- lm(y~x)
+```
+
+**Q1**. Under the fitted probability model, we look to find the probability that a year with unemployment 5 percent above trend has higher life expectancy (relative to trend) than a year with typical unemployment. This is just one example of a quantity we might be interested in to interpret the fitted model. We calculate this two different ways.
+
+(a) **By simulation**. We can write a new hypothetical value of the explanatory variable as $x^*$. A corresponding outcome from the linear model is a random variable $Y^*$ given by 
+\[
+Y^*=b_1 x^* + b_2+\epsilon^*
+\]
+with $\epsilon^*\sim\normal(0,s)$. You can use the following code to simulate a pair of possible outcomes from the model, one having $x^*=5$ and the other having $x^*=0$. 
+```{r}
+Y_sim <- function(){
+  beta_1 <- coef(lm_fit)["x"]
+  beta_2 <- coef(lm_fit)["(Intercept)"]
+  sigma <- summary(lm_fit)$sigma
+  Y1 <- beta_1*5 + beta_2 + rnorm(1,0,sigma)
+  Y2 <- beta_1*0 + beta_2 + rnorm(1,0,sigma)
+  c(Y1,Y2)
+}
+```
+Use `replicate()` to carry out 5000 such simulations and write R code to find the fraction of these in which the variable `Y1` (corresponding to a realization from the fitted probability model with $x^*=5$) is higher than the variable `Y2` (corresponding to a realization with $x^*=0$).
+
+(b) **By a normal probability calculation**. Let $U\sim \normal(5b_1+b_2,s)$ and $V\sim\normal(b_2,s)$ be independent draws from the probability model in part (a) with $x^*=5$ and $x^*=0$ respectively. Find $\prob(U>V)$ as a call to `pnorm()`. Check this is consistent with your answer to part (a).
+
+**Q2**. Suppose that the data are modeled as a realization of the following collection of random variables:  
+\[
+Y_i = \beta_1 x_i + \beta_2 + \epsilon_i, \quad\epsilon_i\sim\iid\;\normal(0,\sigma),\quad i=1,\dots,n
+\]
+with $\beta_1=0$ and the other parameters taking their fitted values from the data; $\beta_2=b_2$ and $\sigma=s$.
+We seek to calculate $\prob(\hat\beta_1>b_1)$ in two different ways.
+
+(a) **By simulation**. We can generate a random dataset from this model, refit the linear model, and extract the simulated realization of $\hat\beta_1$ as follows
+```{r}
+beta_1_sim <- function(){
+  beta_1 <- 0
+  beta_2 <- coef(lm_fit)["(Intercept)"]
+  sigma <- summary(lm_fit)$sigma
+  Y_sim <- beta_1*x + beta_2 + rnorm(length(x),0,sigma)
+  coef(lm(Y_sim~x))["x"]
+}
+```
+Each call to the function `beta_1_sim()` produces one simulated realization of $\hat\beta_1$ drawn from the specified probability model.
+
+    
+(i). Make a histogram of 5000 simulated realizations of $\hat\beta_1$ using `replicate()`. Compare this histogram with the value of $b_1$.
+
+(ii). Find the fraction of these simulations which are larger than $b_1$. The simulations will be different each time you carry them out, but it is possible your fraction will be zero.
+
+(b)  **By a normal probability calculation**. Use matrix methods to find the mean and variance of $\hat\beta_1$ for this probability model with $\beta_1=0$. Construct a call to `pnorm()` that gives $\prob(\hat\beta_1>b_1)$ for the probability model. Check that this is consistent with the answer you got by simulation.
+
+**Q3**. What are $\vec{b}$, $\vec{\beta}$ and $\hat\vec{\beta}$ in questions Q1 and Q2? Explain why these two analyses with the same data and the same model (and therefore the same $\vec{b}$) choose to consider different choices of $\vec{\beta}$ and therefore different probability distributions for the vector random variable $\hat\vec{\beta}$. The purpose for doing the calculation in Q2 will be discussed during Chapter 6 of the notes, but you may be able to motivate what is going on by thinking back to the hypothesis tests you have done in a previous Stats class.
+
+--------------
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+
+------

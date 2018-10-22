@@ -75,11 +75,14 @@ Due in lab on 10/5.
 Due in lab on 10/19. 
     * [HW 5 Solutions](hw/hw05/hw05_solutions.html).
 
+* [Homework 6. The probability model for the linear model](hw/hw06/hw06.html). 
+Due in lab on 10/26. 
+
 <!--
+[Solutions](hw/hw06/sol_hw06.html).
+-->
 
-* [Homework 6. Variance, covariance and standard errors for fitting a linear model](hw/hw06/hw06.html). 
-Due in your lab on 2/15 or 2/16. [Solutions](hw/hw06/sol_hw06.html).
-
+<!--
 * [Homework 7. Using a linear model for investigation of two populations](hw/hw07/hw07.html). Due in your lab on 3/15 or 3/16. [Solutions](hw/hw07/sol_hw07.html).
 
 * [Homework 8. Making an F test, and exploring the t and F distributions](hw/hw08/hw08.html). Due in your lab on 3/22 or 3/23. [Solutions](hw/hw08/sol_hw08.html).

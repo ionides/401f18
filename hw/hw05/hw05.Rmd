@@ -79,6 +79,8 @@ head(X)
 
 * ENSO: El Nino Southern Oscillation index from NOAA sources (www.esrl.noaa.gov/psd/people/klaus.wolter/MEI/table.html)
 
+* Volcanic: An index of monthly estimated sulfate aerosols derived from NOAA data (ftp.ncdc.noaa.gov/pub/data/paleo/climate_forcing/volcanic_aerosols/ammann2003b_volcanics.txt)
+
 * Emissions: estimated emissions of CO2 (million Kt) from World Development Indicators database (data.worldbank.org/data-catalog/world-development-indicators) of the World Bank
 
 (a) Create new variables called `diff_CO2` `diff_GDP` `diff_pop` and `diff_emissions` that measure the percentage annual change in each variable. A trick to do this is to take the difference of the logarithm. In addition, it is necessary to add a missing value (`NA`) at the start since the annual change is not available in the first year of the dataset. For example,
