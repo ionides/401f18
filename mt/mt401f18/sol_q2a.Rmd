@@ -1,0 +1,10 @@
+\color{blue}
+
+**Solution**:
+
+(ii). A vector of length 2 corresponding to the average of each column of `A`.
+
+\color{black}
+
+
+

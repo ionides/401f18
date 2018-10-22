@@ -160,6 +160,9 @@ Due in lab on 10/26.
 * [Practice midterm exam](mt/practice/mt-practice.pdf).
 [Solutions](mt/practice/sol_mt-practice.pdf).
 
+* [Midterm exam](mt/mt401f18/paper_mt401f18.pdf).
+[Solutions](mt/mt401f18/sol_mt401f18.pdf).
+
 <!--
 * [Exam](mt/mt401w18/mt401w18.pdf). [Solutions](mt/mt401w18/mt401w18sol.pdf).
 -->

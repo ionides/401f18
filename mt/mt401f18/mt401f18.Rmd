@@ -1,0 +1,501 @@
+---
+title: "Midterm exam, STATS 401 F18"
+output:
+  pdf_document:
+  toc: no
+header-includes:
+   - \usepackage{ifthen}
+html_document:
+  theme: flatly
+toc: no
+word_document:
+  toc: no
+csl: ecology.csl
+---
+  
+
+```{r preliminaries,echo=F,cache=F}
+#SOL <- FALSE
+SOL <- TRUE
+#EXAM <- TRUE
+EXAM <- FALSE
+set.seed(12)
+# library(mat2tex)
+```
+
+
+\ifthenelse{\isodd{0}}{
+ \newcommand\exam[1]{#1} %% exam paper
+ \newcommand\solution[1]{}
+}{ 
+ \newcommand\exam[1]{} %% solutions
+ \newcommand\solution[1]{{\color{blue}{\bf Solution}. {#1}}}
+} 
+
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\vect[1]{\vec{#1}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\prob{\mathrm{P}}
+\newcommand\E{\mathrm{E}}
+\newcommand\SE{\mathrm{SE}}
+\newcommand\code[1]{\texttt{#1}}
+
+\newcommand\normal{\mathrm{normal}}
+\newcommand\chisq{\mathrm{chisq}}
+\newcommand\iid{\mathrm{iid}}
+\newcommand\MVN{\mathrm{MVN}}
+\newcommand\RSS{\mathrm{RSS}}
+\newcommand\SST{\mathrm{SST}}
+\newcommand\pval{\mathrm{pval}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov}}
+\newcommand\corSample{\mathrm{cor}}
+\newcommand\cor{\mathrm{Cor}}
+
+\newcommand\actMult{3}
+
+\exam{
+$\quad\quad\quad$ \textbf{Name}:
+
+$\quad\quad\quad$ \textbf{UMID}:
+}
+
+-----------
+  
+**Instructions. You have a time allowance of 80 minutes.  The exam is closed book and closed notes. Any electronic devices in your possession must be turned off and remain in a bag on the floor. This includes cell phones, calculators and internet-enabled watches. If you need extra paper, please number the pages and put your name and UMID on each page.**
+  
+-----------
+
+\exam{  
+  
+{\bf The following formulas are provided. To use these formulas properly, you need to make appropriate definitions of the necessary quantities.}
+
+(1)$\quad\quad\mathbf{b}=\big(\mat{X}^\transpose \mat{X} \big)^{-1}\, \mat{X}^\transpose\mathbf{y}$
+
+(2)$\quad\quad\var(\mat{A}\mathbf{Y})=\mat{A}\var(\mathbf{Y})\mat{A}^\transpose$,
+$\quad\quad\varSample(\mat{X}\mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose$
+
+
+(3)$\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
+
+(4)$\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
+
+(5) $\quad\quad$The probability density function of the standard normal distribution is $\frac{1}{\sqrt{2\pi}} e^{-x^2/2}$
+
+(6) $\quad\quad$If a random variable is normally distributed, the probability it falls within one standard deviation of the mean is 68\%, within two standard deviations of the mean is 95\%, and within three standard deviations of the mean is 99.7\%.
+
+(7) $\quad\quad$From \code{?pnorm}:\hspace{1cm} \parbox[t]{8cm}{
+  \code{pnorm(q, mean = 0, sd = 1)\\
+        qnorm(p, mean = 0, sd = 1)\\
+        q: vector of quantiles.\\
+        p: vector of probabilities.}
+  }
+
+(8)  $\quad\quad(\mat{A}\mat{B})^\transpose = \mat{B}^\transpose\mat{A}^\transpose$, 
+\hspace{2mm} $(\mat{A}\mat{B})^{-1} = \mat{B}^{-1}\mat{A}^{-1}$, 
+\hspace{2mm} $(\mat{A}^\transpose)^{-1}=(\mat{A}^{-1})^\transpose$, 
+\hspace{2mm} $(\mat{A}^\transpose)^\transpose = \mat{A}$.
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{||c|c|c||}
+\hline
+\hline
+{Problem} & {Points} & {Your Score}\\
+\hline
+\hline
+1 & 5 & \\
+\hline
+2 & 4 & \\
+\hline
+3 & 8 & \\
+\hline
+4 & 12 & \\
+\hline
+5 & 6+1 & \\
+\hline
+Total & 35+1 &  \\
+\hline
+\hline
+\end{tabular}
+\\
+\renewcommand{\arraystretch}{1}
+
+\end{center}
+
+
+
+}
+
+
+
+\exam{\newpage}
+
+**Q1**. Summation and matrix exercises.
+
+Consider the pair of simultaneous linear equations,
+\[\begin{array}{rcccl}
+3b_1 &-& 2b_2 &=& 4 \\
+b_1 & + & 3b_2 &=& 2
+\end{array}
+\] 
+
+(a) [1 point] Write these linear equations in the matrix form $\mat{A}\vec{b}=\vec{c}$.
+
+\exam{\vspace{4.5cm}}
+
+\solution{
+\[
+\begin{bmatrix} 3 & -2 \\ 1 & 3 \end{bmatrix}
+\begin{bmatrix} b_1 \\ b_2 \end{bmatrix}
+=  
+\begin{bmatrix} 4 \\ 2 \end{bmatrix}
+\]
+}
+
+(b) [2 points] Find the inverse matrix $\mat{A}^{-1}$ and make a calculation to check that your answer is correct.
+
+\exam{\vspace{5.5cm}}
+
+\solution{
+\[
+\begin{bmatrix} 3 & -2 \\ 1 & 3 \end{bmatrix}^{-1} 
+= 
+\frac{1}{11}
+\begin{bmatrix} 3 & 2 \\ -1 & 3 \end{bmatrix}
+\]
+And we check
+\[
+\frac{1}{11}
+\begin{bmatrix} 3 & 2 \\ -1 & 3 \end{bmatrix}
+\begin{bmatrix} 3 & -2 \\ 1 & 3 \end{bmatrix}
+=
+\frac{1}{11}
+\begin{bmatrix} 11 & 0 \\ 0 & 11 \end{bmatrix}
+=
+\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
+\]
+}
+
+(c) [2 points] Use matrix methods to solve the simultaneous equations for $b_1$ and $b_2$. This requires solving part (b) but partial credit will be available if you explain how to do this without successfully completing (b).
+
+\solution{$\vec{b}=\mat{A}^{-1}\vec{c}$, so in this case we get
+\[
+\begin{bmatrix} b_1 \\ b_2 \end{bmatrix}
+=
+\frac{1}{11}
+\begin{bmatrix} 3 & 2 \\ -1 & 3 \end{bmatrix}
+\begin{bmatrix} 4 \\ 2 \end{bmatrix}
+= 
+\frac{1}{11}
+\begin{bmatrix} 16 \\ 2 \end{bmatrix}
+=
+\begin{bmatrix} 16/11 \\ 2/11 \end{bmatrix}
+\]
+It is acceptable to either bring the factor of $1/11$ inside the vector or leave it outside. It is also acceptable to end by writing values of $b_1$ and $b_2$ separately rather than leaving $b_1$ and $b_2$ in a column vector.
+}
+
+\exam{\newpage}
+
+**Q2**. R exercises.
+
+
+Define the matrix `A` in R as:
+```{r echo=T}
+A = matrix(c(0,1,1,3,3,2),nrow = 3)
+A
+```
+
+(a) [1 point]. What is the output of `apply(A,2,mean)`?
+
+    (i). A vector of length 3 corresponding to the average of each row of `A`.
+
+    (ii). A vector of length 2 corresponding to the average of each column of `A`.
+
+    (iii). The mean of all the values in `A`. 
+    
+    (iv). The mean of the second column of `A`.
+
+    (v). The mean of the second row of `A`.
+
+
+```{r,child="sol_q2a.Rmd",eval=SOL}
+```
+
+\exam{\vspace{5mm}}
+
+(b)  [3 points]. 
+For each of the lines of code below, say whether it will correctly make 50 draws from the $\normal(100,20)$ distribution. Among the correct answers, comment briefly on some strengths and weaknesses from the perspective of writing good R code. Which answer do you think is the best code, and why?
+
+    (i) $\quad$ `rnorm(50,20,100)`
+
+    (ii) $\quad$ `rnorm(100,20,50)`
+
+    (iii) $\quad$ `rnorm(100,20,n=50)`
+
+    (iv) $\quad$ `rnorm(mean=100,sd=20,n=50)`
+
+    (v) $\quad$ `rnorm(n=50,mean=100,sd=20)`
+
+    (vi) $\quad$ `replicate(rnorm(100,20),50)`
+
+    (vii) $\quad$ `replicate(rnorm(n=1,mean=100,sd=20),n=50)`
+
+    (viii) $\quad$ `rnorm(50)*20+100`
+
+    (ix) $\quad$ `100+sqrt(20)*rnorm(50)`
+
+
+\exam{\vspace{6cm}}
+
+```{r,child="sol_q2b.Rmd",eval=SOL}
+```
+
+
+
+\exam{\newpage}
+
+
+**Q3**. Investigating a probability model. 
+
+The value of a large public company is determined by its share price. The share price varies daily as people buy and sell shares in the company. Day-to-day changes in the share price are commonly modeled using normal random variables.
+
+
+\vspace{-2mm}
+
+(a) [2 points]. Suggest some reasons why a normal distribution might be appropriate to model daily changes in the share price of a large company. Also, comment on limitations that you think the normal distribution might have for modeling a company share price. You are not expected to have detailed knowledge of the stock market.  You are expected to apply to this situation your understanding about how a normal distribution arises in data.
+
+\exam{\vspace{4cm}}
+
+(b) [4 points]. Let $X$ and $Y$ be bivariate random variables modeling the daily change in price of two different companies. Suppose $X$ and $Y$ are bivariate normal with respective means $\mu_X=\mu_Y=0$, standard deviations $\sigma_X=1$ and $\sigma_Y=2$ and correlation $\cor(X,Y)=0.5$. Find the distributions of $X+Y$ and $X-Y$.
+
+\exam{\vspace{6cm}}
+
+\solution{$X+Y$ and $X-Y$ are both normally distributed since they are linear combinations of normal random variables (see homework 5). We have $\E[X+Y]=\E[X]+\E[Y]=0+0=0$ and $\E[X-Y]=\E[X]-\E[Y]=0-0=0$. Also, 
+\begin{eqnarray*}
+\var(X+Y)&=&\var(X)+\var(Y)+2\, \cov(X,Y) \\
+&=& \sigma_X^2+\sigma_Y^2+2\, \cor(X,Y)\, \sigma_X\, \sigma_Y = 1 + 4 + 2\times 0.5\times 1\times 2 = 7.
+\end{eqnarray*}
+Then,
+\begin{eqnarray*}
+\var\big(X+(-Y)\big)&=&\var(X)+\var(-Y)+2\, \cov(X,-Y) \\
+&=& \var(X)+\var(Y)-2\, \cov(X,Y) \\
+&=&
+\sigma_X^2+\sigma_Y^2+2\, \cor(X,Y)\, \sigma_X\, \sigma_Y = 1 + 4 - 2\times 0.5\times 1\times 2 = 3.
+\end{eqnarray*}
+}
+
+
+(c) [1 point]. Write an integral representing the probability that $X>Y$. Hint: you can use the answer from part (b). 
+
+\exam{\vspace{1.5cm}}
+
+\solution{
+\[
+\prob(X>Y)=\prob(X-Y>0)=\int_0^\infty \frac{1}{\sqrt{2\pi \times 3^2}}e^{-x^2/(2\times 3^2)}\, dx.
+\]
+}
+
+(d)  [1 point]. If you can find an exact value for the integral you wrote in (c), give it. Otherwise, write R code to evaluate it.
+
+\exam{\vspace{2cm}}
+
+\solution{Since the normal curve is symmetric about the line $x=0$, the area under the region with $x>0$ and $x<0$ are both $1/2$. In this case, the answer can be checked by \code{pnorm(0,mean=0,sd=sqrt(3))}.
+}
+
+\exam{\newpage}
+
+**Q4**. Fitting a linear model by least squares 
+
+
+```{r reconstruct_variables,echo=F}
+L <- read.table(file="life_expectancy.txt",header=TRUE)
+U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
+U_annual <- apply(U[,2:13],1,mean)
+L_subset <- subset(L$Total,L$Year %in% U$Year)
+health <- data.frame(year=U$Year,u=U_annual,l=L_subset)
+#L_fit <- lm(Total~Year,data=L_subset)
+#L_detrended <- L_fit$residuals
+#U_detrended <- lm(U_annual~U$Year)$residuals
+#L_detrended <- subset(L_detrended,L$Year %in% U$Year)
+```
+
+This question concerns the US unemployment and life expectancy data seen in class and homework. Let $u_i$ be annual percent unemployment in the $i$th year and let $\ell_i$ be the life expectancy for the corresponding year, with $i$ ranging over years 1948-2015 for which both variables are available. The data are entered into R as a dataframe called `health`.
+```{r}
+head(health)
+```
+
+Recall that the first step in our analysis was to detrend the data, by fitting a line to the plots of life expectancy and unemployment against time. Let $x_i$ be the detrended unemployment and $y_i$ the detrended life expectancy. These are computed in R as
+
+```{r}
+x <- lm(u~year,data=health)$residuals
+y <- lm(l~year,data=health)$residuals
+```
+
+(a) [2 points]. What is the purpose of detrending the data before looking for a linear relationship between life expectancy and unemployment rate?
+
+\exam{\vspace{4cm}}
+
+\solution{Life expectancy has a clear upward trend over this time period. To tell whether life expectancy is influenced by economic conditions, we can look at fluctuations around the trend, to see whether good (or bad) economic conditions are associated with above trend (or below trend) life expectancy.}
+
+(b) [3 points]. Write in subscript form the linear model used to detrend life expectancy. (The model for detrending unemployment is similar, but you are not required to write that out too.)
+
+\solution{
+The model is
+\[ \ell_i=b_1 x_i +b_2+e_i,
+\quad i=1,\dots,n
+\]
+where $\ell_i$ is life expectancy for the $i$th row of the dataset, $x_i=1948+i-1$ is the corresponding calendar year, and $n=2015-1948+1=68$ is the number of years of data. $e_i$ is the residual error for year $i$. $b_1$ and $b_2$ are coefficients chosen by least squares. It is almost equivalent to write the model as
+\[ \ell_i=b_1 i+b_2+e_i,
+\quad i=1,\dots,n
+\]
+but the question technically asks for the explanatory variable to be $x_i$ not $i$. Both models give the same fitted values.
+}
+
+\exam{\vspace{8cm}}
+
+(c) [2 points]. Write the design matrix for representing your linear model from (b) in matrix form.
+
+
+\exam{\vspace{4.0cm}}
+
+\solution{Let $x_i=1948+i-1$ for $i=1,\dots,n$ with  $n=2015-1948+1=68$. The design matrix is
+\[
+\mat{X} =
+\begin{bmatrix} 
+x_1 & 1 \\
+x_2 & 1 \\
+\vdots & \vdots \\
+x_n & 1
+\end{bmatrix}
+\]
+}
+
+The relationship between fluctuations in life expectancy and fluctuations in unemployment was then investigated by fitting the following model:
+
+```{r, echo=T}
+lm1 <- lm(y~x)
+summary(lm1)$coef
+```
+
+\vspace{-5mm}
+
+(d) [3 points]. What is the principle used to calculate the coefficients of the linear model? Write a matrix calculation to implement this calculation. Any vectors and matrices you use should be defined, though you can refer back to any definitions you may have made in earlier parts of this question.
+
+\exam{\vspace{6.5cm}}
+
+\solution{
+The coefficients are calculated by least squares, meaning they are chosen to minimize $\sum_{i=1}^n e_i^2$. This is carried out by a matrix calculation
+\[
+\vec{b}=(\mat{X}^\transpose\mat{X})^{-1}\mat{X}^\transpose \vec{y}
+\]
+where $\mat{X}$ is the design matrix from (c) and $\vec{y}$ is a column vector of the data.
+}
+
+(e) [2 points]. How can a probability model help us to interpret the estimated coefficients? You are not yet expected to have studied in detail the probability model for the linear model. Here, you are only asked to discuss in words the goals and purposes of having a probability model for this data analysis.
+
+\solution{
+A probability model lets us make probability statements about alternative outcomes we might hypothetically have observed. For example, we could ask what is the probability we would have observed a coefficient as large as the observed 0.131 if in fact there is no association between percentage unemployment and life expectancy. Also, a probability model lets us calculate standard errors for the estimated coefficients.
+}
+
+\vspace{4cm}
+
+\exam{\newpage}
+
+**Q5**. Working with means, variances and covariances.
+
+This question concerns the dataset on global climate change studied in Homework 5. Carbon dioxide ($CO_2$) levels in the atmosphere have been increasingly steadily, as recorded by the measurements taken at Mauna Loa observatory in Hawaii. An increasing trend in $CO_2$ matches increasing trends in both global economic activity and the global population, as well as many other socioeconomic phenomena. However, on shorter timescales, fluctuating geophysical processes such as volcanic activity and the El Nino Southern Oscillation (ENSO) may be important. The first three years and the last year of the dataset contain some missing values so are removed for this analysis using the following R code.
+
+```{r}
+X <- read.table("climate.txt",header=TRUE)[-c(1:3,54),]
+X$Pop <- X$Pop/1000 # rescale population from millions to billions
+head(X)
+```
+
+\vspace{-5mm}
+
+* CO2: Mean annual concentration of atmospheric CO2 (parts per million by volume) at Mauna Loa.
+
+* GDP: world gross domestic product reported by the World Bank.
+
+* Pop: world population, in billions, reported by the World Bank.
+
+* ENSO: an El Nino Southern Oscillation index from NOAA.
+
+* Volcanic: an index of monthly estimated sulfate aerosols derived from NOAA.
+
+* Emissions: estimated emissions of CO2 (million Kt) reported by the World Bank.
+
+Let $\mat{V}=[V_{ij}]_{p\times p}$ be the sample variance/covariance matrix for these $p=7$ variables, computed as
+
+```{r}
+V <- var(X)
+round(V,2)
+```
+
+(a) [1 point] Give a formula that computes the entry $V_{12}$ in terms of the data matrix $\mat{X}=[x_{ij}]_{n\times p}$.
+
+\solution{
+Write $\mat{X}=[\vec{x}_1 \dots \vec{x}_p]$ where $\vec{x}_j = (x_{1j},\dots,x_{nj})$ interpreted as a column vector with $p=7$ and $n=50$.
+\[
+V_{12}=\covSample(\vec{x}_1,\vec{x}_2) = \frac{1}{n-1} \sum_{i=1}^n \big(x_{i1}-\bar x_1\big)\big(x_{i2}-\bar x_2\big)
+\]
+where $\bar x_1=\frac{1}{n}\sum_{i=1}^n x_{i1}$ and  $\bar x_2=\frac{1}{n}\sum_{i=1}^n x_{i2}$.
+}
+
+\exam{\vspace{6cm}}
+
+(b) [2 points] Let $\vec{b}=(b_1,\dots,b_7)$ be a vector, interpreted as a column vector. We can use $\vec{b}$ to construct a linear combination $\mat{X}\vec{b}$ with $i$th row equal to $b_1x_{i1}+b_2x_{i2}+\dots+b_7 x_{i7}$ for $i=1,\dots,n$. Here, $b_1$, $b_2,\dots,b_7$ represent numbers which are not necessariy positive. Is it possible to find a choice of $b_1$, $b_2, \dots, b_7$ to get a negative value of $\vec{b}^\transpose \mat{V}\vec{b}$? Explain.
+
+\solution{
+$\vec{b}^\transpose \mat{V}\vec{b}$ is the sample variance of the linear combination $\mat{X}\vec{b}$. This is the sample version of the formula $\var(\mat{A}\mathbf{Y})=\mat{A}\var(\mathbf{Y})\mat{A}^\transpose$. Since $\vec{b}^\transpose \mat{V}\vec{b}$ is a sample variance, it cannot be negative.
+}
+
+\exam{\vspace{7cm}}
+
+
+Now we look at the sample correlation matrix $\mat{C}=[C_{ij}]_{p\times p}$.
+```{r}
+C <- cor(X)
+round(C,2)
+```
+
+(c) [1 point] Give a formula using subscript notation that computes the entry $C_{ij}$ in terms of the entries of $\mat{V}=[V_{ij}]_{p\times p}$.
+
+\solution{
+\[
+C_{ij}=\corSample(\vec{x}_i,\vec{x}_j) = \frac{\covSample(\vec{x}_i,\vec{x}_j)}{\sqrt{\varSample(\vec{x}_i) \varSample(\vec{x}_j)}} = \frac{V_{ij}}{\sqrt{V_{ii}V_{jj}}}
+\]
+}
+
+\exam{\newpage}
+
+(d) [2 points] In the table above, the variables `Year`, `CO2`, `GDP`, `Pop` and `Emissions` all have correlations close to 1. Explain your interpretation of this result. Also, explain why this is not very insightful and propose another way to analyze the data to resolve this problem.
+
+\solution{
+Variables with a correlation close to 1 have a scatterplot with points lying close to a straight line with positive slope. What we learn from this is that these variables all share a similar trend. We probably knew in advance that all these variables have been increasing steadily over the past 50 years. Looking at fluctuations around the trend, for example by taking differences or looking at residuals after fitting a linear model with a trend, might be more insightful.
+}
+
+\exam{\vspace{6cm}}
+
+(e) **[Optional extra credit, 1 point]**. Write a matrix calculation using R code to obtain the sample correlation matrix `C` from the sample variance/covariance matrix `V`. As well as usual matrix and vector operations, you may use other R functions including 
+
+    (i) `diag(M)` which returns a vector of the diagonal entries when `M` is a square matrix.
+
+    (ii) `sqrt(M)` which returns the elementwise square root of a matrix `M`.
+
+```{r,child="sol_q5e.Rmd",eval=SOL}
+```
+
+   
+\exam{\vspace{8cm}}
+
+--------
+License: This material is provided under an [MIT license] (https://ionides.github.io/401f18/LICENSE)
+
+

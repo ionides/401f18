@@ -1,0 +1,10 @@
+\color{blue}
+
+**Solution**: One way to get a matrix of all the products of variances needed to turn covariances into correlations is \code{diag(V) \%*\% t(diag(V))}. We can then carry out elementwise division to rescale all the entries in the variance/covariance matrix into correlations, as follows.
+```{r}
+C <- V / sqrt(diag(V)%*% t(diag(V)))
+round(C,2)
+```
+
+\color{black}
+
