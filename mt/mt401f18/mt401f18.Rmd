@@ -30,8 +30,8 @@ set.seed(12)
  \newcommant\points[1]{}
 }{ 
  \newcommand\exam[1]{} %% solutions
- \newcommand\solution[1]{{\color{blue}{\bf Solution}. {#1}}}
- \newcommand\points[1]{{\color{red}{\bf Points}. {#1}}}
+ \newcommand\solution[1]{ {\color{blue}{\bf Solution}. {#1}} }
+ \newcommand\points[1]{ {\color{red}{\bf Points}. {#1}} }
 } 
 
 \newcommand\mat[1]{\mathbb{#1}}
@@ -417,7 +417,9 @@ where $\mat{X}$ is the design matrix from (c) and $\vec{y}$ is a column vector o
 A probability model lets us make probability statements about alternative outcomes we might hypothetically have observed. For example, we could ask what is the probability we would have observed a coefficient as large as the observed 0.131 if in fact there is no association between percentage unemployment and life expectancy. Also, a probability model lets us calculate standard errors for the estimated coefficients.
 }
 
-\vspace{4cm}
+
+
+\exam{\vspace{4cm}}
 
 \exam{\newpage}
 
@@ -452,7 +454,7 @@ V <- var(X)
 round(V,2)
 ```
 
-(a) [1 point] Give a formula that computes the entry $V_{12}$ in terms of the data matrix $\mat{X}=[x_{ij}]_{n\times p}$.
+(a) [1 point] Give a formula that computes the entry $V_{12}$ in terms of the elements $x_{ij}$ ($i=1,\dots,n$ and $j=1,\dots,p$) of the data matrix $\mat{X}=[x_{ij}]_{n\times p}$.
 
 \solution{
 Write $\mat{X}=[\vec{x}_1 \dots \vec{x}_p]$ where $\vec{x}_j = (x_{1j},\dots,x_{nj})$ interpreted as a column vector with $p=7$ and $n=50$.
@@ -462,13 +464,18 @@ V_{12}=\covSample(\vec{x}_1,\vec{x}_2) = \frac{1}{n-1} \sum_{i=1}^n \big(x_{i1}-
 where $\bar x_1=\frac{1}{n}\sum_{i=1}^n x_{i1}$ and  $\bar x_2=\frac{1}{n}\sum_{i=1}^n x_{i2}$.
 }
 
+\points{No credit was given for a formula for a covariance of random variables (e.g., using expectation) rather than a formula for a sample covariance. No credit was given for writing R code such as a call to \code{cov()}.}
+
 \exam{\vspace{6cm}}
 
 (b) [2 points] Let $\vec{b}=(b_1,\dots,b_7)$ be a vector, interpreted as a column vector. We can use $\vec{b}$ to construct a linear combination $\mat{X}\vec{b}$ with $i$th row equal to $b_1x_{i1}+b_2x_{i2}+\dots+b_7 x_{i7}$ for $i=1,\dots,n$. Here, $b_1$, $b_2,\dots,b_7$ represent numbers which are not necessariy positive. Is it possible to find a choice of $b_1$, $b_2, \dots, b_7$ to get a negative value of $\vec{b}^\transpose \mat{V}\vec{b}$? Explain.
 
+
 \solution{
 $\vec{b}^\transpose \mat{V}\vec{b}$ is the sample variance of the linear combination $\mat{X}\vec{b}$. This is the sample version of the formula $\var(\mat{A}\mathbf{Y})=\mat{A}\var(\mathbf{Y})\mat{A}^\transpose$. Since $\vec{b}^\transpose \mat{V}\vec{b}$ is a sample variance, it cannot be negative.
 }
+
+\points{One point of partial credit was available for giving the correct answer with flawed reasoning.}
 
 \exam{\vspace{7cm}}
 
@@ -479,7 +486,7 @@ C <- cor(X)
 round(C,2)
 ```
 
-(c) [1 point] Give a formula using subscript notation that computes the entry $C_{ij}$ in terms of the entries of $\mat{V}=[V_{ij}]_{p\times p}$.
+(c) [1 point] Give a formula using subscript notation that computes the entry $C_{ij}$ in terms of the entries of the variance/covariance matrix $\mat{V}=[V_{ij}]_{p\times p}$ defined above.
 
 \solution{
 \[
@@ -494,6 +501,12 @@ C_{ij}=\corSample(\vec{x}_i,\vec{x}_j) = \frac{\covSample(\vec{x}_i,\vec{x}_j)}{
 \solution{
 Variables with a correlation close to 1 have a scatterplot with points lying close to a straight line with positive slope. What we learn from this is that these variables all share a similar trend. We probably knew in advance that all these variables have been increasing steadily over the past 50 years. Looking at fluctuations around the trend, for example by taking differences or looking at residuals after fitting a linear model with a trend, might be more insightful.
 }
+
+
+\points{For the proposed resolutions, a suggestion to obtain extra data was accepted. Some suggestions that don't address the problem were not accepted. For example, 
+(i) looking at covariances rather than variances; (ii) looking at a pairs plot (a correlation close to one implies a linear relationship; a pairs plot is more useful to see if there is a nonlinear relationship with the correlation is not strong); (iii) looking at fewer variables.}
+
+and some other ideas that }
 
 \exam{\vspace{6cm}}
 

@@ -1,0 +1,75 @@
+---
+title: "Reading Sheather and other texts"
+author: "STATS 401 W18, Feb 11"
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+---
+
+\newcommand\mat[1]{\mathbb{#1}}
+\newcommand\vect[1]{\mathbf{#1}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\prob{\mathrm{P}}
+\newcommand\E{\mathrm{E}}
+\newcommand\SE{\mathrm{SE}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\cov{\mathrm{Cov}}
+
+
+* Several people have emailed to ask about how to find suitable reading to complement the class materials for STATS 401. Thanks for the feedback!
+
+----
+
+## Reading the course text by Sheather
+
+* Sheather develops a matrix-based approach to data analysis using the linear model with R.
+
+* We are moving much more slowly than Sheather, since we want to secure some background skills in R, matrix operations, and working with summation.
+
+* Sheather's text is nicely written, and contains many insightful data analysis examples. It may be more appropriate reading to broaden your understanding once you have already figured out the notes, rather than a source for help in the technical challenges of this course.
+
+* This raises the question of good supplementary alternative texts giving additional technical details.
+
+* An encyclopedic reference on linear models (which has sometimes been used as a previous text for STATS 401) is
+__Applied Linear Statistical Models__, 5th Edition, by Kutner, Nachtsheim, Neter, & Li.
+
+* All editions of KNNL are similar.
+
+-------
+
+------
+
+## Comments on reading Sheather
+
+* Sheather writes the expectation of the simple linear regression model as
+\[
+\E(Y|X=x)=\beta_0+\beta_1 x.
+\]
+In several details, this is different from our version,
+\[
+\E[Y_i] = \beta_1 x_i +\beta_2, \quad\quad \mbox{for $i=1,\dots,n$}.
+\]
+Why the differences?
+    1. We think of the covariate matrix $\mat{X}$ as fixed, not random. Therefore, we don't have to condition on it. In practice, Sheather also thinks of it as fixed almost all the time.
+    2. We are careful to write out the subscript $i$ for each individual. This makes it easier to move to and from matrix notation. It is also more correct.
+    3. Sheather (and most other regression texts) do not distinguish between the sample least squares estimator $\vect{b}=\big(\mat{X}^\transpose\mat{X}\big)^{-1}\mat{X}^\transpose\vect{y}$ and the probability model version of this, $\hat\vect{\beta}=\big(\mat{X}^\transpose\mat{X}\big)^{-1}\mat{X}^\transpose\vect{Y}$.
+    4. We will see that it can be worthwhile to be careful about this distinction.
+    
+-------
+
+------
+
+## Comments on reading KNNL
+
+* KNNL Chapter 5 gives an introduction to matrices similar to ours.
+
+* KNNL has a daunting length (1400 pages!) but gives plenty of details, starting from a similar assumed background to STATS 401 - a previous intro stats course and a bit of calculus.
+
+* We are only going to cover a fraction of the material in KNNL, but we're also putting more emphasis on simultaneously developing data analysis skills using R.
+
+---------
+
+---------
+
+

@@ -1,0 +1,695 @@
+%\documentclass[handout]{beamer}
+\documentclass{beamer}
+
+\input{../header.tex}
+\newcommand\CHAPTER{6}
+%\newcounter{CovSum}
+%\newcounter{CovSumII}
+% \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
+% \newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
+ \newcommand\answer[2]{#1} % to show blank space
+<<R_answer,echo=F,purl=F>>=
+# ANS = TRUE
+ ANS=FALSE
+@
+
+\begin{document}
+
+% knitr set up
+<<knitr_opts,echo=F,cache=F,purl=F>>=
+library(knitr)
+opts_chunk$set(
+#  cache=FALSE,
+  cache=TRUE,
+  eval=TRUE,
+  include=TRUE,
+  echo=TRUE,
+  purl=TRUE,
+  cache.path=paste0("tmp/cache"),
+  dev='png',
+  dev.args=list(bg='transparent'),
+  dpi=300,
+  error=FALSE,
+  fig.pos="h!",
+  fig.align='center',
+  fig.height=4,fig.width=6.83,
+  fig.lp="fig:",
+  fig.path=paste0("tmp/figure"),
+  fig.show='asis',
+  highlight=TRUE,
+  message=FALSE,
+  progress=TRUE,
+  prompt=FALSE,
+#  results='asis',
+  results="markup",
+  size='small',
+  strip.white=TRUE,
+  tidy=FALSE,
+  warning=FALSE
+#  comment=NA # to remove ## on output
+)
+options(width = 60) # number of characters in R output before wrapping
+@
+
+% other set up
+<<setup,echo=F,results=F,cache=F>>=
+# library(broman) # used for myround 
+@
+
+
+\begin{frame}
+\frametitle{Chapter~\CHAPTER. Confidence intervals and hypothesis testing}
+
+\begin{myitemize}
+\item An interval \m{[u,v]} constructed using the data \m{\vect{y}} is said to \myemph{cover} a parameter \m{\theta} if \m{u\le \theta \le v}.
+
+\item \m{[u,v]} is a 95\% \myemph{confidence interval} (CI) for \m{\theta} if the same construction, applied to a large number of draws from the model, would cover \m{\theta} 95\% of the time.
+
+\item A \myemph{parameter} is a name for any unknown constant in a model. In linear models,each component \m{\beta_1,\dots,\beta_p} of the \myemph{coefficient vector} \m{\vect{\beta}} is a parameter. So is the variance \m{\sigma^2} of the measurement error.
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}
+\begin{myitemize}
+\item A confidence interval is the usual way to represent the amount of uncertainty in an estimated parameter.
+
+\item The parameter is not random. According to the model, it has a fixed but unknown value.The observed interval \m{[u,v]} is also not random. 
+
+\item 
+An interval \m{[U,V]} constructed using a vector of random variables \m{\vect{Y}} defined in a probability model is random.
+
+\item If the model is appropriate, then it is reasonable to treat the observed confidence interval  \m{[u,v]} like a realization from the probability model.
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\frametitle{Not quite a confidence interval for a linear model}
+
+\vspace{-2mm}
+
+\begin{myitemize} 
+
+
+\item Consider estimating \m{\beta_1} in the linear model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} with $\vec{\epsilon}\sim\MVN(\vec{0},\sigma^2\mat{I})$.
+\item Recall that \m{\E[\hat\beta_1] = \beta_1} and \m{\sd(\hat\beta_1) = \sigma \, \sqrt{ \big[\big(\mat{X}^\transpose \mat{X} \big)^{-1} \big]_{11} }}.
+
+\end{myitemize}
+
+\myquestion. Find
+\m{\prob\big(\, \hat\beta_1-1.96\, \sd(\hat\beta_1) \le \beta_1 \le \hat\beta_1+1.96\, \sd(\hat\beta_1) \, \big)}
+
+\vspace{45mm}
+
+\begin{myitemize}
+\item The interval \m{\big[\, \hat\beta_1-1.96\, \sd(\hat\beta_1), \hat\beta_1+1.96\, \sd(\hat\beta_1) \, \big]} is almost a confidence interval. Sadly, we don't know \m{\sigma}.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{An approximate confidence interval for a linear model}
+\begin{myitemize}
+\item An approximate 95\% CI for \m{\beta_1} is 
+
+\framebox{
+\m{
+\big[\, b_1-1.96 \, \SE(b_1) \, , \, b_1+1.96\, \SE(b_1) \, \big]
+\rule[-3mm]{0mm}{9mm} }
+}
+
+where \m{\vect{y}=\mat{X}\vect{b}+\vect{e}} with
+\m{ \SE(b_1) = s \, \sqrt{ \big[\big(\mat{X}^\transpose \mat{X} \big)^{-1} \big]_{11} }}.
+
+\item The \myemph{standard error} \m{\SE(b_1)} is an estimated standard deviation of \m{\hat\beta_1} under the linear model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} with $\vec{\epsilon}\sim\MVN(\vec{0},\sigma^2\mat{I})$.
+
+\end{myitemize}
+
+\end{frame}
+
+<<reconstruct_variables,echo=F>>=
+L <- read.table(file="life_expectancy.txt",header=TRUE)
+L_fit <- lm(Total~Year,data=L)
+L_detrended <- L_fit$residuals
+U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
+U_annual <- apply(U[,2:13],1,mean)
+U_detrended <- lm(U_annual~U$Year)$residuals
+L_detrended <- subset(L_detrended,L$Year %in% U$Year)
+lm1 <- lm(L_detrended~U_detrended)
+@
+
+\begin{frame}[fragile]
+\frametitle{A CI for association between unemployment and mortality}
+
+\vspace{-3mm}
+
+<<lm>>=
+c1 <- summary(lm(L_detrended~U_detrended))$coefficients ; c1
+beta_U <- c1["U_detrended","Estimate"]
+SE_U <- c1["U_detrended","Std. Error"]
+z <- qnorm(1-0.05/2) # for a 95% CI using a normal approximation
+cat("CI = [", beta_U - z * SE_U, ",", beta_U + z * SE_U, "]")
+@
+
+\vspace{-5mm}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Interpreting and criticizing a p-value}
+
+\myquestion. We appear to have found evidence that each percentage point of unemployment above trend is associated with about 0.13 years of additional life expectancy, since  the 95\% CI doesn't include zero. Do you believe this discovery? How could you criticize it?
+
+\answer{\vspace{80mm}}{}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Association is not causation}
+
+``Whatever phenomenon varies in any manner whenever another phenomenon varies in some particular manner, is either a cause or an effect of that phenomenon, or is connected with it through some fact of causation.'' {\it (John Stuart Mill, A System of Logic, Vol. 1. 1843. p. 470.}
+
+\begin{myitemize}
+
+\item Put differently: If \m{A} and \m{B} are associated statistically, we can infer that either \m{A} causes \m{B}, or \m{B} causes \m{A}, or both have some common cause \m{C}.
+
+\item A useful mantra: \myemph{Association is not causation.}
+
+\item Writing a linear model where \m{A} depends on \m{B} can show association but we need extra work to argue \m{B} causes \m{A}. We need to rule out \m{A} causing \m{B} and the possibility of any common cause \m{C}.
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Association is not causation: a case study}
+
+\myquestion. Discuss the extent to which the observed association between detrended unemployment and life expectancy in our data can and cannot be interpreted causally.
+
+\answer{\vspace{80mm}}{}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Hypothesis tests}
+
+\begin{myitemize}
+\item We try to see patterns in our data. We hope to discover phenomena that will advance science, or help the environment, or reduce sickness and poverty, or make us rich, $\dots$
+
+\item How can we tell whether our new theory is like seeing animals or faces in the clouds?
+
+\item From Wikipedia: ``\myemph{Pareidolia} is a psychological phenomenon in which the mind responds to a stimulus ... by perceiving a familiar pattern where none exists (e.g. in random data)''.
+
+\item The research community has set a standard: The evidence presented to support a new theory should be unlikely under a \myemph{null hypothesis} that the new theory is false. To quantify {\it unlikely} we need a probability model.
+
+ 
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Hypothesis tests and the scientific method}
+
+\begin{myitemize}
+\item From a different perspective, a standard view of scientific progress holds that scientific theories cannot be proved correct, they can only be falsified (\url{https://en.wikipedia.org/wiki/Falsifiability}). 
+
+\item Accordingly, scientists look for evidence to refute the \myemph{null hypothesis} that data can be explained by current scientific understanding.
+
+\item If the null hypothesis is inadequate to explain data, the scientist may propose an \myemph{alternative hypothesis} which better explains these data. 
+
+\item
+The alternative hypothesis will subsequently be challenged with new data.
+
+\end{myitemize}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{The scientific method in statistical language}
+
+\vspace{-2mm}
+
+\begin{enumerate}
+
+\item \myemph{Ask a question}
+
+\item \myemph{Obtain relevant data}. 
+
+\item \myemph{Write a null and alternative hypothesis to represent your question in a probability model}. This may involve writing a linear model so that \m{\beta_1=0} corresponds to the null hypothesis of ``no effect'' and \m{\beta_1\neq 0} is a discovered ``effect.''
+
+\item \myemph{Choose a test statistic}. The \myemph{sample test statistic} is a quantity computed using the data summarizing the evidence against the null hypothesis. For our linear model example, the least squares coefficient \m{b_1} is a natural statistics to test the hypothesis \m{\beta_1=0}. 
+
+\item \myemph{Calculate the p-value}, the probability that a \myemph{model-generated test statistic} is at least as extreme as that observed.  For our linear model example, the p-value is
+\m{\prob\big[ | \hat\beta_1 | > | b_1 | \big]}.
+We can find this probability, when \m{\beta_1=0}, using a normal approximation.
+
+
+\item \myemph{Conclusions}. A small p-value (often, \m{<0.05}) is evidence for \myemph{rejecting} the null hypothesis. The data analysis may suggest new questions: \myemph{Return to Step 1}.
+
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Using confidence intervals to construct a hypothesis test}
+
+\begin{myitemize}
+\item It is often convenient to use the confidence interval as a sample test statistic.
+
+\item If the confidence interval doesn't cover the null hypothesis, then we have evidence to reject that null hypothesis.
+
+\item If we do this test using a 95\% confidence interval, we have a 5\% chance that we reject the null hypothesis if it is true. This follows from the definition of a confidence interval: whatever the true unknown value of a parameter \m{\theta}, a model-generated confidence interval covers \m{\theta} with probability 0.95.
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Some notation for hypothesis tests}
+
+\vspace{-2mm}
+
+
+\begin{myitemize}
+\item The null hypothesis is \m{H_0} and the alternative is \m{H_a}.
+
+\item We write \m{t} for the sample test statistic calculated using the data \m{\vect{y}}. We write \m{T} for the model-generated test statistic, which is a random variable constructed by calculating the test statistic using a random vector \m{\vect{Y}} drawn from the probability model under \m{H_0}.
+
+\item The p-value is \m{\pval=\prob\big( |T| \ge |t| \big)}. Here, we are assuming ``extreme'' means ``large in magnitude.'' Occasionally, it may make more sense to use \m{\pval=\prob\big( T \ge t \big)}.
+
+\item We reject \m{H_0} at \myemph{significance level} \m{\alpha} if \m{\pval<\alpha}. Common choices of \m{\alpha} are \m{\alpha=0.05}, \m{\alpha=0.01}, \m{\alpha=0.001}.
+
+\end{myitemize}
+
+\myquestion. When we report the results of a hypothesis test, we can either (i) give the p-value, or (ii) say whether \m{H_0} is rejected at a particular significance level. What are the advantages and disadvantages of each?
+
+\vspace{30mm}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Terminology for test statistics}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item Recall that a \myemph{sample test statistic} is a summary of the data,  constructed to test a hypothesis.
+\item A \myemph{model-generated test statistic} is the same summary applied to random variables drawn from a probability model. Usually, this probability model represents the null hypothesis. We can say ``model-generated test statistic under \m{H_0}'' to make this explicit.
+
+\item Distinguishing between sample test statistics and model-generated ones under a null hypothesis is critical to the logic of hypothesis testing.
+\end{myitemize}
+
+\vspace{2mm}
+
+{\bf Example}: testing whether \m{\beta_1=0} in the linear model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}},
+
+\vspace{1mm}
+
+\begin{myitemize}
+\item The sample test statistic is \m{b_1=\big[\big(\mat{X}^\transpose\mat{X}\big)^{-1}\mat{X}^\transpose \vect{y}\big]_1}. 
+\item A model-generated test statistic is \m{\hat\beta_1=\big[\big(\mat{X}^\transpose\mat{X}\big)^{-1}\mat{X}^\transpose \vect{Y}\big]_1}.
+
+\end{myitemize}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A hypothesis test for unemployment and mortality}
+
+\myquestion. Write a formal hypothesis test of the null hypothesis that there is no association between unemployment and mortality. Compute a p-value using a normal approximation. What do you think is an appropriate significance level \m{\alpha} for deciding whether to reject the null hypothesis?
+
+
+\vspace{60mm}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Normal approximations versus Student's t distribution}
+
+\begin{myitemize}
+\item Notice that \code{summary(lm(...))} gives \code{t value} and \code{Pr(>|t|)}. 
+
+\item The \code{t value} is the estimated coefficient divided by its standard error. This measures how many standard error units the estimated coefficient is from zero.
+
+\item \code{Pr(>|t|)} is similar, but slightly larger, than the p-value coming from the normal approximation.
+
+\item R is using Student's t distribution, which makes allowance for chance variation from using \m{s} as an approximation to \m{\sigma} when we compute the standard error.
+
+\item R uses a t random variable to model the distribution of the statistic \m{t}. Giving the full name (Student's t distribution) may add clarity.
+
+\item With sophisticated statistical methods, it is often hard to see if they work well just by reading about them. 
+Fortunately, it is often relatively easy to do a \myemph{simulation study} to see what is going on.
+
+\end{myitemize} 
+
+\end{frame}
+
+%\end{document}
+
+\begin{frame}[fragile]
+\frametitle{Simulating from Student's t distribution}
+
+\begin{myitemize}
+\item Suppose \m{X,X_1,\dots,X_d} are \m{d+1} independent identially distributed (iid) normal random variables with mean zero and standard deviation \m{\sigma}. 
+\item We write \m{X,X_1,\dots,X_d \sim \mathrm{iid } \; N[0,\sigma]}.
+\item Student's t distribution on \m{d} degrees of freedom is defined to be the distribution of 
+\m{T=X / \hat\sigma} where \m{\hat\sigma=\sqrt{\frac{1}{d}\sum_{i=1}^d X_i^2}}.
+\item A normal approximation would say \m{T} is approximately \m{N[0,1]} since \m{\hat\sigma} is an estimate of \m{\sigma}.
+\item With a computer, we can simulate \m{T} many times, plot a histogram, and compare it to the probability density function of the normal distribution and Student's t distribution.  
+\item The goals in doing this:
+\begin{enumerate}
+\item Some practice working with Student's t distribution.
+\item Finding how the t distribution compares to the normal distribution as \m{d} varies.
+\item Practice the skill of designing a simulation experiment.
+\end{enumerate}
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+
+\begin{myitemize}
+\item Let's start by simulating a matrix \code{X} of iid normal random variables.
+<<sim>>=
+N <- 50000 ; sigma <- 1 ; d <- 10 ; set.seed(23)
+X <- matrix(rnorm(N*(d+1),mean=0,sd=sigma),nrow=N)
+@
+\item Now, we write a function that computes \m{T} given \m{X_1,\dots,X_{d},X}
+<<T_eval>>=
+T_evaluator <- function(x) x[d+1] / sqrt(sum(x[1:d]^2)/d) 
+@
+\item Then, use \code{apply()} to evaluate \m{T} on each row of `X`.
+<<T_sim>>=
+Tsim <- apply(X,1,T_evaluator)
+@
+\item A histogram of these simulations can be compared with the normal density and the t density
+\begin{columns}[T] 
+\begin{column}{0.4\textwidth}
+<<T_plot_code,echo=T,eval=F>>=
+hist(Tsim,freq=F,main="",
+  breaks=30,ylim=c(0,0.4))
+x <- seq(length=200,
+  min(Tsim),max(Tsim))
+lines(x,dnorm(x),
+  col="blue",
+  lty="dashed")
+lines(x,dt(x,df=d),
+  col="red")
+@
+\end{column}
+\begin{column}{0.6\textwidth}
+<<T_plot,echo=F,eval=T,fig.width=4,fig.height=3,out.width="2.5in">>=
+par(mai=c(0.8,0.8,0.1,0.1))
+<<T_plot_code>>
+@
+\end{column}
+\end{columns}
+
+
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Comparing the normal and t distributions}
+
+\begin{myitemize}
+\item Even with as few as \m{d=\Sexpr{d}} degees of freedom to estimate \m{\sigma}, the Student's t density looks similar to the normal density.
+\item Student's t has fatter tails. This is important for the probability of rare extreme outcomes.
+\item Here, the largest and smallest of the \m{N=\Sexpr{N}} simulations are
+<<range>>=
+range(Tsim)
+@
+\item Let's check the chance of an outcome more than 5 (or 6) standard deviations from the mean for the normal distribution and the t on 10 degrees of freedom.
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+<<tail_z>>=
+2*(1-pnorm(5))
+2*(1-pnorm(6))
+@
+\end{column}
+\begin{column}{0.45\textwidth}
+<<tail_t>>=
+2*(1-pt(5,df=d))
+2*(1-pt(6,df=d))
+@
+\end{column}
+\end{columns}
+
+\end{myitemize}
+
+\end{frame}
+
+
+
+%\end{document}
+ 
+
+\begin{frame}[fragile]
+\frametitle{Hypotheses about predictions from a linear model}
+
+\vspace{-2mm} 
+
+\begin{myitemize}
+\item Consider the sample linear model \m{\vect{y}=\mat{X}\vect{b}+\vect{e}}, where \m{\mat{X}=[x_{ij}]_{n\times p}}.
+\item We might be interested in predicting outcomes at some new set of explanatory variables \m{\vect{x}^*=(x_1^*,\dots,x_p^*)}, treated as a \m{1\times p} \myemph{row vector}.
+\end{myitemize}
+
+\vspace{-2mm}
+
+\myquestion. Why do we want \m{\vect{x}^*} to be a row vector not a column vector?
+
+\vspace{10mm}
+
+\begin{myitemize}
+\item Making a prediction involves estimating (i) the expected value of a new outcome; (ii) its variability. In addition, we must make allowance for the statistical uncertainty in these estimates.
+\item To do inference, we need a probability model. 
+As usual, consider \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} where \m{\epsilon_1,\dots,\epsilon_n} are iid \m{N[0,\sigma]}. Also, model a new measurement at \m{\vect{x}^*} as
+\mydisplaymath{
+Y^* = \vect{x}^*\vect{\beta} + \epsilon^*
+}
+where \m{\epsilon^*} is another independent draw from the measurement model.
+
+\item Note that the dimension of \m{\vect{x}^*\vect{\beta}} is \m{(1\times p)\times(p\times 1)= 1\times 1}.
+\end{myitemize}
+
+\end{frame}
+
+%\end{document}
+
+\begin{frame}[fragile]
+\frametitle{The expected value of a new outcome and its uncertainty}
+
+\begin{myitemize}
+
+\item According to the model, the expected value of a new outcome at  \m{\vect{x}^*} is
+\mydisplaymath{
+\E[ Y^*] = \vect{x}^*\vect{\beta}.
+}
+\item But, we don't know \m{\vect{\beta}}. We estimate \m{\vect{\beta}} by the sample least squares coefficient 
+\m{\vect{b}=\big(\mat{X}^\transpose\mat{X}\big)^{-1}\mat{X}^\transpose \vect{y}}, 
+which is modeled as a realization of the model-generated least squares coefficient 
+\m{\vect{\hat\beta}=\big(\mat{X}^\transpose\mat{X}\big)^{-1}\mat{X}^\transpose \vect{Y}}.
+\item A \myemph{sample estimate of the expected value} is the \myemph{fitted value} at \m{\vect{x}^*}
+\mydisplaymath{\textstyle
+\hat y^* = \vect{x}^*\vect{b} =\sum_{j=1}^p x^*_j b_j.
+}
+\item The \myemph{model-generated estimate of the expected value} is
+\mydisplaymath{ \textstyle
+\hat Y^* = \vect{x}^*\vect{\hat\beta} =\sum_{j=1}^p x^*_j \hat\beta_j.
+}
+\item We can find the mean and variance of \m{\hat Y^*}. We can use these (together with a normal approximation) to find a confidence interval for \m{\E[Y^*]}. If the model is reasonable, this will tell us the uncertainty in using \m{\hat y^*} to estimate the sample average of many new outcomes collected at \m{\vect{x}^*}. 
+\end{myitemize}
+
+\end{frame}
+
+%\end{document}
+
+\begin{frame}[fragile]
+
+\vspace{-5mm}
+
+\myquestion. Show that \m{\E[\hat Y^*] = \vect{x}^*\vect{\beta}}
+
+\vspace{25mm}
+
+\myquestion. Show that \m{\var[\hat Y^*] = \sigma^2 \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose}}
+
+\vspace{35mm}
+
+\myquestion. Check the dimension of \m{\var[\hat Y^*]}. Is this correct?
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A CI for the expected value of a new outcome}
+
+\begin{myitemize}
+\item We can get a confidence interval (CI) for the \myemph{linear combination of coefficients} \m{\vect{x}^*\vect{\beta}} in a similar way to what we did for a single coefficient.
+\item A standard error is \m{\SE(\vect{x}^*\vect{b})=s \, \sqrt{\vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose}}}.
+\item Then, making a normal approximation, a 95\% CI is \m{[\vect{x}^*\vect{b} - 1.96\,\SE(\vect{x}^*\vect{b}) \, , \, \vect{x}^*\vect{b} + 1.96\,\SE(\vect{x}^*\vect{b})]}.
+\end{myitemize}
+
+\myexample. We consider again the data on freshman GPA, ACT exam scores and percentile ranking of each student within their high school for 705 students at a large state university.
+We seek to predict using the probability model considered in the midterm exam, where freshman GPA is modeled to depend linearly on ACT score and high school ranking.
+
+<<read_data>>=
+gpa <- read.table("gpa.txt",header=T); gpa[1,]
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\question. Find a 95\% confidence interval for the expected freshman GPA among students with an ACT score of 20 ranking at the 40th percentile in his/her high school.  
+
+\vspace{-2mm}
+
+\mysolution
+
+\vspace{-4mm}
+
+<<gpa_lm>>=
+lm1 <- lm(GPA~ACT+High_School,data=gpa) 
+x <- c(1,20,40)
+pred <- x%*%coef(lm1)
+V <- summary(lm1)$cov.unscaled 
+s <- summary(lm1)$sigma 
+SE_pred <-sqrt(x%*%V%*%x)*s
+c <- qnorm(0.975)
+cat("CI = [", round(pred-c*SE_pred,3),
+  ",", round(pred+c*SE_pred,3), "]")
+@
+
+\vspace{-5mm}
+
+\begin{myitemize}
+\item Notice how R guesses whether to interpret a vector as a row or column, depending on the situation.
+\end{myitemize}
+
+\vspace{-2mm}
+
+\myquestion. How would you check whether your answer is plausible? How would you check the R calculation has done what you want it to do?
+
+\vspace{5mm}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A prediction interval for a new outcome}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item A 95\% \myemph{prediction interval} for a new outcome of a linear model with explanatory variables \m{\vect{x}^*} covers the outcome with probability 95\%.
+\item The prediction interval allows for the uncertainty around the mean, usually called \myemph{measurement error}, in the outcome.
+\item Formally, the prediction interval aims to cover \m{Y^*=\vect{x}^*\vect{\beta}+\epsilon^*} whereas the confidence interval for the mean only aims to cover \m{\E[Y^*]=\vect{x}^*\vect{\beta}}.
+\item Since \m{\epsilon^*} is independent of \m{\vect{x}^*\vect{\hat\beta}} (why?), we have
+\myeqnarray{
+\var[Y^*-\vect{x}^*\vect{\hat\beta}]
+&=&
+\var[Y^*-\vect{x}^*\vect{\beta}] + \var[\vect{x}^*\vect{\beta}-\vect{x}^*\vect{\hat\beta}]
+\\
+&=& \quad \sigma^2 \quad + \sigma^2 \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose}
+}
+
+\vspace{-5mm}
+
+\item
+This suggests using a standard error for prediction of
+\mydisplaymath{
+\SE_{\mathrm{pred}}= s \, \sqrt{1 + \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose} }
+}
+\item A 95\% prediction interval, using a normal approximation, is
+\m{[\vect{x}^*\vect{b} - 1.96\,\SE_{\mathrm{pred}} \, , \, \vect{x}^*\vect{b} + 1.96\,\SE_{\mathrm{pred}}]}.
+
+\item We could use a t quantile. With 705 observations, the normal quantile \code{1.96=qnorm(0.975)} is equivalent to \code{\Sexpr{round(qt(0.975,df=702),2)}=qt(0.975,df=702)}
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+%\frametitle{}
+<<plot_args,echo=F>>=
+par(mai=c(0.8,0.8,0.1,0.1))
+@
+
+<<plot_gpa_code,eval=F>>=
+plot(x=fitted.values(lm1),y=gpa$GPA,ylab="GPA")
+abline(a=0,b=1)
+@
+
+\vspace{-15mm}
+
+<<plot_gpa,echo=F,fig.width=4,fig.height=4,out.width="2.5in">>=
+<<plot_gpa_code>>
+@
+
+\vspace{-5mm}
+
+\myquestion. Is the linear model a good fit for the data? What cautions do you recommend when using this model for prediction?
+
+\vspace{30mm}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\question. Find a 95\% prediction interval for the freshman GPA of an incoming student with an ACT score of 20 ranking at the 40th percentile in his/her high school.  
+
+\vspace{-2mm}
+
+\mysolution
+
+\vspace{-4mm}
+
+<<gpa_lm_pred>>=
+lm1 <- lm(GPA~ACT+High_School,data=gpa) 
+x <- c(1,20,40)
+pred <- x%*%coef(lm1)
+V <- summary(lm1)$cov.unscaled
+s <- summary(lm1)$sigma 
+SE_pred <-sqrt(x%*%V%*%x + 1)*s
+c <- qnorm(0.975)
+cat("prediction interval = [", round(pred-c*SE_pred,3),
+  ",", round(pred+c*SE_pred,3), "]")
+@
+
+\vspace{-5mm}
+
+\myquestion. Where does this calculation differ from the confidence interval? 
+
+\vspace{15mm}
+
+\end{frame}
+
+\end{document}
+
+------- This is just for copying to make new slides ---------
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+
+\begin{myitemize}
+\item 
+\end{myitemize}
+
+\end{frame}
