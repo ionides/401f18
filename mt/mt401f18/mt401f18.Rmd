@@ -29,7 +29,7 @@ set.seed(12)
  \newcommand\solution[1]{}
 }{ 
  \newcommand\exam[1]{} %% solutions
- \newcommand\solution[1]{{\color{blue}{\bf Solution}. {#1}}}
+ \newcommand\solution[1]{ {\color{blue}{\bf Solution}. {#1} } }
 } 
 
 \newcommand\mat[1]{\mathbb{#1}}
