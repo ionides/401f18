@@ -27,9 +27,11 @@ set.seed(12)
 \ifthenelse{\isodd{0}}{
  \newcommand\exam[1]{#1} %% exam paper
  \newcommand\solution[1]{}
+ \newcommant\points[1]{}
 }{ 
  \newcommand\exam[1]{} %% solutions
  \newcommand\solution[1]{{\color{blue}{\bf Solution}. {#1}}}
+ \newcommand\points[1]{{\color{red}{\bf Points}. {#1}}}
 } 
 
 \newcommand\mat[1]{\mathbb{#1}}
@@ -158,6 +160,8 @@ b_1 & + & 3b_2 &=& 2
 \]
 }
 
+\points{No partial credit was given for this part.}
+
 (b) [2 points] Find the inverse matrix $\mat{A}^{-1}$ and make a calculation to check that your answer is correct.
 
 \exam{\vspace{5.5cm}}
@@ -182,6 +186,8 @@ And we check
 \]
 }
 
+\points{1 point for the inverse; 1 for the confirmation.}
+
 (c) [2 points] Use matrix methods to solve the simultaneous equations for $b_1$ and $b_2$. This requires solving part (b) but partial credit will be available if you explain how to do this without successfully completing (b).
 
 \solution{$\vec{b}=\mat{A}^{-1}\vec{c}$, so in this case we get
@@ -199,6 +205,8 @@ And we check
 \]
 It is acceptable to either bring the factor of $1/11$ inside the vector or leave it outside. It is also acceptable to end by writing values of $b_1$ and $b_2$ separately rather than leaving $b_1$ and $b_2$ in a column vector.
 }
+
+\points{1 point for the approach; 1 for pushing through the calculation.}
 
 \exam{\newpage}
 
@@ -226,6 +234,8 @@ A
 
 ```{r,child="sol_q2a.Rmd",eval=SOL}
 ```
+
+\points{No partial credit was given for this question.}
 
 \exam{\vspace{5mm}}
 
@@ -256,7 +266,7 @@ For each of the lines of code below, say whether it will correctly make 50 draws
 ```{r,child="sol_q2b.Rmd",eval=SOL}
 ```
 
-
+\points{$+1$ point for getting (correct-incorrect)$>3$. $+1$ for getting everything correct. $+1$ for making one reasononable comment of justification.}
 
 \exam{\newpage}
 
@@ -269,6 +279,10 @@ The value of a large public company is determined by its share price. The share 
 \vspace{-2mm}
 
 (a) [2 points]. Suggest some reasons why a normal distribution might be appropriate to model daily changes in the share price of a large company. Also, comment on limitations that you think the normal distribution might have for modeling a company share price. You are not expected to have detailed knowledge of the stock market.  You are expected to apply to this situation your understanding about how a normal distribution arises in data.
+
+\solution{
+The profitability of a large company depends on many factors - all the different expenses and sources of income. In addition, the share price responds to supply and demand for the shares that depend on the buying and selling decisions of many investors. A quantity that is the sum of many small contributions is expected to follow a normal distribution. This is the principle of the central limit theorem. However, in addition, there is a small chance of a rare large event - say, a market crash or a scandal at the company. Rare large events are not subject to the central limit principle, so we expect them to lead to longer tails than the normal distribution.
+}
 
 \exam{\vspace{4cm}}
 
