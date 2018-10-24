@@ -10,10 +10,10 @@
  \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
- ANS=FALSE
+# ANS=FALSE
 @
 
-\begin{document}
+\begin{document} 
 
 % knitr set up
 <<knitr_opts,echo=F,cache=F,purl=F>>=
@@ -71,7 +71,9 @@ options(width = 60) # number of characters in R output before wrapping
 
 \end{frame}
 
-\begin{frame}
+%\end{document}
+
+\begin{frame} 
 \begin{myitemize}
 \item A confidence interval is the usual way to represent the amount of uncertainty in an estimated parameter.
 
@@ -87,6 +89,8 @@ An interval \m{[U,V]} constructed using a vector of random variables \m{\vect{Y}
 \end{myitemize}
 
 \end{frame}
+
+%\end{document}
 
 \begin{frame}[fragile]
 
@@ -105,13 +109,22 @@ An interval \m{[U,V]} constructed using a vector of random variables \m{\vect{Y}
 \myquestion. Find
 \m{\prob\big(\, \hat\beta_1-1.96\, \sd(\hat\beta_1) \le \beta_1 \le \hat\beta_1+1.96\, \sd(\hat\beta_1) \, \big)}
 
-\vspace{45mm}
+\answer{\vspace{45mm}}{Note: this is the probability of the event that $\hat\beta_1$ falls in the interval $[\hat\beta_1-1.96\, \sd(\hat\beta_1) , \hat\beta_1+1.96\, \sd(\hat\beta_1)]$.
+We can rewrite this as
+\[
+ \prob\big(\, \beta_1-1.96\, \sd(\hat\beta_1) \le \hat\beta_1 \le \beta_1+1.96\, \sd(\hat\beta_1) \, \big).
+\]
+Now (sketch normal curve) we see that the probability is 95\%.
+}
 
 \begin{myitemize}
 \item The interval \m{\big[\, \hat\beta_1-1.96\, \sd(\hat\beta_1), \hat\beta_1+1.96\, \sd(\hat\beta_1) \, \big]} is almost a confidence interval. Sadly, we don't know \m{\sigma}.
 \end{myitemize}
 
 \end{frame}
+
+%\end{document}
+
 
 \begin{frame}[fragile]
 \frametitle{An approximate confidence interval for a linear model}
@@ -164,12 +177,14 @@ cat("CI = [", beta_U - z * SE_U, ",", beta_U + z * SE_U, "]")
 
 \end{frame}
 
+%\end{document}
+
 \begin{frame}[fragile]
 \frametitle{Interpreting and criticizing a p-value}
 
 \myquestion. We appear to have found evidence that each percentage point of unemployment above trend is associated with about 0.13 years of additional life expectancy, since  the 95\% CI doesn't include zero. Do you believe this discovery? How could you criticize it?
 
-\answer{\vspace{80mm}}{}
+\answer{\vspace{80mm}}{The conclusion depends on a probability model. Every model assumption can be debated. What are the assumptions? How do we assess if they seem appropriate or inappropriate? Even if the model appears to be a reasonable statistical description of the data, can we make a causal interpretation?}
 
 \end{frame}
 
@@ -178,6 +193,8 @@ cat("CI = [", beta_U - z * SE_U, ",", beta_U + z * SE_U, "]")
 \frametitle{Association is not causation}
 
 ``Whatever phenomenon varies in any manner whenever another phenomenon varies in some particular manner, is either a cause or an effect of that phenomenon, or is connected with it through some fact of causation.'' {\it (John Stuart Mill, A System of Logic, Vol. 1. 1843. p. 470.}
+
+\vspace{3mm}
 
 \begin{myitemize}
 
@@ -191,12 +208,16 @@ cat("CI = [", beta_U - z * SE_U, ",", beta_U + z * SE_U, "]")
 
 \end{frame}
 
+%\end{document}
+
 \begin{frame}[fragile]
 \frametitle{Association is not causation: a case study}
 
 \myquestion. Discuss the extent to which the observed association between detrended unemployment and life expectancy in our data can and cannot be interpreted causally.
 
-\answer{\vspace{80mm}}{}
+\answer{\vspace{80mm}}{
+Unemployment is one measure of economic boom/bust cycles. Other measures of the economic cycle (inflation, property prices,$\dots$) would be expected to give similar results. We can't show that unemployment itself affects life expectancy. So far as it does, this result is counterintuitive, since unemployed individuals are statistically less healthy (you can't see that from this dataset). However, it is hard to suggest a common cause that drives boom/bust cycles in the economy and fluctuations civilian life expectancy.}
+
 
 \end{frame}
 
@@ -258,7 +279,7 @@ The alternative hypothesis will subsequently be challenged with new data.
 We can find this probability, when \m{\beta_1=0}, using a normal approximation.
 
 
-\item \myemph{Conclusions}. A small p-value (often, \m{<0.05}) is evidence for \myemph{rejecting} the null hypothesis. The data analysis may suggest new questions: \myemph{Return to Step 1}.
+\item \myemph{Conclusions}. A small p-value (often, \m{<0.05}) is evidence favoring \myemph{rejection} of the null hypothesis. The data analysis may suggest new questions: \myemph{Return to Step 1}.
 
 \end{enumerate}
 
@@ -298,11 +319,13 @@ We can find this probability, when \m{\beta_1=0}, using a normal approximation.
 
 \end{frame}
 
+%\end{document}
+
 \begin{frame}[fragile]
 \frametitle{Alternative ways to report a hypothesis test}
 \myquestion. When we report the results of a hypothesis test, we can either (i) give the p-value, or (ii) say whether \m{H_0} is rejected at a particular significance level. What are the advantages and disadvantages of each?
 
-\answer{\vspace{80mm}}{todo}
+\answer{\vspace{80mm}}{The significance level is more compact. Conventionally, an asterisk denotes statistical significance at the 0.05 level; two asterisks for the 0.01 level and three for the 0.001 level. However, the p-value contains more information. From the p-value you can test at any level you like. Give a p-value unless space constraints prevent it.}
 
 \end{frame}
 
@@ -334,14 +357,42 @@ We can find this probability, when \m{\beta_1=0}, using a normal approximation.
 
 \end{frame}
 
+%\end{document}
 
 \begin{frame}[fragile]
 \frametitle{A hypothesis test for unemployment and mortality}
 
 \myquestion. Write a formal hypothesis test of the null hypothesis that there is no association between unemployment and mortality. Compute a p-value using a normal approximation. What do you think is an appropriate significance level \m{\alpha} for deciding whether to reject the null hypothesis?
 
+\myemph{Steps: (1) write the probability model; (2) write the null hypothesis; (3) specify your test statistic; (4) find the distribution of the test statistic under the null hypothesis; (5) calculate the p-value; (6) draw conclusions.
+}
 
-\vspace{60mm}
+\answer{\vspace{80mm}}{
+(1) The probability model (in subscript form) is $Y_i = b_1 x_i + b_2 +\epsilon_i$ for $i=1,\dots,n$ where $x_i$ is detrended unemployment for the $i$th year of the dataset, $n=68$, and $\epsilon_i\sim\iid\; \normal(0,\sigma)$. 
+\\
+(2) The null hypothesis is $H_0: b_1=0$. 
+\\
+(3) The model-generated test statistic is $\hat\beta_1$ and the sample test statistic is $b_1$. 
+}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{A hypothesis test: continued}
+
+\answer{\vspace{80mm}}{
+(4) Under the null hypothesis, $\hat\beta_1\sim\normal(0,\sd(\hat\beta_1))$ where 
+$\sd(\hat\beta_1)=\sigma \sqrt{\big[ (\mat{X}^\transpose\mat{X})^{-1}\big]_{11}}$.
+We make an approximation $\hat\beta_1\approx\normal(0,\SE(b_1))$ where
+$\SE(b_1)= s \sqrt{\big[ (\mat{X}^\transpose\mat{X})^{-1}\big]_{11}}$.
+\\
+(5) From the R output above, $b_1=0.1314$ and $\SE(b_1)=0.0632$. The p-value is 
+\code{2*pnorm(-0.1314,mean=0,sd=0.0632)=0.0376}. 
+\\
+(6) A significance level of 0.05 is customary for this kind of social science data. Disciplines that can collect massive amounts of data usually require stronger evidence, but we are limited in the number of economic cycles that have happened.
+}
+
+
 
 \end{frame}
 
@@ -383,8 +434,7 @@ Fortunately, it is often relatively easy to do a \myemph{simulation study} to se
 
 \myquestion. This is almost the same representation of the t distribution as HW4. What is the difference? Why does it not matter?
 
-\answer{\vspace{25mm}}{todo}
-
+\answer{\vspace{25mm}}{In HW, we took $\sigma=1$. The value of $\sigma$ doesn't matter, since it cancels on the numerator and denominator in the definition of $T$.}
 
 \end{frame}
 
@@ -392,7 +442,8 @@ Fortunately, it is often relatively easy to do a \myemph{simulation study} to se
 \frametitle{}
 
 \begin{myitemize}
-\item Let's start by simulating a matrix \code{X} of iid normal random variables.
+\item Here is a different way from HW4 to do the simulation experiment.
+\item We start by simulating a matrix \code{X} of iid normal random variables.
 <<sim>>=
 N <- 50000 ; sigma <- 1 ; d <- 10 ; set.seed(23)
 X <- matrix(rnorm(N*(d+1),mean=0,sd=sigma),nrow=N)
@@ -405,7 +456,7 @@ T_evaluator <- function(x) x[d+1] / sqrt(sum(x[1:d]^2)/d)
 <<T_sim>>=
 Tsim <- apply(X,1,T_evaluator)
 @
-\item A histogram of these simulations can be compared with the normal density and the t density
+\item We add the normal and t densities to a histogram of the simulations.
 \begin{columns}[T] 
 \begin{column}{0.4\textwidth}
 <<T_plot_code,echo=T,eval=F>>=
@@ -487,7 +538,7 @@ where \m{\epsilon^*} is another independent draw from the measurement model.
 \end{myitemize}
 \myquestion. (a) Why do we want \m{\vect{x}^*} to be a row vector not a column vector? (b) What is the dimension of  \m{\vect{x}^*\vect{\beta}}?
 
-\answer{\vspace{20mm}}{todo}
+\answer{\vspace{20mm}}{$\vec{\beta}$ is a column vector and we want the dimensions to match. $Y^*$ is a scalar, so $\vect{x}^*\vect{\beta}$ has dimension $(1\times p)\times (p\times 1)= (1\times 1)$.}
 
 \end{frame}
 
@@ -527,15 +578,27 @@ which is modeled as a realization of the model-generated least squares coefficie
 
 \myquestion. Use linearity of expectation to show that \m{\E[\hat Y^*] = \vect{x}^*\vect{\beta}}
 
-\answer{\vspace{25mm}}{todo}
+\answer{\vspace{25mm}}{
+\[\E[\hat Y^*]= \E[\vect{x}^*\vect{\hat\beta}]=\vect{x}^* \E[\vect{\hat\beta}] \; \mbox{(by linearity)} \; =  \vect{x}^* \vec{\beta}\]
+Here, we use the previous result that $\E[\vec{\hat\beta}]=\vec{\beta}$.
+}
 
 \myquestion. Use the formula \m{\var(\mat{A}\vec{X})= \mat{A}\var(\vec{X})\mat{A}^\transpose} to show that \m{\var[\hat Y^*] = \sigma^2 \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose}}
 
-\vspace{35mm}
-
+\answer{\vspace{35mm}}{
+\[ \var(\hat Y^*) = \var(\vect{x}^*\vect{\hat\beta}) = \vect{x}^* \var(\vect{\hat\beta}) {\vect{x}^*}^\transpose = \sigma^2 \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose} \]
+}
 \myquestion. Check the dimension of \m{\var[\hat Y^*]}. Is this correct?
+
+\answer{\vspace{25mm}}{Since $\mat{X}^\transpose \mat{X}$ has dimension $p\times p$, so does  $(\mat{X}^\transpose \mat{X})^{-1}$ and the dimension of $\var[\hat Y^*]$ is
+\[
+(1\times p)\times(p\times p) \times (p\times 1) = (1\times 1).
+\]
+}
+
 \end{frame}
 
+%\end{document}
 
 \begin{frame}[fragile]
 \frametitle{A CI for the expected value of a new outcome}
@@ -577,7 +640,7 @@ cat("CI = [", round(pred-c*SE_pred,3),
 
 \myquestion. How would you check whether your answer is plausible? How would you check the R calculation has done what you want it to do?
 
-\answer{\vspace{25mm}}{todo}
+\answer{\vspace{25mm}}{Looking at the data on a scatterplot is a good sanity check.}
 
 \end{frame}
 
@@ -650,7 +713,7 @@ abline(a=0,b=1)
 
 \myquestion. Is the linear model a good fit for the data? What cautions do you recommend when using this model for prediction?
 
-\vspace{30mm}
+\answer{\vspace{30mm}}{The points have more spread around the line at lower fitted values. It appears that the prediction is less accurate for low GPAs. This violates the model assumption that the measurement error has constant standard deviation. Users should understand that the model may be unreliable at the extreme ranges of GPA.}
 
 \end{frame}
 
@@ -673,9 +736,9 @@ cat("prediction interval = [", round(pred-c*SE_pred,3),
 
 \vspace{-2mm}
 
-\myquestion. Where does this calculation differ from the confidence interval? 
+\myquestion. Where does this calculation differ from the confidence interval for the expected value? 
 
-\answer{\vspace{25mm}}{todo}
+\answer{\vspace{25mm}}{It adds in the measurement error.}
 
 \end{frame}
 
