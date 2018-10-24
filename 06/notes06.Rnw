@@ -65,7 +65,7 @@ options(width = 60) # number of characters in R output before wrapping
 
 \item \m{[u,v]} is a 95\% \myemph{confidence interval} (CI) for \m{\theta} if the same construction, applied to a large number of draws from the model, would cover \m{\theta} 95\% of the time.
 
-\item A \myemph{parameter} is a name for any unknown constant in a model. In linear models,each component \m{\beta_1,\dots,\beta_p} of the \myemph{coefficient vector} \m{\vect{\beta}} is a parameter. So is the variance \m{\sigma^2} of the measurement error.
+\item A \myemph{parameter} is a name for any unknown constant in a model. In linear models,each component \m{\beta_1,\dots,\beta_p} of the \myemph{coefficient vector} \m{\vect{\beta}} is a parameter. The only other parameter is \m{\sigma}, the standard deviation of the measurement error.
 
 \end{myitemize}
 
@@ -75,7 +75,9 @@ options(width = 60) # number of characters in R output before wrapping
 \begin{myitemize}
 \item A confidence interval is the usual way to represent the amount of uncertainty in an estimated parameter.
 
-\item The parameter is not random. According to the model, it has a fixed but unknown value.The observed interval \m{[u,v]} is also not random. 
+\item The parameter is not random. According to the model, it has a fixed but unknown value.
+
+\item The observed interval \m{[u,v]} is also not random. 
 
 \item 
 An interval \m{[U,V]} constructed using a vector of random variables \m{\vect{Y}} defined in a probability model is random.
@@ -124,6 +126,8 @@ An interval \m{[U,V]} constructed using a vector of random variables \m{\vect{Y}
 
 where \m{\vect{y}=\mat{X}\vect{b}+\vect{e}} with
 \m{ \SE(b_1) = s \, \sqrt{ \big[\big(\mat{X}^\transpose \mat{X} \big)^{-1} \big]_{11} }}.
+
+\vspace{5mm}
 
 \item The \myemph{standard error} \m{\SE(b_1)} is an estimated standard deviation of \m{\hat\beta_1} under the linear model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} with $\vec{\epsilon}\sim\MVN(\vec{0},\sigma^2\mat{I})$.
 
@@ -247,10 +251,10 @@ The alternative hypothesis will subsequently be challenged with new data.
 
 \item \myemph{Write a null and alternative hypothesis to represent your question in a probability model}. This may involve writing a linear model so that \m{\beta_1=0} corresponds to the null hypothesis of ``no effect'' and \m{\beta_1\neq 0} is a discovered ``effect.''
 
-\item \myemph{Choose a test statistic}. The \myemph{sample test statistic} is a quantity computed using the data summarizing the evidence against the null hypothesis. For our linear model example, the least squares coefficient \m{b_1} is a natural statistics to test the hypothesis \m{\beta_1=0}. 
+\item \myemph{Choose a test statistic}. The \myemph{sample test statistic} is a quantity computed using the data summarizing the evidence against the null hypothesis. For our linear model example, the least squares coefficient \m{b_1} is a natural sample test statistic for the hypothesis \m{\beta_1=0}. 
 
 \item \myemph{Calculate the p-value}, the probability that a \myemph{model-generated test statistic} is at least as extreme as that observed.  For our linear model example, the p-value is
-\m{\prob\big[ | \hat\beta_1 | > | b_1 | \big]}.
+\m{\prob\big( | \hat\beta_1 | > | b_1 | \big)}.
 We can find this probability, when \m{\beta_1=0}, using a normal approximation.
 
 
@@ -292,9 +296,13 @@ We can find this probability, when \m{\beta_1=0}, using a normal approximation.
 
 \end{myitemize}
 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Alternative ways to report a hypothesis test}
 \myquestion. When we report the results of a hypothesis test, we can either (i) give the p-value, or (ii) say whether \m{H_0} is rejected at a particular significance level. What are the advantages and disadvantages of each?
 
-\vspace{30mm}
+\answer{\vspace{80mm}}{todo}
 
 \end{frame}
 
@@ -363,21 +371,20 @@ Fortunately, it is often relatively easy to do a \myemph{simulation study} to se
 \begin{frame}[fragile]
 \frametitle{Simulating from Student's t distribution}
 
+\vspace{-1.5mm}
+
 \begin{myitemize}
-\item Suppose \m{X,X_1,\dots,X_d} are \m{d+1} independent identially distributed (iid) normal random variables with mean zero and standard deviation \m{\sigma}. 
-\item We write \m{X,X_1,\dots,X_d \sim \mathrm{iid } \; N[0,\sigma]}.
+\item Suppose \m{X} and \m{X_1,\dots,X_d} are independent identially distributed (iid) normal random variables with mean zero and standard deviation \m{\sigma}. 
 \item Student's t distribution on \m{d} degrees of freedom is defined to be the distribution of 
 \m{T=X / \hat\sigma} where \m{\hat\sigma=\sqrt{\frac{1}{d}\sum_{i=1}^d X_i^2}}.
-\item A normal approximation would say \m{T} is approximately \m{N[0,1]} since \m{\hat\sigma} is an estimate of \m{\sigma}.
+\item A normal approximation would say \m{T} is approximately \m{\normal(0,1)} since \m{\hat\sigma} is an estimate of \m{\sigma}.
 \item With a computer, we can simulate \m{T} many times, plot a histogram, and compare it to the probability density function of the normal distribution and Student's t distribution.  
-\item The goals in doing this:
-\begin{enumerate}
-\item Some practice working with Student's t distribution.
-\item Finding how the t distribution compares to the normal distribution as \m{d} varies.
-\item Practice the skill of designing a simulation experiment.
-\end{enumerate}
-
 \end{myitemize}
+
+\myquestion. This is almost the same representation of the t distribution as HW4. What is the difference? Why does it not matter?
+
+\answer{\vspace{25mm}}{todo}
+
 
 \end{frame}
 
@@ -414,6 +421,7 @@ lines(x,dt(x,df=d),
 @
 \end{column}
 \begin{column}{0.6\textwidth}
+\vspace{-3mm}
 <<T_plot,echo=F,eval=T,fig.width=4,fig.height=3,out.width="2.5in">>=
 par(mai=c(0.8,0.8,0.1,0.1))
 <<T_plot_code>>
@@ -468,25 +476,18 @@ range(Tsim)
 \begin{myitemize}
 \item Consider the sample linear model \m{\vect{y}=\mat{X}\vect{b}+\vect{e}}, where \m{\mat{X}=[x_{ij}]_{n\times p}}.
 \item We might be interested in predicting outcomes at some new set of explanatory variables \m{\vect{x}^*=(x_1^*,\dots,x_p^*)}, treated as a \m{1\times p} \myemph{row vector}.
-\end{myitemize}
 
-\vspace{-2mm}
-
-\myquestion. Why do we want \m{\vect{x}^*} to be a row vector not a column vector?
-
-\vspace{10mm}
-
-\begin{myitemize}
 \item Making a prediction involves estimating (i) the expected value of a new outcome; (ii) its variability. In addition, we must make allowance for the statistical uncertainty in these estimates.
 \item To do inference, we need a probability model. 
-As usual, consider \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} where \m{\epsilon_1,\dots,\epsilon_n} are iid \m{N[0,\sigma]}. Also, model a new measurement at \m{\vect{x}^*} as
+As usual, consider \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} where \m{\epsilon_1,\dots,\epsilon_n\sim\iid \; \normal(0,\sigma)}. Also, model a new measurement at \m{\vect{x}^*} as
 \mydisplaymath{
 Y^* = \vect{x}^*\vect{\beta} + \epsilon^*
 }
 where \m{\epsilon^*} is another independent draw from the measurement model.
-
-\item Note that the dimension of \m{\vect{x}^*\vect{\beta}} is \m{(1\times p)\times(p\times 1)= 1\times 1}.
 \end{myitemize}
+\myquestion. (a) Why do we want \m{\vect{x}^*} to be a row vector not a column vector? (b) What is the dimension of  \m{\vect{x}^*\vect{\beta}}?
+
+\answer{\vspace{20mm}}{todo}
 
 \end{frame}
 
@@ -524,11 +525,11 @@ which is modeled as a realization of the model-generated least squares coefficie
 
 \vspace{-5mm}
 
-\myquestion. Show that \m{\E[\hat Y^*] = \vect{x}^*\vect{\beta}}
+\myquestion. Use linearity of expectation to show that \m{\E[\hat Y^*] = \vect{x}^*\vect{\beta}}
 
-\vspace{25mm}
+\answer{\vspace{25mm}}{todo}
 
-\myquestion. Show that \m{\var[\hat Y^*] = \sigma^2 \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose}}
+\myquestion. Use the formula \m{\var(\mat{A}\vec{X})= \mat{A}\var(\vec{X})\mat{A}^\transpose} to show that \m{\var[\hat Y^*] = \sigma^2 \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose}}
 
 \vspace{35mm}
 
@@ -556,13 +557,9 @@ gpa <- read.table("gpa.txt",header=T); gpa[1,]
 
 
 \begin{frame}[fragile]
-\question. Find a 95\% confidence interval for the expected freshman GPA among students with an ACT score of 20 ranking at the 40th percentile in his/her high school.  
+\WorkedExample. Find a 95\% confidence interval for the expected freshman GPA among students with an ACT score of 20 ranking at the 40th percentile in his/her high school.  
 
 \vspace{-2mm}
-
-\mysolution
-
-\vspace{-4mm}
 
 <<gpa_lm>>=
 lm1 <- lm(GPA~ACT+High_School,data=gpa) 
@@ -576,17 +573,11 @@ cat("CI = [", round(pred-c*SE_pred,3),
   ",", round(pred+c*SE_pred,3), "]")
 @
 
-\vspace{-5mm}
-
-\begin{myitemize}
-\item Notice how R guesses whether to interpret a vector as a row or column, depending on the situation.
-\end{myitemize}
-
-\vspace{-2mm}
+\vspace{-1mm}
 
 \myquestion. How would you check whether your answer is plausible? How would you check the R calculation has done what you want it to do?
 
-\vspace{5mm}
+\answer{\vspace{25mm}}{todo}
 
 \end{frame}
 
@@ -598,9 +589,9 @@ cat("CI = [", round(pred-c*SE_pred,3),
 
 \begin{myitemize}
 \item A 95\% \myemph{prediction interval} for a new outcome of a linear model with explanatory variables \m{\vect{x}^*} covers the outcome with probability 95\%.
-\item The prediction interval allows for the uncertainty around the mean, usually called \myemph{measurement error}, in the outcome.
-\item Formally, the prediction interval aims to cover \m{Y^*=\vect{x}^*\vect{\beta}+\epsilon^*} whereas the confidence interval for the mean only aims to cover \m{\E[Y^*]=\vect{x}^*\vect{\beta}}.
-\item Since \m{\epsilon^*} is independent of \m{\vect{x}^*\vect{\hat\beta}} (why?), we have
+\item The prediction interval allows for the uncertainty around the mean, modeled as \myemph{measurement error} in the outcome.
+\item The prediction interval aims to cover \m{Y^*=\vect{x}^*\vect{\beta}+\epsilon^*} whereas the confidence interval for the mean only aims to cover \m{\E[Y^*]=\vect{x}^*\vect{\beta}}.
+\item Since \m{\epsilon^*} is independent of \m{\vect{x}^*\vect{\hat\beta}} we have
 \myeqnarray{
 \var[Y^*-\vect{x}^*\vect{\hat\beta}]
 &=&
@@ -617,9 +608,22 @@ This suggests using a standard error for prediction of
 \SE_{\mathrm{pred}}= s \, \sqrt{1 + \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose} }
 }
 \item A 95\% prediction interval, using a normal approximation, is
-\m{[\vect{x}^*\vect{b} - 1.96\,\SE_{\mathrm{pred}} \, , \, \vect{x}^*\vect{b} + 1.96\,\SE_{\mathrm{pred}}]}.
 
-\item We could use a t quantile. With 705 observations, the normal quantile \code{1.96=qnorm(0.975)} is equivalent to \code{\Sexpr{round(qt(0.975,df=702),2)}=qt(0.975,df=702)}
+\vspace{-1.5mm}
+
+\mydisplaymath{[\vect{x}^*\vect{b} - 1.96\,\SE_{\mathrm{pred}} \, , \, \vect{x}^*\vect{b} + 1.96\,\SE_{\mathrm{pred}}]}.
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Using the t distribution for predictions}
+\begin{myitemize}
+\item We could use a t quantile instead of a normal approximation.
+\item Just as for parameter confidence intervals, since we use the sample standard deviation \m{s} in place of the true standard deviation \m{\sigma}, a t distribution is more accurate.
+\item 
+With 705 observations, the normal quantile \code{1.96=qnorm(0.975)} is identical to \code{\Sexpr{round(qt(0.975,df=702),2)}=qt(0.975,df=702)} up to 3 significant figures.
 
 \end{myitemize}
 
@@ -636,7 +640,7 @@ plot(x=fitted.values(lm1),y=gpa$GPA,ylab="GPA")
 abline(a=0,b=1)
 @
 
-\vspace{-15mm}
+\vspace{-12mm}
 
 <<plot_gpa,echo=F,fig.width=4,fig.height=4,out.width="2.5in">>=
 <<plot_gpa_code>>
@@ -651,13 +655,9 @@ abline(a=0,b=1)
 \end{frame}
 
 \begin{frame}[fragile]
-\question. Find a 95\% prediction interval for the freshman GPA of an incoming student with an ACT score of 20 ranking at the 40th percentile in his/her high school.  
+\WorkedExample. Find a 95\% prediction interval for the freshman GPA of an incoming student with an ACT score of 20 ranking at the 40th percentile in his/her high school.  
 
 \vspace{-2mm}
-
-\mysolution
-
-\vspace{-4mm}
 
 <<gpa_lm_pred>>=
 lm1 <- lm(GPA~ACT+High_School,data=gpa) 
@@ -671,11 +671,11 @@ cat("prediction interval = [", round(pred-c*SE_pred,3),
   ",", round(pred+c*SE_pred,3), "]")
 @
 
-\vspace{-5mm}
+\vspace{-2mm}
 
 \myquestion. Where does this calculation differ from the confidence interval? 
 
-\vspace{15mm}
+\answer{\vspace{25mm}}{todo}
 
 \end{frame}
 
