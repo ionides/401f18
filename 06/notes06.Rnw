@@ -84,7 +84,9 @@ options(width = 60) # number of characters in R output before wrapping
 \item 
 An interval \m{[U,V]} constructed using a vector of random variables \m{\vect{Y}} defined in a probability model is random.
 
-\item If the model is appropriate, then it is reasonable to treat the observed confidence interval  \m{[u,v]} like a realization from the probability model.
+\item We call \m{[u,v]} the \myemph{sample confidence interval} and \m{[U,V]} a \myemph{model-generated confidence interval}.
+
+\item If the model is appropriate, then it is reasonable to treat the sample confidence interval  \m{[u,v]} like a realization from the probability model.
 
 \end{myitemize}
 
@@ -101,7 +103,7 @@ An interval \m{[U,V]} constructed using a vector of random variables \m{\vect{Y}
 \begin{myitemize} 
 
 
-\item Consider estimating \m{\beta_1} in the linear model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} with $\vec{\epsilon}\sim\MVN(\vec{0},\sigma^2\mat{I})$.
+\item Consider estimating \m{\beta_1} using data \m{\vec{y}} assuming the probability model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} with \m{\vec{\epsilon}\sim\MVN(\vec{0},\sigma^2\mat{I})}.
 \item Recall that \m{\E[\hat\beta_1] = \beta_1} and \m{\sd(\hat\beta_1) = \sigma \, \sqrt{ \big[\big(\mat{X}^\transpose \mat{X} \big)^{-1} \big]_{11} }}.
 
 \end{myitemize}
@@ -118,7 +120,8 @@ Now (sketch normal curve) we see that the probability is 95\%.
 }
 
 \begin{myitemize}
-\item The interval \m{\big[\, \hat\beta_1-1.96\, \sd(\hat\beta_1), \hat\beta_1+1.96\, \sd(\hat\beta_1) \, \big]} is almost a confidence interval. Sadly, we don't know \m{\sigma}.
+\item The interval \m{\big[\, \hat\beta_1-1.96\, \sd(\hat\beta_1), \hat\beta_1+1.96\, \sd(\hat\beta_1) \, \big]} is almost a model-generated CI. 
+Sadly, we don't know \m{\sigma}. A sample CI should only depend on the data, not on unknown parameters. 
 \end{myitemize}
 
 \end{frame}
@@ -180,7 +183,7 @@ cat("CI = [", beta_U - z * SE_U, ",", beta_U + z * SE_U, "]")
 %\end{document}
 
 \begin{frame}[fragile]
-\frametitle{Interpreting and criticizing a p-value}
+\frametitle{Interpreting and criticizing a confidence interval}
 
 \myquestion. We appear to have found evidence that each percentage point of unemployment above trend is associated with about 0.13 years of additional life expectancy, since  the 95\% CI doesn't include zero. Do you believe this discovery? How could you criticize it?
 

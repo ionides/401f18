@@ -31,8 +31,8 @@ set.seed(12)
 }{ 
  \newcommand\exam[1]{} %% solutions
  \newcommand\solution[1]{ {\color{blue}{\bf Solution}. {#1}} }
-% \newcommand\points[1]{ {\color{red}{\bf Points}. {#1}} }
- \newcommand\points[1]{} %% omit grading rubrik
+ \newcommand\points[1]{ {\color{red}{\bf Points}. {#1}} }
+% \newcommand\points[1]{} %% omit grading rubrik
 } 
 
 \newcommand\mat[1]{\mathbb{#1}}
@@ -161,7 +161,7 @@ b_1 & + & 3b_2 &=& 2
 \]
 }
 
-\points{No partial credit was given for this part.}
+\points{No partial credit was given for this question.}
 
 (b) [2 points] Find the inverse matrix $\mat{A}^{-1}$ and make a calculation to check that your answer is correct.
 
@@ -285,6 +285,8 @@ The value of a large public company is determined by its share price. The share 
 The profitability of a large company depends on many factors - all the different expenses and sources of income. In addition, the share price responds to supply and demand for the shares that depend on the buying and selling decisions of many investors. A quantity that is the sum of many small contributions is expected to follow a normal distribution. This is the principle of the central limit theorem. However, in addition, there is a small chance of a rare large event - say, a market crash or a scandal at the company. Rare large events are not subject to the central limit principle, so we expect them to lead to longer tails than the normal distribution.
 }
 
+\points{2 correct and relevant statements. Usually, this was (i) a sum of many small contributions is expected to be normally distributed; (ii) occasional big contributions break the central limit principle.}
+
 \exam{\vspace{4cm}}
 
 (b) [4 points]. Let $X$ and $Y$ be bivariate random variables modeling the daily change in price of two different companies. Suppose $X$ and $Y$ are bivariate normal with respective means $\mu_X=\mu_Y=0$, standard deviations $\sigma_X=1$ and $\sigma_Y=2$ and correlation $\cor(X,Y)=0.5$. Find the distributions of $X+Y$ and $X-Y$.
@@ -305,6 +307,7 @@ Then,
 \end{eqnarray*}
 }
 
+\points{1 point for $X+Y$ and $X-Y$ being normally distributed; 1 point for their expected value; 1 point for each of their variances if correctly calculated (1 point if method is reasonable but neither were ultimately correct).}
 
 (c) [1 point]. Write an integral representing the probability that $X>Y$. Hint: you can use the answer from part (b). 
 
@@ -316,12 +319,16 @@ Then,
 \]
 }
 
+\points{0.5 points if there is a minor typo.}
+
 (d)  [1 point]. If you can find an exact value for the integral you wrote in (c), give it. Otherwise, write R code to evaluate it.
 
 \exam{\vspace{2cm}}
 
 \solution{Since the normal curve is symmetric about the line $x=0$, the area under the region with $x>0$ and $x<0$ are both $1/2$. In this case, the answer can be checked by \code{pnorm(0,mean=0,sd=sqrt(3))}.
 }
+
+\solution{The point was awarded if the answer is correct or consistent with the answer to (c).}
 
 \exam{\newpage}
 
@@ -358,6 +365,8 @@ y <- lm(l~year,data=health)$residuals
 
 \solution{Life expectancy has a clear upward trend over this time period. To tell whether life expectancy is influenced by economic conditions, we can look at fluctuations around the trend, to see whether good (or bad) economic conditions are associated with above trend (or below trend) life expectancy.}
 
+\points{1 point: overall upward trend with year. 1 point for additional coherent explanation. No points for concepts mentioned that do not answer the question, such as, the residuals should be normally distributed.}
+
 (b) [3 points]. Write in subscript form the linear model used to detrend life expectancy. (The model for detrending unemployment is similar, but you are not required to write that out too.)
 
 \solution{
@@ -371,6 +380,8 @@ where $\ell_i$ is life expectancy for the $i$th row of the dataset, $x_i=1948+i-
 \]
 but the question technically asks for the explanatory variable to be $x_i$ not $i$. Both models give the same fitted values.
 }
+
+\points{1 point for the equation. 0.5 point for specifying each of $x_i$, $n$, $e_i$ and $(b_1,b_2)$.}
 
 \exam{\vspace{8cm}}
 
@@ -390,6 +401,9 @@ x_n & 1
 \end{bmatrix}
 \]
 }
+
+
+\points{1 point for the correct structure of $\mat{X}$ (2 cols and $n$ rows, intercept and non-intercept column). 0.5 points each for specifying $x_i$ and $n$.}
 
 The relationship between fluctuations in life expectancy and fluctuations in unemployment was then investigated by fitting the following model:
 
@@ -412,13 +426,15 @@ The coefficients are calculated by least squares, meaning they are chosen to min
 where $\mat{X}$ is the design matrix from (c) and $\vec{y}$ is a column vector of the data.
 }
 
+\points{1 point for naming the method (least squares). 1 point for the equation. 1 point for notation: elsewhere in the exam, points were not substracted for inconsistent or incorrect use of matrix/vector notation, so this question was used to assess and reinforce use of notation.}
+
 (e) [2 points]. How can a probability model help us to interpret the estimated coefficients? You are not yet expected to have studied in detail the probability model for the linear model. Here, you are only asked to discuss in words the goals and purposes of having a probability model for this data analysis.
 
 \solution{
 A probability model lets us make probability statements about alternative outcomes we might hypothetically have observed. For example, we could ask what is the probability we would have observed a coefficient as large as the observed 0.131 if in fact there is no association between percentage unemployment and life expectancy. Also, a probability model lets us calculate standard errors for the estimated coefficients.
 }
 
-
+\points{2 correct and relevant statements needed for 2 points. Often, this was a relevant concept and an example.}
 
 \exam{\vspace{4cm}}
 
@@ -520,7 +536,8 @@ and some other ideas that }
 ```{r,child="sol_q5e.Rmd",eval=SOL}
 ```
 
-   
+\points{Few students gave a solution to this extra credit question. Writing as a for loop, rather than using matrix calculations, was accepted.} 
+
 \exam{\vspace{8cm}}
 
 --------
