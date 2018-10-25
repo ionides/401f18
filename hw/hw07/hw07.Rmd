@@ -1,0 +1,123 @@
+---
+title: "Homework 7, STATS 401 F18"
+author: "Due in lab on 11/2"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+
+\newcommand\prob{\mathrm{P}}
+\newcommand\E{\mathrm{E}}
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov}}
+\newcommand\corSample{\mathrm{cor}}
+\newcommand\cor{\mathrm{Cor}}
+\newcommand\normal{\mathrm{normal}}
+\newcommand\iid{\mathrm{iid}}
+\newcommand\MVN{\mathrm{MVN}}
+
+**Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+--------------
+
+-------------
+
+### Modeling and data analysis: standard errors, confidence intervals and a binary explanatory variable.
+
+This homework concerns data on newspaper circulation that you can download from the class website.
+```{r,eval=F} 
+download.file(destfile="circulation.txt",
+  url="https://ionides.github.io/401f18/hw/hw07/circulation.txt")
+```
+The columns in this data file are separated by a tab, represented in R by `sep="\t"`. Since there are spaces within some newspaper names, `read.table(....,sep=" ")` does not work. Instead, use
+```{r read_data}
+circulation <- read.table("circulation.txt",sep="\t",header=T)
+head(circulation)
+```
+There are 89 newspapers in the dataset, each with a Sunday and a weekday circulation. The `Competition` variable takes the value 1 if the newspaper is considered a *tabloid* with a competing *serious* newspaper, and 0 otherwise. Variables taking values 0 and 1 are called *binary variables*. The `Competition` variable can also be called a *dummy variable* since it gives a numerical value to describe the qualitative property of whether the newspaper is a tabloid with serious competition. The dataset does not contain further information on which papers are considered tabloids; we only learn if the newspaper is both a tabloid and subject to competition with a serious paper.
+
+Imagine that you were given these data by your manager at a company that publishes a weekday paper in a mid-size American city. You are tasked to predict (together with an assessement of uncertainty) what circulation should be expected if the newspaper starts a Sunday edition, given its current weekday circulation. For this homework, we will focus on developing an appropriate probability model rather than the following step of using that model for prediction.
+
+**Q1**. Graphical investigation of the data. 
+
+(a) Make a scatterplot of the Sunday and weekday circulation data, using cicles for newspapers having `Competition=0` and triangles for `Competition=1`.
+To do this, you will need to learn to use the plotting character argument `pch` for `plot()`
+For example,
+```{r, eval=F}
+plot(Sunday~Weekday, pch=Competition, data=circulation)
+```
+makes a plot using square and circular plotting symbols. It will likely be helpful to search <tt>"R plot pch"</tt> on the internet to see what plotting characters are available and what are the corresponding numbers to obtain them using `pch`. (Circles and triangles are not really better than squares and circles; the point is to learn how to get control of the plotting character.)
+
+(b) We can also use color to distinguish different types of points. For example,
+```{r,eval=F}
+plot(Sunday~Weekday, col=ifelse(Competition,"red","black"), data=circulation)
+```
+Notice how R is happy to coerce a numeric vector of 0 and 1 values into a logical vector when `Competition` is used as the first argument of `ifelse()`.
+If you try
+```{r,eval=F}
+plot(Sunday~Weekday, col=Competition, data=circulation)
+```
+some of the points disappear. Explain why.
+
+(c) Transform the data to see whether it is appropriate to analyze it on a log scale. Add two new columns to the dataframe called `log_Sunday` and `log_Weekday` containing the natural logarithm of the corresponding columns. The R command `log()` gives this natural logarithm, also known as log to the base $e$, so you will need something like 
+```{r}
+circulation$log_Sunday <- log(circulation$Sunday)
+circulation$log_Weekday <- log(circulation$Weekday)
+```
+Make a scatterplot of the log-transformed data, using your choice of plotting characters and colors to distinguish whether the paper is a  tabloid paper with serious competition. Comment on whether looking at the scatterplot suggests building a linear model on a log scale or the untransformed scale. 
+
+**Q2**. Create a linear model called `lm1` by fitting the logarithm of weekday circulation and the binary variable for tabloid competitor as explanatory variables for the logarithm of  Sunday circulation. Your code may look something like
+```{r fit}
+lm1 <- lm(log_Sunday~log_Weekday+Competition,data=circulation)
+```
+Set `X` to be the design matrix using the `model.matrix()` command by typing
+```{r model.matrix}
+X <- model.matrix(lm1)
+```
+
+
+(a) Use the design matrix and the response variable to compute the least squares coefficients and their standard errors by matrix calculations in R. It may be helpful to set
+```{r response}
+y <- circulation$log_Sunday
+```
+
+(b) Check that the the least squares coefficients and their standard errors match the output of `summary(lm1)`. 
+
+(c) Your calculation of the standard errors should have involved finding a sample standard deviation of the residuals to estimate the standard deviation of the measurement error. Check that your calculation of this quantity matches the `residual standard error` offered by `summary(lm1)`. Why do you think `summary(lm1)` says that this is computed `on 86 degrees of freedom`?
+
+**Q3**. Write out in mathematical notation the probability model used to contruct the standard errors in Q2. Be careful to define the notation you use. Specify a letter for each quantity. You can use words to help define the quantities in your equation, but you should usually avoid words in an equation. 
+You can write your equation either using vectors & matrices or by using subscripts to denote each unit $i$ and specifying the range of values of $i$ for which the equation holds. 
+Be explicit about what quantities are vector random variables. 
+If you define a measurement error model, be sure to specify all means, variances and covariances for the error random variables. 
+
+**Q4**. Construct a 95% confidence interval for the coefficient of the binary explanatory variable `Competition`. Explain carefully the meaning of a confidence interval, in the context of this specific confidence interval.
+
+**Q5**. This question explores the interpretation of adding a binary explanatory variable such as `Competition` into a linear model.
+ 
+(a) Add two lines of fitted values to the scatterplot you made in Q1(c), one for fitted values of the points with `Competition=0` and another for fitted values of the points with `Competition=0`. The R code to do this can build on the R code for fitted values that came up in Chapter 3. When you have done this, you should have added two parallel lines, one of which passes through the cloud of `Competition=0` points and the other of which passes through the `Competition=1` points. There are different ways to do this. One way involves writing out the fitted model in subscript form and looking for the two lines corresponding to these cases.
+
+(b) Why is including a binary explanatory variable for `Competition` in a linear model equivalent to including two different intercepts, one applicable to units with `Competition=0` and the other for units with `Competition=1`. Explain how you can see this from the the plot and from the fitted model in subscript form.
+
+**Q6**. What does it mean to make a *causal interpretation* of the coefficient of the `Competition` variable? To what extent do you think a causal interpretation is justified in this situation? Your answer should address this question in the context of general considerations about interpreting coefficients of a linear model. You should also pay attention to the specific considerations of this dataset: so far as possible, put yourself into the position of an analyst in the newspaper publishing industry.
+
+
+
+--------------
+
+-------------
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+Acknowledgement: The circulation data come from S. J. Sheather (2009) "A Modern Approach to Regression with R."
+
+------

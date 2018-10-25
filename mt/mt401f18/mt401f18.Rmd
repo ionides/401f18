@@ -423,7 +423,17 @@ The coefficients are calculated by least squares, meaning they are chosen to min
 \[
 \vec{b}=(\mat{X}^\transpose\mat{X})^{-1}\mat{X}^\transpose \vec{y}
 \]
-where $\mat{X}$ is the design matrix from (c) and $\vec{y}$ is a column vector of the data.
+where 
+\[
+\mat{X} =
+\begin{bmatrix} 
+x_1 & 1 \\
+x_2 & 1 \\
+\vdots & \vdots \\
+x_n & 1
+\end{bmatrix}
+\]
+is the design matrix with $x_i$ being detrended unemployment for the $i$th year, $i=1,\dots,n$. Here, $\vec{y}=(y_1,\dots,y_n)$ is a column vector of the detrended life expectancy data.
 }
 
 \points{1 point for naming the method (least squares). 1 point for the equation. 1 point for notation: elsewhere in the exam, points were not substracted for inconsistent or incorrect use of matrix/vector notation, so this question was used to assess and reinforce use of notation.}
