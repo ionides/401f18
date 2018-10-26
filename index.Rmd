@@ -153,21 +153,21 @@ Due in lab on 10/26.
 
 ## Midterm exam materials
 
-<!--
-* [Information and outline for the midterm](mt/info.html).
--->
-
 * [Practice midterm exam](mt/practice/mt-practice.pdf).
 [Solutions](mt/practice/sol_mt-practice.pdf).
 
 * [Midterm exam](mt/mt401f18/paper_mt401f18.pdf).
 [Solutions](mt/mt401f18/sol_mt401f18.pdf).
-[Midterm Grade Distribution](mt/midterm_grades_distribution.png)
+<<<<<<< HEAD
+[Histogram of scores](mt/mt401f18/hist_mt401f18.pdf)
 
 <!--
 * [Exam](mt/mt401w18/mt401w18.pdf). [Solutions](mt/mt401w18/mt401w18sol.pdf).
 -->
 
+=======
+[Histogram of scores](mt/mt401f18/hist_mt401f18.pdf).
+>>>>>>> 552f33c1d16d20b91d978a8af2892d0745b335b8
 
 -----------
 
