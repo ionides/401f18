@@ -109,7 +109,9 @@ Due in lab on 10/26.
 * [Lab 3. Basic Matrix Computations and the Linear Model](Lab/Lab03/lab03.pdf). Slides for 9/21.
 
 * [Lab 4. Summation, Matrix computation and Linear Model Review](Lab/Lab04/lab04.pdf). Slides for 9/28. 
-    * [Lab 4 Solutions](Lab/Lab04/lab04_solutions.pdf). 
+    * [Lab 4 Solutions](Lab/Lab04/lab04_solutions.pdf).
+
+* Lab 5. Quiz 1.
 
 * [Lab 6. Bivariate Random Variables and Covariance](Lab/Lab06/Lab06.pdf). Slides for 10/12.
     * [Lab 6 Solutions](Lab/Lab06/Lab06_solutions.pdf).
@@ -117,13 +119,10 @@ Due in lab on 10/26.
 * [Lab 7. Probability Model and Covariance Pracitce](Lab/Lab07/Lab07.pdf). Slides for 10/19.
     * (Lab solutions within lab slides.)
 
+* [Lab 8. Confidence intervals]
+    * [gpa.txt](Lab/Lab08/gpa.txt).
+
 <!--
-* Lab 5. Quiz 1.
-
-
-* [Lab 7. Midterm review](lab/lab07/lab07.pdf). Slides for 2/15 and 2/16.
-
-* [Lab 8. Confidence intervals and hypothesis tests](lab/lab08/lab08.pdf). Slides for 3/8 and 3/9. [Solutions](lab/lab08/sol_lab08.pdf).
 
 * [Lab 9. F tests for model selection and ANOVA](lab/lab09/lab09.pdf). Slides for 3/15 and 3/16. [Solutions](lab/lab09/sol_lab09.pdf).
 
