@@ -162,6 +162,7 @@ Due in lab on 10/26.
 
 * [Midterm exam](mt/mt401f18/paper_mt401f18.pdf).
 [Solutions](mt/mt401f18/sol_mt401f18.pdf).
+[Midterm Grade Distribution](mt/midterm_grades_distribution.png)
 
 <!--
 * [Exam](mt/mt401w18/mt401w18.pdf). [Solutions](mt/mt401w18/mt401w18sol.pdf).
