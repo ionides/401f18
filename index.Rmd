@@ -122,6 +122,7 @@ Due in lab on 10/26.
 
 * [Lab 8. Confidence intervals](Lab/Lab08/Lab8.pdf). Slides for 10/26.
     * [gpa.txt](Lab/Lab08/gpa.txt).
+    * [Lab 8 Solutions](Lab/Lab08/Lab8_solutions.pdf)
 
 <!--
 
