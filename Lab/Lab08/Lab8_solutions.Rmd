@@ -1,0 +1,34 @@
+---
+title: "Lab 8 solutions"
+author: "Sanjana Gupta"
+date: "10/26/2018"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Exit ticket solution: Q1
+
+$$-1\leq \text{Cor}(X,Y) \leq 1 $$
+$$\implies -1 \leq \frac{\text{Cov}(X,Y)}{\sqrt{\text{Var}(X)\text{Var}(Y)}} \leq 1 $$
+$$\implies -1 \leq \frac{\text{Cov}(X,Y)}{\sqrt{(6)(6)}} \leq 1 $$
+$$\implies -6 \leq \text{Cov}(X,Y) \leq 6 $$
+
+## Exit ticket solution: Q2
+- Since $X$ is normal, $2X+1$ is also normal.  
+
+    - $\text{E}(2X+1) = 2\text{E}(X) + 1 = 3$  
+    - $\text{Var}(2X+1) = 2^2\text{Var}(X) = 4(4) = 16$  
+    
+  Hence, $X\sim\mathcal{N}(3,16)$  
+  
+- Since $(X,Y)$ is bivariate normal and $X$, $Y$ are independent, hence $\text{Cov}(X,Y)=0$  
+
+    - $\text{E}(X-2Y) = \text{E}(X) - 2\text{E}(Y) = 1-4 = 3$  
+    - $\text{Var}(X-2Y) = \text{Var}(X) + (-2)^2 \text{Var}(Y) = 4 + 4(9) = 40$  
+  
+  Hence, $X-2Y\sim\mathcal{N}(3,40)$
+

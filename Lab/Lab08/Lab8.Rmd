@@ -1,0 +1,231 @@
+---
+title: "Stats 401 Lab 8"
+author: "Sanjana"
+date: "10/25/2018"
+output:
+  beamer_presentation:
+  colortheme: dolphin
+incremental: no
+ioslides_presentation:
+  incremental: no
+slidy_presentation:
+  incremental: no
+fontsize: 10pt
+---
+
+# Outline
+
+- Quick Reminder: If you are thinking about withdrawing from the course, the deadline is **November 9th**!
+
+- Review of expectation, variance and covariance
+- Midterm Q3 solved
+- Introduction to confidence intervals
+
+# Review: Univariate Random Variable
+
+- Recall: A random variable $X$ is a value whose outcome is determined by a random process.  
+*Can be be thought of as a random number with probabilities assigned to its outcomes.*
+
+- Each random variable $X$ has a mean ($\mu_x$) and variance ($\sigma_x^2$) associated with it. Then  
+    - $\mu_x = \text{E}[X]$.
+    -
+    $$
+    \begin{aligned}
+    \sigma_x^2 = \mathbf{\text{Var}(X)} &= \text{E}[(X-\text{E}[X])^2]\\
+    &= \text{E}[X^2 + (\text{E}[X])^2 -2X\text{E}[X]]\\
+    &= \text{E}[X^2] + \text{E}[(\text{E}[X])^2] - \text{E}[2X\text{E}[X]] \\
+    &= \text{E}[X^2] + (\text{E}[X])^2 - 2\text{E}[X]\text{E}[X] \\
+    &= \text{E}[X^2] + (\text{E}[X])^2 - 2(\text{E}[X])^2 \\
+    &= \mathbf{\text{E}[X^2] - (\text{E}[X])^2}
+    \end{aligned}
+    $$
+
+# Review: Univariate Random Variable
+- Linear combinations of $X$: consider $Y=aX+b$  
+    - $\text{E}[aX+b] = a\text{E}[X] + b$  
+    - Var$(aX+b)$ = $a^2$ Var$(X)$
+  
+  
+- Normal Variable: let $X \sim \mathcal{N}(\mu_x, \sigma_x^2)$,  
+Let $Y = aX+b$  
+Then $\text{E}[Y] = a\mu_x + b$ and $\text{Var}(Y)=a^2\sigma_x^2$  
+**$Y \sim \mathcal{N}(a\mu_x + b, a^2\sigma_x^2)$**
+
+# Review: Bivariate Random Variables
+- A bivariate random variable $(X,Y)$ is a vector of length 2 whose values are each random variables.
+- *Correlation* is a measure of the linear association between two random variables
+    - Correlation is always between $-1$ and $1$ (inclusive)
+    - Correlation is symmetric: $\text{Cor}(X,Y) = \text{Cor}(Y,X)$
+- *Covariance* is the unscaled version of correlation
+$$
+\begin{aligned}
+\mathbf{\textbf{Cov}(X,Y)} &= \mathbf{\textbf{E}\left[(X-\textbf{E}(X))(Y - \textbf{E}(Y)\right]}\\
+&= \text{E}\left[(XY-  X\text{E}(Y) -\text{E}(X)Y + \text{E}(X)\text{E}(Y)\right] \\
+&= \text{E}[XY] -\text{E}[X\text{E}(Y)] -\text{E}[\text{E}(X)Y] + \text{E}[\text{E}(X)\text{E}(Y)]\\
+&= \text{E}[XY] -\text{E}(X)\text{E}(Y) -\text{E}(X)\text{E}(Y) + \text{E}(X)\text{E}(Y)\\
+&= \mathbf{\textbf{E}[XY] -\textbf{E}(X)\textbf{E}(Y)}
+\end{aligned}
+$$
+
+$\hspace{1.2cm}\mathbf{\textbf{Corr}(X,Y) = \frac{\textbf{Cov}(X,Y)}{\sqrt{\textbf{Var}(X)}\sqrt{\textbf{Var}(Y)}}}$
+
+# Review: Bivariate Random Variables
+- $\text{E}[(X,Y)] = (\text{E}(X),\text{E}(Y))$  
+\vspace{6pt}
+- $\text{Var}(X,Y) = \begin{bmatrix} \text{Var}(X_1) & \text{Cov}(X_1,X_2) \\ \text{Cov}(X_2,X_1) & \text{Var}(X_2) \end{bmatrix}$  
+
+
+\vspace{12pt}
+
+- **Remember:** $\text{Var}(X) = \text{Cov}(X,X)$
+
+\vspace{12pt}
+
+- Linear Combinations of multivariate $\mathbf{X}=\begin{bmatrix} X_1 \\ X_2 \\ \vdots  \\ X_n \end{bmatrix}$: consider $\mathbb{A}\mathbf{X}$  
+    - $\text{E}(\mathbb{A}\mathbf{X}) = \mathbb{A}\text{E}(\mathbf{X})$  
+    - $\text{Var}(\mathbb{A}\mathbf{X}) = \mathbb{A}\text{Var}(\mathbf{X})\mathbb{A}^T$
+
+
+
+\vspace{12pt}
+
+# Review: Bivariate Normal Variables
+
+If $(X,Y)$ is bivariate normal where $X\sim\mathcal{N}(\mu_X,\sigma_X^2)$ and $Y\sim\mathcal{N}(\mu_Y,\sigma_Y^2)$ then $aX + bY$ is also normal.  
+- $\text{E}[aX+bY] = a\mu_X + b\mu_Y$  
+- 
+$$
+\begin{aligned}
+\mathbf{\textbf{Var}(aX+bY)} &= \mathbf{\textbf{Cov}(aX+bY, aX+bY)} \\
+&= \text{Cov}(aX+bY,aX) + \text{Cov}(aX+bY,bY) \\
+&= a \text{Cov}(aX+bY,X) + b \text{Cov}(aX+bY,Y) \\
+&= a \text{Cov}(aX,X) + a \text{Cov}(bY,X) + b \text{Cov}(aX,Y) + b \text{Cov}(bY,Y) \\
+&= a^2 \text{Cov}(X,X) + ab \text{Cov}(Y,X) + ba \text{Cov}(X,Y) + b^2 \text{Cov}(Y,Y) \\
+&= a^2 \text{Var}(X) + ab \text{Cov}(X,Y) + ab \text{Cov}(X,Y) + b^2 \text{Var}(Y)\\
+&= \mathbf{a^2 \textbf{Var}(X) + 2ab \textbf{Cov}(X,Y) + b^2 \textbf{Var}(Y)}\\
+&= a^2 \sigma_X^2 + 2ab \text{Cov}(X,Y) + b^2 \sigma_Y^2
+\end{aligned}
+$$
+  
+\vspace{12pt}
+
+So, if $(X,Y)$ is bivariate normal as above, then  $aX + bY\sim \mathcal{N}(a\mu_X + b\mu_Y,a^2\sigma_X^2+b^2 \sigma_Y^2+2ab \text{Cov}(X,Y))$
+
+# In-lab Activity 1: Midterm Q3
+*Qtn)* $X$ and $Y$ are bivariate random variables with respective means $\mu_X=\mu_Y=0$, standard deviations $\sigma_X=1$ and $\sigma_Y=2$ and correlation $\text{cor}(X,Y)=0.5$. Find the distributions of $X+Y$ and $X-Y$.
+
+*Soln)* $X+Y$ and $X-Y$ are both normally distributed since they are linear combinations of normal random variables.
+So, we need to find the following  
+
+- $\text{E}(X+Y)$ and $\text{E}(X-Y)$  
+- $\text{Var}(X+Y)$ and $\text{Var}(X-Y)$ 
+
+\vspace{10pt}
+
+We are given that  
+- $\text{E}(X) = 0$, $\text{Var}(X)=\sigma_X^2 = 1$  
+- $\text{E}(Y) = 0$, $\text{Var}(Y)=\sigma_Y^2 = 2^2= 4$  
+- $\text{Cor}(X,Y) = 0.5$  
+$\text{So, } \text{Cov}(X,Y) = \text{Cor}(X,Y)\sqrt{\sigma_X^2\sigma_Y^2} = \text{Cor}(X,Y)\sigma_X\sigma_Y = 0.5 (1)(2) = 1$
+
+# In-lab Activity 1: Midterm Q3
+- $\text{E}[X+Y]=\text{E}[X]+\text{E}[Y]=0+0=0$ and $\text{E}[X-Y]=\text{E}[X]-\text{E}[Y]=0-0=0$ 
+\vspace{6pt}
+- $\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X,Y) = 1 + 4 + 2(1) = 7$
+\vspace{6pt}
+- $\text{Var}(X-Y) = \text{Var}(X) + \text{Var}(-Y) + 2\text{Cov}(X,-Y) = 1 + 4 - 2(1) = 3$
+
+\vspace{12pt}
+So, $X+Y\sim\mathcal{N}(0,7)$ and $X-Y\sim\mathcal{N}(0,3)$
+
+# In-lab Activity 2
+Let $(W, X, Y)$ be a multivariate normal vector such that  
+$\text{E}(X) = 2\text{E}(Y) = 2$ and $\text{E}(W)=0$.  
+$\text{Var}(X)=\text{Var}(Y)=\text{Var}(W)=2$.  
+$\text{Cor}(X,Y)=-0.5$, $\text{Cor}(Y,W)=-0.5$,$\text{Cor}(X,W)=0$.  
+
+Find the distribution of $W+X-Y$.  
+
+
+# In-lab Acitivity 2: Solution
+$X-Y+W$ is a normal variable, since linear combinations of normal variables are normal.  
+
+- $\text{E}(X-Y+W) = \text{E}(X) + \text{E}(Y) + \text{E}(W)  = 2-1+0 = 1$  
+\vspace{6pt}
+- $\text{Var}(\begin{bmatrix} X \\ Y \\ W \end{bmatrix})= \begin{bmatrix} \text{Var}(X) & \text{Cov}(X,Y) & \text{Cov}(X,W) \\ \text{Cov}(Y,X) & \text{Var}(Y)  & \text{Cov}(Y,W) \\ \text{Cov}(W,X) & \text{Cov}(W,Y) & \text{Var}(W) \end{bmatrix}$  
+\vspace{6pt}
+    - $\text{Cov}(X,Y) = \text{Cor}(X,Y)\sqrt{\text{Var}(X)\text{Var}(Y)} = -0.5\sqrt{2 2} = -1$  
+    - $\text{Cov}(X,W) = \text{Cor}(X,W)\sqrt{\text{Var}(X)\text{Var}(W)} = 0\sqrt{2 2} = 0$  
+    - $\text{Cov}(Y,W) = \text{Cor}(Y,W)\sqrt{\text{Var}(Y)\text{Var}(W)} = -0.5\sqrt{2 2} = -1$  
+    
+\vspace{10pt}
+
+So, $\text{Var}(\begin{bmatrix} X \\ Y \\ W \end{bmatrix})  = \begin{bmatrix} 2& -1 & 0 \\ -1 &2&-1 \\ 0 & -1 & 2  \end{bmatrix}$
+
+# In-lab Acitivity 2: Solution
+Then, $X-Y+W = \begin{bmatrix} 1 & -1 & 1 \end{bmatrix} \begin{bmatrix} X \\ Y \\ W \end{bmatrix} = \mathbb{A}\mathbf{X}, \hspace{0.2cm}\text{where }\mathbf{X} = \begin{bmatrix} X \\ Y \\ W \end{bmatrix}$  
+$$
+\begin{aligned}
+\text{Var}(X-Y+W) = \text{Var}(\mathbb{A}\mathbf{X}) &= \mathbb{A}\text{Var}(\mathbf{X})\mathbb{A}^T \\
+&= \begin{bmatrix} 1 & -1 & 1 \end{bmatrix} \begin{bmatrix} 2& -1 & 0 \\ -1 &2&-1 \\ 0 & -1 & 2  \end{bmatrix} \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix} \\
+&= \begin{bmatrix} 1 & -1 & 1 \end{bmatrix} \begin{bmatrix} 2(1) + (-1)(-1) + 0(1) \\ (-1)1 + 2(-1) + (-1)1 \\ 0(1)+(-1)(-1)+2(1) \end{bmatrix} \\
+&= \begin{bmatrix} 1 & -1 & 1 \end{bmatrix} \begin{bmatrix} 3 \\ -4 \\ 3 \end{bmatrix} \\
+&= 1(3) + (-1)(-4) + 1(3) \\
+&= 10
+\end{aligned}
+$$
+
+\vspace{10pt} 
+So, $\mathbf{X-Y+W\sim \mathcal{N}(1,10)}$
+
+
+# Confidence Intervals
+
+- We are we interested in studying confidence intervals?
+    - CIs essentially perform a two-sided hypothesis test and provide you with a estimate the true population value
+    
+- There are several natural uses for confidence intervals in regression:
+    - estimating population coefficients ($\beta$)
+    - comparing means of different populations
+    - predicting future values (prediction interval)
+    - predicting mean future values (confidence interval)
+    
+
+# Confidence Intervals: formulae
+    
+- Recall from Stats250 that a $100(1-\alpha)$% confidence interval for a value is given by
+    - $x \pm z_{\frac {\alpha}2}s.e(x)$ (population s.d. is known) or
+    - $x \pm t_{(\frac {\alpha}2, n-2)}s.e(x)$ (population s.d. is unknown)
+
+\vspace{6pt}
+
+- *Approximate Interval for Linear Model*
+An approximate $100(1-\alpha)$ CI for $\beta_1$ is  
+$$\mathbf{b_1 - z_{\frac{\alpha}{2}} \text{SE}(b_1)}$$
+
+
+# In-lab Activity 3: Constructing CI in R
+Construct a 90% CI for the association between GPA and ACT scores
+```{r}
+# read-in dataset
+gpa <- read.table("gpa.txt",header=T)
+# fit model and print coefficients summary
+fit <- lm(GPA~ACT, data=gpa)
+fit_coef_smry <- summary(fit)$coefficients; fit_coef_smry
+
+beta <- fit_coef_smry["ACT","Estimate"]
+SE <- fit_coef_smry["ACT","Std. Error"]
+z <- qnorm(1-0.1/2) #for a 90% CI using normal approximation
+cat("CI = [", beta-z*SE, ",", beta+z*SE, "]")
+```
+
+
+# Lab Ticket
+- Let $X$ and $Y$ be two random variables such that $\text{Var}(X)=4$ and $\text{Var}(Y) = 9$. Find the range for the $Cov(X,Y)$  
+
+- Let $X$, $Y$ be bivariate normal such that they are independent. Further, $X\sim\mathcal{N}(1,4)$ and $Y\sim\mathcal{N}(2,9)$.  
+Find the distribution of the following:  
+    - $2X+1$  
+    - $X-2Y$  
+    
+- Would  a 90% confidence interval be broader or a 95%? Justify your answer.
