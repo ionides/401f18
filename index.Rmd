@@ -120,7 +120,7 @@ Due in lab on 10/26.
 * [Lab 7. Probability Model and Covariance Pracitce](Lab/Lab07/Lab07.pdf). Slides for 10/19.
     * (Lab solutions within lab slides.)
 
-* [Lab 8. Confidence intervals]
+* [Lab 8. Confidence intervals](Lab/Lab08/Lab8.pdf). Slides for 10/26.
     * [gpa.txt](Lab/Lab08/gpa.txt).
 
 <!--
