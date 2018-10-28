@@ -191,8 +191,27 @@ Y_i = \beta_1 x_i + \beta_2 + \epsilon_i, \quad\epsilon_i\sim{\mathrm{iid}}\;{\m
 </ol>
 <p><strong>Q3</strong>. What are <span class="math inline">\({\boldsymbol{\mathrm{b}}}\)</span>, <span class="math inline">\({\boldsymbol{\mathrm{\beta}}}\)</span> and <span class="math inline">\(\hat{\boldsymbol{\mathrm{\beta}}}\)</span> in questions Q1 and Q2? Explain why these two analyses with the same data and the same model (and therefore the same <span class="math inline">\({\boldsymbol{\mathrm{b}}}\)</span>) choose to consider different choices of <span class="math inline">\({\boldsymbol{\mathrm{\beta}}}\)</span> and therefore different probability distributions for the vector random variable <span class="math inline">\(\hat{\boldsymbol{\mathrm{\beta}}}\)</span>. The purpose for doing the calculation in Q2 will be discussed during Chapter 6 of the notes, but you may be able to motivate what is going on by thinking back to the hypothesis tests you have done in a previous Stats class.</p>
 <hr />
+<div id="hints" class="section level3">
+<h3>Hints</h3>
+<ol style="list-style-type: decimal">
+<li><p>It may help you to develop your code with a small number (say, 10) realizations rather than 5000. Once your code is debugged and working, re-run it with the full 5000.</p></li>
+<li><p>The dimension of <code>replicate(5000,Y_sim())</code> is somewhat surprising. It is often a good idea to run <code>dim()</code> on new variables you construct to see what you are dealing with. If a matrix seems like it would make more sense to you with rows and columns switched, you can always take its transpose using <code>t()</code>.</p></li>
+<li><p>Variables created within an R function are not returned when R evaluates the function. The only thing returned is the output, which is the last line of the function. So, when the function <code>Y_sim()</code> is called, only the un-named length 2 vector made up of the quantities <code>Y1</code> and <code>Y2</code> is returned. These vectors are packed together into a matrix by <code>replicate()</code>. Conceptually, variables created within a function are <em>local</em> to that function and are not exported to the <em>global</em> environment where you find all the variables you create at the R prompt. You can check what variables are in your R session by calling the function <code>ls()</code>. You can check, for example, that calling <code>Y_sim()</code> does not cause the creation of variables <code>Y1</code> and <code>Y2</code> in your main R session.</p></li>
+<li><p>For a logical vector, <code>sum()</code> adds 1 for each <code>TRUE</code> and 0 for each <code>FALSE</code>, so gives the number of times the vector is <code>TRUE</code>. For example,</p></li>
+</ol>
+<pre class="r"><code>x &lt;- c(TRUE,TRUE,FALSE,TRUE,FALSE)
+sum(x)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Q1b involves similar techniques to HW5 Q5d. You could do it using the formula for the wariance of a linear combination, but it is simpler to use <span class="math inline">\({\mathrm{Var}}(X+Y)={\mathrm{Var}}(X)+{\mathrm{Var}}(Y)+2{\mathrm{Cov}}(X,Y)\)</span>.</p></li>
+<li><p>For Q1b, <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are normally distributed and independent. Their independence is asserted in the question. Therefore, their covariance is zero and once you have found their means and variances you are in a good position to move forward. Note that <span class="math inline">\(b_1\)</span>, <span class="math inline">\(b_2\)</span> and <span class="math inline">\(s\)</span> are constants not random variables.</p></li>
+<li><p>For Q2b, <span class="math inline">\(b_1\)</span> is a constant. It is derived from the data, which are constant numbers not random variables. The numeric value of <span class="math inline">\(b_1\)</span> is calculated using least squares by <code>lm()</code>. <span class="math inline">\(\hat\beta_1\)</span> is the random variable. <span class="math inline">\(\hat\beta_1\)</span> has a normal distribution with mean and standard deviation given in the notes. You may be surprised to find that <span class="math inline">\(b_1\)</span> is somewhat different from the simulated values calculated in Q2a. This might make you doubt your own calculation, but this turns out to be correct—you can think about the statistical interpretation of this.</p></li>
+</ol>
+<hr />
+<hr />
 <p>License: This material is provided under an <a href="https://ionides.github.io/401w18/LICENSE">MIT license</a><br></p>
 <hr />
+</div>
 </div>
 
 

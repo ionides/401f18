@@ -118,6 +118,37 @@ Each call to the function `beta_1_sim()` produces one simulated realization of $
 
 **Q3**. What are $\vec{b}$, $\vec{\beta}$ and $\hat\vec{\beta}$ in questions Q1 and Q2? Explain why these two analyses with the same data and the same model (and therefore the same $\vec{b}$) choose to consider different choices of $\vec{\beta}$ and therefore different probability distributions for the vector random variable $\hat\vec{\beta}$. The purpose for doing the calculation in Q2 will be discussed during Chapter 6 of the notes, but you may be able to motivate what is going on by thinking back to the hypothesis tests you have done in a previous Stats class.
 
+
+--------------
+
+### Hints
+
+1. It may help you to develop your code with a small number (say, 10) realizations rather than 5000. Once your code is debugged and working, re-run it with the full 5000.
+
+2. The dimension of `replicate(5000,Y_sim())` is somewhat surprising. It is often a good idea to run `dim()` on new variables you construct to see what you are dealing with. If a matrix seems like it would make more sense to you with rows and columns switched, you can always take its transpose using `t()`.
+
+3. Variables created within an R function are not returned when R evaluates the function. The only thing returned is the output, which is the last line of the function. So, when the function `Y_sim()` is called, only the un-named length 2 vector made up of the quantities `Y1` and `Y2` is returned. These vectors are packed together into a matrix by `replicate()`. Conceptually, variables created within a function are *local* to that function and are not exported to the *global* environment where you find all the variables you create at the R prompt. You can check what variables are in your R session by calling the function `ls()`. You can check, for example, that calling `Y_sim()` does not cause the creation of variables `Y1` and `Y2` in your main R session. 
+
+4. For a logical vector, `sum()` adds 1 for each `TRUE` and 0 for each `FALSE`, so gives the number of times the vector is `TRUE`. For example,
+
+```{r}
+x <- c(TRUE,TRUE,FALSE,TRUE,FALSE)
+sum(x)
+```
+
+5. Q1b involves similar techniques to HW5 Q5d. You could do it using the formula for the wariance of a linear combination, but it is simpler to use $\var(X+Y)=\var(X)+\var(Y)+2\cov(X,Y)$.
+
+6. For Q1b,  $U$ and $V$ are normally distributed and independent. Their independence is asserted in the question. Therefore, their covariance is zero and once you have found their means and variances you are in a good position to move forward. Note that $b_1$, $b_2$ and $s$ are constants not random variables. 
+
+
+7. For Q2b, $b_1$ is a constant. It is derived from the data, which are constant numbers not random variables. The numeric value of $b_1$ is calculated using least squares by `lm()`. $\hat\beta_1$ is the random variable. $\hat\beta_1$ has a normal distribution with mean and standard deviation given in the notes. You may be surprised to find that $b_1$ is somewhat different from the simulated values calculated in Q2a. This might make you doubt your own calculation, but this turns out to be correct---you can think about the statistical interpretation of this. 
+
+
+
+
+
+----------------
+
 --------------
 
 License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>

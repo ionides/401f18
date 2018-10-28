@@ -83,8 +83,9 @@ Due in lab on 10/26.
 [Solutions](hw/hw06/sol_hw06.html).
 -->
 
+* [Homework 7. Modeling and data analysis: standard errors, confidence intervals and a binary explanatory variable.](hw/hw07/hw07.html). Due in lab on 11/2.
+
 <!--
-* [Homework 7. Using a linear model for investigation of two populations](hw/hw07/hw07.html). Due in your lab on 3/15 or 3/16. [Solutions](hw/hw07/sol_hw07.html).
 
 * [Homework 8. Making an F test, and exploring the t and F distributions](hw/hw08/hw08.html). Due in your lab on 3/22 or 3/23. [Solutions](hw/hw08/sol_hw08.html).
 
