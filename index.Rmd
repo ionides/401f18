@@ -32,10 +32,13 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 [(R code)](04/notes04.R).
 [(Annotations)](04/notes04annotated.pdf).
  
-5. [Vector random variables](05/notes05.pdf). [(R code)](05/notes05.R).
+5. [Vector random variables](05/notes05.pdf).
+[(R code)](05/notes05.R).
 [(Annotations)](05/notes05annotated.pdf).
 
-6. [Confidence intervals and hypothesis testing](06/notes06.pdf). 
+6. [Confidence intervals and hypothesis testing](06/notes06.pdf).
+[(R code)](06/notes06.R).
+[(Annotations)](06/notes06annotated.pdf).
 
 <!--
 [Log transformations](06/log_transform.pdf).
