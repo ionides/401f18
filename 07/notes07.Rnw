@@ -58,12 +58,12 @@ options(width = 60) # number of characters in R output before wrapping
 
 
 \begin{frame}
-\frametitle{Chapter~\CHAPTER. Factors and F-tests}
+\frametitle{Chapter~\CHAPTER. Factors and the ANOVA F-test}
 
 \begin{myitemize}
 \item A \myemph{factor} is an explanatory variable with discrete levels.
 
-\item Factors are also called \myemph{categorial variables}.
+\item Factors are also called \myemph{categorical variables}.
 
 \item The different values the variable can take are called \myemph{levels} of the factor.
 
@@ -71,7 +71,7 @@ options(width = 60) # number of characters in R output before wrapping
 
 \item A factor with 2 levels is a \myemph{binary factor}.
 
-\item In linear models, factors can describe different classes of units. For example, in HW7, the binary factor \code{Competition} distinquishes certain types of newspaper.
+\item In linear models, factors can describe different classes of units. For example, in HW7, the binary factor \code{Competition} distinguishes certain types of newspaper.
 
 \item We could have a different mean and/or different slope for each level of the factor.
 \end{myitemize}
@@ -81,14 +81,14 @@ options(width = 60) # number of characters in R output before wrapping
 \begin{frame}[fragile]
 \frametitle{Comparing two sample means via a model with a factor}
 \begin{myitemize}
-\item Recall the mouse weight experiment. 12 mice are given each of two diets and are then weighed.
-\item First, set up notation. Let \m{y_{ij}} be the weight of the \m{j}th mouse on treatent \m{i}, where \m{i=1,2} corresponds to the normal and high fat diet respectively and {j=1,\dots,12} enumerates the replicates for each treatment group.
+\item Recall the mouse weight experiment. 24 mice are randomizes to one of two diets and are weighed after two weeks.
+\item First, set up notation. Let \m{y_{ij}} be the weight of the \m{j}th mouse on treatment \m{i}, where \m{i=1,2} corresponds to the normal and high fat diet respectively and \m{j=1,\dots,12} enumerates the replicates for each treatment group.
 \item A probability model for this experiment is
 \mydisplaymath{
 Y_{ij}= \mu_i + \epsilon_{ij} \quad \mbox{ for $i=1,2$ and $j=1,\dots,12$} 
 }
 where \m{\epsilon_{ij}\sim\iid\;\normal(0,\sigma)}.
-\item Here, we have written the model in subscript form. We have a mean for each level of the treatment group factor.
+\item Here, we have written the model in \myemph{double subscript form}. We have a mean for each level of the treatment group factor.
 \item This looks superficially different from the way we have written linear models. There is an extra subscript. 
 \item We can rewrite it to make it fit into our linear model framework by putting all the \m{(i,j)} values in a single column.
 \end{myitemize}
@@ -109,11 +109,10 @@ where \m{\epsilon_{ij}\sim\iid\;\normal(0,\sigma)}.
 \item Let \m{\vec{e}=(e_1,\dots,e_{24})=(e_{1,1},\dots,e_{1,12},e_{2,1},\dots,e_{2,12})} be residual error terms concatenated into a single vector.
 \end{myitemize}
 \myquestion. \m{\vec{x}_1} and \m{\vec{x}_1} are called \myemph{dummy variables} since they are built to allow us to write
-%\mydisplaymath{
 \m{
   y_{ij}=\mu_i + e_{ij}
 }
-in the usual linear model form,
+in the usual single-subscript linear model form,
 \mydisplaymath{
   y_k = \mu_1 x_{k,1} + \mu_2 x_{k,2} + e_k.
 }
@@ -144,7 +143,10 @@ We consider the sample linear model \m{y_k = \mu_1 x_{k,1} + \mu_2 x_{k,2} + e_k
 %\end{document}
 
 \begin{frame}[fragile]
-%\frametitle{
+
+
+\vspace{5mm}
+
 \myquestion. Write the probability model \m{Y_{ij}= \mu_i + \epsilon_{ij}} for \m{i=1,2} and \m{j=1,\dots,12} in the matrix form for the probability model of a linear model, \m{\vec{Y}= \mat{X}\vec{\beta}+ \vec{\epsilon}}. 
 
 \vspace{3mm}
@@ -159,7 +161,7 @@ This asks you to write down a choice of \m{\vec{Y}}, \m{\mat{X}}, \m{\vec{\beta}
 \frametitle{Alternative representations of factors}
 \begin{myitemize}
 \item 
-Consider the following two models in subscript form, with \m{\epsilon_{ij}\sim\iid\;\normal(0,\sigma)} for \m{i=1,2} and  \m{j=1,\dots,12}.
+Consider the following two models in double subscript form, with \m{\epsilon_{ij}\sim\iid\;\normal(0,\sigma)} for \m{i=1,2} and  \m{j=1,\dots,12}.
 
 \vspace{1mm}
 
@@ -167,7 +169,7 @@ Consider the following two models in subscript form, with \m{\epsilon_{ij}\sim\i
 
 \vspace{1mm}
 
-\m{\mathrm{(M2).}\quad\quad Y_{ij}= \mu + \alpha_i + \epsilon_{ij} \quad \mbox{with $\mu_1=0$}}
+\m{\mathrm{(M2).}\quad\quad Y_{ij}= \mu + \alpha_i + \epsilon_{ij} \quad \mbox{with $\alpha_1=0$}}
 
 \vspace{1mm}
 
@@ -213,12 +215,13 @@ Consider the following two models in subscript form, with \m{\epsilon_{ij}\sim\i
 
 \end{frame}
 
+%\end{document}
 
 \begin{frame}[fragile]
 \frametitle{Using a linear model with factors to test equality of means}
 
 \begin{myitemize}
-\item A null hypothesis is that the mice weights for both treatment groups are drawn from the same distribution. Any difference is just chance variation in this particular sample. If the null hypotheis is a plausible description of our data, we don't want to spent too much time interpreting this experimental results.
+\item A null hypothesis is that the mice weights for both treatment groups are drawn from the same distribution. Any difference is just chance variation in this particular sample. If the null hypothesis is a plausible description of our data, we don't want to spent too much time interpreting this experimental results.
 \item A natural way to write this null hypothesis is \m{H_0:\mu_1=\mu_2} in the model representation (M1)
 \item \myemph{A USEFUL TRICK}. Using the equivalent model representation (M2), this becomes \m{H_0: \alpha=0} which is the easiest type of null hypothesis for a linear model.
 \end{myitemize}
@@ -227,17 +230,27 @@ Consider the following two models in subscript form, with \m{\epsilon_{ij}\sim\i
 
 \begin{frame}[fragile]
 \frametitle{Factors in \code{lm()}}
+
+\vspace{-1.5mm}
+
 \begin{myitemize}
 \item If you give \code{lm()} an explanatory variable of class \code{character} it interprets the variable as levels of a factor.
 \end{myitemize}
+
+\vspace{-2mm}
+
 <<>>=
-mice <- read.csv("https://ionides.github.io/401f18/hw/hw01/femaleMiceWeights.csv")
+mice <- read.csv(
+"https://ionides.github.io/401f18/hw/hw01/femaleMiceWeights.csv"
+)
 head(mice,3)
 lm1 <- lm(Bodyweight~Diet,data=mice)
 summary(lm1)$coef
 @
 
 \end{frame}
+
+%\end{document}
 
 \begin{frame}[fragile]
 \frametitle{What model has R actually fitted?}
@@ -252,8 +265,201 @@ model.matrix(lm1)[c(1:2,12:13,23:24),]
 
 \end{frame}
 
+%\end{document}
 
+\begin{frame}[fragile]
+<<,echo=F>>=
+head(model.matrix(lm1),3)
+@
+\myquestion. Write down the model R has fitted, in double subscript form, and interpret the parameters.
 
+\answer{\vspace{60mm}}{todo}
+
+\end{frame}
+
+%\end{document}
+
+\begin{frame}[fragile]
+<<>>=
+summary(lm1)$coef
+@
+\myquestion. 
+Consider the null hypothesis that the two diets are equivalent, so the observed difference in mouse weights is chance variation in the sample. Make both a t-test and a normal approximation test (also known as a z-test) of this hypothesis. Which test do you prefer, and why? A test at the 5\% level is appropriate for this fairly small sample. 
+
+\answer{\vspace{60mm}}{todo}
+
+\end{frame}
+
+%\end{document}
+
+\begin{frame}[fragile]
+\frametitle{A linear model vs a two sample test}
+\begin{myitemize}
+%\item Testing equality of means is a basic statistical problem. 
+\item The linear model test above is equivalent to a \myemph{two sample t-test with pooled variance}. 
+<<>>=
+t.test(mice$Bodyweight[1:12],mice$Bodyweight[13:24],
+  var.equal=TRUE)
+@
+\item Check that the p-values are the same in both cases.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Why does the above linear model test match the two sample t-test with pooled variance?}
+
+\begin{myitemize}
+\item Tests are the same if they use the same probability model for the null hypothesis and an equivalent test statistic.
+\item If you wrote out the probability model justifying the two sample t-test with pooled variance it would be exactly the model (M1) or (M2).
+\item  Here we focus on tests via a linear model, but you might like to review two sample tests at
+\url{https://open.umich.edu/find/open-educational-resources/statistics/statistics-250-introduction-statistics-data-analysis}
+\item Your previous course in statistics likely did not explain the probability model behind the two sample t-test with pooled variance. Viewing this test as a special case of the linear model gives us a way to do that. 
+\item The linear model also lets us analyze many more complex models.
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{A factor with many levels: Kicking field goals}
+\begin{myitemize}
+\item If an athlete has a good season, is the next one likely to be good? Or bad? Or does the previous season have no predictive skill?
+\item We consider field goal kicking success for the 19 National Football League (NFL) kickers who played every season during 2002-2006.
+\end{myitemize}
+<<,eval=F>>=
+download.file(destfile="FieldGoals.csv", 
+  url="https://ionides.github.io/401f18/07/FieldGoals.csv")
+@
+<<>>=
+goals <- read.table("FieldGoals.csv",header=TRUE,sep=",")
+head(goals[,1:8]) 
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Understanding the field goal data}
+
+\vspace{-1.5mm}
+
+<<>>=
+goals[1,1:8]
+@
+\begin{myitemize}
+\item Each record has the player \code{Name} and \code{Year} followed by \\
+%\begin{myitemize}
+%  \item 
+\code{Teamt}: team that year. 
+\\
+\code{FGAt}: number of field goal attempts in that year.
+\\
+\code{FGt}: percentage of field goal attempts which were successful that year.
+\\
+\code{Teamt1}: Team the previous year.
+\\
+\code{FGAt1} and \code{FGt1}: Field goal attempts and percentage the previous year.
+\end{myitemize}
+
+\vspace{1.5mm}
+
+\myquestion. Is there additional background on football that we need to understand the data and the question?
+
+\answer{\vspace{40mm}}{todo}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Brainstorming for a model}
+\begin{myitemize}
+\item If an NFL kicker has a good season, is the next one likely to be good? Or bad? Or does the previous season have no predictive skill?
+\end{myitemize}
+\myquestion. (1) Set up notation; (2) propose models in the context of our data; (3) write down hypotheses relevant to our question.
+
+\answer{\vspace{60mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{A linear model for field goals} 
+
+\vspace{-2mm}
+
+<<>>=
+goals.lm <- lm(FGt~FGt1+Name,data=goals)
+X <- model.matrix(goals.lm)
+@
+\begin{myitemize}
+\item Here, \code{Name} has R class \code{factor}. The levels are the kicker names.
+<<>>=
+class(goals$Name)
+attributes(goals$Name)$levels[1:6]
+@
+%\item A factor is a numeric vector with \myemph{levels}. Here, the levels are the kicker names.
+\item We want to find out what model we have fitted! Time to study the design matrix, \code{X}.
+<<>>=
+dim(X)
+@
+\item Working out the model (in double-subscript form) corresponding to a \m{76\times 20} matrix takes some thought.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+<<>>=
+unname(X[1:15,1:10])
+@
+
+\end{frame}
+
+\begin{frame}
+%\frametitle{
+
+\vspace{5mm}
+
+\myquestion. What is the model fitted by \code{lm(FGt~FGt1+Name,data=goals)}? Use double-subscript form.
+
+\answer{\vspace{80mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\vspace{5mm}
+
+\myquestion. What are the terms in the sample linear model corresponding to the following R output?
+
+<<>>=
+coef(goals.lm)[1:6]
+@
+
+\answer{\vspace{20mm}}{todo}
+
+\myquestion. Is there anything surprising about these results?
+
+\answer{\vspace{20mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotting the fitted model with a line for each factor level}
+
+\vspace{-1.5mm}
+
+<<plot_kickers,echo=T,eval=F,purl=F>>=
+plot(FGt~FGt1,data=goals)
+intercept <- coef(goals.lm)[1]
+slope <- coef(goals.lm)[2]
+kicker <- coef(goals.lm)[3:20]
+abline(a=intercept,b=slope)
+for(i in 1:18) abline(a=intercept+kicker[i],b=slope)
+@
+
+\vspace{-10mm}
+
+<<,out.width="55mm",fig.width=3.3,fig.height=4,echo=F>>=
+<<plot_kickers>>
+@
+
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Hypothesis tests for groups of parameters}
@@ -348,7 +554,7 @@ f = \frac{ (\RSS_0-\RSS_a)/d}{\RSS_a/(n-q)}.
 \begin{frame}[fragile]
 \frametitle{The F test for model selection}
 
-\vspace{-2mm}
+%\vspace{-2mm}
 
 \begin{myitemize}
 \item Under \m{H_0}, the model-generated \m{F} statistic has an F distribution on \m{d} and \m{n-q} degrees of freedom. 
@@ -356,10 +562,10 @@ f = \frac{ (\RSS_0-\RSS_a)/d}{\RSS_a/(n-q)}.
 
 \item We can obtain p-values for the F distribution in R using \code{pf()}. Try \code{?pf}. 
 
-\item Testing \m{H_0} verus \m{H_a} using this p-value is called the F test.
+\item Testing \m{H_0} versus \m{H_a} using this p-value is called the F test.
 
-\item When we add a single parameter, so \m{d=1} and \m{q=p+1}, the F test is equivalent to carrying out Student's t test using the estimated coefficient as the test statistic. 
-As homework, you are asked to check this using \code{pt()} and \code{pf()} in R.
+% \item When we add a single parameter, so \m{d=1} and \m{q=p+1}, the F test is equivalent to carrying out Student's t test using the estimated coefficient as the test statistic. 
+% As homework, you are asked to check this using \code{pt()} and \code{pf()} in R.
 
 \item Degrees of freedom are mysterious. The mathematics for how they work involves matrix algebra beyond this course. An intuition is that fitting a parameter that is not in the model ``explains'' a share of the residual sum of squares; in an extreme case, fitting \m{n} parameters to \m{n} data points may give a perfect fit (residual sum of squares = zero) even if none of these parameters are in the true model.
 
@@ -382,63 +588,30 @@ As homework, you are asked to check this using \code{pt()} and \code{pf()} in R.
 \end{frame}
 
 
-\begin{frame}[fragile]
-\frametitle{An F test for kickers. (i) Reviewing the data}
-<<data>>=
-goals <- read.table("FieldGoals2003to2006.csv",header=T,sep=",")
-goals[1:5,c("Name","Teamt","FGt","FGtM1")]
-lm0 <- lm(FGt~FGtM1+Name,data=goals)
-@
-\begin{myitemize}
-\item This is model syntax we have not seen before. 
-\item \code{Name} is a \myemph{factor}
-<<factor_class>>=
-class(goals$Name)
-@
-\item A factor is a vector with \myemph{levels}. Here, the levels are the kicker names.
-\end{myitemize}
-
-\end{frame}
-
 
 \begin{frame}[fragile]
-\frametitle{An F test for kickers. (ii) Checking the design matrix}
-
-\vspace{-2mm}
-
-<<design>>=
-X <- model.matrix(lm0)
-dim(X)
-unname(X[c(1,5,9,13,17),1:8])
-@
-
-\vspace{-3mm}
-
-\myquestion. Is this the design matrix that you want? Can we use our experience working with design matrices to understand what R is doing?
-
-\vspace{15mm}
-
-\end{frame}
-
-
-
-\begin{frame}[fragile]
-\frametitle{An F test for kickers. (ii) Interpreting the ANOVA table}
+\frametitle{An F test for kickers: Interpreting the ANOVA table}
 
 \vspace{-2mm}
 
 <<anova>>=
-anova(lm0)
+anova(goals.lm)
 @
 
-\vspace{-3mm}
+\vspace{-2mm}
 
-\myquestion. Focus on the row labeled \code{Name}. Explain what is being tested, how it is being tested, and what you conclude.
+\myquestion. Focus on the row labeled \code{Name}. Explain what is being tested, how it is being tested, and what you conclude. In other words, write out the hypothesis test corresponding to this line.
 
-\vspace{30mm}
+\answer{\vspace{50mm}}{todo}
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{ANOVA hypothesis test, continued}
+
+\answer{\vspace{80mm}}{todo}
+
+\end{frame}
 
 \end{document}
 

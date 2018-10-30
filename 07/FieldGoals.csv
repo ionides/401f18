@@ -2,8 +2,8 @@
 # Accessed on 1/14/18
 # 19 NFL field goal kickers with >= 10 attempts each season 2002-2005
 # Data originally from  http://www.rorotimes.com/nfl/stats
-# Name, Year, Field goal attempts in that year, Field goal percentage in that year, Team the previous year, Field goal attempts and average the previous year, Field goal attemps and average two years previously
-Name,Yeart,Teamt,FGAt,FGt,Team(t-1),FGAtM1,FGtM1,FGAtM2,FGtM2
+# Name, Year, Teamt: Team that year, FGAt: Number of field goal attempts in that year, FGt: percentage of field goal attempts leading to a successful goal that year, Teamt1: Team the previous year, FGAt1 and FGt1: Field goal attempts and percentage the previous year, FGAt2 and FGt2: Field goal attemps and percentage two years previously
+Name,Yeart,Teamt,FGAt,FGt,Teamt1,FGAt1,FGt1,FGAt2,FGt2
 Adam Vinatieri,2003,NE,34,73.5,NE,30,90,,
 Adam Vinatieri,2004,NE,33,93.9,NE,34,73.5,30,90
 Adam Vinatieri,2005,NE,25,80,NE,33,93.9,34,73.5
