@@ -1,0 +1,11 @@
+\if \QLABELS1 Q1-3. \fi
+Let $X_1,X_2,\dots,X_n$ be independent random variables each of which take value 0 with probability 1/3 and 1 with probability 2/3.
+
+(a) Use the definitions and basic properties of expectation and variance to find the expected value and variance of $X_1$.
+
+(b) Use these results to find the mean and variance of $\bar{X}=\frac{1}{n}\sum_{i=1}^n X_i$. (You might notice that this calculation is related to the binomial distribution. You can use that to check your work, if you like, but you are asked to find the solution directly.)
+
+(c) Now suppose $n=50$ and suppose that $\bar X$ is well approximated by a normal distribution. Find $\prob(0.45<\bar X<0.55)$. Write your answer as a call to `pnorm()`. Your call to pnorm may involve specifying any necessary numerical calculations that you can't work out without access to a computer or calculator.
+
+--------
+

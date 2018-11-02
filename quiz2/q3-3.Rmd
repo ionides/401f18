@@ -1,0 +1,19 @@
+\if \QLABELS1 Q3-3. \fi
+We analyze the following data on video game sales in North America. This dataset records sales (in millions of dollars) for  580 games within three genres (shooter, sports and action) from two publishers (Electronic Arts and Activision) with years of release from 2006 to 2010 inclusive, on ten different platforms. We consider the following analysis
+```{r}
+vg <- read.table("vg_sales.txt") ; head(vg)
+lm_vg2 <- lm(Sales ~ Publisher-1, data = vg)
+summary(lm_vg2)
+```
+The fitted probability model is $Y_{ij} = \pi_j + \epsilon_{ij}$ where $j=1,2$ specifies the publisher (Electronic Arts and Activision, respectively),  and $i$ ranges over all the games for each publisher.
+As usual, $\epsilon_{ij}$ gives an independent $N[0,\sigma]$ error for game $(i,j)$. Parameters in this probability model are estimated by least squares as follows:
+ 
+(a) What do the coefficients in the summary above measure?
+
+(b) Explain how to build a 95% confidence interval for Activision sales using a normal approximation.  You can use the property that $\prob[Z<1.96]=0.975$ when $Z$ has a $N[0,1]$ distribution.
+
+-----------------------
+
+
+
+

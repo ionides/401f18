@@ -1,0 +1,29 @@
+**Solution**:
+
+(a).
+
+Under $H_0$, we have the model 
+
+$Y_i = \beta_0 + \beta_1 x_{i1}+ \epsilon_i$,$i=1,...,n$, 
+
+where $Y_i$ is the field goal percentage for player $i$ in that year, $x_{i1}$ is the field goal percentage for player $i$ in the previous year.  $\epsilon_i$ are i.i.d with mean 0 and variance $\sigma^2$.
+
+Under $H_a$, we have 
+
+$Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}+... + \beta_{19} x_{i19}+ \epsilon_i$,$i=1,...,n$. 
+
+$x_{ij}$,$j=2,...19$ is the player name indicator. Other letters are defined same as the model under $H_0$.
+
+For the F test, we are testing 
+
+$H_0:\beta_2=...=\beta_{19}=0$ against $H_a$:one of $\beta_j\neq 0$,$j=2,...19$.
+
+(b).
+
+$$F = \frac {(RSS_0 - RSS_a)/d}{RSS_a/(n-q)},$$ 
+where $RSS_0$ is the residual sum of squares for the null model while $RSS_a$ is the residual sum of squares under the alternative.
+$d$ is the difference in the degrees of freedom between the null and the alternative, and $(n-q)$ is the degrees of freedom of error in the alternative model.
+
+(c).
+
+Since the $p$-value is $0.0003858 < 0.05$, we are able to reject $H_0$. Thus name is an important factor when predicting a player's current field goal percentage.

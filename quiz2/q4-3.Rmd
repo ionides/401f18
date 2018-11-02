@@ -1,0 +1,17 @@
+\if \QLABELS1 Q4-3. \fi
+We analyze the following data on video game sales in North America. This dataset records sales (in millions of dollars) for  580 games within three genres (shooter, sports and action) from two publishers (Electronic Arts and Activision) with years of release from 2006 to 2010 inclusive, on ten different platforms. We are interested in considering whether there is a significant pattern in the sales of different game genres, which leads us to carry out the following analysis:
+```{r}
+vg <- read.table("vg_sales.txt") ; head(vg)
+lm_vg3 <- lm(Sales ~ Publisher + Genre, data = vg)
+anova(lm_vg3)
+```
+
+(a) Let $\pi_j$ be a factor for publisher, where $j=1,2$ specifies Electronic Arts and Activision, respectively. Let $\gamma_k$ be a factor for genre, where $k=1,2,3$ specifies shooter, sports and action respectively. Let $y_{ijk}$ be the sales for the $i$th game having publisher $j$ and genre $k$, and let $Y_{ijk}$ be a probability model for $y_{ijk}$. Using this notation, complete the explicit specification of a the null and alternative hypothesis for an F-test that evaluates whether there is a statistically significant difference between sales of different genres. 
+
+(b) Explain how the test statistic and p-value are constructed for this F-test, giving relevant formulas. You may define a residual sum of squares in words, without writing out an explicit formula for this.
+
+(c) Interpret the results of this test, as given in the above ANOVA table. 
+
+-------------------
+
+

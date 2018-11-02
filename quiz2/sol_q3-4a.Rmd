@@ -1,0 +1,16 @@
+
+**Solution**:
+
+Yes, `fit2`, `fit3`, and `fit5` would provide the same coefficients. `fit2` would give an intercept term (`mu3`) and an estimate of the difference in body depth between the orange and the blue crabs (`mu2` - `mu1`) which is coded as `mu2` or `mu_diff`. From this, we can determine that `fit3` would also provide the same model as `fit2` since by default R includes an intercept value. Similarly, we can determine that `fit5` would provide the same model as `fit2` and `fit3` since `mu4` is the same as `mu2`.
+
+The following are the coefficients obtained from each of the models (for comparison purposes only):
+
+```{r}
+summary(fit1)$coef
+summary(fit2)$coef
+summary(fit3)$coef
+summary(fit4)$coef
+summary(fit5)$coef
+summary(fit6)$coef
+```
+

@@ -1,0 +1,11 @@
+**Solution**:
+
+$\hat y = 59 + 3(-0.5) - 8(0) - 12(1) - 13(0) - 1(0) - 2(0)$
+
+$\hat y = 59 - 1.5 - 12$
+
+$\hat y = 45.5$
+
+The predicted math score for this student is 45.5.
+
+

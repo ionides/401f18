@@ -1,0 +1,21 @@
+\if \QLABELS1 Q4-1. \fi
+The following is an ANOVA analysis of the football field goal kicking data that we have seen repeatedly.
+Recall that `Name` is the name of the kicker, `FGt` is the field goal percentage for the kicker in that year, and `FGtM1` is the percentage for that kicker in the previous year.
+```{r read_data}
+kickers <- read.table("FieldGoals2003to2006.csv",header=T,sep=",")
+kickers[1:5,c("Name","Teamt","FGt","FGtM1")]
+lm_kickers <- lm(FGt~FGtM1+Name,data=kickers)
+anova(lm_kickers)
+```
+(a) Write out the null and alternative hypotheses corresponding to the hypothesis test constructed in the `Name` row of the ANOVA table.
+
+(b) Describe how this test is constructed, using formulas when appropriate. You may define a residual sum of squares in words, without giving an explicit formula.
+
+
+(c) Interpret the outcome of this test.
+
+```{r,child="sol_q4-1.Rmd",eval=SOL}
+```
+
+--------------
+

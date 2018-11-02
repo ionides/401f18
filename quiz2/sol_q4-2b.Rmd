@@ -1,0 +1,9 @@
+**Solution**:
+
+The sample test statistic is $f = 4.7799$ and the model generated test statistic is $F \sim F_{d, n-q} = F_{2, 184}$, the F distribution on 2 and 184 degrees of freedom. The p-value is calculated as $P(F > f) = 0.009467$. Using a level of 0.05, we reject the null hypothesis and conclude that the race of the mother has a significant association with the birth weight of the child.
+
+The sample test statistic is calculated as follows:
+
+$f = \frac {(RSS_0 - RSS_a)/d}{RSS_a/(n-q)}$, where $RSS_0$ and $RSS_a$ are the residual sum of squares for the null and alternative models respectively, $d$ is the difference in the degrees of freedom between the null and alternative models, $q$ is the number of explanatory variables in the alternative model, and $(n-q)$ is the degrees of freedom of error in the alternative model.
+
+

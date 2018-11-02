@@ -1,0 +1,4 @@
+**Solution**:
+
+$\mu_1$ is the mean body depth of blue crabs, and $\mu_2$ is the mean body depth of orange crabs.
+

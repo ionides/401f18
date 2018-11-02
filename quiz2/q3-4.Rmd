@@ -1,0 +1,51 @@
+\if \QLABELS1 Q3-4. \fi
+Recall the crabs dataset used in lab. Here, `BD` refers to the body depth of the crabs, and `sp` denotes the colour of the crabs, which is one of blue or orange.
+
+```{r}
+library(MASS)
+data(crabs)
+head(crabs)
+crabs$mu1 <- (crabs$sp == "B")*1
+crabs$mu2 <- (crabs$sp == "O")*1
+crabs$mu3 <- 1
+crabs$mu4 <- 1-crabs$mu1
+crabs$mu_diff <- crabs$mu2
+fit1 <- lm(BD ~ mu1+mu2-1, data = crabs)
+fit2 <- lm(BD ~ mu3 + mu_diff - 1, data = crabs)
+fit3 <- lm(BD ~ mu2, data = crabs)
+fit4 <- lm(BD ~ 1-mu1, data = crabs)
+fit5 <- lm(BD ~ mu4, data = crabs)
+fit6 <- lm(BD~  mu1+mu2, data = crabs)
+```
+(a) Would any of the models (`fit1` to `fit6`) give the same coefficients? If yes, list them.
+
+```{r,child="sol_q3-4a.Rmd",eval=SOL}
+```
+
+Now consider the probability model $Y_i = \mu_1x_{Bi} + \mu_2x_{Oi} + \epsilon_i$, where $i=1,\dots,200$. $Y_i$ models the body weight of observation $i$. 
+$x_{Bi}$ is 1 if `sp=B` for observation $i$ and 0 otherwise. 
+Similarly, $x_{Oi}$ is 1 if `sp=O` for observation $i$ and 0 otherwise. 
+$\epsilon_1,\dots,\epsilon_{200}$ are i.i.d with mean 0 and variance $\sigma^2$. 
+This model can be fitted to the `crabs` dataset in R using the `lm()` function. The resulting summary is provided below.
+```{r}
+summary(fit1)
+```
+
+(b) Interpret $\mu_1$ and $\mu_2$ in the above model?
+
+```{r,child="sol_q3-4b.Rmd",eval=SOL}
+```
+
+
+(c) Recall from homework that the estimated covariance matrix of $\boldsymbol{\hat{\beta}} = (\hat{\mu}_1,\hat{\mu}_2)$ can be found by  
+```{r}
+V <- summary(fit1)$cov.unscaled * summary(fit1)$s^2; V
+```
+Construct a 95% confidence interval for $\mu_1-\mu_2$ using normal approximation. Based on this, do we have sufficient evidence to conclude that $\mu_1=\mu_2$ at the 95% level?
+
+```{r,child="sol_q3-4c.Rmd",eval=SOL}
+```
+
+
+----------- 
+

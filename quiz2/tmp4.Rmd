@@ -1,0 +1,103 @@
+\if \QLABELS1 Q4-1. \fi
+The following is an ANOVA analysis of the football field goal kicking data that we have seen repeatedly.
+Recall that `Name` is the name of the kicker, `FGt` is the field goal percentage for the kicker in that year, and `FGtM1` is the percentage for that kicker in the previous year.
+```{r read_data}
+kickers <- read.table("FieldGoals2003to2006.csv",header=T,sep=",")
+kickers[1:5,c("Name","Teamt","FGt","FGtM1")]
+lm_kickers <- lm(FGt~FGtM1+Name,data=kickers)
+anova(lm_kickers)
+```
+(a) Write out the null and alternative hypotheses corresponding to the hypothesis test constructed in the `Name` row of the ANOVA table.
+
+(b) Describe how this test is constructed, using formulas when appropriate. You may define a residual sum of squares in words, without giving an explicit formula.
+
+
+(c) Interpret the outcome of this test.
+
+```{r,child="sol_q4-1.Rmd",eval=SOL}
+```
+
+--------------
+
+\if \QLABELS1 Q4-2. \fi
+Consider the birth weight data set we have seen in lab.
+For this question, we will look at columns `bwt` (birth weight), `lwt` (mother's weight), `age` (mother's age) and `race` (mother's race, 1 for white, 2 for black and 3 for other).
+```{r}
+library(MASS)
+data(birthwt)
+```
+
+```{r}
+head(birthwt)
+```
+We want to study the relationship between birthweight and race using an F test, while mother's weight and age are included as additional explanatory variables. Let the null hypothesis, $H_0$, be the probability model where birth weight is modeled to depend linearly on mother's weight and age. Let $H_a$ be the probability model where $H_0$ is extended to include race as a factor, as fitted in R by
+```{r}
+lm_bw <- lm(bwt ~ lwt + age +factor(race), data = birthwt)
+```
+The results from summary(lm_bw) and anova(lm_bw) are as follows
+```{r}
+summary(lm_bw)
+```
+```{r}
+anova(lm_bw)
+```
+
+(a) Write out the null and alternative hypotheses of the F test by completely specifying the probability models.
+
+```{r sol_q4-2a,child="sol_q4-2a.Rmd",eval=SOL}
+```
+
+(b) Interpret the results in `anova(lm_gpa)`. Specifically, 
+read the sample test statistic from R output, give the distribution of the model-generated test statistic under $H_0$, and explain how the resulting p-value is calculated and interpreted. Your answer should givie relevant formulas, though you may define a residual sum of squares in words without explicitly saying how it is constructed.
+
+
+```{r sol_q4-2b,child="sol_q4-2b.Rmd",eval=SOL}
+```
+
+
+---------
+
+\if \QLABELS1 Q4-3. \fi
+We analyze the following data on video game sales in North America. This dataset records sales (in millions of dollars) for  580 games within three genres (shooter, sports and action) from two publishers (Electronic Arts and Activision) with years of release from 2006 to 2010 inclusive, on ten different platforms. We are interested in considering whether there is a significant pattern in the sales of different game genres, which leads us to carry out the following analysis:
+```{r}
+vg <- read.table("vg_sales.txt") ; head(vg)
+lm_vg3 <- lm(Sales ~ Publisher + Genre, data = vg)
+anova(lm_vg3)
+```
+
+(a) Let $\pi_j$ be a factor for publisher, where $j=1,2$ specifies Electronic Arts and Activision, respectively. Let $\gamma_k$ be a factor for genre, where $k=1,2,3$ specifies shooter, sports and action respectively. Let $y_{ijk}$ be the sales for the $i$th game having publisher $j$ and genre $k$, and let $Y_{ijk}$ be a probability model for $y_{ijk}$. Using this notation, complete the explicit specification of a the null and alternative hypothesis for an F-test that evaluates whether there is a statistically significant difference between sales of different genres. 
+
+(b) Explain how the test statistic and p-value are constructed for this F-test, giving relevant formulas. You may define a residual sum of squares in words, without writing out an explicit formula for this.
+
+(c) Interpret the results of this test, as given in the above ANOVA table. 
+
+-------------------
+
+
+\if \QLABELS1 Q4-4. \fi
+Recall the nels88 dataset from lab. 
+These data are a subset of the National Education Longitudinal Study of 1988 which examined schoolchildren's performance on a math test score in 8th grade. 
+`ses` is the socioeconomic status of parents and `paredu` is the parents highest level of education achieved (less than high school, high school, college, BA, MA, PhD).
+`race` determines the race of each student which is one of White, Black, Asian or Hispanic.
+
+```{r lm_nels_anova}
+library(faraway)
+data(nels88)
+head(nels88)
+fit <- lm(math ~ ses + paredu + race, data = nels88)
+summary(fit)
+anova(fit)
+```
+Suppose we are interested in finding whether the race of the student is associated with their math score, after controlling for the other variables.
+
+(a)  Write out the null and alternative hypothesis for carrying out the above analysis. (Describe all parameters clearly)
+
+(b) What test would you carry out? Clearly explains how the test is constructed, giving relevant formulas. You may define a residual sum of squares in words, without giving an explicit formula.
+
+(c) Report on the conclusions of your test based on the R output provided.
+
+--------------
+
+
+
+

@@ -1,0 +1,18 @@
+\if \QLABELS1 Q2-2. \fi
+Consider the birth weight data set we have seen in lab.
+For this question, we will look at columns `bwt` (birth weight), `lwt` (mother's weight), `age` (mother's age) and `race` (mother's race, 1 for white, 2 for black and 3 for other).
+```{r}
+library(MASS)
+data(birthwt)
+head(birthwt,3)
+lm_bw <- lm(bwt ~ lwt + age +factor(race), data = birthwt)
+summary(lm_bw)$coef
+```
+Now suppose we are interested in predicting the birthweight of a baby who has a 30-year-old white mother with weight 130. 
+
+(a) Specify a row matrix $\vect{x}^*$ so that $\hat y^*=\vect{x}^*\vect{b}$ gives the least square predictor.
+
+(b) Write a matrix expression for the variance of $\hat Y^*=\vect{x}^*\vect{\hat\beta}$ where $\vect{\hat\beta}$ is the least squares fit on model-generated data, i.e., $\vect{\hat\beta}=(\mat{X}^\transpose\mat{X})^{-1}\mat{X}^\transpose \vect{Y}$.
+
+------------
+

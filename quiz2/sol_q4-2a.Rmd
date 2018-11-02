@@ -1,0 +1,9 @@
+**Solution**:
+
+$H_0: Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \epsilon_i, \space i = 1, \dots, 189$
+
+$H_a: Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \beta_3X_{i3} + \beta_4X_{i4} + \epsilon_i, \space i = 1, \dots, 189$
+
+where $Y_i$ is the birth weight of infant $i$, $X_{i1}$ is the weight of mother $i$, $X_{i2}$ is the age of mother $i$, $X_{i3}$ is an indicator of whether mother $i$ is black,$X_{i4}$ is an indicator of whether mother $i$ is another race , and $\epsilon_i$ is the chance variation.
+
+

@@ -1,0 +1,14 @@
+**Solution**:
+
+```{r, eval = F}
+1-pnorm(0.03721,mu=0.03538,sd=0.005939)
+```
+
+gives the probability of observing a bigger value of the estimated coefficient under the assumed model, making a normal approximation using the calculated standard error. By symmetry, the chance of the difference being larger in magnitude (i.e., too large or too small) is twice the chance of being bigger. So, the answer is
+
+```{r, eval = F}
+2*(1-pnorm(0.03721,mu=0.03538,sd=0.005939))
+```
+
+
+

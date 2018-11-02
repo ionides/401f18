@@ -1,0 +1,13 @@
+**Solution**:
+
+$\mathbb{E}(X_1)=0 \times 0.25 + 4 \times 0.75 = 3$
+
+$\mathbb{E}(X_1^2)=0 \times 0.25 + 4^2 \times 0.75 = 12$
+
+$Var(X_1)=\mathbb{E}(X_1^2)-(\mathbb{E}(X_1))^2=12-9=3$
+
+Thus, $\mathbb{E}(X)=\mathbb{E}(\sum_{i=1}^n X_i)=n \mathbb{E}X_1=600$
+
+$Var(\bar{X})=Var(\sum_{i=1}^n X_i)=n Var(X_1)=600$
+
+$c = qnorm(0.9,600,sqrt(600))$

@@ -1,0 +1,14 @@
+\if \QLABELS1 Q3-1. \fi
+Consider the following linear model for the mouse diet data that we have studied repeatedly
+```{r}
+mice <- read.table("femaleMiceWeights.csv",sep=",",header=TRUE)
+head(mice)
+lm_mice <- lm(Bodyweight~Diet,data=mice)
+model.matrix(lm_mice)
+```
+(a) Write down the sample linear model fitted in `lm_mice` using the subscript format.
+
+(b) Explain how to obtain estimates of the means of both treatment groups, and the difference between these means, from the coefficients of this sample linear model.
+
+----------- 
+

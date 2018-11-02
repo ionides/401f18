@@ -1,0 +1,14 @@
+**Solution**:
+$\mathbf{y} = \mathbb{X} \mathbf{b} + \mathbf{e}$
+
+where
+
+  * $\mathbf{y} =(y_1, \dots, y_n)$ is a vector random variable modeling schoolchildren's performance on a math test in 8th grade.
+  
+  * $\mathbb{X} = [x_{ij}]$ is a $n \times 7$ matrix with $x_{i1}=1$ for $i = 1, \dots, n$, $x_{i2}$ is the parents' socioeconomic status for student $i$, $x_{i3}$ equals 1 if 'paredu' = college and 0 otherwise, $x_{i4}$ equals 1 if 'paredu' = high school and 0 otherwise, $x_{i5}$ equals 1 if 'paredu' = below high school and 0 otherwise, $x_{i6}$ equals 1 if 'paredu' = MA and 0 otherwise, and $x_{i7}$ equals 1 if 'paredu' = PhD and 0 otherwise.
+  
+  * $\mathbf{b} = (b_1, \dots, b_7)$ are the true but unknown vector of coefficients.
+  
+  * $\mathbf{e} = (e_1, \dots, e_n)$ is a vector random variable modeling chance variation.
+  
+  * All vectors are interpreted as column vectors.

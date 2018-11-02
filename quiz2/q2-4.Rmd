@@ -1,0 +1,33 @@
+\if \QLABELS1 Q2-4. \fi
+Recall the nels88 dataset from lab. These data are a subset of the National Education Longitudinal Study of 1988 which examined schoolchildren’s performance on a math test score in 8th grade. `ses` is the socioeconomic status of parents and `paredu` is the parents highest level of education achieved (less than high school, high school, college, BA, MA, PhD). The data were as follows:
+```{r lm_nels88_example}
+library(faraway)
+data(nels88)
+head(nels88)
+```
+We fit a regression model to the data. The rounded co-efficients for the model are provided below:
+```{r}
+fit <- lm(math ~ ses + paredu, data = nels88)
+round(summary(fit)$coef)
+```
+
+(a)  Describe a suitable probability model, in matrix form, to give a sample version of the linear model that has been fit above.
+
+```{r,child="sol_q2-4a.Rmd",eval=SOL}
+```
+
+
+(b) Find the predicted math score for a student whose family has an ses value of -0.5 and whose parents' highest education level is high school (`hs`).
+
+```{r,child="sol_q2-4b.Rmd",eval=SOL}
+```
+
+
+(c) How is the residual standard error calculated for this model? (Give a formula).
+
+```{r,child="sol_q2-4c.Rmd",eval=SOL}
+```
+
+-------
+
+

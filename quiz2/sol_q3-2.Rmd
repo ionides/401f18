@@ -1,0 +1,19 @@
+**Solution**:
+
+(a). 
+  
+$\mu_1$ is the population mean frontal lobe size for blue crabs. $\mu_2$ is the population mean frontal lobe size for orange crabs.
+
+(b). 
+  
+$(14.056-1.96*0.315,14.056+1.96*0.315)=(13.44,14.67)$
+  
+(c). 
+  
+Let $a = (1,-1)^T$.
+
+$Var(a^T\mathbf{\hat{\mu}})=a^TVar(\mathbf{\hat{\mu}})a=a^TVa=0.198$
+  
+$\hat{\mu}_1-\hat{\mu}_2=14.056-17.110=-3.054$ 
+  
+Thus we have the 95% C.I. $(-3.054-1.96*\sqrt{0.198},-3.054+1.96*\sqrt{0.198})=(-3.926,-2.182)$
