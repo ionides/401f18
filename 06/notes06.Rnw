@@ -577,7 +577,7 @@ which is modeled as a realization of the model-generated least squares coefficie
 
 \begin{frame}[fragile]
 
-\vspace{-5mm}
+\vspace{5mm}
 
 \myquestion. Use linearity of expectation to show that \m{\E[\hat Y^*] = \vect{x}^*\vect{\beta}}
 
@@ -588,7 +588,7 @@ Here, we use the previous result that $\E[\vec{\hat\beta}]=\vec{\beta}$.
 
 \myquestion. Use the formula \m{\var(\mat{A}\vec{X})= \mat{A}\var(\vec{X})\mat{A}^\transpose} to show that \m{\var[\hat Y^*] = \sigma^2 \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose}}
 
-\answer{\vspace{35mm}}{
+\answer{\vspace{30mm}}{
 \[ \var(\hat Y^*) = \var(\vect{x}^*\vect{\hat\beta}) = \vect{x}^* \var(\vect{\hat\beta}) {\vect{x}^*}^\transpose = \sigma^2 \vect{x}^* \big(\mat{X}^\transpose\mat{X}\big)^{-1} \vect{x}^{*\transpose} \]
 }
 \myquestion. Check the dimension of \m{\var[\hat Y^*]}. Is this correct?

@@ -81,7 +81,7 @@ options(width = 60) # number of characters in R output before wrapping
 \begin{frame}[fragile]
 \frametitle{Comparing two sample means via a model with a factor}
 \begin{myitemize}
-\item Recall the mouse weight experiment. 24 mice are randomizes to one of two diets and are weighed after two weeks.
+\item Recall the mouse weight experiment. 24 mice are randomized to one of two diets and are weighed after two weeks.
 \item First, set up notation. Let \m{y_{ij}} be the weight of the \m{j}th mouse on treatment \m{i}, where \m{i=1,2} corresponds to the normal and high fat diet respectively and \m{j=1,\dots,12} enumerates the replicates for each treatment group.
 \item A probability model for this experiment is
 \mydisplaymath{
@@ -118,8 +118,8 @@ in the usual single-subscript linear model form,
 }
 Convince yourself that these equations are equivalent.
 
-\answer{\vspace{20mm}}{todo}
-
+\answer{\vspace{20mm}}{$y_k$ has fitted value $\mu_1$ when $k$ corresponds to a mouse fed normal chow, and $\mu_2$ otherwise. This matches the double subscript notation.}
+ 
 
 \end{frame}
 
@@ -132,11 +132,11 @@ We consider the sample linear model \m{y_k = \mu_1 x_{k,1} + \mu_2 x_{k,2} + e_k
 
 \myquestion. Usually we use \m{i} as a subscript when writing a linear model in subscript form. Why do we use \m{k} here?
 
-\answer{\vspace{25mm}}{todo}
+\answer{\vspace{25mm}}{We have used $i$ and $j$ for the double subscript form. It is best to use a different letter here, for this different context. Formally, the choice of letter doesn't matter.}
 
 \myquestion. Notice there is no intercept term in this linear model. Why?
 
-\answer{\vspace{30mm}}{todo}
+\answer{\vspace{30mm}}{There are two different means in this model, one for each treatment group. Therefore, we only need two parameters, $\mu_1$ and $\mu_2$. A third intercept parameter is unnecessary.}
 
 \end{frame}
 
@@ -153,7 +153,18 @@ We consider the sample linear model \m{y_k = \mu_1 x_{k,1} + \mu_2 x_{k,2} + e_k
 
 This asks you to write down a choice of \m{\vec{Y}}, \m{\mat{X}}, \m{\vec{\beta}} and \m{\vec{\epsilon}} so that the two equations are equivalent.
  
-\answer{\vspace{80mm}}{todo}
+\answer{\vspace{80mm}}{Concatenating both treatment groups into a single vector, as before, we write
+\[
+\begin{bmatrix} Y_1 \\ Y_2 \\ \vdots \\ Y_{12} \\ Y_{13} \\ \vdots \\ Y_{24} \end{bmatrix}
+=
+\begin{bmatrix} 1 & 0 \\ 1 & 0 \\ \vdots \\ 1 & 0 \\ 0 & 1 \\ \vdots \\ 0 & 1 \end{bmatrix}
+\begin{bmatrix} \mu_1 \\ \mu_2 \end{bmatrix}
++ 
+\begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_{12} \\ \epsilon_{13} \\ \vdots \\ \epsilon_{24} \end{bmatrix}
+\quad\quad
+\mbox{ with $\vec{\epsilon}\sim \MVN(0,\sigma^2\mat{I})$}
+\]
+}
 
 \end{frame}
 
@@ -176,11 +187,11 @@ Consider the following two models in double subscript form, with \m{\epsilon_{ij
 \end{myitemize}
 \myquestion. Why are (M1) and (M2) equivalent?
 
-\answer{\vspace{25mm}}{todo}
+\answer{\vspace{25mm}}{Both describe a constant mean for each treatment group with added ``measurement error''. Here, the term $\epsilon_{ij}$ models biological variability not error in the balance used to measure weight.}
 
 \myquestion. What is the difference in the interpretation of the parameters between (M1) and (M2)?
 
-\answer{\vspace{30mm}}{todo}
+\answer{\vspace{30mm}}{The parameter $\alpha_i$ is called a \myemph{contrast}. It measures the difference between the treament means. We can describe both treatment directly (as in M1) or by specifying the first mean and the contrast (as in M2).}
 
 \end{frame} 
  
@@ -211,7 +222,8 @@ Consider the following two models in double subscript form, with \m{\epsilon_{ij
 
 \myquestion. Can you see and explain the concern about (M3)?
 
-\answer{\vspace{50mm}}{todo}
+\answer{\vspace{50mm}}{The parameters are not uniquely specified. For example, we can get a mean of 20 for the first treament group and 25 for the second in 2 ways: ($\mu=10$, $\alpha_1=10$, $\alpha_2=15$) or  ($\mu=15$, $\alpha_1=5$, $\alpha_2=10$). There are infinitely many other equivalent ways.
+}
 
 \end{frame}
 
@@ -271,10 +283,10 @@ model.matrix(lm1)[c(1:2,12:13,23:24),]
 <<,echo=F>>=
 head(model.matrix(lm1),3)
 @
-\myquestion. Write down the model R has fitted, in double subscript form, and interpret the parameters.
+\myquestion. Write down the sample model R has fitted, in double subscript form, and interpret the parameters.
 
-\answer{\vspace{60mm}}{todo}
-
+\answer{\vspace{60mm}}{$y_{ij}=\mu+\alpha_i+e_{ij}$ with $\alpha_1=0$, for $i=1,2$ and $j=1,\dots,12$. Here, $\mu$ is the mean for treatment group $i=1$ and $\alpha_2$ is the contrast for high fat diet relative to normal diet.
+}
 \end{frame}
 
 %\end{document}
@@ -286,7 +298,7 @@ summary(lm1)$coef
 \myquestion. 
 Consider the null hypothesis that the two diets are equivalent, so the observed difference in mouse weights is chance variation in the sample. Make both a t-test and a normal approximation test (also known as a z-test) of this hypothesis. Which test do you prefer, and why? A test at the 5\% level is appropriate for this fairly small sample. 
 
-\answer{\vspace{60mm}}{todo}
+\answer{\vspace{60mm}}{The t-test is made in the above output. We see that a null hypothesis of $H_0: \alpha_2=0$ has a p-value of 0.052 using a 2-sided test comparing the sample t statistics of 2.06 with draws from the t distribution on 22 degrees of freedom. We cannot reject the null hypothesis at the 5\% level. Now we make a z-test using the same statistic: recall that the t-test and z-test use the same statistic, which is the sample estimate divided by its standard error. In this case, since $2.06>1.96$ we reject $H_0$ at the 5\% level. A t-test is more accurate here, since the sample size is small. The evidence is marginal and a hard decision cutoff at 5\% may not make sense.}
 
 \end{frame}
 
@@ -364,7 +376,7 @@ goals[1,1:8]
 
 \myquestion. Is there additional background on football that we need to understand the data and the question?
 
-\answer{\vspace{40mm}}{todo}
+\answer{\vspace{40mm}}{Any class suggestions?}
 
 \end{frame}
 
@@ -375,7 +387,28 @@ goals[1,1:8]
 \end{myitemize}
 \myquestion. (1) Set up notation; (2) propose models in the context of our data; (3) write down hypotheses relevant to our question.
 
-\answer{\vspace{60mm}}{todo}
+\answer{\vspace{60mm}}{Let $y_{ij}$ be the goal kicking percentage for the $i$th kicker ($i=1,\dots,19$) in the $j$th year ($j=1,2,3,4$ corresponding to 2003,2004,2005,2006). Let $p_{ij}$ be the kicking percentage in the previous year, so $p_{ij}=y_{i,j-1}$ with $y_{i0}$ corresponding to 2002. 
+Possible models include 
+\begin{eqnarray}
+y_{ij}&=&m +e_{ij} \\
+y_{ij}&=& m + a_i + e_{ij} \\
+y_{ij}&=& m + a_i + bp_{ij} + e_{ij}, \quad \mbox{with $a_1=0$}  \label{kicker3} \\
+y_{ij}&=& m + a_i + b_i p_{ij} + e_{ij}, \quad \mbox{with $a_1=0$} \label{kicker4} \\
+y_{ij}&=& m + a_i + c_j + e_{ij}, \quad \mbox{with $a_1=0$ and $c_1=0$}
+\end{eqnarray}
+and many more. 
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Brainstorming continued}
+
+\answer{\vspace{120mm}}{
+Data analysis is required to say which is best.
+Selecting between candidate models is one of our main tasks for the remainder of this semester. 
+Our primary null hypothesis is $\beta=0$ in (\ref{kicker3}) or $\beta_i=0$ for all $i$ in (\ref{kicker4}). 
+}
 
 \end{frame}
 
@@ -415,9 +448,9 @@ unname(X[1:15,1:10])
 
 \vspace{5mm}
 
-\myquestion. What is the model fitted by \code{lm(FGt~FGt1+Name,data=goals)}? Use double-subscript form.
+\myquestion. What is the probability model fitted by \code{lm(FGt~FGt1+Name,data=goals)}? Use double-subscript form.
 
-\answer{\vspace{80mm}}{todo}
+\answer{\vspace{80mm}}{$Y_{ij}=\mu + \alpha_i + \beta p_{ij} + \epsilon_{ij}$ with $\alpha_1=0$.}
 
 \end{frame}
 
@@ -431,11 +464,11 @@ unname(X[1:15,1:10])
 coef(goals.lm)[1:6]
 @
 
-\answer{\vspace{20mm}}{todo}
+\answer{\vspace{20mm}}{$m=126.9$, $b=-0.504$, $a_2=-4.64$, $a_3=-3.02$, $\dots$}
 
 \myquestion. Is there anything surprising about these results?
 
-\answer{\vspace{20mm}}{todo}
+\answer{\vspace{20mm}}{It may be surprisingg that $b$ is negative. It seems that good seasons are usually followed by below-average seasons.}
 
 \end{frame}
 
@@ -473,7 +506,7 @@ for(i in 1:18) abline(a=intercept+kicker[i],b=slope)
 
 \myquestion. There are 19 kickers in the dataset. How many extra parameters are needed if we add an intercept for each player?
 
-\vspace{15mm}
+\answer{\vspace{15mm}}{18, since we already have an intercept.}
 
 \begin{myitemize}
 \item This type of question is called \myemph{model selection}. Our test statistic should compare \myemph{goodness of fit} with and without the additional parameters.
@@ -512,8 +545,7 @@ Let \m{\vect{y}} be the data. Let \m{H_0} be a linear model, \m{\vect{Y}=\mat{X}
 \end{myitemize}
 \myquestion. It is always true that \m{\RSS_a \le \RSS_0}. Why?
 
-\vspace{15mm}
-
+\answer{\vspace{15mm}}{Yes. Adding extra parameters can only reduce the minimized sum of squares. If we set the extra parameters to zero, we get back to the original sum of squares $\RSS_0$.} 
 
 \begin{myitemize}
 \item 
@@ -602,14 +634,21 @@ anova(goals.lm)
 
 \myquestion. Focus on the row labeled \code{Name}. Explain what is being tested, how it is being tested, and what you conclude. In other words, write out the hypothesis test corresponding to this line.
 
-\answer{\vspace{50mm}}{todo}
-
+\answer{\vspace{50mm}}{The probability model is as written above. The null hypothesis is $H_0:\alpha_i=0$ for all $i$. The alternative is $H_a:\mbox{$\alpha_i$ are unconstrained}$. 
+}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{ANOVA hypothesis test, continued}
 
-\answer{\vspace{80mm}}{todo}
+\answer{\vspace{80mm}}{
+The sample F statistic is 
+\[
+f = \frac{(\RSS_0-\RSS_a)/18}{\RSS_a/56} = 3.24. 
+\]
+Comparing with the F distribution on 18 and 56 degrees of freedom gives a p-value of 0.00039 from the R output.
+This is small compared to the 0.001 level. There is compelling evidence that kickers have fundamentally different kicking percentages. To be cautious, we can't necessarily deduce this is a consequence of differing skill. It might involve other aspects such as team strategy.
+}
 
 \end{frame}
 
