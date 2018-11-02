@@ -34,7 +34,7 @@ csl: ecology.csl
 
 ### Making predictions and hypothesis tests.
 
-This homework continues the analysis of the newspaper circulation data from HW7. Refer back to HW7 for a description of the data and how to download it. We are going to 
+This homework continues the analysis of the newspaper circulation data from HW7. Refer back to HW7 for a description of the data and how to download it. Start by fitting a linear model on a logarithmic scale as follows.
 ```{r read_data}
 circulation <- read.table("circulation.txt",sep="\t",header=T)
 circulation$log_Sunday <- log(circulation$Sunday)
@@ -42,14 +42,14 @@ circulation$log_Weekday <- log(circulation$Weekday)
 lm1 <- lm(log_Sunday~log_Weekday+Competition,data=circulation)
 ```
 
-**Q1**. Let the sample fitted model be $\vec{y}=\mat{X}\vec{b}+\vec{e}$ where $\mat{X}=[x_{ij}]_{n\times p}$ with $n=89$ and $p=3$. Write $\mat{X}=[ \vec{1} \; \vec{w} \; \vec{c}]$. Here,  $y_i$ is the log Sunday circulation of the $i$th paper,  $\vec{1}$ is a column vector of ones, $w_{i}$ is the log weekday circulation of the $i$th paper, and $c_{i}$ is the binary explanatory variable taking value 1 for tabloids with a serious competitor.
+**Q1**. Let the sample least squares model be $\vec{y}=\mat{X}\vec{b}+\vec{e}$ where $\mat{X}=[x_{ij}]_{n\times p}$ with $n=89$ and $p=3$. Write $\mat{X}=[ \vec{1} \; \vec{w} \; \vec{c}]$. Here,  $y_i$ is the log Sunday circulation of the $i$th paper,  $\vec{1}$ is a column vector of ones, $w_{i}$ is the log weekday circulation of the $i$th paper, and $c_{i}$ is the binary explanatory variable taking value 1 for tabloids with a serious competitor.
 
 (a) Suppose a new Sunday edition is proposed for a serious (i.e., non-tabloid) weekday paper with a circulation of 150,000.
 Find the numeric value of a row vector $\vec{x}^*$ and a column vector $\vec{b}$ such that $\vec{x^*}\vec{b}$ gives the least squares prediction of the log circulation for the proposed Sunday edition.
 
-(b) Find a standard error for this prediction and hence use a normal approximation to find a confidence interval for the expected logarithm of Sunday circulation.
+(b) Find a standard error for this prediction, using matrix methods, and hence use a normal approximation to find a confidence interval for the expected logarithm of Sunday circulation.
 
-(c) Figure out how to use the `predict()` function to get a confidence interval for the expected log Sunday circulation. If you look at `?predict` you will see that `predict()` is a _generic function_. This means that `predict(lm1,...)` will look at the class of `lm1` when working out what to do. Here, `lm1` has class `lm` and so the `predict()` should follow the rules for prediction using a fitted linear model. When `predict(lm1,...)` sees that `lm1` has class `lm`, it passes on its task to a function `predict.lm()`. Therefore, `?predict.lm` gives you the necessary syntax for calling `predict(lm1,...)`. In particular, you will have to look through the arguments described in `?predict.lm` to see which are relevant to this particular question.
+(c) Figure out how to use the `predict()` function to get a confidence interval for the expected log Sunday circulation. If you look at `?predict` you will see that `predict()` is a _generic function_. This means that `predict(object,...)` will look at the class of `object` when working out what to do. Here, we call `predict(lm1,...)` where `lm1` has class `lm` and so `predict()` should follow the rules for prediction using a fitted linear model. When `predict(lm1,...)` sees that `lm1` has class `lm`, it passes on its work to a function called `predict.lm()`. Therefore, `?predict.lm` gives you the necessary syntax for calling `predict(lm1,...)`. In particular, you will have to look through the arguments described in `?predict.lm` to see which are relevant to this particular question.
 Once you have a working call to `predict()` it becomes easier to adapt it to make it a correct answer to the question. You might like to use the following code as a starting point, though this is not intended to directly answer the question. 
 ```{r}
 predict(lm1,newdata=data.frame(log_Weekday=12,Competition=1))
@@ -59,9 +59,9 @@ When you are comfortable with the methods for making predictions and confidence 
 
 (d) Your confidence interval from (c) should be close to your answer from (b) but may be slightly different. Looking at these numbers, do you think `predict.lm()` uses a normal approximation or a t distribution? Explain your reasoning.
 
-**Q2**. Explain some things you would look for to check whether your confidence interval from Q1(b) is reasonable.
+**Q2**. Explain some things you would look for to check whether your confidence interval from Q1(b) is trustworthy.
 
-**Q3**. We now turn to the problem of finding an interval estimate for the circulation of the proposed new Sunday edition. 
+**Q3**. We now turn to the problem of finding a prediction interval for the circulation of the proposed new Sunday edition. 
 
 (a) Explain how to use the data vector $\vec{y}$, the design matrix $\mat{X}$, and a row vector $\vec{x}^*$ to construct a normal approximation prediction interval that seeks to cover the logarithm of the circulation of the proposed new Sunday edition with a probability of 95%. 
 
@@ -71,7 +71,7 @@ When you are comfortable with the methods for making predictions and confidence 
 
 (d) Comment on what "probability of 95%" means in the context of part (b). Is the introduction of a new Sunday newspaper a repeatable experiment? How does the interpretation of a probability statement depend on whether one can carry out repetitions?
 
-(e) Transforming data, such as by taking the logarithm, is a useful technique to build a good statistical model but the transformation has to be undone (inverted) if you want to pull answers back to the scale of the original data. The inverse of the natural logarithm is the natural exponent. In math, 
+**Q4**. Transforming data, such as by taking the logarithm, is a useful technique to build a good statistical model but the transformation has to be undone (inverted) if you want to pull answers back to the scale of the original data. The inverse of the natural logarithm is the natural exponent. In math, 
 \[
 \log(e^x)=e^{\log(x)}=x
 \] 
@@ -80,9 +80,9 @@ In R,
 log(exp(5))
 exp(log(5))
 ```
-Construct a prediction interval for Sunday circulation. This involves moving the prediction interval in (b) for log Sunday cirulation back to the original un-logged scale.
+Construct a prediction interval for Sunday circulation. This involves moving the prediction interval in Q3(b) for log Sunday cirulation back to the original un-logged scale.
 
-**Q4**. How compelling is the evidence that there is a real difference between newspapers which are tabloid with a serious competitor (`Competition==1`) and the other papers (`Competition==0`)? Address this question by specifying a suitable null hypothesis and making an appropriate hypothesis test. 
+**Q5**. How compelling is the evidence that there is a real difference between newspapers which are tabloid with a serious competitor (`Competition==1`) and the other papers (`Competition==0`)? Address this question by specifying a suitable null hypothesis and making an appropriate hypothesis test. 
 
 
 -----

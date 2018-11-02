@@ -88,10 +88,13 @@ Due in lab on 10/26.
 
 * [Homework 7. Modeling and data analysis: standard errors, confidence intervals and a binary explanatory variable.](hw/hw07/hw07.html). Due in lab on 11/2.
 
+* [Homework 8. Making predictions and hypothesis tests.](hw/hw08/hw08.html). Due in lab on 11/9. 
+
 <!--
+[Solutions](hw/hw08/sol_hw08.html).
+-->
 
-* [Homework 8. Making an F test, and exploring the t and F distributions](hw/hw08/hw08.html). Due in your lab on 3/22 or 3/23. [Solutions](hw/hw08/sol_hw08.html).
-
+<!--
 * [Homework 9. Analyzing a dataset: Investigating variables associated with hospital-acquired infection](hw/hw09/hw09.html). Due in your lab on 4/12 or 4/13. [Solutions](hw/hw09/sol_hw09.html).
 -->
 
