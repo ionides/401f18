@@ -9,23 +9,22 @@ csl: ecology.csl
 ---
 
 
-\newcommand\prob{\mathrm{P}}
-\newcommand\E{\mathrm{E}}
-\newcommand\mat[1]{\mathbb{#1}}
-\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
-\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
-\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\prob{\mathrm{P} }
+\newcommand\E{\mathrm{E} }
+\newcommand\mat[1]{\mathbb{#1} }
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1} } }
+\newcommand\transpose{ {\scriptscriptstyle \mathrm{T} } }
 \newcommand\var{\mathrm{Var}}
 \newcommand\sd{\mathrm{SD}}
 \newcommand\sdSample{\mathrm{sd}}
 \newcommand\varSample{\mathrm{var}}
 \newcommand\cov{\mathrm{Cov}}
-\newcommand\covSample{\mathrm{cov}}
-\newcommand\corSample{\mathrm{cor}}
+\newcommand\covSample{\mathrm{cov} }
+\newcommand\corSample{\mathrm{cor} }
 \newcommand\cor{\mathrm{Cor}}
-\newcommand\normal{\mathrm{normal}}
-\newcommand\iid{\mathrm{iid}}
-\newcommand\MVN{\mathrm{MVN}}
+\newcommand\normal{\mathrm{normal} }
+\newcommand\iid{\mathrm{iid} }
+\newcommand\MVN{\mathrm{MVN} }
 
 **Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
 
