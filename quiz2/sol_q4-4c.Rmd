@@ -1,0 +1,29 @@
+
+**Solution**:
+
+1. Finding the variance of $\mu_1 - \mu_2$
+
+$Var(\mathbb{A}\mathbf{Y}) = \mathbb{A}Var(\mathbf{Y})\mathbb{A}^T$
+
+$\mathbb{A} = \begin{bmatrix} 1 \space -1 \end{bmatrix}$
+
+$$
+\begin{bmatrix} 1 \space -1 \end{bmatrix} \begin{bmatrix} 0.09671882 & 0.00000000 \\ 0.00000000 & 0.09671882 \end{bmatrix} \begin{bmatrix} 1 \\ -1\end{bmatrix}
+$$
+
+$$
+\begin{bmatrix} 0.09671882 & -0.09671882 \end{bmatrix} \begin{bmatrix} 1 \\ -1\end{bmatrix}
+$$
+
+$0.09671882 + 0.09671882 =  0.1934376$
+
+2. Constructing the confidence interval.
+
+$(\mu_1 - \mu_2) \pm z_{\frac {\alpha}2}*sd(\mu_1 - \mu_2)$
+
+$(12.583 - 15.478)  \pm 1.96*\sqrt{0.1934376}$
+
+$(-3.757038, -2.032962)$
+
+No; we do not have enough evidence to conclude that $\mu_1 = \mu_2$ ath the 95% level.
+

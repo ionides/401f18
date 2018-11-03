@@ -1,21 +1,33 @@
 \if \QLABELS1 Q4-1. \fi
-The following is an ANOVA analysis of the football field goal kicking data that we have seen repeatedly.
-Recall that `Name` is the name of the kicker, `FGt` is the field goal percentage for the kicker in that year, and `FGtM1` is the percentage for that kicker in the previous year.
-```{r read_data}
-kickers <- read.table("FieldGoals2003to2006.csv",header=T,sep=",")
-kickers[1:5,c("Name","Teamt","FGt","FGtM1")]
-lm_kickers <- lm(FGt~FGtM1+Name,data=kickers)
-anova(lm_kickers)
+We consider a dataset of measurements on crabs. The start of the dataset `crabs` is shown below. Here, `BD` refers to the body depth of the crabs. The species `sp` corresponds to the color of the crabs, which is a factor with two levels, Blue (`B`) and Orange (`O`). We want to study the difference of frontal lobe size (`FL`) of two species. 
+```{r,echo=F}
+library(MASS)
+data(crabs)
 ```
-(a) Write out the null and alternative hypotheses corresponding to the hypothesis test constructed in the `Name` row of the ANOVA table.
+```{r}
+head(crabs)
+```
 
-(b) Describe how this test is constructed, using formulas when appropriate. You may define a residual sum of squares in words, without giving an explicit formula.
+Consider the probability model $Y_i = \mu_1x_{Bi} + \mu_2x_{Oi} + \epsilon_i$ for $i=1,...,200$. $Y_i$ is the frontal lobe size of crab $i$. $x_{Bi}$ is $1$ if crab $i$ is of species Blue and $0$ otherwise. Similarly, $x_{Oi}$ is $1$ if crab $i$ is of species Orange and $0$ otherwise. 
+$\epsilon_i$ are i.i.d with mean $0$ and variance $\sigma^2$. This model can be fitted to the `crabs` dataset in R using the `lm()` function. The resulting summary is provided below.
+```{r}
+lm_crab <- lm(FL~sp-1, data=crabs)
+summary(lm_crab)
+```
 
+(a) Interpret the meaning of $\mu_1$ and $\mu_2$ in the above probability model?
 
-(c) Interpret the outcome of this test.
+(b) Build a 95% confidence interval for $\mu_1$ using normal approximation
+
+(c) Recall in homework we know that the full estimated covariance matrix of $\vect{\hat{\mu}} = (\hat{\mu}_1,\hat{\mu}_2)$ can be found by  
+```{r}
+V <- summary(lm_crab)$cov.unscaled * summary(lm_crab)$s^2
+V
+```
+Use V and information provided in `summary(lm_crab)` to write down an expression that constructs a 95% confidence interval for $\mu_1-\mu_2$.
 
 ```{r,child="sol_q4-1.Rmd",eval=SOL}
 ```
 
---------------
+------------------
 

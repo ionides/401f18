@@ -1,16 +1,14 @@
-
 **Solution**:
+$\mathbf{y} = \mathbb{X} \mathbf{b} + \mathbf{e}$
 
-Yes, `fit2`, `fit3`, and `fit5` would provide the same coefficients. `fit2` would give an intercept term (`mu3`) and an estimate of the difference in body depth between the orange and the blue crabs (`mu2` - `mu1`) which is coded as `mu2` or `mu_diff`. From this, we can determine that `fit3` would also provide the same model as `fit2` since by default R includes an intercept value. Similarly, we can determine that `fit5` would provide the same model as `fit2` and `fit3` since `mu4` is the same as `mu2`.
+where
 
-The following are the coefficients obtained from each of the models (for comparison purposes only):
-
-```{r}
-summary(fit1)$coef
-summary(fit2)$coef
-summary(fit3)$coef
-summary(fit4)$coef
-summary(fit5)$coef
-summary(fit6)$coef
-```
-
+  * $\mathbf{y} =(y_1, \dots, y_n)$ is a vector random variable modeling schoolchildren's performance on a math test in 8th grade.
+  
+  * $\mathbb{X} = [x_{ij}]$ is a $n \times 7$ matrix with $x_{i1}=1$ for $i = 1, \dots, n$, $x_{i2}$ is the parents' socioeconomic status for student $i$, $x_{i3}$ equals 1 if 'paredu' = college and 0 otherwise, $x_{i4}$ equals 1 if 'paredu' = high school and 0 otherwise, $x_{i5}$ equals 1 if 'paredu' = below high school and 0 otherwise, $x_{i6}$ equals 1 if 'paredu' = MA and 0 otherwise, and $x_{i7}$ equals 1 if 'paredu' = PhD and 0 otherwise.
+  
+  * $\mathbf{b} = (b_1, \dots, b_7)$ are the true but unknown vector of coefficients.
+  
+  * $\mathbf{e} = (e_1, \dots, e_n)$ is a vector random variable modeling chance variation.
+  
+  * All vectors are interpreted as column vectors.

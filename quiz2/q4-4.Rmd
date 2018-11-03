@@ -1,27 +1,52 @@
 \if \QLABELS1 Q4-4. \fi
-Recall the nels88 dataset from lab. 
-These data are a subset of the National Education Longitudinal Study of 1988 which examined schoolchildren's performance on a math test score in 8th grade. 
-`ses` is the socioeconomic status of parents and `paredu` is the parents highest level of education achieved (less than high school, high school, college, BA, MA, PhD).
-`race` determines the race of each student which is one of White, Black, Asian or Hispanic.
-
-```{r lm_nels_anova}
-library(faraway)
-data(nels88)
-head(nels88)
-fit <- lm(math ~ ses + paredu + race, data = nels88)
-summary(fit)
-anova(fit)
+We consider a dataset of measurements on crabs. The start of the dataset `crabs` is shown below. Here, `BD` refers to the body depth of the crabs, and `sp` denotes the colour of the crabs, which is one of blue or orange.
+```{r, echo=F}
+library(MASS)
+data(crabs)
 ```
-Suppose we are interested in finding whether the race of the student is associated with their math score, after controlling for the other variables.
+```{r}
+head(crabs)
+crabs$mu1 <- (crabs$sp == "B")*1
+crabs$mu2 <- (crabs$sp == "O")*1
+crabs$mu3 <- 1
+crabs$mu4 <- 1-crabs$mu1
+crabs$mu_diff <- crabs$mu2
+fit1 <- lm(BD ~ mu1+mu2-1, data = crabs)
+fit2 <- lm(BD ~ mu3 + mu_diff - 1, data = crabs)
+fit3 <- lm(BD ~ mu2, data = crabs)
+fit4 <- lm(BD ~ 1-mu1, data = crabs)
+fit5 <- lm(BD ~ mu4, data = crabs)
+fit6 <- lm(BD~  mu1+mu2, data = crabs)
+```
+(a) Would any of the models (`fit1` to `fit6`) give the same coefficients? If yes, list them.
 
-(a)  Write out the null and alternative hypothesis for carrying out the above analysis. (Describe all parameters clearly)
+```{r,child="sol_q4-4a.Rmd",eval=SOL}
+```
 
-(b) What test would you carry out? Clearly explains how the test is constructed, giving relevant formulas. You may define a residual sum of squares in words, without giving an explicit formula.
+Now consider the probability model $Y_i = \mu_1x_{Bi} + \mu_2x_{Oi} + \epsilon_i$, where $i=1,\dots,200$. $Y_i$ models the body weight of observation $i$. 
+$x_{Bi}$ is 1 if `sp=B` for observation $i$ and 0 otherwise. 
+Similarly, $x_{Oi}$ is 1 if `sp=O` for observation $i$ and 0 otherwise. 
+$\epsilon_1,\dots,\epsilon_{200}$ are i.i.d with mean 0 and variance $\sigma^2$. 
+This model can be fitted to the `crabs` dataset in R using the `lm()` function. The resulting summary is provided below.
+```{r}
+summary(fit1)
+```
 
-(c) Report on the conclusions of your test based on the R output provided.
+(b) Interpret $\mu_1$ and $\mu_2$ in the above model?
 
---------------
+```{r,child="sol_q4-4b.Rmd",eval=SOL}
+```
 
 
+(c) Recall from homework that the estimated covariance matrix of $\boldsymbol{\hat{\beta}} = (\hat{\mu}_1,\hat{\mu}_2)$ can be found by  
+```{r}
+V <- summary(fit1)$cov.unscaled * summary(fit1)$s^2; V
+```
+Construct a 95% confidence interval for $\mu_1-\mu_2$ using normal approximation. Based on this, do we have sufficient evidence to conclude that $\mu_1=\mu_2$ at the 95% level?
 
+```{r,child="sol_q4-4c.Rmd",eval=SOL}
+```
+
+
+----------- 
 

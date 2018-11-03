@@ -89,7 +89,7 @@ p: vector of probabilities.
 
 \exam{\newpage}
 
-### Q1. Covariance and the multivariate normal distribution
+### Q1. Normal approximations, mean and variance
 
 ```{r q1-all-list,include=F}
 q1_files <- list.files(full.names=T,pattern="^q1") 
@@ -103,7 +103,7 @@ file.append("tmp1.Rmd",q1_files)
 
 \exam{\newpage}
 
-### Q2. Confidence intervals and hypothesis tests on parameters
+### Q2. Covariance and the multivariate normal distribution
 ```{r q2-all-list,include=F}
 q2_files <- list.files(full.names=T,pattern="^q2")
 file.create("tmp2.Rmd")
@@ -116,7 +116,7 @@ file.append("tmp2.Rmd",q2_files)
 
 \exam{\newpage}
 
-### Q3. Prediction, and tests for combinations of parameters
+### Q3. Prediction 
 
 ```{r q3-all-list,include=F}
 q3_files <- list.files(full.names=T,pattern="^q3")
@@ -130,7 +130,7 @@ file.append("tmp3.Rmd",q3_files)
 
 \exam{\newpage}
 
-### Q4. F-tests
+### Q4. Linear models with factors
 
 ```{r q4-all-list,include=F}
 q4_files <- list.files(full.names=T,pattern="^q4")

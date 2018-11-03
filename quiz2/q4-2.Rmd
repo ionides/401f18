@@ -1,38 +1,14 @@
 \if \QLABELS1 Q4-2. \fi
-Consider the birth weight data set we have seen in lab.
-For this question, we will look at columns `bwt` (birth weight), `lwt` (mother's weight), `age` (mother's age) and `race` (mother's race, 1 for white, 2 for black and 3 for other).
+Consider the following linear model for the mouse diet data that we have studied repeatedly
 ```{r}
-library(MASS)
-data(birthwt)
+mice <- read.table("femaleMiceWeights.csv",sep=",",header=TRUE)
+head(mice)
+lm_mice <- lm(Bodyweight~Diet,data=mice)
+model.matrix(lm_mice)
 ```
+(a) Write down the sample linear model fitted in `lm_mice` using the subscript format.
 
-```{r}
-head(birthwt)
-```
-We want to study the relationship between birthweight and race using an F test, while mother's weight and age are included as additional explanatory variables. Let the null hypothesis, $H_0$, be the probability model where birth weight is modeled to depend linearly on mother's weight and age. Let $H_a$ be the probability model where $H_0$ is extended to include race as a factor, as fitted in R by
-```{r}
-lm_bw <- lm(bwt ~ lwt + age +factor(race), data = birthwt)
-```
-The results from summary(lm_bw) and anova(lm_bw) are as follows
-```{r}
-summary(lm_bw)
-```
-```{r}
-anova(lm_bw)
-```
+(b) Explain how to obtain estimates of the means of both treatment groups, and the difference between these means, from the coefficients of this sample linear model.
 
-(a) Write out the null and alternative hypotheses of the F test by completely specifying the probability models.
-
-```{r sol_q4-2a,child="sol_q4-2a.Rmd",eval=SOL}
-```
-
-(b) Interpret the results in `anova(lm_gpa)`. Specifically, 
-read the sample test statistic from R output, give the distribution of the model-generated test statistic under $H_0$, and explain how the resulting p-value is calculated and interpreted. Your answer should givie relevant formulas, though you may define a residual sum of squares in words without explicitly saying how it is constructed.
-
-
-```{r sol_q4-2b,child="sol_q4-2b.Rmd",eval=SOL}
-```
-
-
----------
+----------- 
 
