@@ -2,7 +2,7 @@
 \documentclass{beamer}
 
 \input{../header.tex}
-%\newcommand\CHAPTER{7}
+\newcommand\CHAPTER{Q}
 %\newcounter{CovSum}
 %\newcounter{CovSumII}
 % \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
@@ -16,14 +16,13 @@
 
   \vspace{5mm}
   
-\frametitle{STATS 401 and the future of undergraduate data science
-}
+\frametitle{STATS 401 and the future of undergraduate data science}
 
 \begin{myitemize}
 
 \item Data Science is \myemph{the use of modern technology for collecting and analyzing data.}
 
-\item This sounds a whole lot like \myemph{modern applied statistics} but data science is currently a more sexy name.
+\item This sounds a whole lot like \myemph{modern applied statistics} but data science is a more fashionable name.
 
 \item Either way, a modern course in applied statistics should be hard to distinguish from a course in data science.
 
@@ -32,82 +31,99 @@
 \item It follows that how to teach applied statistics is worthy of the same attention.
 
 \item The new STATS 401 gives the topic the attention it deserves!
-
+\end{myitemize}
 \end{frame}
 
-Rename STATS 401: Foundations of [Statistical] Data Science
-
-----
 
 \begin{frame}
-\frametitle{A report by the National Academies of Sciences, Engineering, and Medicine}
+\frametitle{A 2018 report by the National Academies of Sciences, Engineering and Medicine on {\em  Data Science for Undergraduates: Opportunities and Options}}
 
 
 \begin{myitemize}
-\item For the current consensus on data science education, we draw on a 2018 National Academies repot on {\em  Data Science for Undergraduates: Opportunities and Options}.
-  
-\item ``As data science programs develop, they [data science courses and programs] should focus on attracting students with varied backgrounds and degrees of preparation.''
+%\item ``As data science programs develop, they [data science courses and programs] should focus on attracting students with varied backgrounds and degrees of preparation.''
 
-\item ``A key goal is to give all students the ability to make good judgments, use tools responsibly and effectively, and ultimately make good decisions using data. The committee defines this collection of abilities as `data acumen.' To that end, students will need exposure to material from multiple disciplines---notably, mathematical, statistical, and computational foundations---and they will need training in data acquisition, modeling, management and curation, data visualization, workflow and reproducibility, communication and teamwork, domain-specific considerations, and ethical problem solving.''
+\item ``A key goal is to give all students [with varied backgrounds and levels of preparation] the ability to make good judgments, use tools responsibly and effectively, and ultimately make good decisions using data. The committee defines this collection of abilities as `data acumen.' To that end, students will need exposure to material from multiple disciplines---notably, mathematical, statistical, and computational foundations---and they will need training in data acquisition, modeling, management and curation, data visualization, workflow and reproducibility, communication and teamwork, domain-specific considerations, and ethical problem solving.''
 
 \item We will consider how STATS 401 develops these topics, in the context of a second class in Statistics.
 
 \end{myitemize}
 \end{frame}
 
-NAS p21:
-"Building on the work of De Veaux et al. (2017), the committee puts forth the following key concept areas for data science: mathematical foun- dations, computational foundations, statistical foundations, data man- agement and curation, data description and visualization, data model- ing and assessment, work ow and reproducibility, communication and teamwork, domain-specific considerations, and ethical problem solving."
-
-NAS p22
-"Mathematics is essential for data science; however, how much and what types of mathematics are needed vary. Data scientists need to know how to test hypotheses and determine why they do or do not align to real-world problems. They need to be capable of assessing their data science models, determining when these models fail and how to make corrections that lead to scientific discovery. Tools (e.g., Wolfram Alpha) can be utilized and combined to produce an outcome (e.g., simulation or visualization) that reinforces data scientists’ computational and statistical knowledge without demanding the study of calculus in full detail."
-
-NAS p23
-Key mathematical concepts/skills critical for the success of those involved in data science include:
-• Working with sets and basic logic,
-• Multivariate thinking via functions and graphical displays,
-• Basic probability theory and randomness,
-• Matrices and basic linear algebra,
-
-NAS p25
-Important statistical foundations for carrying out data science might include the following:
-• Variability, uncertainty, sampling error, and inference;
-• Multivariate thinking;
-• Nonsampling error, design, experiments (e.g., A/B testing), biases, confounding, and causal inference;
-• Exploratory data analysis;
-• Statistical modeling and model assessment;
-• Simulations and experiments.
-
-NAS Conclusions (p88)
-
-Recommendation 2.2: Academic institutions should provide and evolve a range of educational pathways to prepare students for an array of data science roles in the workplace.
-Finding 2.3: A critical task in the education of future data scientists is to instill data acumen. This requires exposure to key concepts in data science, real-world data and problems that can reinforce the limita- tions of tools, and ethical considerations that permeate many applica- tions. Key concepts involved in developing data acumen include the following:
-• Mathematical foundations,
-• Computational foundations,
-• Statistical foundations,
-• Data management and curation,
-• Data description and visualization,
-• Data modeling and assessment,
-• Work flow and reproducibility,
-
-
-------------------------
+%\end{document}
 
 \begin{frame}
-\frametitle{Outline}
-begin{enumerate}
-\item Review of the current consensus on teaching data science.
-\item How this fits with the design of STATS 401.
-\item Discussion.
-\end{enumerate}
+  \frametitle{National Academies report: Mathematical skills needed for data science}
+
+  \begin{myitemize}
+    
+\item %According to the NAS report: %NAS p22
+{\it ``Mathematics is essential for data science; however, how much and what types of mathematics are needed vary. Data scientists need to know how to test hypotheses and determine why they do or do not align to real-world problems. They need to be capable of assessing their data science models, determining when these models fail and how to make corrections that lead to scientific discovery. Tools [for us, R] can be utilized and combined to produce an outcome (e.g., simulation or visualization) that reinforces data scientists’ computational and statistical knowledge without demanding the study of calculus in full detail.''}
+
+\item STATS 401 follows this approach. Mathematical thinking is required, in combination with computational and statistical thinking, building on Calc I capabilities.
+  \end{myitemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{National Academies report: key mathematical concepts to engage in data science}
+  
+  %NAS p23
+  \begin{myitemize}
+%Key mathematical concepts/skills critical for the success of those involved in data science include:
+\item Working with sets and basic logic.
+\item Multivariate thinking via functions and graphical displays.
+\item Basic probability theory and randomness.
+\item Matrices and basic linear algebra.
+  \end{myitemize}
 
-From the National Academies report ``Undergraduate Data Science: Opportunities and Options.''
-
-``More work is needed to create courses that can provide sufficient mathematical and statistical backgroundwithout a long succession of prerequisite courses, while also ensuring that students have strength in algorithmic thinking, data technologies, and domain knowledge''
+  \vspace{8mm}
+  
+  STATS 401 makes some progress developing each of these skills.
+  
+\end{frame}
 
 \begin{frame}
-\frametitle{How is this different from tradional applied statistics?}
+
+  \frametitle{National Academies report: statistical foundations for carrying out data science}
+%NAS p25
+  \begin{myitemize}
+    \item Variability, uncertainty, sampling error, and inference;
+   \item Multivariate thinking;
+\item Nonsampling error, design, experiments, biases, confounding, and causal inference;
+\item Exploratory data analysis;
+\item Statistical modeling and model assessment;
+\item Simulations and experiments.
+  \end{myitemize}
+
+  \vspace{8mm}
+  
+All these topice enter STATS 401. 
+  \end{frame}
+
+
+\begin{frame}
+  \frametitle{National Academies report: Conclusions} % (p88)
+
+\myemph{Recommendation}. Academic institutions should provide and evolve a range of educational pathways to prepare students for an array of data science roles in the workplace. Key concepts include:
+%Finding 2.3: A critical task in the education of future data scientists is to instill data acumen. This requires exposure to key concepts in data science, real-world data and problems that can reinforce the limita- tions of tools, and ethical considerations that permeate many applica- tions. Key concepts involved in developing data acumen include the following:
+  \begin{myitemize}
+    \item Mathematical foundations,
+    \item Computational foundations,
+     \item Statistical foundations,
+     \item Data management and curation,
+\item Data description and visualization,
+\item Data modeling and assessment,
+\item Work flow and reproducibility,
+  \end{myitemize}
+
+  \vspace{8mm}
+  
+All these topics enter STATS 401, some more than others.
+  \end{frame}
+
+%\end{document}
+
+\begin{frame}
+\frametitle{How is a data science perspective different from tradional applied statistics?}
 
 \begin{myitemize}
 \item Applied statistics has been moving steadily toward the modern data science era.
@@ -122,6 +138,27 @@ From the National Academies report ``Undergraduate Data Science: Opportunities a
 
 \end{frame}
 
-\bibliograph{bib-ds}
+\begin{frame}
+  \frametitle{Discussion}
+  \myemph{Question 1}. Should STATS 401 follow the data science perspective outlined above?
+
+  \vspace{15mm}
+
+   \myemph{Question 2}. Has this version of STATS 401 developed math/stats/computing topics at a suitable level (challenging but not impossible)?
+
+  \vspace{15mm}
+  
+   \myemph{Question 3}. Has today's discussion helped to clarify the goals of this version of STATS 401?
+
+  \vspace{15mm}
+
+\end{frame}
+
+\end{document}
+
+\begin{frame}
+  \bibliographystyle{dcu}
+  \bibliography{bib-ds}
+  \end{frame}
 \end{document}
 
