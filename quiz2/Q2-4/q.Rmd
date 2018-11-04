@@ -1,9 +1,14 @@
-\if \QLABELS1 Q1-4. \fi
+
+```{r,echo=F,results=ifelse(QLABELS,"asis","hide")}
+my_dir <- "Q2-1"
+cat(my_dir,".",sep="")
+```
+
 Let $X_1,X_2, \dots ,X_n$ be independent random variables each of which take the value 0 with probability 0.25, and 4 with probability 0.75. Find the mean and variance of $X_1$.
 Use this to find the mean and variance of $X = \sum_{i=1}^n X_i$. Now suppose $n = 200$ and suppose that $X$ is well approximated by a normal distribution. Find a number $c$ such that $\prob[{X < c}]$ is approximately 0.9.
 Write your answer as a call to `qnorm()`. Your call to qnorm may involve specifying any necessary numerical calculations that you can’t work out without access to a computer or calculator.
 
-```{r,child="sol_q1-4.Rmd",eval=SOL}
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```
 
 ----------

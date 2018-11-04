@@ -1,4 +1,9 @@
-\if \QLABELS1 Q1-1. \fi
+
+```{r,echo=F,results=ifelse(QLABELS,"asis","hide")}
+my_dir <- "Q2-1"
+cat(my_dir,".",sep="")
+```
+
 Recall the following analysis where the director of admissions at a large state university wants to assess how well academic success can be predicted based on information available at admission. 
 She fits a linear model to predict freshman GPA using ACT exam scores and percentile ranking of each student within their high school, as follows.
 ```{r read_gpa_data}
@@ -8,7 +13,7 @@ summary(gpa_lm)
 ```
 Suppose that an analysis of a large dataset from another comparable university gave a coefficient of 0.03528 for the ACT variable when fitting a linear model using ACT score and high school rank. The admissions director is interested whether the difference could reasonably be chance variation due to having only a sample of 705 students, or whether the universities have differences beyond what can be explained by sample variation. Suppose that population value for this school is also 0.03528. Supposing the usual probability model for a linear model (which you don't have to write out here) and using a normal approximation, find an expression for the probability that the difference between the coefficient estimate for the data (0.03721) and the hypothetical true value (0.03528) is larger in magnitude than the observed value (0.03721-0.03528). Write your answer as a call to `pnorm()`. Your call to pnorm may involve specifying any necessary numerical calculations that you can't work out without access to a computer or calculator.
 
-```{r,child="sol_q1-1.Rmd",eval=SOL}
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```
 
 

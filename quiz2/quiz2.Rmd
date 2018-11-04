@@ -14,8 +14,10 @@ csl: ecology.csl
 ```{r preliminaries,echo=F,cache=F}
 ALL <- TRUE
 #ALL <- FALSE
-SOL <- FALSE
-#SOL <- TRUE
+#SOL <- FALSE
+SOL <- TRUE
+QLABELS <- TRUE
+#QLABELS <- FALSE
 library(mat2tex)
 set.seed(5)
 knitr::opts_chunk$set(cache = FALSE)
@@ -59,7 +61,8 @@ cat("**PRELIMINARY VERSION. QUESTIONS NEED TO BE REWRITTEN AND/OR REARRANGED. Th
 ```
 
 ```{r,results="asis",echo=F,purl=F,eval=ALL}
-cat("**This version lists all the questions currently in the quiz generator. The quiz will have one question drawn at random from each of the five categories. No new questions will be added after Wednesday 11/14. Small changes may be made.**")
+cat("**This version lists all the questions currently in the quiz generator. Q1 and Q2 review material from throughout the course so far. Q3 and Q4 focus on recently covered topics. 
+The quiz will have several TRUE/FALSE questions drawn at random for Q1, and one question drawn at random for each of Q2, Q3 and Q4. No new questions will be added after Wednesday 11/14. Small changes may be made.**")
 ```
 
 **Instructions. You have a time allowance of 40 minutes, though the quiz may take you less time and you can leave lab once you are done.  The quiz is closed book, and you are not allowed access to any notes. Any electronic devices in your possession must be turned off and remain in a bag on the floor.**
@@ -89,10 +92,9 @@ p: vector of probabilities.
 
 \exam{\newpage}
 
-### Q1. Normal approximations, mean and variance
-
+### Q1. Say whether the following statements are TRUE or FALSE, and explain briefly. 
 ```{r q1-all-list,include=F}
-q1_files <- list.files(full.names=T,pattern="^q1") 
+q1_files <- list.files(full.names=T,pattern="^q2")
 file.create("tmp1.Rmd")
 file.append("tmp1.Rmd",q1_files)
 ```
@@ -103,9 +105,11 @@ file.append("tmp1.Rmd",q1_files)
 
 \exam{\newpage}
 
-### Q2. Covariance and the multivariate normal distribution
+### Q2. Normal approximations, mean and variance
+
 ```{r q2-all-list,include=F}
-q2_files <- list.files(full.names=T,pattern="^q2")
+q2_dirs <- list.files(full.names=T,pattern="^Q2")
+q2_files <- paste(q2_dirs,"/q.Rmd",sep="") 
 file.create("tmp2.Rmd")
 file.append("tmp2.Rmd",q2_files)
 ```
@@ -115,6 +119,7 @@ file.append("tmp2.Rmd",q2_files)
 ```
 
 \exam{\newpage}
+
 
 ### Q3. Prediction 
 
