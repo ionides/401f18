@@ -1,0 +1,19 @@
+
+A physicist measures extension $y_i$ for a spring at various measures of load $x_i$. You agree to help with carrying out inference using a linear model. The right model to fit is
+\[ 
+Y_i = \beta x_i + \epsilon_i, 
+\quad \epsilon_i\sim\iid\; \normal(0,\sigma^2)
+\]
+rather than the usual simple linear regression probability model
+\[ 
+Y_i = \alpha+\beta x_i + \epsilon_i, 
+\quad \epsilon_i\sim\iid\normal(0,\sigma^2).
+\]
+
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+
+

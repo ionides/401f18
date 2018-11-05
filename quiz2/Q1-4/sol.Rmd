@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. Since extension is necessarily zero for an unloaded spring, there is no particular reason to include an intercept here.
+
+\color{black}
+
