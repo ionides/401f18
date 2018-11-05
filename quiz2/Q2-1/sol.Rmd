@@ -1,3 +1,5 @@
+\color{blue}
+
 **Solution**:
 
 ```{r, eval = F}
@@ -9,6 +11,8 @@ gives the probability of observing a bigger value of the estimated coefficient u
 ```{r, eval = F}
 2*(1-pnorm(0.03721,mu=0.03538,sd=0.005939))
 ```
+
+\color{black}
 
 
 

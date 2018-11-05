@@ -1,9 +1,4 @@
 
-```{r,echo=F,results=ifelse(QLABELS,"asis","hide")}
-my_dir <- "Q2-3"
-cat(my_dir,".",sep="")
-```
-
 Let $X_1,X_2,\dots,X_n$ be independent random variables each of which take value 0 with probability 1/3 and 1 with probability 2/3.
 
 (a) Use the definitions and basic properties of expectation and variance to find the expected value and variance of $X_1$.

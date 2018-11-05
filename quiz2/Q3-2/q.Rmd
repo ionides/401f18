@@ -1,4 +1,4 @@
-\if \QLABELS1 Q3-2. \fi
+
 Consider the birth weight data set we have seen in lab.
 For this question, we will look at columns `bwt` (birth weight), `lwt` (mother's weight), `age` (mother's age) and `race` (mother's race, 1 for white, 2 for black and 3 for other).
 ```{r}

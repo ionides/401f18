@@ -1,3 +1,6 @@
+
+\color{blue}
+
 **Solution**:
   
 (a). 
@@ -21,3 +24,6 @@ where $s$ is the residual standard error.
 (c). 
 
 We can check if $\vect{x}^*$ is within the support of the given data set to avoid extrapolation; The prediction interval should be large than the confidence intervel; $\hat{y}^*$ should fall within the predection intervel.
+
+\color{black}
+

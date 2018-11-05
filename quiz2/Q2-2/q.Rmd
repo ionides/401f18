@@ -1,7 +1,3 @@
-```{r,echo=F,results=ifelse(QLABELS,"asis","hide")}
-my_dir <- "Q2-2"
-cat(my_dir,".",sep="")
-```
 
 Let $X_1,X_2,\dots,X_n$ be independent random variables each of which take the value 0 with probability 0.5, 1 with probability 0.25 and -1 with probability 0.25. 
 Find the mean and variance of $X_1$. Use this to find the mean and variance of $\bar{X}=\frac{1}{n}\sum_{i=1}^n X_i$. 

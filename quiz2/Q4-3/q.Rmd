@@ -1,7 +1,11 @@
-\if \QLABELS1 Q4-3. \fi
+
 We analyze the following data on video game sales in North America. This dataset records sales (in millions of dollars) for  580 games within three genres (shooter, sports and action) from two publishers (Electronic Arts and Activision) with years of release from 2006 to 2010 inclusive, on ten different platforms. We consider the following analysis
+```{r,echo=F}
+vg <- read.table(paste(my_dir,"/vg_sales.txt",sep=""))
+```
+
 ```{r}
-vg <- read.table("vg_sales.txt") ; head(vg)
+head(vg)
 lm_vg2 <- lm(Sales ~ Publisher-1, data = vg)
 summary(lm_vg2)
 ```

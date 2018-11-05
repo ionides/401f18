@@ -1,9 +1,11 @@
-\if \QLABELS1 Q3-1. \fi
+
 To investigate the consequences of metal poisoning, 25 beakers of minnow larvae were exposed to varying levels of copper and zinc.
-The data were
+The data are as follows.
+```{r, echo=F}
+toxicity <- read.table(paste(my_dir,"/toxicity.txt",sep=""))
+```
 
 ```{r lm_example}
-toxicity <- read.table("toxicity.txt")
 head(toxicity)
 lm_toxicity <- lm(Protein~Copper+Zinc,data=toxicity)
 round(coef(summary(lm_toxicity),3))
@@ -20,7 +22,7 @@ Suppose we're interested in predicting the protein in a new observation at 100pp
 
 (c) Explain briefly some things you would look for to check whether your prediction interval is reasonable.
 
-```{r,child="sol_q3-1.Rmd",eval=SOL}
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```
 
 -------

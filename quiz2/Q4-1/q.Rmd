@@ -1,4 +1,4 @@
-\if \QLABELS1 Q4-1. \fi
+
 We consider a dataset of measurements on crabs. The start of the dataset `crabs` is shown below. Here, `BD` refers to the body depth of the crabs. The species `sp` corresponds to the color of the crabs, which is a factor with two levels, Blue (`B`) and Orange (`O`). We want to study the difference of frontal lobe size (`FL`) of two species. 
 ```{r,echo=F}
 library(MASS)
@@ -26,7 +26,7 @@ V
 ```
 Use V and information provided in `summary(lm_crab)` to write down an expression that constructs a 95% confidence interval for $\mu_1-\mu_2$.
 
-```{r,child="sol_q4-1.Rmd",eval=SOL}
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```
 
 ------------------

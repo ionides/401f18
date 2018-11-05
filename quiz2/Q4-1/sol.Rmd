@@ -1,3 +1,6 @@
+
+\color{blue}
+
 **Solution**:
 
 (a). 
@@ -17,3 +20,6 @@ $Var(a^T\mathbf{\hat{\mu}})=a^TVar(\mathbf{\hat{\mu}})a=a^TVa=0.198$
 $\hat{\mu}_1-\hat{\mu}_2=14.056-17.110=-3.054$ 
   
 Thus we have the 95% C.I. $(-3.054-1.96*\sqrt{0.198},-3.054+1.96*\sqrt{0.198})=(-3.926,-2.182)$
+
+\color{black}
+

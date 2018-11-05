@@ -9,17 +9,16 @@ header-includes:
 csl: ecology.csl
 ---
 
-\def\QLABELS{1}
 
 ```{r preliminaries,echo=F,cache=F}
 ALL <- TRUE
 #ALL <- FALSE
-#SOL <- FALSE
 SOL <- TRUE
+#SOL <- FALSE
 QLABELS <- TRUE
-#QLABELS <- FALSE
+QLABELS <- FALSE
 library(mat2tex)
-set.seed(5)
+set.seed(42)
 knitr::opts_chunk$set(cache = FALSE)
 ```
 
@@ -94,13 +93,36 @@ p: vector of probabilities.
 
 ### Q1. Say whether the following statements are TRUE or FALSE, and explain briefly. 
 ```{r q1-all-list,include=F}
-q1_files <- list.files(full.names=T,pattern="^q2")
-file.create("tmp1.Rmd")
-file.append("tmp1.Rmd",q1_files)
+q_dirs <- list.files(full.names=T,pattern="^Q1")
+cat_file <- "tmp1.Rmd"
+#
+# first add lines so each question knows its directory
+#
+for(q_dir in q_dirs){
+  q_file <- paste(q_dir,"/q.Rmd",sep="") 
+  q_tmp <- paste(q_dir,"/tmp.Rmd",sep="") 
+  file.create(q_tmp)  
+  fileConn<-file(q_tmp)
+  writeLines(c(
+    "```{r,echo=F,results=ifelse(QLABELS,'asis','hide')}",
+    paste("my_dir <- '",q_dir,"'",sep=""),
+    "cat(my_dir,'.',sep='')",
+    "```"
+  ),fileConn)
+  close(fileConn)  
+  file.append(q_tmp,q_file)
+}
+# 
+# Then concatenate these enhanced question files
+#
+q_files <- paste(q_dirs,"/tmp.Rmd",sep="") 
+file.create(cat_file)
+file.append(cat_file,q_files)
 ```
-```{r q1, child = sample(q1_files,size=1),eval=!ALL}
+
+```{r, child = sample(q_files,size=1),eval=!ALL}
 ```
-```{r q1-all, child = "tmp1.Rmd",eval=ALL}
+```{r, child = cat_file,eval=ALL}
 ```
 
 \exam{\newpage}
@@ -108,14 +130,36 @@ file.append("tmp1.Rmd",q1_files)
 ### Q2. Normal approximations, mean and variance
 
 ```{r q2-all-list,include=F}
-q2_dirs <- list.files(full.names=T,pattern="^Q2")
-q2_files <- paste(q2_dirs,"/q.Rmd",sep="") 
-file.create("tmp2.Rmd")
-file.append("tmp2.Rmd",q2_files)
+q_dirs <- list.files(full.names=T,pattern="^Q2")
+cat_file <- "tmp2.Rmd"
+#
+# first add lines so each question knows its directory
+#
+for(q_dir in q_dirs){
+  q_file <- paste(q_dir,"/q.Rmd",sep="") 
+  q_tmp <- paste(q_dir,"/tmp.Rmd",sep="") 
+  file.create(q_tmp)  
+  fileConn<-file(q_tmp)
+  writeLines(c(
+    "```{r,echo=F,results=ifelse(QLABELS,'asis','hide')}",
+    paste("my_dir <- '",q_dir,"'",sep=""),
+    "cat(my_dir,'.',sep='')",
+    "```"
+  ),fileConn)
+  close(fileConn)  
+  file.append(q_tmp,q_file)
+}
+# 
+# Then concatenate these enhanced question files
+#
+q_files <- paste(q_dirs,"/tmp.Rmd",sep="") 
+file.create(cat_file)
+file.append(cat_file,q_files)
 ```
-```{r q2, child = sample(q2_files,size=1),eval=!ALL}
+
+```{r, child = sample(q_files,size=1),eval=!ALL}
 ```
-```{r q2-all, child = "tmp2.Rmd",eval=ALL}
+```{r, child = cat_file,eval=ALL}
 ```
 
 \exam{\newpage}
@@ -123,28 +167,74 @@ file.append("tmp2.Rmd",q2_files)
 
 ### Q3. Prediction 
 
-```{r q3-all-list,include=F}
-q3_files <- list.files(full.names=T,pattern="^q3")
-file.create("tmp3.Rmd")
-file.append("tmp3.Rmd",q3_files)
+```{r,include=F}
+q_dirs <- list.files(full.names=T,pattern="^Q3")
+cat_file <- "tmp3.Rmd"
+#
+# first add lines so each question knows its directory
+#
+for(q_dir in q_dirs){
+  q_file <- paste(q_dir,"/q.Rmd",sep="") 
+  q_tmp <- paste(q_dir,"/tmp.Rmd",sep="") 
+  file.create(q_tmp)  
+  fileConn<-file(q_tmp)
+  writeLines(c(
+    "```{r,echo=F,results=ifelse(QLABELS,'asis','hide')}",
+    paste("my_dir <- '",q_dir,"'",sep=""),
+    "cat(my_dir,'.',sep='')",
+    "```"
+  ),fileConn)
+  close(fileConn)  
+  file.append(q_tmp,q_file)
+}
+# 
+# Then concatenate these enhanced question files
+#
+q_files <- paste(q_dirs,"/tmp.Rmd",sep="") 
+file.create(cat_file)
+file.append(cat_file,q_files)
 ```
-```{r q3, child = sample(q3_files,size=1),eval=!ALL}
+
+```{r, child = sample(q_files,size=1),eval=!ALL}
 ```
-```{r q3-all, child = "tmp3.Rmd" ,eval=ALL}
+```{r, child = cat_file,eval=ALL}
 ```
 
 \exam{\newpage}
 
 ### Q4. Linear models with factors
 
-```{r q4-all-list,include=F}
-q4_files <- list.files(full.names=T,pattern="^q4")
-file.create("tmp4.Rmd")
-file.append("tmp4.Rmd",q4_files)
+```{r,include=F}
+q_dirs <- list.files(full.names=T,pattern="^Q4")
+cat_file <- "tmp4.Rmd"
+#
+# first add lines so each question knows its directory
+#
+for(q_dir in q_dirs){
+  q_file <- paste(q_dir,"/q.Rmd",sep="") 
+  q_tmp <- paste(q_dir,"/tmp.Rmd",sep="") 
+  file.create(q_tmp)  
+  fileConn<-file(q_tmp)
+  writeLines(c(
+    "```{r,echo=F,results=ifelse(QLABELS,'asis','hide')}",
+    paste("my_dir <- '",q_dir,"'",sep=""),
+    "cat(my_dir,'.',sep='')",
+    "```"
+  ),fileConn)
+  close(fileConn)  
+  file.append(q_tmp,q_file)
+}
+# 
+# Then concatenate these enhanced question files
+#
+q_files <- paste(q_dirs,"/tmp.Rmd",sep="") 
+file.create(cat_file)
+file.append(cat_file,q_files)
 ```
-```{r q4, child = sample(q4_files,size=1),eval=!ALL}
+
+```{r, child = sample(q_files,size=1),eval=!ALL}
 ```
-```{r q4-all, child="tmp4.Rmd",eval=ALL}
+```{r, child = cat_file,eval=ALL}
 ```
 
 \exam{\vspace{10cm}}

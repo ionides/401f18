@@ -1,4 +1,6 @@
 
+\color{blue}
+
 **Solution**:
 
 1. Finding the variance of $\mu_1 - \mu_2$
@@ -26,4 +28,6 @@ $(12.583 - 15.478)  \pm 1.96*\sqrt{0.1934376}$
 $(-3.757038, -2.032962)$
 
 No; we do not have enough evidence to conclude that $\mu_1 = \mu_2$ ath the 95% level.
+
+\color{black}
 

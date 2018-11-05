@@ -1,0 +1,27 @@
+
+quiz2.Rmd has 3 R flags 
+ALL : include all the questions in the generator
+SOL : include solutions
+QLABELS : include question directory labels. usually set equal to ALL
+
+quiz2.Rmd also has a Latex flag
+%% \newcommand\exam[1]{#1} %% exam paper formatting
+\newcommand\exam[1]{} %% omit exam paper formatting
+
+For each question x, quiz2.Rmd does the following:
+(1) it adds a line to each of the files Qx-n/q.Rmd that creates an R variable my_dir telling the file what directory it is in. The result is saved in Qx-n/tmp.Rmd
+(2) it concatenates all these files in case ALL==TRUE
+(3) if ALL==FALSE, it instead pulls out a random question
+
+When writing questions,
+(1) the file Qx-n/q.Rmd should assume there is an R variable my_dir giving the name of the current directory.
+(2) datasets should be in the directory Qx-n and can be accessed, e.g., by
+vg <- read.table(paste(my_dir,"/vg_sales.txt",sep=""))
+(3) solutions should be called Qx-n/sol.Rmd or Qx-n/sol-a.Rmd etc, and be referenced as follows:
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+The point of all this is that the question doesn't have to know its question number or directory name, which makes it easier to shuffle questions around without having to rename lots of internal links.
+
+
+

@@ -1,13 +1,12 @@
 
-```{r,echo=F,results=ifelse(QLABELS,"asis","hide")}
-my_dir <- "Q2-1"
-cat(my_dir,".",sep="")
-```
-
 Recall the following analysis where the director of admissions at a large state university wants to assess how well academic success can be predicted based on information available at admission. 
 She fits a linear model to predict freshman GPA using ACT exam scores and percentile ranking of each student within their high school, as follows.
-```{r read_gpa_data}
-gpa <- read.table("gpa.txt",header=T)
+```{r,echo=F}
+gpa <- read.table(paste(my_dir,"/gpa.txt",sep=""),header=T)
+```
+
+```{r}
+head(gpa)
 gpa_lm <- lm(GPA~ACT+High_School,data=gpa) 
 summary(gpa_lm)
 ```
