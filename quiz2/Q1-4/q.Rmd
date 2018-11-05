@@ -7,7 +7,7 @@ Y_i = \beta x_i + \epsilon_i,
 rather than the usual simple linear regression probability model
 \[ 
 Y_i = \alpha+\beta x_i + \epsilon_i, 
-\quad \epsilon_i\sim\iid\normal(0,\sigma^2).
+\quad \epsilon_i\sim\iid\; \normal(0,\sigma^2).
 \]
 
 

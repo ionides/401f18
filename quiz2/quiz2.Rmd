@@ -92,7 +92,7 @@ p: vector of probabilities.
 
 \exam{\newpage}
 
-### Q1. Say whether the following statements are TRUE or FALSE, and explain briefly. 
+### Q1. Say whether the following statements are TRUE or FALSE. No explanation is necessary. 
 ```{r q1-all-list,include=F}
 q_dirs <- list.files(pattern="^Q1")
 cat_file <- "tmp1.Rmd"
