@@ -1,0 +1,95 @@
+---
+title: "Homework 9, STATS 401 F18"
+author: "Due in lab on 11/16"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+
+\newcommand\prob{\mathrm{P} }
+\newcommand\E{\mathrm{E} }
+\newcommand\mat[1]{\mathbb{#1} }
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1} } }
+\newcommand\transpose{ {\scriptscriptstyle \mathrm{T} } }
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov} }
+\newcommand\corSample{\mathrm{cor} }
+\newcommand\cor{\mathrm{Cor}}
+\newcommand\normal{\mathrm{normal} }
+\newcommand\iid{\mathrm{iid} }
+\newcommand\MVN{\mathrm{MVN} }
+
+**Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+--------------
+
+-------------
+
+### Kicking goals: linear models with factors.
+
+### Building the design matrix for a linear model
+
+If an athlete has a good season, is the next one likely to be good? Or bad? Or does the previous season have no predictive skill?
+\item We consider field goal kicking success for the 19 National Football League (NFL) kickers who played every season during 2002-2006.
+\end{myitemize}
+```{r,eval=F}
+download.file(destfile="FieldGoals.csv", 
+  url="https://ionides.github.io/401f18/hw/hw09/FieldGoals.csv")
+```
+```{r}
+goals <- read.table("FieldGoals.csv",header=TRUE,sep=",")
+head(goals[,1:8]) 
+```
+
+**Q1**. Let $i$ correspond to the $i$th row of the data table. 
+Recall that each kicker has $4$ rows for the seasons 2003, 2004, 2005, 2006.
+Let $y_i$ be the field goal average for row $i$, and $x_i$ be the average for the previous season.
+A simple linear regression model predicting performance based on the previous season (in the sample form) is
+\[
+y_i = a x_i + b + e_i, \quad \mbox{for $i=1,\dots,4\times 19$}.
+\]
+
+(a) Use R to find the least squares values of $a$ and $b$.
+
+(b) Make a scatterplot of $y_i$ against $x_i$ and add the fitted line.
+
+(c) Comment on the interpretation of these fitted model. Compare the least squares coefficients to the coefficients in the output for a different model for the same data in Question 7.13 of the notes. What is the most notable difference? How do you explain it? (You should be able to answer this before we reach that point in the notes.)
+
+**Q2**. Now, we consider a linear model for predicting performance based on the previous season where each kicker has their own intercept. 
+In double subscript notation this is
+\[
+y_{ij} = a p_{ij} + b_i + e_{ij}, \quad\mbox{for $i=1,\dots,19$ and $j=1,\dots,4$}.
+\]
+This gives a different parameterization from the one in the notes that corresponsed to `lm(FGt~FGt1+Name,data=goals)`.
+
+(a) Write this model in matrix form, $\vec{y}=\mat{X}\vec{b}+\vec{e}$. You will find that $\mat{X}$ has many 0 and 1 entries. It will not be practical to write all the entries of $\mat{X}$ so judicious use of $\dots$ is appropriate.
+
+(b) Construct the design matrix $\mat{X}$ in R. There are many ways to do this. A direct approach is to build each column using `rep()` and stick them together using `cbind()`.
+
+(c) 
+
+**Q3**. Suppose you want to address the question of whether the evidence suggests XX is really a better kicker than YY. We can rephrase this to ask if there is sufficient evidence to show it is implausible that the difference in their kicking record could just be due to chance variation; just some difference in lucky for two players of equal skill.
+
+(a) Write out a probability model for which this null hypothesis is $H_0: \beta_XX=\beta_YY$.
+
+(b) Find matrix expressions for the  mean and variance of $\hat\beta_XX-\hat\beta_YY$.
+
+(c) Use a standard error based on this variance to construct a normal approximation test of $H_0$ using the test statistic $b_XX-b_YY$.
+
+
+--------------
+
+-------------
+
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+Acknowledgement: The field goal data come from S. J. Sheather (2009) "A Modern Approach to Regression with R."
+
+------
