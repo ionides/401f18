@@ -1,0 +1,209 @@
+---
+title: "Stats 401 Lab 9"
+author: "Naomi"
+date: "11/2/2018"
+output:
+  beamer_presentation:
+  colortheme: dolphin
+incremental: no
+ioslides_presentation:
+  incremental: no
+slidy_presentation:
+  incremental: no
+fontsize: 10pt
+---
+
+# Outline
+
+- Quick Reminder: If you are thinking about withdrawing from the course, the deadline is **November 9th**!
+
+- Quiz 2: November 16th!
+
+- Review of hypothesis tests, confidence interval for the expected value of a new outcome, and the prediction interval for a new outcome
+
+- Practice Problems
+
+# Review: Hypothesis Tests
+
+"Steps of a Hypothesis Tests"
+
+1. Ask a question
+2. Write question in terms of null hypothesis $H_0$ and alternative hypothesis $H_a$
+3. Collect Data
+4. Determine the test statistic
+5. Calculate the p-value
+6. Write appropriate conclusion
+
+# Hypothesis Test Example 1
+
+We have been recruited by a California university to explore the relationship between water salinity, water oxygen, and water temperature. We have been given 60 years of oceanographic data collected from the California Current by the California Cooperative Oceanic Fisheries Investigations. Below is a snapshot of the data. (Source: https://www.kaggle.com/sohier/calcofi)
+
+- Depthm: Depth in meters
+- T_degC: Water temperture in degrees Celsius
+- Salnty: Water Salinity in g of salt per kg of water
+- 02ml_L: $O_2$ mixing ratio in ml/L
+
+```{r, echo = F, include = FALSE}
+# bring in the raw data
+#bottle <- data.table::fread('bottle.csv', header = T,
+#                            stringsAsFactors = FALSE, select = c(1:8))
+
+# use Depth_ID to obtain year information
+#bottle$century <- substr(bottle$Depth_ID, 1,2)
+#bottle$year <- substr(bottle$Depth_ID, 4, 5)
+
+#bottle$Year <- paste(bottle$century, bottle$year, sep = "")
+
+# Keep only one year of the data
+#bottle_2016 <- subset(bottle, bottle$Year == "2016")
+#bottle_2016 <- bottle_2016[, c(-1:-4, -9:-10)]
+  # write to a file for the students
+#write.csv(bottle_2016, 'bottle_2016.csv')
+bottle_2016 <- read.csv('bottle_2016.csv', header = TRUE)
+```
+
+```{r, echo = FALSE}
+# get a snapshot of the data
+head(bottle_2016)
+```
+
+
+# Hypothesis Test Example 1: Cont.
+
+1. We are interested in knowing there is a positive relationship between water temperature and water salinity, while controlling for oxygen levels and depth.
+
+2. $H_0: \beta_1 = 0 \hspace{12pt} H_a: \beta_1 > 0$
+
+3. Our test statistic is $b_1$
+
+4. We want to calculate $P(\hat\beta_1 > b_1)$
+
+# Hypothesis Test Example 1: Cont.
+
+To obtain our test statistic $b_1$, we fit a linear model to our data.
+
+```{r}
+lm1 <- lm(T_degC ~ Depthm + Salnty + O2ml_L,
+          data = bottle_2016)
+summary(lm1)$coefficients[, c("Estimate", "Std. Error")]
+```
+
+# Hypothesis Test Example 1: Cont.
+
+Recall: under the null hypothesis $\hat\beta_1$~$N(0, SD(\hat\beta_1))$. We estimate the $SD(\hat\beta_1)$ using $SE(b_1) = s \sqrt{[(\mathbb{X}^T\mathbb{X})^{-1}]_{11}}$. Therefore, $\hat\beta_1$~$N(0, 0.1077)$ (approx).
+
+We can calculate $P(\hat\beta_1 > b_1)$ using $pnorm(b_1, SE(b_1))$.
+```{r}
+pnorm(summary(lm1)$coefficients["Salnty", "Estimate"],
+      mean = 0,
+      sd = summary(lm1)$coefficients["Salnty", "Std. Error"])
+```
+
+What is our conclusion?
+
+# Confidence Intervals and Prediction Intervals for new outcome
+
+- A confidence interval is contructed for the expected value of a new outcome
+      - [\textbf{x*b} - 1.96SE(\textbf{x*b}), \textbf{x*b} + 1.96SE(\textbf{x*b})]
+      - where SE(\textbf{x*b}) = $s\sqrt{\textbf{x*}(\mathbb{X}^T\mathbb{X})^{-1}\textbf{x*}^T}$
+
+- A prediction interval is contructed for the observed value of a new outcome
+      - $[\textbf{x*b} - 1.96SE_{pred}(\textbf{x*b}), \textbf{x*b} + 1.96SE_{pred}(\textbf{x*b})]$
+      - where SE(\textbf{x*b}) = $s\sqrt{1 + \textbf{x*}(\mathbb{X}^T\mathbb{X})^{-1}\textbf{x*}^T}$
+
+# Confidence Intervals Example
+
+- Construct a 95% confidence interval for the expected value of a new observation obtained at a depth of 100 meters, a salinity of 33.5, and an oxygen level of 4.
+
+```{r}
+x <- c(1, 100, 33.5, 4)
+pred <- x %*%coef(lm1)
+V <- summary(lm1)$cov.unscaled
+s <- summary(lm1)$sigma
+SE <- s*sqrt(x%*%V%*%x)
+c <- qnorm(0.975)
+cat("CI = [", round(pred-c*SE,3),
+", ", round(pred+c*SE,3), "]", sep = "")
+```
+
+# Prediction Intervals Example
+
+- Construct a 95% prediction interval for this new observation.
+
+```{r}
+SE_pred <-s*sqrt(1 + x%*%V%*%x)
+cat("CI = [", round(pred-c*SE_pred,3),
+", ", round(pred+c*SE_pred,3), "]", sep = "")
+```
+
+# Hypothesis Test Example 2
+
+We can think of a die as a random variable and the realization (a random draw from the distribution) is one roll of the die.
+
+1. We're planning on playing a game of Yahtzee with a friend. Before we begin, we want to test if one of the dice (selected at random) is a fair die. To do this, we roll the die 100 times and calculate the proportion each value appears.
+
+2. $H_0: p_1 = p_2 = \dots = p_6 = \frac{1}{6}$ \hspace{12pt} $H_a:$ at least one of the probabilities is not equal to $\frac{1}{6}$
+
+Note: What type of test are we performing?
+
+# Hypothesis Test Example 2: Cont.
+## Simulate Rolling a Die
+
+```{r}
+# simulate rolling a die 100 times
+die_roll <- function(x){
+  r <- runif(x, min = 0, max = 6)
+  value <- ceiling(r)
+  return(value)
+}
+
+die_rolls <- replicate(100, die_roll(1))
+
+# alternative (simpler) solution
+sides <- c(1:6)
+die_rolls2 <- sample(sides, 100, replace = TRUE)
+
+```
+
+# Hypothesis Test Example 2: Cont.
+## Calculate our test statistic
+
+```{r}
+# get the count of rolls for each value
+die_prop <- aggregate(data.frame(count = die_rolls),
+                      list(value = die_rolls), FUN = length)
+
+# calculate our test statistic
+die_prop$obs_exp <- die_prop$count - 100*(1/6)
+chi_sqr <- sum(die_prop$obs_exp^2/(100*(1/6)))
+
+# calculate our p-value
+# chi-squared has 5 degrees of freedom
+pchisq(chi_sqr, 5)
+```
+
+What is our conclusion?
+
+# In Lab Activity Part 1
+
+- Construct a 95% confidence interval for the association between water temperature and oxygen level. Hint: Go back to last lab.
+
+# In Lab Activity Part 2
+
+Download the crime dataset from the 401 webpage.
+
+Construct a hypothesis test to determine if there is a relationship between the total amount of crime and the percent of 25 year olds with a high school degree.
+
+# In Lab Activity Part 2 cont.
+
+Construct a 95% confidence interval **and** a 95% prediction interval for the expected value of a town with an annual police funding of 38, 50% of people over 25 with a high school diploma, 19% of teenagers not in high school, 15% of college-aged children in college, and 12% of adults with a college degree.
+
+# In Lab Activity Part 3
+
+Conduct a hypothesis test to check if a die is specifically weighted such that 6 is twice as likely as all the other values. Hint: You may need to change the limits of the uniform distribution used in lab.
+
+# Exit Ticket
+
+- Conduct a hypothesis test to check if a coin is weighted towards heads.
+- Construct a 99% confidence interval for the relationship between the total amount of crime and the percent of 25 year olds with a high school degree using the t-distribution.
+    - Comment on why the t-distribution may be more appropriate in this case.
