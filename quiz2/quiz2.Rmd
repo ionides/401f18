@@ -3,6 +3,7 @@ title: "Quiz 2, STATS 401 F18"
 author: "In lab on 11/16"
 output:
   pdf_document:
+    latex_engine: xelatex
   toc: no
 header-includes:
    - \usepackage{ifthen}

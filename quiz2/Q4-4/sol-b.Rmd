@@ -4,7 +4,7 @@
 
 **Solution**:
 
-$\mu_1$ is the mean body depth of blue crabs, and $\mu_2$ is the mean body depth of orange crabs.
+Because this new observation has 6 cylinders, the value of $x_{i2}^* = 1$ and $x_{i3}^* = 0$. Thus $\textbf{x}^* = \begin{bmatrix}1 & 1 & 0 & 110\end{bmatrix}$. The predicted value is $\textbf{x}^*\textbf{b} = 37.27 - 6.94 + 110 \times -0.102$.
 
 
 \color{black}

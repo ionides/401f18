@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**:
+In this model, $b_0$ corresponds to the sample mean sales of Electronic Arts, which is equal to $m_2 = 0.41361$. On the other hand, $b_0 + b_1$ corresponds to the sample mean for Activision, which is equal to $m_1 = 0.44124$. We therefore have $b_1 = m_1 - m_2 = 0.44124 - 0.41361$
+\color{black}
+

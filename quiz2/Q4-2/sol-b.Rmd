@@ -1,0 +1,8 @@
+
+\color{blue}
+
+**Solution**:
+The mean of the "chow" group is given by the intercept, $b_0$. The mean of the "hf" group is given by $b_0 + b_1$. The difference between these two means is given by $b_1$.
+
+\color{black}
+
