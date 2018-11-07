@@ -137,9 +137,10 @@ Due in lab on 10/26.
     * [crime.txt](Lab/Lab09/crime.txt).
     * [Solutions](Lab/Lab09/lab9_solutions.pdf).
 
+* [Lab 10. Factors in the Linear Model](Lab/Lab10/lab10.pdf). Slides for 11/9.
 
 <!--
-* [Lab 10. Review for Quiz 2](lab/lab10/lab10.html). Slides for 3/22 and 3/23. [Solutions](lab/lab10/sol_lab10.html).
+ [Solutions](lab/lab10/sol_lab10.html).
 
 * Lab 11. Quiz 2.
 
