@@ -1,12 +1,11 @@
 
-To investigate the consequences of metal poisoning, 25 beakers of minnow larvae were exposed to varying levels of copper and zinc.
+To investigate the consequences of metal poisoning, 25 beakers of minnow larvae were exposed to varying levels of copper and zinc and the protein content was measured.
 The data are as follows.
 ```{r, echo=F}
-toxicity <- read.table(paste(my_dir,"/toxicity.txt",sep=""))
+toxicity <- read.table("toxicity.txt",sep="")
 ```
 
-```{r lm_example}
-head(toxicity)
+```{r lm_example, echo = F}
 lm_toxicity <- lm(Protein~Copper+Zinc,data=toxicity)
 round(coef(summary(lm_toxicity),3))
 ```
@@ -17,12 +16,28 @@ Suppose we're interested in predicting the protein in a new observation at 100pp
 
 (a) Specify the values in a row matrix $\vect{x}^*$ so that $\vect{y}^*=\vect{x}^*\vect{b}$ gives a least squares prediction of the new observation.
 
+```{r,child=paste("/sol_a.Rmd",sep=""),eval=SOL}
+```
 
 (b) Explain how to use the data vector $\vect{y}$, the design matrix $\mat{X}$, and your row vector $\vect{x}^*$ to construct a prediction interval that will cover the new measurement in approximately 95% of replications. Your answer should include formulas to construct this interval.
 
-(c) Explain briefly some things you would look for to check whether your prediction interval is reasonable.
+```{r,child=paste("/sol_b.Rmd",sep=""),eval=SOL}
+```
 
-```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+
+```{r, echo = F}
+plot(lm_toxicity$fitted.values,
+     xlab = "fitted values", ylab = "Protein")
+abline(0,1)
+```
+
+```{r, echo = F}
+summary(toxicity)
+```
+
+(c) Based on the graph above and the corresponding summary statistics, is this model a good fit for the data? Do you have any concerns about using this model for this prediction.
+
+```{r,child=paste("/sol_c.Rmd",sep=""),eval=SOL}
 ```
 
 -------
