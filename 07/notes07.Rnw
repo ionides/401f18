@@ -110,15 +110,15 @@ where \m{\epsilon_{ij}\sim\iid\;\normal(0,\sigma)}.
 \end{myitemize}
 \myquestion. \m{\vec{x}_1} and \m{\vec{x}_1} are called \myemph{dummy variables} since they are built to allow us to write
 \m{
-  y_{ij}=\mu_i + e_{ij}
+  y_{ij}=m_i + e_{ij}
 }
 in the usual single-subscript linear model form,
 \mydisplaymath{
-  y_k = \mu_1 x_{k,1} + \mu_2 x_{k,2} + e_k.
+  y_k = m_1 x_{k,1} + m_2 x_{k,2} + e_k.
 }
 Convince yourself that these equations are equivalent.
 
-\answer{\vspace{20mm}}{$y_k$ has fitted value $\mu_1$ when $k$ corresponds to a mouse fed normal chow, and $\mu_2$ otherwise. This matches the double subscript notation.}
+\answer{\vspace{20mm}}{$y_k$ has fitted value $m_1$ when $k$ corresponds to a mouse fed normal chow, and $m_2$ otherwise. This matches the double subscript notation.}
  
 
 \end{frame}
@@ -126,7 +126,7 @@ Convince yourself that these equations are equivalent.
 \begin{frame}[fragile]
 \frametitle{Two things to notice about models with factors}
 
-We consider the sample linear model \m{y_k = \mu_1 x_{k,1} + \mu_2 x_{k,2} + e_k}, \m{k=1,\dots,24}.
+We consider the sample linear model \m{y_k = m_1 x_{k,1} + m_2 x_{k,2} + e_k}, \m{k=1,\dots,24}.
 
 \vspace{2mm} 
 
@@ -136,7 +136,7 @@ We consider the sample linear model \m{y_k = \mu_1 x_{k,1} + \mu_2 x_{k,2} + e_k
 
 \myquestion. Notice there is no intercept term in this linear model. Why?
 
-\answer{\vspace{30mm}}{There are two different means in this model, one for each treatment group. Therefore, we only need two parameters, $\mu_1$ and $\mu_2$. A third intercept parameter is unnecessary.}
+\answer{\vspace{30mm}}{There are two different means in this model, one for each treatment group. Therefore, we only need two coefficients, $m_1$ and $m_2$. A third intercept coefficient is unnecessary.}
 
 \end{frame}
 

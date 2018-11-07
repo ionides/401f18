@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. FALSE. A confidence interval is defined using a probability model. Replicability helps us justify a model and the corresponding confidence interval. However, we can (and do) write down models for non-replicable phenomena and we can properly construct confidence intervals for the postulated probability models.
+
+\color{black}
+

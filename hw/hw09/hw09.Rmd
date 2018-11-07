@@ -34,11 +34,7 @@ csl: ecology.csl
 
 ### Kicking goals: linear models with factors.
 
-### Building the design matrix for a linear model
-
-If an athlete has a good season, is the next one likely to be good? Or bad? Or does the previous season have no predictive skill?
-\item We consider field goal kicking success for the 19 National Football League (NFL) kickers who played every season during 2002-2006.
-\end{myitemize}
+We consider the field goal kicking data introduced in Chapter 7 of the notes. The primary question under investigation is whether an athlete that has a good season, is likely to perform above or below their typical level in the next season. There is also the possibility that the previous season has no predictive skill. We consider field goal kicking success for the 19 National Football League (NFL) kickers who played every season during 2002-2006.
 ```{r,eval=F}
 download.file(destfile="FieldGoals.csv", 
   url="https://ionides.github.io/401f18/hw/hw09/FieldGoals.csv")
@@ -50,7 +46,8 @@ head(goals[,1:8])
 
 **Q1**. Let $i$ correspond to the $i$th row of the data table. 
 Recall that each kicker has $4$ rows for the seasons 2003, 2004, 2005, 2006.
-Let $y_i$ be the field goal average for row $i$, and $x_i$ be the average for the previous season.
+Let $y_i$ be the percentage of successful field goal average for row $i$, denoted by the `FGt` variable in `goals`. 
+Let $x_i$ be the percentage for the previous season, denoted by `FGt1`.
 A simple linear regression model predicting performance based on the previous season (in the sample form) is
 \[
 y_i = a x_i + b + e_i, \quad \mbox{for $i=1,\dots,4\times 19$}.
@@ -58,30 +55,44 @@ y_i = a x_i + b + e_i, \quad \mbox{for $i=1,\dots,4\times 19$}.
 
 (a) Use R to find the least squares values of $a$ and $b$.
 
-(b) Make a scatterplot of $y_i$ against $x_i$ and add the fitted line.
+(b) Make a scatterplot of $y_i$ against $x_i$ and add the fitted line $y=ax+b$.
 
-(c) Comment on the interpretation of these fitted model. Compare the least squares coefficients to the coefficients in the output for a different model for the same data in Question 7.13 of the notes. What is the most notable difference? How do you explain it? (You should be able to answer this before we reach that point in the notes.)
+(c) Is the value of $a$ large enough to convince you that it can't reasonably be explained by chance variation? Explain your reasoning. 
 
 **Q2**. Now, we consider a linear model for predicting performance based on the previous season where each kicker has their own intercept. 
 In double subscript notation this is
 \[
-y_{ij} = a p_{ij} + b_i + e_{ij}, \quad\mbox{for $i=1,\dots,19$ and $j=1,\dots,4$}.
+y_{ij} = a x_{ij} + b_i + e_{ij}, \quad\mbox{for $i=1,\dots,19$ and $j=1,\dots,4$},
 \]
-This gives a different parameterization from the one in the notes that corresponsed to `lm(FGt~FGt1+Name,data=goals)`.
+where $x_{ij}=y_{i,j-1}$ with $y_{i0}$ corresponding to the successful field goal percentage in 2002.
+This gives a different parameterization from the one in the Chapter 7 notes that corresponds to `lm(FGt~FGt1+Name,data=goals)`.
 
-(a) Write this model in matrix form, $\vec{y}=\mat{X}\vec{b}+\vec{e}$. You will find that $\mat{X}$ has many 0 and 1 entries. It will not be practical to write all the entries of $\mat{X}$ so judicious use of $\dots$ is appropriate.
+(a) Write this model in matrix form, $\vec{y}=\mat{X}\vec{b}+\vec{e}$. You will find that $\mat{X}$ has many 0 and 1 entries. It is not practical to write all the entries of $\mat{X}$ so judicious use of "$\dots$" is appropriate.
 
-(b) Construct the design matrix $\mat{X}$ in R. There are many ways to do this. A direct approach is to build each column using `rep()` and stick them together using `cbind()`.
+(b) Construct the design matrix $\mat{X}$ in R. There are many ways to do this. A direct approach is to build each column using `rep()` and stick them together using `cbind()`. If you don't want to build each of the columns separately, one way to code this more compactly is via the R function `for()`,  using `for(i=1:19){...}` and then writing code to build the column corresponding to the `i`th dummy variable.
+You are asked not to solve this problem indirectly by calling `model.matrix()` on a fitted linear model since our goal here is to build the design matrix by hand and then cross-check it against the `lm()` output.
 
-(c) 
+(c) Check that the design matrix matches the design matrix used by `lm(FGt~FGt1+Name-1,data=goals)`.
+ The `-1` in the model formula removes the intercept term. It is not obvious that asking R to remove the intercept term will lead R to fit exactly the model above, so this gives a situation where checking the design matrix is a good way to explore how to use `lm()`. The order of the columns in the two design matrices may differ, but this is inconsequential for the model.
 
-**Q3**. Suppose you want to address the question of whether the evidence suggests XX is really a better kicker than YY. We can rephrase this to ask if there is sufficient evidence to show it is implausible that the difference in their kicking record could just be due to chance variation; just some difference in lucky for two players of equal skill.
+(d) Plot all the fitted lines,
+\[
+y = ax+b_i, \quad\mbox{for $i=1,\dots,19$}
+\]
+on top of a scatterplot of $y_{ij}$ against $x_{ij}$. This should look identical to the corresponding plot in Chapter 7 of the notes, with a parallel line for each kicker. 
 
-(a) Write out a probability model for which this null hypothesis is $H_0: \beta_XX=\beta_YY$.
+(e) Comment on your interpretation of the difference between the fitted lined in Q2(d) and Q1(b).
 
-(b) Find matrix expressions for the  mean and variance of $\hat\beta_XX-\hat\beta_YY$.
+**Q3**. Suppose you want to address the question of whether the evidence suggests Shayne Graham ($i=19$) is really a better kicker than Jay Feely ($i=5$). We can rephrase this to ask if it is plausible that the difference in their kicking record could just be due to small differences in luck between two players of equal skill.
 
-(c) Use a standard error based on this variance to construct a normal approximation test of $H_0$ using the test statistic $b_XX-b_YY$.
+(a) Write out a probability model for which this null hypothesis is $H_0: \beta_5=\beta_{19}$.
+
+(b) Find the mean and variance of $\hat\beta_{19}-\hat\beta_{5}$ in the context of this model. You can do this one of two ways, either (i) construct a row vector $\vec{x}$ such that 
+$\hat\beta_{19}-\hat\beta_{5}=\vec{x}\vec{\hat\beta}$ and use the formulas for the mean and variance of $\mat{A}\vec{X}$ with $\vec{X}=\vec{\hat\beta}$, or (ii) use the formulas for the mean and variance of $X-Y$ with $X=\hat\beta_{19}$ and $Y=\hat\beta_{5}$.
+
+(c) Use a standard error based on this variance to carry out a normal approximation test of $H_0$ with the test statistic being $b_{19}-b_{5}$.
+
+(d) Implicit in the hypothesis test developed above is a causal interpretation: if there is evidence that $b_{19}$ larger than $b_{5}$ beyond what can be explained by chance variation then we are tempted to conclude that Shayne Graham is a more skillfull kicker than Jay Feely. Explain the limitations and disclaimers that should be understood for this causal interpretation.
 
 
 --------------
