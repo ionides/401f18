@@ -1,12 +1,13 @@
 
-Consider the birth weight data set we have seen in lab.
-For this question, we will look at columns `bwt` (birth weight), `lwt` (mother's weight), `age` (mother's age) and `race` (mother's race, 1 for white, 2 for black and 3 for other).
-```{r}
-library(MASS)
-data(birthwt)
-head(birthwt,3)
-lm_bw <- lm(bwt ~ lwt + age +factor(race), data = birthwt)
-summary(lm_bw)$coef
+We have been recruited by a California university to explore the relationship between water salinity, water oxygen, and water temperature. We have been given 60 years of oceanographic data collected from the California Current by the California Cooperative Oceanic Fisheries Investigations. Below is a snapshot of the data. (Source: https://www.kaggle.com/sohier/calcofi)
+
+- Depthm: Depth in meters
+- T_degC: Water temperture in degrees Celsius
+- Salnty: Water Salinity in g of salt per kg of water
+- 02ml_L: $O_2$ mixing ratio in ml/L
+
+```{r, echo = F, include = FALSE}
+bottle_2016 <- read.csv('bottle_2016.csv', header = TRUE)
 ```
 Now suppose we are interested in predicting the birthweight of a baby who has a 30-year-old white mother with weight 130. 
 
