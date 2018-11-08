@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. FALSE. `qnorm(0.5)` is the x-value on the standard normal curve with 0.5 probability to the left, and so 0.5 to the right. This is the center of the distribution, hence `qnorm(0.5)=0`. `pnorm(0)` is the probability to the left of 0 on the standard normal curve. This distribution is symmetric about its mean of zero, so `pnorm(0)=0.5`.
+
+\color{black}
+

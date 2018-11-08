@@ -1,0 +1,13 @@
+
+\color{blue}
+
+**Solution**. TRUE. These are the x-values on the standard normal curve and t distribution with a left tail of 0.025. The t distribution has a longer tail, so the 0.025 point shifts left (larger in magnitude, but smaller in value along the number line). This corresponds to the property that t confidence intervals are wider than the corresponding normal approximation confidence intervals.
+```{r}
+qnorm(0.025)
+qt(0.025,df=10)
+```
+
+
+
+\color{black}
+
