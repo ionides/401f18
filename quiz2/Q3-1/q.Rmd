@@ -7,14 +7,14 @@ toxicity <- read.table(paste(my_dir, "/toxicity.txt",sep=""))
 
 ```{r lm_example, echo = F}
 lm_toxicity <- lm(Protein~Copper+Zinc,data=toxicity)
-round(coef(summary(lm_toxicity),3))
+round(coef(summary(lm_toxicity)), digits = 3)
 ```
 The sample linear model is $\vect{y}=\mat{X}\vect{b}+\vect{e}$.
 Here, $y_i$ is a measurement of total larva protein at the end of the experiment (in microgram, $\mu g$). $\mat{X}=[x_{ij}]$ is a $25\times 3$ matrix where $x_{i1}=1$, $x_{i2}$ is copper concentration (in parts per million, ppm) in beaker $i$ , and $x_{i3}$ is zinc concentration (in parts per million, ppm) in beaker $i$.
 
 Suppose we're interested in predicting the protein in a new observation at 100ppm copper and 1000ppm zinc.
 
-(a) Specify the values in a row matrix $\vect{x}^*$ so that $\vect{y}^*=\vect{x}^*\vect{b}$ gives a least squares prediction of the new observation.
+(a) Specify the values in a row matrix $\vect{x}^*$ such that $\vect{y}^*=\vect{x}^*\vect{b}$ gives a least squares prediction of the new observation. Calculate the predicted value.
 
 ```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
@@ -24,6 +24,12 @@ Suppose we're interested in predicting the protein in a new observation at 100pp
 ```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
 ```
 
+(c) Calculate a 95% confidence interval for the relationship between zinc exposure and protein content in minnow larvae.
+
+```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
+```
+
+(d)
 
 ```{r, echo = F, fig.height= 3, fig.width=3}
 plot(lm_toxicity$fitted.values, toxicity$Protein,
@@ -35,9 +41,9 @@ abline(0,1)
 summary(toxicity)
 ```
 
-(c) Based on the graph above and the corresponding summary statistics, is this model a good fit for the data? Do you have any concerns about using this model for this prediction.
+Based on the graph above and the corresponding summary statistics, is this model a good fit for the data? Do you have any concerns about using this model for this prediction.
 
-```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
+```{r,child=paste(my_dir, "/sol_d.Rmd",sep=""),eval=SOL}
 ```
 
 -------

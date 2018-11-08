@@ -1,0 +1,9 @@
+
+\color{blue}
+
+*Solution*
+
+The model is a good fit for the data. There are no trends or clusters in the plot of the fitted values against the Protein level of the minnow larvae. We have no concerns about using our model to make our prediction, because our $x^*$ contains copper and zinc levels that were observed in our data.
+
+\color{black}
+

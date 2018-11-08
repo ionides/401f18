@@ -7,13 +7,38 @@ We have been recruited by a California university to explore the relationship be
 - 02ml_L: $O_2$ mixing ratio in ml/L
 
 ```{r, echo = F, include = FALSE}
-bottle_2016 <- read.csv('bottle_2016.csv', header = TRUE)
+bottle_2016 <- read.csv(paste(my_dir, '/bottle_2016.csv', sep = ""), header = TRUE, row.names = 1)
+bottle_2016 <- na.omit(bottle_2016)
+lm1 <- lm(T_degC ~ Depthm + Salnty + O2ml_L, data = bottle_2016)
 ```
-Now suppose we are interested in predicting the birthweight of a baby who has a 30-year-old white mother with weight 130. 
 
-(a) Specify a row matrix $\vect{x}^*$ so that $\hat y^*=\vect{x}^*\vect{b}$ gives the least square predictor.
+We fit a linear model to the data; the results are shown below.
 
-(b) Write a matrix expression for the variance of $\hat Y^*=\vect{x}^*\vect{\hat\beta}$ where $\vect{\hat\beta}$ is the least squares fit on model-generated data, i.e., $\vect{\hat\beta}=(\mat{X}^\transpose\mat{X})^{-1}\mat{X}^\transpose \vect{Y}$.
+```{r, echo = F}
+round(summary(lm1)$coefficients[, c("Estimate", "Std. Error")], 3)
+```
+
+Suppose we observed a new outcome $\vect{x^*}$
+
+(a) Suppose we wanted to calculate a 95% confidence interval for the expected value of the new outcome. Write the expression for this calculation and define all terms.
+
+```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
+```
+
+(b) Suppose instead, we wanted to calculate a 95% prediction interval for the new outcome. Write the expression for this calculation and define all terms.
+
+```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
+```
+
+(c) How would you check that your confidence and prediction intervals are plausible?
+
+```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
+```
+
+(d) Calculate the 95% confidence interval for the relationship between oxygen levels and water temperature.
+
+```{r,child=paste(my_dir, "/sol_d.Rmd",sep=""),eval=SOL}
+```
 
 ------------
 
