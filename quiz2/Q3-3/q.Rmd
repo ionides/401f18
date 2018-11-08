@@ -1,6 +1,6 @@
 The director of the CDC wants to assess how well rates of hospital-acquired infections (`Infection.risk`) can be predicted using properities of a hospital. She expects to use the average length of stay (`Length.of.stay`) in days, the average number of cultures for each patient without signs or symptoms of hospital-acquired infection, times 100 (`Culture`), the number of X-ray procedures divided by number of patients without signs or symptoms of pneumonia, times 100 (`X.ray`), and the number of beds a hospital has (`Beds`).
 
-Let $\vect{x_1}$ be the length of stay, $\vect{x_2}$ be the culture count, $vect{x_3}$ be the number of X-rays, and $vect{x_4}$ is the number of beds. Consider the probability model $$Y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4} + \epsilon_i$$ for $i = 1, \dots, 113$ where $\epsilon_i$ are iid normal($0, \sigma$).
+Let $\vect{x_1}$ be the length of stay, $\vect{x_2}$ be the culture count, $vect{x_3}$ be the number of X-rays, and $vect{x_4}$ be the number of beds. Consider the probability model $$Y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4} + \epsilon_i$$ for $i = 1, \dots, 113$ where $\epsilon_i$ are iid normal($0, \sigma$).
 
 She fits the linear model corresponding to this probability model in R:
 

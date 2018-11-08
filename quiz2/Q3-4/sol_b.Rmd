@@ -1,0 +1,11 @@
+
+\color{blue}
+
+*Solution* 
+
+Under the null hypothesis, our test statistic, $b_1$ has a normal distribution with a mean of 0 and a standard deviation of 0.070, i.e. $b_2$ ~ $N(0, 0.254)$.
+
+We would expect to fail to reject our null hypothesis from part a because our standard error is about the same size as our estimate. If we were to construct a confidence interval for $\beta_2$, we would expect the confidence interval to contain 0.
+
+\color{black}
+

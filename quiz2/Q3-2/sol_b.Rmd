@@ -3,7 +3,7 @@
 
 *Solution* 
 
-$[\vect{x^*\hat\beta - 1.96SE_{pred}}]$, where $SE_{pred} = s\sqrt{1 +\vect{x^*}(\mathbb{X}^T\mathbb{X})^{-1}\vect{x^{*T}}}$. $\vect{x^*}$ is the new observed value and $\mathbb{X}$ is the design matrix. s is an approximation of $\sigma$, the standard deviation of the errors.
+$[\vect{x^*\hat\beta - 1.96SE_{pred}}, \vect{x^*\hat\beta + 1.96SE_{pred}}]$, where $SE_{pred} = s\sqrt{1 +\vect{x^*}(\mathbb{X}^T\mathbb{X})^{-1}\vect{x^{*T}}}$. $\vect{x^*}$ is the new observed value and $\mathbb{X}$ is the design matrix. s is an approximation of $\sigma$, the standard deviation of the errors.
 
 \color{black}
 
