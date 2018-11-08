@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. FALSE. This is equivalent to `pnorm(1.960,mean=0,sd=1)` which has a right tail of 2.5% not 5%, leading to the well-known fact that the mean $\pm 1.96$ times the standard error is an approximate 95% confidence interval.
+
+\color{black}
+

@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. A sample coefficient of the linear model is a sum of contributions from all the data points, and so a central limit principle can apply as long as the number of data points is not small. Thus, a normal approximation for the confidence interval can be a good even if a normal model does not hold well for the measurement error. The prediction interval is largely due to measurement uncertainty from a single measurement and so a central limit principle does not apply.
+
+\color{black}
+
