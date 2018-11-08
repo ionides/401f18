@@ -1,0 +1,14 @@
+
+\color{blue}
+
+*Solution* 
+
+$$
+\begin{aligned}
+H_0: \beta_2 = 0 \\
+H_a: \beta_2 \ne 0
+\end{aligned}
+$$
+
+\color{black}
+

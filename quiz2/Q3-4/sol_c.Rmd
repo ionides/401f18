@@ -1,0 +1,9 @@
+
+\color{blue}
+
+*Solution* 
+
+$\vect{x^*} = [1, 70, 22, 10, 50, 20]$. The predicted value is $\vect{x^*b} = 66.915 - 0.172(70) - 0.258(22) - 0.871(10) + 0.104(50) + 1.077(20) = 67.229$
+
+\color{black}
+

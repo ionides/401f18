@@ -1,33 +1,56 @@
+Switzerland, in 1888, was entering a period known as the demographic transition; i.e., its fertility was beginning to fall from the high level typical of underdeveloped countries. This Swiss government has commissioned us to determining the factors most contributing to this decline.
 
-We consider a subset of the National Education Longitudinal Study of 1988 which examined schoolchildren’s performance on a math test score in 8th grade. `ses` is the socioeconomic status of parents and `paredu` is the parents highest level of education achieved (less than high school, high school, college, BA, MA, PhD). The dataset called `nels88` starts as follows:
+We collect the following variables for each of the 47 French-speaking provinces around 1988: 
+
+* Fertility: common standardized fertility measure
+* Agriculture: % of males involved in agriculture as occupation
+* Examination: % draftees receiving highest mark on army examination
+* Education: % education beyond primary school for draftees.
+* Catholic: % ‘catholic’ (as opposed to ‘protestant’).
+* Infant.Mortality: live births who live less than 1 year. 
+
+Let $\vect{x_1}$ be the agriculture rate, $\vect{x_2}$ be the examination rate, $vect{x_3}$ be the education rate, and $vect{x_4}$ be the catholic rate, and $\vect{x_5}$ be the infant mortality rate. Consider the probability model $$Y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4}+ \beta_5x_{i5} + \epsilon_i$$ for $i = 1, \dots, 113$ where $\epsilon_i$ are iid normal($0, \sigma$).
+
+We fit a the regression model corresponding to this probability model in R:
+
+
 ```{r,echo=F}
-library(faraway)
-data(nels88)
+data(swiss)
+lm1 <- lm(Fertility ~ ., data = swiss)
+round(summary(lm1)$coefficients[,1:2], 3)
 ```
-```{r lm_nels88_example}
-head(nels88)
+
+
+(a) The Swiss governmment is skeptical that the examination percentage affects the fertility rate. Write the null and alternative hypotheses we would use to answer this question.
+
+```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
-We fit a regression model to the data. The rounded co-efficients for the model are provided below:
+
+(b) What is the distribution of your test statistic from a? What would we expect our conclusion to be for our hypothesis test in part a (no calculations necessary)?
+
+```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
+```
+
+(c) A new province is conquered in 1889 and its statistics are added to our data. This new province had an agriculture rate of 70%, examination rate of 22%, and education rate of 10%, a catholic rate of 50%, and an infant mortality rate of 20%. Calculate the predicted value of this new province.
+
+```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
+```
+
+(d)
+
+```{r, echo = F, fig.height=4, fig.width=4}
+plot(lm1$fitted.values, swiss$Fertility,
+     xlab = "Fitted Values", ylab = "Fertility")
+abline(0,1)
+```
+
 ```{r}
-fit <- lm(math ~ ses + paredu, data = nels88)
-round(summary(fit)$coef)
+summary(swiss)
 ```
 
-(a)  Describe a suitable probability model, in matrix form, to give a sample version of the linear model that has been fit above.
+Based on the graph above and the corresponding summary statistics, is this model a good fit for the data? Do you have any concerns about using this model for this prediction.
 
-```{r,child=paste(my_dir,"/sol-a.Rmd",sep=""),eval=SOL}
-```
-
-
-(b) Find the predicted math score for a student whose family has an ses value of -0.5 and whose parents' highest education level is high school (`hs`).
-
-```{r,child=paste(my_dir,"/sol-b.Rmd",sep=""),eval=SOL}
-```
-
-
-(c) How is the residual standard error calculated for this model? (Give a formula).
-
-```{r,child=paste(my_dir,"/sol-c.Rmd",sep=""),eval=SOL}
+```{r,child=paste(my_dir, "/sol_d.Rmd",sep=""),eval=SOL}
 ```
 
 -------
