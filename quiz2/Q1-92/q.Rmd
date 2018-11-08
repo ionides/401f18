@@ -1,5 +1,5 @@
 
-If unemployment rate is statistically positively associated with change in life expectancy, we can safely conclude that the short-term consequence of a public policy decreasing unemployment is likely to be a short-term decrease in life expectancy.
+\TRUEorFALSE If unemployment rate is statistically positively associated with change in life expectancy, we can safely conclude that the short-term consequence of a public policy decreasing unemployment is likely to be a short-term decrease in life expectancy.
 
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```

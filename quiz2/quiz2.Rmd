@@ -46,7 +46,7 @@ knitr::opts_chunk$set(cache = FALSE)
 \newcommand\varSample{\mathrm{var}}
 \newcommand\cov{\mathrm{Cov}}
 \newcommand\covSample{\mathrm{cov}}
-
+\newcommand\TRUEorFALSE{TRUE or FALSE. } 
 
 
 \exam{\vspace{1.5cm}
@@ -68,16 +68,16 @@ The quiz will have several TRUE/FALSE questions drawn at random for Q1, and one 
 
 **Instructions. You have a time allowance of 40 minutes, though the quiz may take you less time and you can leave lab once you are done.  The quiz is closed book, and you are not allowed access to any notes. Any electronic devices in your possession must be turned off and remain in a bag on the floor.**
 
-** The following formulas are provided. To use these formulas properly, you need to make appropriate definitions of the necessary quantities.**
+**The following formulas are provided. To use these formulas properly, you need to make appropriate definitions of the necessary quantities.**
 
 (1) $\quad\quad\mathbf{b}=\big(\mathbb{X}^\transpose \mathbb{X} \big)^{-1}\, \mathbb{X}^\transpose\mathbf{y}$
 
 (2) $\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
 
 
-(3)$\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
+(3) $\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
 
-(4)$\quad\quad\var(\mat{A}\mathbf{Y})=\mat{A}\var(\mathbf{Y})\mat{A}^\transpose$,
+(4) $\quad\quad\var(\mat{A}\mathbf{Y})=\mat{A}\var(\mathbf{Y})\mat{A}^\transpose$,
 $\quad\quad\varSample(\mat{X}\mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose$
 
 (5) $\quad\quad$The probability density function of the standard normal distribution is $\frac{1}{\sqrt{2\pi}} e^{-x^2/2}$

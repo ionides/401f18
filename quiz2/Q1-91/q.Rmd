@@ -1,5 +1,5 @@
 
-If all covariates are allocated to units at random, for example randomized assignment of treatments to patients in a medical trial, then we can legitimately interpret statistically significant covariates as causal effects. We do not have to pay attention to the saying "Association is not causation."
+\TRUEorFALSE If all covariates are allocated to units at random, for example randomized assignment of treatments to patients in a medical trial, then we can legitimately interpret statistically significant covariates as causal effects. We do not have to pay attention to the saying "Association is not causation."
 
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```

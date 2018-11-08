@@ -1,5 +1,5 @@
 
-If we cannot make replications of the data collection procedure then we cannot properly construct a confidence interval. 
+\TRUEorFALSE If we cannot make replications of the data collection procedure then we cannot properly construct a confidence interval. 
 
 
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}

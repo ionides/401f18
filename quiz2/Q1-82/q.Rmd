@@ -1,5 +1,5 @@
 
-`qnorm(0.5)` and `pnorm(0)` both return the same value.
+\TRUEorFALSE `qnorm(0.5)` and `pnorm(0)` both return the same value.
 
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```

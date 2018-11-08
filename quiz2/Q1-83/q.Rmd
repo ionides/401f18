@@ -1,6 +1,6 @@
 
 
-`qt(0.5,df=10)` is greater than `qnorm(0.5)`.
+\TRUEorFALSE  `qt(0.5,df=10)` is greater than `qnorm(0.5)`.
 
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```
