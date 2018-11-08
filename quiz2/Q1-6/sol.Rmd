@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. FALSE. In a prediction interval, we are making a prediction for a single new observation $\textbf{x}^*$. In a confidence interval for the expected value, we are estimating the expected value for all observations with that $\textbf{x}^*$ value. There is more uncertainty when predicting the outcome for a single new observation, so we should have a larger standard error.
+
+\color{black}
+

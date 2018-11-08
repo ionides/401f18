@@ -1,0 +1,9 @@
+
+Suppose we have a factor with three levels. If our linear model includes an intercept, we should include dummy variables for all three factor levels.
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+
+

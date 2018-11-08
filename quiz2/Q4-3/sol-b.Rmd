@@ -1,0 +1,18 @@
+
+\color{blue}
+
+**Solution**:
+The first four games were published by Activision, and the next two by EA. We therefore have:
+
+$$\mathbb{X} = \begin{bmatrix}
+1 & 0 \\
+1 & 0 \\
+1 & 0 \\
+1 & 0 \\
+0 & 1 \\
+0 & 1 \\
+\vdots & \vdots
+\end{bmatrix}$$
+
+\color{black}
+

@@ -1,0 +1,9 @@
+
+\color{blue}
+
+**Solution**:
+  
+$\mu_1$ is the population mean frontal lobe size for blue crabs. $\mu_2$ is the population mean frontal lobe size for orange crabs.
+
+\color{black}
+

@@ -1,0 +1,10 @@
+
+\color{blue}
+
+**Solution**:
+Let $\textbf{x} = (x_1,\dots,x_{24})$ be a dummy variable for high fat diet. That is $x_i = 1$ if `Diet` for observation $i$ is hf and 0 if `Diet` is chow. Let $\textbf{y} = (y_1, \dots, y_{24})$ be the weights of the 24 mice, and $\textbf{e} = (e_1, \dots, e_{24})$ be the corresponding residuals. Finally, let $b_0$ be the intercept and $b_1$ be the sample coefficient corresponding to a high fat diet. 
+
+The sample linear model is given by $y_i = b_0 + b_1x_i + e_i$ for $i = 1, \dots, 24$.
+
+\color{black}
+

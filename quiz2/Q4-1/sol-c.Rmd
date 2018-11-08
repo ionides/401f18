@@ -1,0 +1,17 @@
+
+\color{blue}
+
+**Solution**:
+All of the first six crabs are blue. Therefore the design matrix is given by:
+$$\mathbb{X} = \begin{bmatrix}
+1 & 0 \\
+1 & 0 \\
+1 & 0 \\
+1 & 0 \\
+1 & 0 \\
+1 & 0 \\
+\vdots & \vdots
+\end{bmatrix}$$
+
+\color{black}
+

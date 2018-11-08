@@ -1,0 +1,9 @@
+
+\color{blue}
+
+**Solution**:
+  
+0.44124 is the sample mean sales for Activision and 0.41361 is the sample mean sales for Electronic Arts.
+
+\color{black}
+
