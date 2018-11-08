@@ -1,0 +1,9 @@
+
+\color{blue}
+
+*Solution* 
+
+$\vect{x^*} = [1, 8, 14, 90, 40]$. The predicted value is $\vect{x^*b} = 0.41495 + 0.18453(8) + 0.04800(14) + 0.01304(90) + 0.00134(40) = 3.79039$
+
+\color{black}
+

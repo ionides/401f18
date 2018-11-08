@@ -1,23 +1,35 @@
+The director of the CDC wants to assess how well rates of hospital-acquired infections (`Infection.risk`) can be predicted using properities of a hospital. She expects to use the average length of stay (`Length.of.stay`) in days, the average number of cultures for each patient without signs or symptoms of hospital-acquired infection, times 100 (`Culture`), the number of X-ray procedures divided by number of patients without signs or symptoms of pneumonia, times 100 (`X.ray`), and the number of beds a hospital has (`Beds`).
 
-We analyze the following data on video game sales in North America. This dataset records sales (in millions of dollars) for  580 games within three genres (shooter, sports and action) from two publishers (Electronic Arts and Activision) with years of release from 2006 to 2010 inclusive, on ten different platforms.
-```{r,echo=F}
-vg <- read.table(paste(my_dir,"/vg_sales.txt",sep=""))
+Let $\vect{x_1}$ be the length of stay, $\vect{x_2}$ be the culture count, $vect{x_3}$ be the number of X-rays, and $vect{x_4}$ is the number of beds. Consider the probability model $$Y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4} + \epsilon_i$$ for $i = 1, \dots, 113$ where $\epsilon_i$ are iid normal($0, \sigma$).
+
+She fits the linear model corresponding to this probability model in R:
+
+```{r, echo=FALSE}
+senic <- read.table("https://ionides.github.io/401w18/hw/hw09/senic.txt", header =T)
+senic <- senic[,-1]
+lm1 <- lm(Infection.risk ~ Length.of.stay + Culture + X.ray + Beds, data = senic)
+round(summary(lm1)$coefficients[,1:2], 5)
 ```
-```{r}
-vg <- head(vg)
+
+(a) The CDC director asks you to determine if the size of the hospital (measured in the number of beds) affects the infection rate of the hospital. Write the null and alternative hypotheses we would use to answer this question.
+
+```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
-Consider the probability model $Y_{ijk} = \alpha + \beta_j + \gamma_k + \epsilon_{ijk}$ where $j=1,2,3$ specifies the genre (shooter, sports and action,  respectively), $k=1,2$ gives the publisher (Electronic Arts and Activision, respectively), and $i$ ranges over all the games in each $(j,k)$ category. In order to code these factors, we set $\beta_1=\gamma_1=0$.
-As usual, $\epsilon_{ijk}$ gives an independent $N[0,\sigma]$ error for game $(i,j,k)$. Parameters in this probability model are estimated by least squares as follows:
-```{r}
-lm_vg1 <- lm(Sales ~ Publisher + Genre, data = vg)
-summary(lm_vg1)
+
+(b) What is the distribution of your test statistic from a?
+
+```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
 ```
-Note that the output of `summary(lm_vg1)` tells you that R is using $\vect{\beta}=(\alpha,\beta_2,\beta_3,\gamma_2)$ as the parameter vector.
 
-(a) Write the first six lines of the design matrix $\mat{X}$ in the matrix version of the linear model $\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}$. Hint: the output from `head(vg)` tells you what the values of $j$ and $k$ are for each of the first six observations.
+(c) Suppose we know that a local hopital has an average length of stay of 8 days, the average culture count is 14, the average number of X-rays is 90, and the number of beds is 40. Find the predicted value for this observation; you do not need to simplify.
 
+```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
+```
 
-(b) Suppose we're interested in the predicting the North American Sales of a shooting game released by Activision. Specify a row matrix $\vect{x^*}$ such that $y^* = \vect{x^*b}$ gives the least square predictor of this quantity.
+(d) Suppose we constructed a confidence interval for the expected infection rate for the hospital in part c. How would you check that your confidence interval is plausible?
+
+```{r,child=paste(my_dir, "/sol_d.Rmd",sep=""),eval=SOL}
+```
 
 ---------------
 
