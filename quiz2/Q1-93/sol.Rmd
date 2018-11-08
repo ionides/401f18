@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. A statisically robust association between $A$ and $B$ implies $A$ causes $B$, $B$ causes $A$ or both have a common cause. Supposing we can rule out life expectancy fluctuations as a major cause of economic boom/bust fluctuations (which seems safe) we are left with only the possibility that something about fluctuations in economic activity causally affects both unemployment and mortality. 
+
+\color{black}
+

@@ -1,0 +1,9 @@
+
+If unemployment rate is statistically positively associated with change in life expectancy, we can safely conclude that some phenomenon related to the economic boom/bust cycle causes increased mortality in periods of high economic growth.
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+
+

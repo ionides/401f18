@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. FALSE. Recall that "association is not causation." Many quantities in the economy follow the same boom/bust cycle. There are many candidates for common causes of both unemployment and life expectancy. For example, reduced overall economic activity leads to both less employment and less air pollution, so perhaps a causal chain from economic activity to air pollution to human health could explain the observed association.
+
+\color{black}
+

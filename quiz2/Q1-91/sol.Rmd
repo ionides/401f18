@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. A statisically robust association between $A$ and $B$ implies $A$ causes $B$, $B$ causes $A$ or both have a common cause. A randomized assignment of covariates rules out all possibilities other than a causal one. Formally, this randomization has to include all relevant covariates (one might not think to randomize the treating physicians in a study, for example). We also have to bear in mind that the causal story might not be the one we want: if physicians measuring an outcome are not blind to the treatment and therefore make measurements subconsciously biased toward a new treatment, this is a causal story linking a treatment to a favorable measured outcome, but not the causal interpretation that first comes to mind!
+
+\color{black}
+

@@ -1,0 +1,9 @@
+
+`pnorm(19.60,mean=0,sd=10)` is 0.95
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+
+

@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. `qnorm()` gives the normal quantile corresponding to the specified left tail probability. Since a probability must be between 0 and 1, `qnorm(1.96,...)` cannot give a numeric answer so returns `NaN`.
+
+\color{black}
+

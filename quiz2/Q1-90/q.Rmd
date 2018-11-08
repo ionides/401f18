@@ -1,0 +1,9 @@
+
+If the normality assumption for the measurement model is violated, this is more problematic for the prediction interval for a linear model than for confidence intervals on the parameters.
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+
+
