@@ -1,0 +1,29 @@
+\color{blue}
+
+**Solution**.  
+
+**(a)** 
+
+$\mathbb{E}(X_1)=0 \times 0.5 + 1 \times 0.25 - 1 \times 0.25 = 0$
+
+$\mathbb{E}(X_1^2)=0 \times 0.5 + 1^2 \times 0.25 + (-1)^2 \times 0.25 = 0.5$
+
+$Var(X_1)=\mathbb{E}(X_1^2)-(\mathbb{E}(X_1))^2=0.5 - (0)^2 = 0.5$
+  
+  
+**(b)**  
+$\mathbb{E}(\bar{X})=\mathbb{E}(\frac{\sum_{i=1}^n X_i}{n})=\frac{\sum_{i=1}^n X_i}{n} = \frac{n\mathbb{E}X_1}{n}=n\mathbb{E}X_1 =0$
+
+$Var(\bar{X})=Var(\frac{\sum_{i=1}^n X_i}{n})= \frac{1}{n^2} Var(\sum_{i=1}^n X_i) = \frac{1}{n^2} \sum_{i=1}^n \text{Var}(X_i)= \frac{1}{n^2} n Var(X_1)=\frac{0.5}{n}$
+
+So, $\bar{X}\sim\mathcal{N}(0,\frac{1}{2n})$
+  
+  
+**(c) **  
+Since $n=100$, so $\bar{X}\sim\mathcal{N}(0,\frac{1}{200})$  
+Hence, $\prob(-c<\bar X<c) = 1 - 2 \prob(\bar X>c) = 0.9$  
+So, $\prob(\bar X>c) = \frac{1-0.9}{2} = 0.05$  
+So, c = qnorm(0.05,0,1/200,lower.tail=FALSE)  
+
+
+\color{black}

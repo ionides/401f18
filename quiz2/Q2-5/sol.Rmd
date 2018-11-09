@@ -1,0 +1,23 @@
+\color{blue}
+
+**Solution**.  
+
+Since $\prob(X_1=0) + \proc(X_1=-1) + \prob(X_1=1) = 1$, therefore, $\prob(X_1=-1) = 1-0.6=0.4$  
+
+$\mathbb{E}(X_1)=0 \times 0.2 + 1 \times 0.4 - 1 \times 0.4 = 0$
+
+$\mathbb{E}(X_1^2)=0 \times 0.2 + 1^2 \times 0.4 + (-1)^2 \times 0.4 = 0.8$
+
+$Var(X_1)=\mathbb{E}(X_1^2)-(\mathbb{E}(X_1))^2=0.8 - (0)^2 = 0.8$
+  
+  
+$\mathbb{E}(\bar{X})=\mathbb{E}(\frac{\sum_{i=1}^n X_i}{n})=\frac{\sum_{i=1}^n X_i}{n} = \frac{n\mathbb{E}X_1}{n}=n\mathbb{E}X_1 =0$
+
+$Var(\bar{X})=Var(\frac{\sum_{i=1}^n X_i}{n})= \frac{1}{n^2} Var(\sum_{i=1}^n X_i) = \frac{1}{n^2} \sum_{i=1}^n \text{Var}(X_i)= \frac{1}{n^2} n Var(X_1)=\frac{0.8}{n}$
+
+So, $\bar{X}\sim\mathcal{N}(0,\frac{0.8}{n})$
+  
+  
+Since $n=100$, so $\bar{X}\sim\mathcal{N}(0,0.008)$  
+So, c = qnorm(0.05,0,0.008,lower.tail=FALSE)  
+\color{black}

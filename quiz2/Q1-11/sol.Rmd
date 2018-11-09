@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. FALSE. A 95% confidence interval gives us the possible range of a population parameter with 95% confidence. That is, if we collected samples several times and constructed the correspndong confidence intervals, on average 95% of these would contain the true population parameter of interest. The 90% CI would only contain the true parameter 90% of the time (on average). Thus, the parameter may lie outside the 90% CI  more than the corresponding 95% CI which is why the 95% CI would be broader thab the 90% CI.
+
+\color{black}
+

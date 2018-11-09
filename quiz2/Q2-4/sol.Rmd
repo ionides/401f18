@@ -1,7 +1,6 @@
-
 \color{blue}
 
-**Solution**:
+**Solution**. 
 
 $\mathbb{E}(X_1)=0 \times 0.25 + 4 \times 0.75 = 3$
 
@@ -13,7 +12,5 @@ Thus, $\mathbb{E}(X)=\mathbb{E}(\sum_{i=1}^n X_i)=n \mathbb{E}X_1=600$
 
 $Var(\bar{X})=Var(\sum_{i=1}^n X_i)=n Var(X_1)=600$
 
-$c = qnorm(0.9,600,sqrt(600))$
-
+$c = qnorm(0.9,600,sqrt(600),lower.tail=FALSE)$
 \color{black}
-

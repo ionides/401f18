@@ -7,5 +7,8 @@ Let $X_1,X_2,\dots,X_n$ be independent random variables each of which take value
 
 (c) Now suppose $n=50$ and suppose that $\bar X$ is well approximated by a normal distribution. Find $\prob(0.45<\bar X<0.55)$. Write your answer as a call to `pnorm()`. Your call to pnorm may involve specifying any necessary numerical calculations that you can't work out without access to a computer or calculator.
 
---------
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
 

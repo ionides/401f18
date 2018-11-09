@@ -1,0 +1,5 @@
+\color{blue}
+
+**Solution**. TRUE. If two variables are independent then they would not have any dependence and thus, their linear dependence (correlation) would be zero as well.
+
+\color{black}

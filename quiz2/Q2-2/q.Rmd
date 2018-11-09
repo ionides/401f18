@@ -4,5 +4,8 @@ Find the mean and variance of $X_1$. Use this to find the mean and variance of $
 Now suppose $n=100$ and suppose that $\bar X$ is well approximated by a normal distribution. Find a number $c$ such that $\prob(-c<\bar X<c)$ is approximately 0.9. 
 Write your answer as a call to `qnorm()`. Your call to qnorm may involve specifying any necessary numerical calculations that you can't work out without access to a computer or calculator.
 
-----------------
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
 

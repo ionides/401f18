@@ -1,0 +1,13 @@
+Let $(W, X, Y)$ be a multivariate normal vector such that  
+$\text{E}(X) = 2\text{E}(Y) = 2$ and $\text{E}(W)=0$.  
+$\text{Var}(X)=\text{Var}(Y)=\text{Var}(W)=2$.  
+$\text{Cor}(X,Y)=-0.5$, $\text{Cor}(Y,W)=-0.5$,$\text{Cor}(X,W)=0$.  
+
+
+(a)Find the distribution of $X-2Y+W$ and $X+2W$.
+
+(b) Find the $\prob(Y<\frac{X+W+1}{2})$. Write your answer as a call to `pnorm()`. Your call to pnorm may involve specifying any necessary numerical calculations that you can't work out without access to a computer or calculator.
+
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
