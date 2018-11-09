@@ -1,5 +1,5 @@
 
-For a given data set of pairs of values $(x_1,y_1),\dots,(x_n,y_n)$, an infinite number of possible regression equations can be fitted to the corresponding scatter diagram, and each equation will have a unique combination of values for the slope $b_1$ and y-intercept $b_2$. However, only one equation will be the "best fit" as defined by the least-squares criterion.
+\TRUEorFALSE For a given data set of pairs of values $(x_1,y_1),\dots,(x_n,y_n)$, an infinite number of possible regression equations can be fitted to the corresponding scatter diagram, and each equation will have a unique combination of values for the slope $b_1$ and y-intercept $b_2$. However, only one equation will be the "best fit" as defined by the least-squares criterion.
 
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```

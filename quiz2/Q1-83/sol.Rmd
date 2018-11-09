@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. FALSE. `qt(0.5,df=10)` is the x-value of the t distribution on 10 degrees of freedom with 0.5 probability to the left, and so 0.5 to the right. This distribution is symmetric about its mean of zero, so `qt(0.5,df=10)=0`. By similar reasoning, `qnorm(0.5)=0`. 
+
+\color{black}
+

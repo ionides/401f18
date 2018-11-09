@@ -1,5 +1,5 @@
 
-`qnorm(1.960,mean=0,sd=10)` returns `NaN`
+\TRUEorFALSE `qnorm(1.960,mean=0,sd=10)` returns `NaN`
 
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```

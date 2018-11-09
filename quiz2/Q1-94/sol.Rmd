@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. A statisically robust association between $A$ and $B$ implies $A$ causes $B$, $B$ causes $A$ or both have a common cause. Suppose we can rule out atmospheric processes (such as anthropogenic global climate change) as a cause of major volcanic events, and we can also rule out other geophysical phenomena as causes of both major volcanic events and atmospheric composition. These are not accepted as relevant considerations in general discussion of global climate change. So, we are left with the conclusion that volcanic activity has a non-negligible effect on atmospheric carbon dioxide levels.
+
+\color{black}
+

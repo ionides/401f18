@@ -46,7 +46,7 @@ knitr::opts_chunk$set(cache = FALSE)
 \newcommand\varSample{\mathrm{var}}
 \newcommand\cov{\mathrm{Cov}}
 \newcommand\covSample{\mathrm{cov}}
-
+\newcommand\TRUEorFALSE{TRUE or FALSE. } 
 
 
 \exam{\vspace{1.5cm}
@@ -68,17 +68,23 @@ The quiz will have several TRUE/FALSE questions drawn at random for Q1, and one 
 
 **Instructions. You have a time allowance of 40 minutes, though the quiz may take you less time and you can leave lab once you are done.  The quiz is closed book, and you are not allowed access to any notes. Any electronic devices in your possession must be turned off and remain in a bag on the floor.**
 
-### Formulas
-  
-The following formulas are provided. To use these formulas properly, you need to make appropriate definitions of the necessary quantities.
+**The following formulas are provided. To use these formulas properly, you need to make appropriate definitions of the necessary quantities.**
 
 (1) $\quad\quad\mathbf{b}=\big(\mathbb{X}^\transpose \mathbb{X} \big)^{-1}\, \mathbb{X}^\transpose\mathbf{y}$
 
 (2) $\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
 
-(3) $\quad\quad$The probability density function of the standard normal distribution is $\frac{1}{\sqrt{2\pi}} e^{-x^2/2}$
 
-(4) $\quad\quad$Syntax from `?pnorm`:
+(3) $\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
+
+(4) $\quad\quad\var(\mat{A}\mathbf{Y})=\mat{A}\var(\mathbf{Y})\mat{A}^\transpose$,
+$\quad\quad\varSample(\mat{X}\mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose$
+
+(5) $\quad\quad$The probability density function of the standard normal distribution is $\frac{1}{\sqrt{2\pi}} e^{-x^2/2}$
+
+(6) $\quad\quad$If a random variable is normally distributed, the probability it falls within one standard deviation of the mean is 68%, within two standard deviations of the mean is 95%, and within three standard deviations of the mean is 99.7%.
+
+(7) $\quad\quad$Syntax from `?pnorm`:
 ```
 pnorm(q, mean = 0, sd = 1)
 qnorm(p, mean = 0, sd = 1)
@@ -86,14 +92,18 @@ q: vector of quantiles.
 p: vector of probabilities.
 ```
 
-(5) $\quad\quad$If a random variable is normally distributed, the probability it falls within one standard deviation of the mean is 68%, within two standard deviations of the mean is 95%, and within three standard deviations of the mean is 99.7%.
+(8)  $\quad\quad(\mat{A}\mat{B})^\transpose = \mat{B}^\transpose\mat{A}^\transpose$, 
+\hspace{2mm} $(\mat{A}\mat{B})^{-1} = \mat{B}^{-1}\mat{A}^{-1}$, 
+\hspace{2mm} $(\mat{A}^\transpose)^{-1}=(\mat{A}^{-1})^\transpose$, 
+\hspace{2mm} $(\mat{A}^\transpose)^\transpose = \mat{A}$.
+
 
 -------------------------
 
 
 \exam{\newpage}
 
-### Q1. Say whether the following statements are TRUE or FALSE. No explanation is necessary. 
+### Q1. Circle TRUE or FALSE for the following statements. No explanation is necessary. 
 ```{r q1-all-list,include=F}
 q_dirs <- list.files(pattern="^Q1")
 cat_file <- "tmp1.Rmd"

@@ -1,5 +1,5 @@
 
-We should use a smaller standard error when constructing a prediction interval than the standard error used for a confidence interval for the expected value of a new outcome.
+\TRUEorFALSE We should use a smaller standard error when constructing a prediction interval than the standard error used for a confidence interval for the expected value of a new outcome.
 
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```

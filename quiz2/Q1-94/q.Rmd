@@ -1,0 +1,9 @@
+
+\TRUEorFALSE Suppose that a volcanic activity index is statistically positively associated with change in global atmospheric carbon dioxide. We can safely conclude that volcanic activity causes measurable changes in global greenhouse gas levels. 
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+
+
