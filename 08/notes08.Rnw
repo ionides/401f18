@@ -3,6 +3,13 @@
 
 \input{../header.tex}
 \newcommand\CHAPTER{8}
+% \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
+% \newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
+ \newcommand\answer[2]{#1} % to show blank space
+<<R_answer,echo=F,purl=F>>=
+# ANS = TRUE
+# ANS=FALSE
+@
 
 \begin{document}
 
@@ -88,8 +95,8 @@ What if the model describes some parts of the data okay, but not other parts?
 \item Recall that the \myemph{residuals} for a linear model are \m{e_1,\dots,e_n} in the linear model \m{\vect{y}=\mat{X}\vect{b}+\vect{e}}.
 \item Residuals are also known as \myemph{residual errors} or \myemph{errors}.
 \item Residuals estimate the measurement errors \m{\epsilon_1,\dots,\epsilon_n} in the model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}.
-\item Statistical properties of \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} are usually carried out using a probability model that \m{\epsilon_1,\dots,\epsilon_n} are independent identically distributed (iid) \m{N[0,\sigma]}.
-\item iid random variables have no pattern.
+\item Statistical properties of \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} are usually carried out using a probability model that \m{\epsilon_1,\dots,\epsilon_n \sim\iid \; \normal(0,\sigma)}.
+\item independent identically distributed (iid) random variables have no pattern.
 \item Any pattern, or association with some other variable, that we can find in the residuals contradicts the model and could lead to improvements.
 \item The search for patterns in the residuals can take creativity and persistence.
 \end{myitemize}
@@ -106,8 +113,15 @@ What if the model describes some parts of the data okay, but not other parts?
 \item Time series might be expected to have measurements at points close in time that are more similar than those distant in time. If this is true of residuals, the pattern is inconsistent with the iid measurement error model.
 
 \end{myitemize}
-\question. How can we look for temporal patterns in the residuals? Think of (at least) two plots to make.
-\vspace{30mm}
+\end{frame}
+
+\begin{frame}
+
+\vspace{5mm}
+
+\myquestion. How can we look for temporal patterns in the residuals? Think of (at least) two plots to make.
+
+\answer{\vspace{100mm}}{todo}
 
 \end{frame}
 
@@ -134,7 +148,7 @@ lm1 <- lm(L_detrended~U_detrended)
 \item Some graphical investigations of the residuals follow on the next slide.
 \item One way to see if the residuals have statistically noticeable dependence is to fit a linear model to the residuals \m{e_{1:n}} of the form
 \mydisplaymath{
-e_i = \beta e_{i-1} + h_i,\quad \mbox{i=2,3,\dots,n},
+e_i = b e_{i-1} + h_i,\quad \mbox{for } i=2,3,\dots,n,
 }
 where \m{h_i} is the residual error when \m{e_{i-1}} is used to predict \m{e_i}.
 \end{myitemize}
@@ -168,6 +182,7 @@ summary(lm2)$coef
 
 \end{frame}
 
+%\end{document}
 
 \begin{frame}[fragile]
 
@@ -206,6 +221,7 @@ plot(lag_e,e)
 
 \end{frame}
 
+%\end{document}
 
 \begin{frame}[fragile]
 \frametitle{Why do the detrended residuals have a trend?}
@@ -219,19 +235,28 @@ plot(lag_e,e)
 @
 \end{myitemize}
 
-\vspace{-3mm}
+\vspace{-1.5mm}
 
 \myquestion. We removed a linear trend from both life expectancy and unemployment. What does that mean? What is the equation for the model that we have fitted?
+
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+
+
+%\end{document}
+
+\begin{frame}[fragile]
 
 \vspace{5mm}
 
 \myquestion. It is a statistical detective puzzle to figure out how the residuals from \code{lm1} can have a linear trend when all the variables are detrended. Any ideas? Plotting the variables may give a clue.
 
-\vspace{5mm}
+\answer{\vspace{5mm}}{todo}
 
 \end{frame}
 
-
+%\end{document}
 
 \begin{frame}[fragile]
 <<plot_L_code,eval=F,echo=T>>=
@@ -311,8 +336,9 @@ plot(L_detrended~Year,data=U)
 
 \myquestion. Can we do a better data analysis? How?
 
+\answer{
 \vspace{15mm}
-
+}{We will find out one way later.}
 \end{frame}
 
 
@@ -336,7 +362,7 @@ plot(L_detrended~Year,data=U)
 \frametitle{Outliers and responsible scientific conduct}
 
 \begin{myitemize}
-\item According to the National Science Foundation, \myemph{falsification} is the manipulation of research materials, equipment, or processes or changing or omitting data or results such that the research is not accurately represented in the research record (\url{https://en.wikipedia.org/wiki/Scientific_misconduct}).
+\item \myemph{Falsification} is the manipulation of research materials, equipment, or processes or changing or omitting data or results such that the research is not accurately represented in the research record (\url{https://en.wikipedia.org/wiki/Scientific_misconduct}).
 \end{myitemize}
 \myquestion. How could inappropriate treatment of outliers lead to charges of falsification? What can a careful data analyst do to avoid that?
 
@@ -366,7 +392,7 @@ plot(L_detrended~Year,data=U)
 %\begin{myitemize}
 %\item 
 %\end{myitemize}
-\myquestion. Sketch a scatterplot (i.e., a plot of \m{\vect{y}} against a single explanatory vector \m{\vect{x}} that has a point of high leverage, but not high influence.
+\myquestion. Sketch a scatterplot (i.e., a plot of \m{\vect{y}} against a single explanatory vector \m{\vect{x}}) that has a point of high leverage, but not high influence.
 
 \vspace{40mm}
 
@@ -418,7 +444,7 @@ plot(L_detrended~Year,data=U)
 \item Recall that a basic central limit theorem says that the average of many independent identically distributed (iid) random variables approximately follows a normal distribution.
 \item The least squares estimates of coefficients can be thought of as a kind of averaging of the data. This argument suggests (correctly!) that the distribution of these estimates should also follows a central limit theorem.
 \item Measurement error with very long tails may lead to observations that look like  outliers. They may also behave like outliers, and potentially have high influence.
-\item Usually, because of the central limit theorem, normality of errors is not especially important. It is more important for prediction intervals. Why?
+\item Usually, because of the central limit theorem, normality of errors is not especially important. It is more important for prediction intervals.
 \end{myitemize}
 
 \end{frame}
@@ -430,7 +456,9 @@ plot(L_detrended~Year,data=U)
 \begin{myitemize}
 \item Our usual probability model assumes (in addition to normality and independence) that the measurement errors have constant variance.
 \item Plotting the residuals (say, against fitted values or against time or against some other variable) may show that the spread of the residuals is larger in some places than others.
-\item Taking the logarithm of non-negative data may help in this case, as discussed previously in \url{https://ionides.github.io/401w18/06/log_transform.pdf}.
+\item Taking the logarithm of non-negative data may help in this case.
+\item 
+
 \end{myitemize}
 
 \end{frame}
