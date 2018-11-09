@@ -1,0 +1,239 @@
+---
+title: "Homework 8, STATS 401 F18"
+author: "Due in lab on 11/9"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+
+\newcommand\prob{\mathrm{P} }
+\newcommand\E{\mathrm{E} }
+\newcommand\mat[1]{\mathbb{#1} }
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1} } }
+\newcommand\transpose{ {\scriptscriptstyle \mathrm{T} } }
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov} }
+\newcommand\corSample{\mathrm{cor} }
+\newcommand\cor{\mathrm{Cor}}
+\newcommand\normal{\mathrm{normal} }
+\newcommand\iid{\mathrm{iid} }
+\newcommand\MVN{\mathrm{MVN} }
+
+**Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+--------------
+
+-------------
+
+### Making predictions and hypothesis tests.
+
+This homework continues the analysis of the newspaper circulation data from HW7. Refer back to HW7 for a description of the data and how to download it. Start by fitting a linear model on a logarithmic scale as follows.
+```{r read_data}
+circulation <- read.table("circulation.txt",sep="\t",header=T)
+circulation$log_Sunday <- log(circulation$Sunday)
+circulation$log_Weekday <- log(circulation$Weekday)
+lm1 <- lm(log_Sunday~log_Weekday+Competition,data=circulation)
+```
+
+**Q1**. Let the sample least squares model be $\vec{y}=\mat{X}\vec{b}+\vec{e}$ where $\mat{X}=[x_{ij}]_{n\times p}$ with $n=89$ and $p=3$. Write $\mat{X}=[ \vec{1} \; \vec{w} \; \vec{c}]$. Here,  $y_i$ is the log Sunday circulation of the $i$th paper,  $\vec{1}$ is a column vector of ones, $w_{i}$ is the log weekday circulation of the $i$th paper, and $c_{i}$ is the binary explanatory variable taking value 1 for tabloids with a serious competitor.
+
+(a) Suppose a new Sunday edition is proposed for a serious (i.e., non-tabloid) weekday paper with a circulation of 150,000.
+Find the numeric value of a row vector $\vec{x}^*$ and a column vector $\vec{b}$ such that $\vec{x^*}\vec{b}$ gives the least squares prediction of the log circulation for the proposed Sunday edition.
+
+<font color = "blue">
+*Q1a Solution*
+
+$\vec{x}^*$ = [1, log(150,000), 0]. The first value is the intercept, the second value is the log of the weekday circulation, and the last is 0 because we are told it is a serious paper.
+
+$\vec{b}$ = [-0.44730, 1.06133, -0.53137], the coefficients from the linear model.
+
+</font>
+
+(b) Find a standard error for this prediction, using matrix methods, and hence use a normal approximation to find a confidence interval for the expected logarithm of Sunday circulation.
+
+<font color = "blue">
+*Q1b Solution*
+
+Recall that the standard error for the expected value of a prediction is given by $SE(\vec{x^*b}) = s\sqrt{\vec{x^*}(\mathbb{X}^T\mathbb{X})^{-1}\vec{x^{*T}}}$.
+
+Recall that we can calculate this in R using the following:
+
+```{r}
+x <- c(1, log(150000), 0)
+pred <- x %*%coef(lm1)
+V <- summary(lm1)$cov.unscaled
+s <- summary(lm1)$sigma
+SE <- s*sqrt(x%*%V%*%x)
+c <- qnorm(0.975)
+cat("CI = [", round(pred-c*SE,5),
+", ", round(pred+c*SE,5), "]", sep = "")
+```
+
+</font>
+
+(c) Figure out how to use the `predict()` function to get a confidence interval for the expected log Sunday circulation. If you look at `?predict` you will see that `predict()` is a _generic function_. This means that `predict(object,...)` will look at the class of `object` when working out what to do. Here, we call `predict(lm1,...)` where `lm1` has class `lm` and so `predict()` should follow the rules for prediction using a fitted linear model. When `predict(lm1,...)` sees that `lm1` has class `lm`, it passes on its work to a function called `predict.lm()`. Therefore, `?predict.lm` gives you the necessary syntax for calling `predict(lm1,...)`. In particular, you will have to look through the arguments described in `?predict.lm` to see which are relevant to this particular question.
+Once you have a working call to `predict()` it becomes easier to adapt it to make it a correct answer to the question. You might like to use the following code as a starting point, though this is not intended to directly answer the question. 
+```{r}
+predict(lm1,newdata=data.frame(log_Weekday=12,Competition=1))
+```
+
+When you are comfortable with the methods for making predictions and confidence intervals with linear models, using `predict()` can save time. It is much easier to use a high-level function like `predict()` accurately and well once you have an understanding of the task you want it to carry out. For example, you should bear in mind that there are two related but different prediction problems (finding an interval estimate of the mean at a new value of the explanatory variables, and finding an interval estimate for a new observation measured at that set of explanatory variables). Somehow, `predict()` will have to be told which of these prediction problems you want to solve. 
+
+<font color = "blue">
+*Q1c Solution*
+
+```{r}
+predict(lm1,newdata=data.frame(log_Weekday=log(150000),Competition=0), interval = "confidence")
+```
+
+</font>
+
+(d) Your confidence interval from (c) should be close to your answer from (b) but may be slightly different. Looking at these numbers, do you think `predict.lm()` uses a normal approximation or a t distribution? Explain your reasoning.
+
+<font color = "blue">
+*Q1d Solution*
+
+We can see that the confidence interval calculated from the prediction function is slightly wider than the confidence interval that we calculated in part c. Because of this, I would guess that the predict function uses the t-distribution to calculate the confidence interval.
+
+In fact, we can check this by changing our "c" in part c to use the t-distribution with 86 degrees of freedom (from the summary of the linear model).
+
+```{r}
+c <- qt(0.975, df = 86)
+cat("CI = [", round(pred-c*SE,5),
+", ", round(pred+c*SE,5), "]", sep = "")
+```
+
+This gives us the exact confidence interval calculated from the predict function.
+
+</font>
+
+**Q2**. Explain some things you would look for to check whether your confidence interval from Q1(b) is trustworthy.
+
+<font color = "blue">
+*Q2 Solution*
+
+We should check that a weekday circulation of 150,000 is within the range of weekday circulation values seen in the data. We should also check that our predicted value of log Sunday circulation is similar to observed values of log Sunday circulations from similar serious papers.
+
+</font>
+
+**Q3**. We now turn to the problem of finding a prediction interval for the circulation of the proposed new Sunday edition. 
+
+(a) Explain how to use the data vector $\vec{y}$, the design matrix $\mat{X}$, and a row vector $\vec{x}^*$ to construct a normal approximation prediction interval that seeks to cover the logarithm of the circulation of the proposed new Sunday edition with a probability of 95%. 
+
+<font color = "blue">
+*Q3a Solution*
+
+We can use the same predicted value from Q1 part a. $\hat\vec{{y}} = \vec{x^*b}$, where $\vec{x^*}$ is the row vector for our new observation and $\vec{b}$ is the column vector of the fitted coefficients. $\vec{b}$ calculated as $(\mathbb{X}^T\mathbb{X})^{-1}\vec{y}$, where $\mathbb{X}$ is the design matrix of our model and $\vec{y}$ is our observed log Sunday circulations.
+
+We can calculate the standard error of our prediction as $SE_{pred}(\vec{x^*b}) = s\sqrt{1 + \vec{x^*}(\mathbb{X}^T\mathbb{X})^{-1}\vec{x^{*T}}}$.
+
+We can then construct a 95% prediction interval as [$\vec{x^*b}-1.96SE_{pred}(\vec{x^*b}), \vec{x^*b}+1.96SE_{pred}(\vec{x^*b})$].
+
+</font>
+
+(b) Carry out this matrix computation in R.
+
+<font color = "blue">
+*Q3b Solution*
+
+```{r}
+x <- c(1, log(150000), 0)
+pred <- x %*%coef(lm1)
+V <- summary(lm1)$cov.unscaled
+s <- summary(lm1)$sigma
+SE <- s*sqrt(1 + x%*%V%*%x)
+c <- qnorm(0.975)
+cat("PI = [", round(pred-c*SE,5),
+", ", round(pred+c*SE,5), "]", sep = "")
+```
+
+</font>
+
+(c) Figure out how to use `predict()` to get a comparable prediction interval.
+
+<font color = "blue">
+*Q3c Solution*
+
+```{r}
+predict(lm1,newdata=data.frame(log_Weekday=log(150000),Competition=0), interval = "prediction")
+```
+
+</font>
+
+(d) Comment on what "probability of 95%" means in the context of part (a). Is the introduction of a new Sunday newspaper a repeatable experiment? How does the interpretation of a probability statement depend on whether one can carry out repetitions?
+
+<font color = "blue">
+*Q3d Solution*
+
+Suppose we were able to construct many 95% prediction intervals for the logarithm of the circulation of the proposed new Sunday edition. Then, we would expect 95% of them to cover the true value. We can think of the prediction interval that we calculated as being a random draw from these potential 95% prediction intervals. Therefore, our prediction interval will cover the true value with a probability of 95%. 
+
+The introduction of a new Sunday newspaper is a repeatable experiment in theory; however, it may not be a repeatable experiment in practice.
+
+The interpretation of the probability statement changes depending on whether we can carry out repetitions. If we can, then the probablity statement holds. However if we cannot, all we can say is that we are 95% confident that our 95% prediction interval contains the true value after we've calculated the prediction.
+
+</font>
+
+**Q4**. Transforming data, such as by taking the logarithm, is a useful technique to build a good statistical model but the transformation has to be undone (inverted) if you want to pull answers back to the scale of the original data. The inverse of the natural logarithm is the natural exponent. In math, 
+\[
+\log(e^x)=e^{\log(x)}=x
+\] 
+In R, 
+```{r}
+log(exp(5))
+exp(log(5))
+```
+Construct a prediction interval for Sunday circulation. This involves moving the prediction interval in Q3(b) for log Sunday cirulation back to the original un-logged scale.
+
+<font color = "blue">
+*Q4 Solution*
+
+Our interval from Q3b was PI = [11.92666, 12.47742] in log-Sunday circulation units.
+
+To convert to Sunday circulation units, we exponentiate the lower and upper bounds of our prediction interval.
+
+$$
+[e^{11.92666}, e^{12.47742}]
+$$
+
+In R,
+
+```{r}
+cat("PI = [", exp(round(pred-c*SE,5)),
+", ", exp(round(pred+c*SE,5)), "]", sep = "")
+```
+
+</font>
+
+**Q5**. How compelling is the evidence that there is a real difference between newspapers which are tabloid with a serious competitor (`Competition==1`) and the other papers (`Competition==0`)? Address this question by specifying a suitable null hypothesis and making an appropriate hypothesis test. 
+
+$$
+H_0: \beta_2 = 0 \\
+H_a: \beta_2 \ne 0
+$$
+
+Recall: Under the null hypothesis $\beta_2$ ~ $N(0, SD(\beta_2))$. We can approximate $SD(\beta_2)$ with $SE(b_2))$.
+
+Therefore, we can calculate $P(|\hat\beta_1| > |b_1|)$ using $2*pnorm(b_1, 0, SE(b_1))$.
+```{r}
+2*pnorm(summary(lm1)$coefficients["Competition", "Estimate"],
+      mean = 0,
+      sd = summary(lm1)$coefficients["Competition", "Std. Error"])
+```
+
+
+-----
+
+-------------
+
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+Acknowledgement: The circulation data come from S. J. Sheather (2009) "A Modern Approach to Regression with R."
+
+------
