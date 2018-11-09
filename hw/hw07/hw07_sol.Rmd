@@ -1,0 +1,170 @@
+---
+title: "HW07 Solutions"
+author: "STATS401 team"
+output: html_document
+---
+
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE}
+set.seed(401)
+```
+
+
+First, load the data
+```{r}
+circulation = read.table("https://ionides.github.io/401f18/hw/hw07/circulation.txt", sep = "\t", header = T)
+```
+
+## Q1
+
+(a) 
+```{r}
+plot(Sunday~Weekday, pch=ifelse(Competition,2,1), data=circulation)
+```
+
+
+(b) Examining the plot below, we can see that the values that disappear correspond to `Competition == 0`. R has filled in 1 for the `Competition == 1` values and 0 otherwise. However, col = 0 corresponds to white so the points disappear.
+```{r}
+plot(Sunday~Weekday, col=Competition, data=circulation)
+```
+
+(c)
+
+We plot the log transformed data below:
+```{r}
+circulation$log_Sunday <- log(circulation$Sunday)
+circulation$log_Weekday <- log(circulation$Weekday)
+
+plot(log_Sunday ~ log_Weekday,
+     col=ifelse(Competition,"red","blue"),
+     pch = ifelse(Competition,1,4),
+     data=circulation)
+```
+
+Before we take the log transform, there were many values clustered in the bottom left corner. After taking the log transform, the data are more football shaped, so it looks like it would be better to fit the linear model on a log scale.
+
+## Q2
+
+```{r}
+lm1 = lm(log_Sunday~log_Weekday+Competition,data=circulation)
+X = model.matrix(lm1)
+y = circulation$log_Sunday
+```
+
+(a)
+
+For the coefficients we calculate $$\textbf{b} = (\mathbb{X}^\top \mathbb{X})^{-1} \mathbb{X}^\top \textbf{y}$$
+```{r}
+b = solve(t(X) %*% X) %*% t(X) %*% y
+b
+```
+
+For the standard errors, we first calculate the residual standard error $s$. We have the formula $$s = \sqrt{\frac{1}{n-p}\sum_{i = 1}^{n}(y_i - \hat{y}_i)^2} = \sqrt{\frac{1}{n-p}\textbf{e}^\top \textbf{e}}$$
+where $\textbf{e}$ is the vector of residuals. We calculate this below:
+```{r}
+e = y - X %*% b
+n = nrow(X)
+p = ncol(X)
+
+s = sqrt((t(e) %*% e)/(n-p))
+```
+
+The standard errors for each coefficient are then obtained by calculating the matrix $(\mathbb{X}^\top\mathbb{X})^{-1}$ and multiplying the square root of the diagonal elements by the residual standard error:
+```{r}
+XtX_inv = solve(t(X) %*% X)
+std_errs = as.vector(s)*sqrt(diag(XtX_inv))
+std_errs
+```
+Note that in the code above, we write `as.vector(s)*sqrt(diag(XtX_inv))` instead of `s*sqrt(diag(XtX_inv))` because R gives an error in the latter case. Using the code written converts `s` into a 1-by-1 matrix, which R then multiplies by each element of `sqrt(diag(XtX_inv))`.
+
+(b)
+We can see the values calculated in part (a) match the values from `lm1`:
+```{r}
+b
+coefficients(lm1)
+```
+
+```{r}
+std_errs
+summary(lm1)$coefficients[,2]
+```
+
+(c)
+We can see that the residual standard error we calculated in part (b) matches the one from lm1:
+
+```{r}
+s
+summary(lm1)$sigma
+```
+
+In this case, the degrees of freedom is the value used in the denominator when calculating $s$. One way to think of the degrees of freedom is the effective number of observations that we have available to estimate the residual standard error. Because we estimate 3 parameters (the coefficients), we subtract 3 from $n = 89$ to obtain the degrees of freedom.
+
+## Q3
+The probability model is $$\textbf{Y} = \mathbb{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}$$
+
+where 
+
+- $\textbf{Y} = (Y_1, \dots, Y_{89})$ is a vector random variable modeling the log of Sunday circulation for the 89 newspapers
+- $\mathbb{X}$ is the design matrix $\begin{bmatrix}
+\textbf{1} & \textbf{x}_1 &  \textbf{x}_2
+\end{bmatrix}$
+    - $\textbf{x}_1 = (x_{1,1}, \dots, x_{89,1})$ is a vector of the log weekday circulations
+    - $\textbf{x}_2 = (x_{1,2}, \dots, x_{89,2})$ is `Competition` variable, where $x_{i,2} = 1$ if the newspaper is a tabloid with a competing serious newspaper and 0 otherwise
+    - All the values in $\mathbb{X}$ are fixed values
+- $\boldsymbol{\beta} = (\beta_0,\beta_1,\beta_2)$ is the vector containing the true intercept and the 2 true coefficients (corresponding to the log weekday circulations and the `Competition` variable). These values are also fixed (but unknown)
+- $\boldsymbol{\epsilon} = (\epsilon_1, \dots, \epsilon_{89})$ is a vector random variable of the true errors
+    - $\boldsymbol{\epsilon}$ follows a multivariate normal distribution with mean vector $(0, \dots, 0)$ and variance-covariance matrix $\sigma^2\mathbb{I}$
+    - Equivalently, we can write that $\epsilon_i$'s are iid normal with mean 0 and standard deviation $\sigma$
+
+## Q4
+Our confidence interval is given by $$b_2 \pm 1.96 \times \text{SE}(b_2)$$
+
+where 1.96 was obtained as the 97.5 percentile of the standard normal distribution (i.e., `qnorm(.975)`). We can use the values calculated in question 2. We are interested in the third coefficient (since that corresponds to the `Competition` variable):
+```{r}
+lwr = b[3] - 1.96*std_errs[3]
+upr = b[3] + 1.96*std_errs[3]
+c(lwr,upr)
+```
+Assuming our sample is a realization from the probability model defined in question 3, we are 95% confident that this confidence interval contains our true coefficient $\beta_2$. What this means is that if we were to repeatedly sample from our probability model and construct a confidence interval each time, we would expect $\beta_2$ to be in approximately 95% of the confidence intervals constructed.
+
+## Q5
+
+(a)
+We have an intercept $b_0$ when `Competition == 0` and an intercept of $b_0 + b_2$ when `Competition == 1` (see part (b) for more details). We have a slope of $b_1$ for both lines. We can plot these lines using the following code:
+
+```{r}
+slope = coefficients(lm1)[2]
+intercept0 = coefficients(lm1)[1]
+intercept1 = coefficients(lm1)[1] + coefficients(lm1)[3]
+
+plot(log_Sunday ~ log_Weekday,
+     col=ifelse(Competition,"red","blue"),
+     pch = ifelse(Competition,1,4),
+     data=circulation)
+
+abline(a = intercept0, b = slope)
+abline(a = intercept1, b = slope)
+```
+
+(b)
+
+On the plot above, we can see one line corresponding to `Competition == 0` and another line corresponding to `Competition == 1`, where the slope is the same for the lines. Thus we can see the linear model that was fit is equivalent to including two different intercepts, corresponding to the two levels of `Competition`.
+
+We can also see this from the fitted model: $\hat{y}_i = b_0 + b_1x_{i1} + b_2x_{i2}$ for $i = 1, \dots, 89$. When `Competition` is equal to 0 (i.e., $x_{i2} = 0$), this equivalent to $\hat{y}_i = b_0 + b_1x_{i1}$. When `Competition` is equal to 1 (i.e., $x_{i2} = 1$), this equivalent to $\hat{y}_i = b_0 + b_1x_{i1} + b_2 = (b_0 + b_2) + b_1x_{i1}$. For each case, the slope is the same ($b_1$), while the intercept is $b_0$ for `Competition == 0` and $b_0 + b_2$ for `Competition == 1`.
+
+## Q6
+
+A causal interpretation for the coefficient for `Competition` would mean that being a tabloid with a competing serious newspaper results in a reduction in log weekday circulation. A causal interpretation would allow us to predict the consequence of an intervention. For example, if a serious competitor started up, we would predict a decrease (relative to weekday circulation) by the amount of the coefficient.
+
+To infer a causal relationship, we need to believe that we have controlled for all potential confounders, such that the only difference between the two groups is whether they are a tabloid with a competing serious newspaper or not. Often we infer causality using a randomized experiment, as we could use randomization to control for confounders; however, this is an observational study.
+
+In this case, it does not seem plausible that we have controlled for all confounders. While we do control for log weekday circulation by including it in the linear model, there may still be other confounders unrelated to log weekday circulation. For example, newspapers in certain locations might have higher Sunday circulation and serious newspapers may be more likely to be in these locations.
