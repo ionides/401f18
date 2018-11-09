@@ -1,9 +1,9 @@
 
 \color{blue}
 
-*Solution* 
+**Solution**
 
-The confidence and the prediction intervals should both contain the predicted value, $\vect{x^*\hat\beta}$. The prediction interval should contain the confidence interval, i.e. the prediction interval should be wider than the confidence interval. The predicted temperature should be reasonable. Check the data.
+The confidence and the prediction intervals should both contain the predicted value, $\vect{x^*\hat\beta}$. The prediction interval should contain the confidence interval, i.e. the prediction interval should be wider than the confidence interval. The interval should look reasonable, based on inspecting a plot of the data.
 
 \color{black}
 

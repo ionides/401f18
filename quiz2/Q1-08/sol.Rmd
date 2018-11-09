@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. Since we only have 30 observations, the t prediction interval will be noticeably wider than the normal interval. The assumptions for the t interval are appropriate here, so it is better to use the exact t distribution (taking into account uncertainty in estimating $\sigma$) rather than making a normal approximation.
+
+\color{black}
+

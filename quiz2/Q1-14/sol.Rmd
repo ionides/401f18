@@ -1,0 +1,11 @@
+
+\color{blue}
+
+**Solution**. TRUE. We can calculate as follows.
+\begin{eqnarray*}
+\prob(X<-c) &=& \prob(X> c) \hspace{1.5cm} \text{(by symmetry)}\\
+&=& 1- \prob(X < c)
+\end{eqnarray*}
+
+\color{black}
+

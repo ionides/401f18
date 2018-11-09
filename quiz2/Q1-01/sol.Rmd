@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. The equation $y = b_1 x + b_2$ denotes a line corresponding to the least squares fit for a sample when $b_1$ and $b_2$ are the least squares coefficients for a simple linear regression model. Substituting $x=0$ gives $y=b_2$.
+
+\color{black}
+

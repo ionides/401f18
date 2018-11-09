@@ -1,9 +1,9 @@
 
 \color{blue}
 
-*Solution* 
+**Solution**
 
-$[\vect{x^*\hat\beta - 1.96SE}, \vect{x^*\hat\beta + 1.96SE}]$, where $SE = s\sqrt{\vect{x^*}(\mathbb{X}^T\mathbb{X})^{-1}\vect{x^{*T}}}$. $\vect{x^*}$ is the new observed value and $\mathbb{X}$ is the design matrix. s is an approximation of $\sigma$, the standard deviation of the errors.
+$[\vec{x}^*\vec{\hat\beta} - 1.96\,\SE, \vec{x^*}\vec{\hat\beta} + 1.96\,\SE]$, where $\SE = s\sqrt{\vect{x^*}(\mathbb{X}^T\mathbb{X})^{-1}\vect{x^{*T}}}$. $\vect{x^*}$ is a row vector of the new observed covariates and $\mat{X}$ is the design matrix; $s$ is an approximation of $\sigma$, the standard deviation of the errors.
 
 \color{black}
 

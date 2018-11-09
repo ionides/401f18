@@ -1,6 +1,10 @@
 The director of the CDC wants to assess how well rates of hospital-acquired infections (`Infection.risk`) can be predicted using properities of a hospital. She expects to use the average length of stay (`Length.of.stay`) in days, the average number of cultures for each patient without signs or symptoms of hospital-acquired infection, times 100 (`Culture`), the number of X-ray procedures divided by number of patients without signs or symptoms of pneumonia, times 100 (`X.ray`), and the number of beds a hospital has (`Beds`).
 
-Let $\vect{x_1}$ be the length of stay, $\vect{x_2}$ be the culture count, $vect{x_3}$ be the number of X-rays, and $vect{x_4}$ be the number of beds. Consider the probability model $$Y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4} + \epsilon_i$$ for $i = 1, \dots, 113$ where $\epsilon_i$ are iid normal($0, \sigma$).
+Let $\vect{x_1}$ be the length of stay, $\vect{x_2}$ be the culture count, $\vect{x_3}$ be the number of X-rays, and $\vect{x_4}$ be the number of beds. Consider the probability model 
+\[
+Y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4} + \epsilon_i
+\]
+for $i = 1, \dots, n$ with $n=113$, and $\epsilon_1,\dots,\epsilon_n\sim\iid \; \normal(0, \sigma)$.
 
 She fits the linear model corresponding to this probability model in R:
 
@@ -16,12 +20,12 @@ round(summary(lm1)$coefficients[,1:2], 5)
 ```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
 
-(b) What is the distribution of your test statistic from a?
+(b) What is the distribution of your test statistic from part (a)?
 
 ```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
 ```
 
-(c) Suppose we know that a local hopital has an average length of stay of 8 days, the average culture count is 14, the average number of X-rays is 90, and the number of beds is 40. Find the predicted value for this observation; you do not need to simplify.
+(c) Suppose we know that a local hopital has an average length of stay of 8 days, the average culture count is 14, the average number of X-rays is 90, and the number of beds is 40. Find a numeric expression for the predicted value for this observation; you are not expected to evaluate it.
 
 ```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
 ```

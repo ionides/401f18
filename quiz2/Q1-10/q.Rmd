@@ -1,0 +1,8 @@
+\TRUEorFALSE  If two random variables are uncorrelated, this means they are independent.
+
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+

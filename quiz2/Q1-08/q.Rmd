@@ -1,0 +1,9 @@
+
+\TRUEorFALSE Suppose we have been recruited to help study the effect of phone use an hour before bed and the amount of sleep undergraduate students get. We survey 30 undergraduate students, recording the number of minutes they report using their phone in the hour before bed and how long they slept. A scatterplot of the data look football-shaped, so we model the data using a linear model with normal measurement error. A friend asks you to guess how much sleep he gets when he uses his phone for 40 minutes before bed. In this case, it is clearly better to use the t-distribution than the normal distribution to construct our prediction interval for how much sleep your friend receives.
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+
+

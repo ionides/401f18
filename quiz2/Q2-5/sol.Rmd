@@ -1,23 +1,40 @@
+
 \color{blue}
 
 **Solution**.  
+Since $\text{Cor}(X,Y)=1$ this means that $X$ and $Y$ are linear, so we can write $Y=aX+b$ for some constants $a>0$ and $b$. 
 
-Since $\prob(X_1=0) + \proc(X_1=-1) + \prob(X_1=1) = 1$, therefore, $\prob(X_1=-1) = 1-0.6=0.4$  
+The fact that $\prob(X>y)=0.8413448$ gives one equation for $a$ and $b$.
+\[\prob(X>Y) = \prob(Y-X<0) = \prob(aX+b -X <0) = \prob((a-1)X+b<0) = \prob(X<\frac{-b}{a-1}) = 0.8413448
+\]
+Since `qnorm(0.8413448)`=1 this means that $\prob(X<1)=0.8413448$. Since we just found $\prob(X<\frac{-b}{a-1}) =0.8413448$ we deduce that $\frac{-b}{a-1} = 1$ and so
+\[
+-b=a-1.
+\]
 
-$\mathbb{E}(X_1)=0 \times 0.2 + 1 \times 0.4 - 1 \times 0.4 = 0$
-
-$\mathbb{E}(X_1^2)=0 \times 0.2 + 1^2 \times 0.4 + (-1)^2 \times 0.4 = 0.8$
-
-$Var(X_1)=\mathbb{E}(X_1^2)-(\mathbb{E}(X_1))^2=0.8 - (0)^2 = 0.8$
+The fact that $\prob(X<Y+1) 0.5$ gives us a second equation.
+\begin{eqnarray*}
+\prob(X<Y+1)&=& \prob(Y-X+1>0) = \prob(aX+b+1-X>0)\\
+ &=& \prob((a-1)X+b+1>0) = \prob(X>\frac{-b-1}{a-1}) = 0.5
+\end{eqnarray*}
+Since $\prob(X>0) = 0.5$ this means that $\frac{-b-1}{a-1}=0$, so $b=-1$.
+From above, $-b=a-1$ so $a=1-b$ which means that $a=2$.
   
-  
-$\mathbb{E}(\bar{X})=\mathbb{E}(\frac{\sum_{i=1}^n X_i}{n})=\frac{\sum_{i=1}^n X_i}{n} = \frac{n\mathbb{E}X_1}{n}=n\mathbb{E}X_1 =0$
+So, $Y=2X-1$ where $X\sim\mathcal{N}(0,1)$  
+So $Y$ is also normal, since the linear combination of normal variables is normal. We can work out its mean and variance,
+\[
+\E(Y) = \E(2X-1) = 2\E(X) -1 = -1
+\]
+\[  
+\var(Y) = \var(2X-1) = 2^2\, \var(X) = 4.
+\]
+So, $Y\sim\normal(-1,2)$ and 
+\begin{eqnarray*}
+\prob(-2<Y<2) &=& \prob(Y<2) - \prob(Y<-2) 
+\\
+&=& \mathtt{pnorm(2,-1,2) - pnorm(-2,-1,2)}.
+\end{eqnarray*}
 
-$Var(\bar{X})=Var(\frac{\sum_{i=1}^n X_i}{n})= \frac{1}{n^2} Var(\sum_{i=1}^n X_i) = \frac{1}{n^2} \sum_{i=1}^n \text{Var}(X_i)= \frac{1}{n^2} n Var(X_1)=\frac{0.8}{n}$
-
-So, $\bar{X}\sim\mathcal{N}(0,\frac{0.8}{n})$
-  
-  
-Since $n=100$, so $\bar{X}\sim\mathcal{N}(0,0.008)$  
-So, c = qnorm(0.05,0,0.008,lower.tail=FALSE)  
 \color{black}
+
+

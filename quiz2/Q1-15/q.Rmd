@@ -1,0 +1,9 @@
+
+\TRUEorFALSE  Let $X\sim\normal(\mu,\sigma)$. Then $\prob(X< -c) = 1-\prob(X<c+\mu)$ where $c>0$.
+
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+

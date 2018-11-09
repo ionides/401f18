@@ -1,7 +1,7 @@
 
 \color{blue}
 
-*Solution* 
+**Solution**
 
 $$
 \begin{aligned}

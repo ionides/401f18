@@ -1,11 +1,13 @@
 
 \color{blue}
 
-*Solution* 
+**Solution**
 
 $\mathbf{x}^*=(1,100,1000)$
 
-$\hat y^* = 195.894 + 100(-0.135) + 1000(-0.045) = 137.394$
+$\hat y^* = 195.894 + 100(-0.135) + 1000(-0.045)$
+
+(Evaluation gives  $\hat y^* = 137.394$)
 
 \color{black}
 

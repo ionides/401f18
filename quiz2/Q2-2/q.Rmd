@@ -1,11 +1,18 @@
 
 Let $X_1,X_2,\dots,X_n$ be independent random variables each of which take the value 0 with probability 0.5, 1 with probability 0.25 and -1 with probability 0.25. 
-Find the mean and variance of $X_1$. Use this to find the mean and variance of $\bar{X}=\frac{1}{n}\sum_{i=1}^n X_i$. 
-Now suppose $n=100$ and suppose that $\bar X$ is well approximated by a normal distribution. Find a number $c$ such that $\prob(-c<\bar X<c)$ is approximately 0.9. 
+
+(a) Find the mean and variance of $X_1$. 
+
+(b) Use (a) to find the mean and variance of $\bar{X}=\frac{1}{n}\sum_{i=1}^n X_i$. 
+
+(c) Now suppose $n=200$ and suppose that $\bar X$ is well approximated by a normal random variable. Find a number $c$ such that $\prob(-c<\bar X<c)$ is approximately 0.9. 
 Write your answer as a call to `qnorm()`. Your call to qnorm may involve specifying any necessary numerical calculations that you can't work out without access to a computer or calculator.
 
 
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```
+
+---------------
+
 
 

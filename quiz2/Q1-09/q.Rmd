@@ -1,0 +1,10 @@
+
+\TRUEorFALSE Data $\vec{y}$ are modeled using the probablity model $\vec{Y} = \mat{X}\vec{\beta} + \vec{\epsilon}$. The model-generated fitted vector of fitted values is $\vec{\hat{Y}} = \mat{X}\vec{\hat\beta}$. The sample residual vector $\vec{e}$ can be written as $\vec{e}=\vec{y}-\vec{\hat{y}}$ and so a model-generated residual vector is $\vec{\hat{\epsilon}} = \vec{Y} - \vec{\hat{Y}}$. By the definition of measurement error, $\E[\vec{\epsilon}]=\vec{0}$. Is it true or false that $\E[\vec{\hat\epsilon}]=\vec{0}$?
+
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+
+

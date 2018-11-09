@@ -1,7 +1,0 @@
-\TRUEorFALSE  If two random variables are independent, this means they are unorrelated.
-
-
-```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
-```
-
-----------

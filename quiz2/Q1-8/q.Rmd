@@ -1,9 +1,0 @@
-
-\TRUEorFALSE Suppose we have been recruited to help study the effect of phone use an hour before bed and the amount of sleep undergraduate students get. We survey 50 undergraduate students and fit a model to the data. A friend asks you to guess how much sleep he gets when he uses his phone for 40 minutes before bed. In this case, it is more appropriate to use the t-distribution than the normal distribution to construct our prediction interval for how much sleep your friend receives.
-
-```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
-```
-
-----------
-
-

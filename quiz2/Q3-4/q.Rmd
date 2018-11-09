@@ -9,7 +9,11 @@ We collect the following variables for each of the 47 French-speaking provinces 
 * Catholic: % ‘catholic’ (as opposed to ‘protestant’).
 * Infant.Mortality: live births who live less than 1 year. 
 
-Let $\vect{x_1}$ be the agriculture rate, $\vect{x_2}$ be the examination rate, $vect{x_3}$ be the education rate, and $vect{x_4}$ be the catholic rate, and $\vect{x_5}$ be the infant mortality rate. Consider the probability model $$Y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4}+ \beta_5x_{i5} + \epsilon_i$$ for $i = 1, \dots, 113$ where $\epsilon_i$ are iid normal($0, \sigma$).
+Let $\vect{x_1}$ be the agriculture rate, $\vect{x_2}$ be the examination rate, $\vect{x_3}$ be the education rate, $\vect{x_4}$ be the catholic rate, and $\vect{x_5}$ be the infant mortality rate. Consider the probability model 
+\[
+Y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4}+ \beta_5x_{i5} + \epsilon_i
+\]
+for $i = 1, \dots, n$ with $n=47$ and $\epsilon_1,\dots,\epsilon_n\sim\iid\;\normal(0, \sigma)$.
 
 We fit a the regression model corresponding to this probability model in R:
 
@@ -26,12 +30,12 @@ round(summary(lm1)$coefficients[,1:2], 3)
 ```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
 
-(b) What is the distribution of your test statistic from a? What would we expect our conclusion to be for our hypothesis test in part a (no calculations necessary)?
+(b) (i) What is your test statistic for part (a)? (ii) What is the distribution of a model-generated test statistic under the null hypothesis? (iii) What is your conclusion for the hypothesis test in part (a)? No calculations are necessary.
 
 ```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
 ```
 
-(c) A new province is conquered in 1889 and its statistics are added to our data. This new province had an agriculture rate of 70%, examination rate of 22%, and education rate of 10%, a catholic rate of 50%, and an infant mortality rate of 20%. Calculate the predicted value of this new province.
+(c) A new province is conquered in 1889 and its statistics are added to our data. This new province had an agriculture rate of 70%, examination rate of 22%, and education rate of 10%, a catholic rate of 50%, and an infant mortality rate of 20%. Find a numeric expression for the predicted fertility rate of this new province.
 
 ```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
 ```

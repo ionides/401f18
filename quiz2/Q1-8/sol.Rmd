@@ -1,7 +1,0 @@
-
-\color{blue}
-
-**Solution**. TRUE. Since we only have 50 observations, it is more appropriate to use the t-distribution to construct the prediction interval for the amount of sleep your friend gets when he uses his phone for 40 minutes before bed.
-
-\color{black}
-

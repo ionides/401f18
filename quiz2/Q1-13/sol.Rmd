@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. This is a useful special property of the multivariate normal distribution.
+
+\color{black}
+

@@ -1,3 +1,4 @@
+
 We are interested in studying the relationship between the miles per gallon of a car and the number of cylinders its engine has. In the following data set, `mpg` corresponds to the miles per gallon of each car. The variable `cylinders` corresponds to the number of cylinders and takes the values "4 cyl", "6 cyl", or "8 cyl." The variable `horsepower` corresponds to the horse power of each car.
 
 ```{r, echo=F}

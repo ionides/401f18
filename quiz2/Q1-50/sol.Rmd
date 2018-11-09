@@ -1,7 +1,0 @@
-
-\color{blue}
-
-**Solution**. TRUE. A slight issue arises if the model is over-parameterized and so the least squares coefficients are not uniquely identified. In this case, the standard error on the coefficients is infinite even when the model fits the data perfectly. TRUE remains a better answer despite this issue.
-
-\color{black}
-

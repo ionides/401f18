@@ -1,11 +1,13 @@
 
 \color{blue}
 
-*Solution* 
+**Solution**
 
-Under the null hypothesis, our test statistic, $b_1$ has a normal distribution with a mean of 0 and a standard deviation of 0.070, i.e. $b_2$ ~ $N(0, 0.254)$.
+    (i) Our sample test statistic is $b_2$.
 
-We would expect to fail to reject our null hypothesis from part a because our standard error is about the same size as our estimate. If we were to construct a confidence interval for $\beta_2$, we would expect the confidence interval to contain 0.
+    (ii) The model-generated test statistic $\hat\beta_2$ under the null hypothesis has approximately a normal distribution with a mean of 0 and a standard deviation of 0.070, i.e. $\hat\beta_2\sim \normal(0, 0.070)$.
+
+    (iii) We do not have evidence to reject our null hypothesis from part (a) because our standard error is about the same size as our estimate. For example, if we were to construct a 95% confidence interval for $\beta_2$, the confidence interval would include 0.
 
 \color{black}
 

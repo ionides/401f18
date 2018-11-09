@@ -1,0 +1,6 @@
+
+\color{blue}
+
+**Solution**. FALSE. Correlation is a measure of linear dependence. Zero correlation means that the veriables are LINEARLY independent. For instance, if $X$ is uniformly distributed on the interval $[-1,1]$ and $Y=X^2$, then $\cor(X,Y)=0$ but $X$ and $Y$ are not independent.
+
+\color{black}

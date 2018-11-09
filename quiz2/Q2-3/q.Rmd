@@ -11,4 +11,7 @@ Let $X_1,X_2,\dots,X_n$ be independent random variables each of which take value
 ```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
 ```
 
+---------------------
+
+
 

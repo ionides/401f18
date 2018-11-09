@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. You can imagine fitted lines with arbitrarily high residual sum of squares (RSS). There is a unique line mimimizing RSS (except in the special case where $x_1=x_2=\dots=x_n$).
+
+\color{black}
+

@@ -35,7 +35,7 @@ Suppose we observed a new outcome $\vect{x^*}$
 ```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
 ```
 
-(d) Calculate the 95% confidence interval for the relationship between oxygen levels and water temperature.
+(d) Find a numeric expression for the 95% confidence interval for the relationship between oxygen levels and water temperature.
 
 ```{r,child=paste(my_dir, "/sol_d.Rmd",sep=""),eval=SOL}
 ```

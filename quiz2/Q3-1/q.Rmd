@@ -14,7 +14,8 @@ Here, $y_i$ is a measurement of total larva protein at the end of the experiment
 
 Suppose we're interested in predicting the protein in a new observation at 100ppm copper and 1000ppm zinc.
 
-(a) Specify the values in a row matrix $\vect{x}^*$ such that $\vect{y}^*=\vect{x}^*\vect{b}$ gives a least squares prediction of the new observation. Calculate the predicted value.
+(a) Specify the values in a row matrix $\vect{x}^*$ such that $\vect{y}^*=\vect{x}^*\vect{b}$ gives a least squares prediction of the new observation. Find a numerical expression for this: you are not expected to evaluate the expression.
+
 
 ```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
@@ -24,7 +25,7 @@ Suppose we're interested in predicting the protein in a new observation at 100pp
 ```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
 ```
 
-(c) Calculate a 95% confidence interval for the relationship between zinc exposure and protein content in minnow larvae.
+(c) Find a numerical expression for a 95% confidence interval for the relationship between zinc exposure and protein content in minnow larvae.
 
 ```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
 ```

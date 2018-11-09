@@ -1,5 +1,0 @@
-\color{blue}
-
-**Solution**. TRUE. If two normal variables are uncorrelated, then this implies that they are independent only if they are bivariate normal.
-
-\color{black}

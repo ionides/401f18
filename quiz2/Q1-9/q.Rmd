@@ -1,9 +1,0 @@
-
-\TRUEorFALSE The probablity model from which the data is generated is **$Y = \mathbb{X}\beta + \epsilon$** and the model-generated estimate of the expected value is **$\hat{Y} = \mathbb{X}\hat\beta + \epsilon$**. In fact, the model-generated estimate of **$\epsilon$** is **$\hat{\epsilon} = Y - \hat{Y}$**, which we know has an expected value of 0. This suggests that the residuals of our model must also have a mean of 0. (Hint: Think of the expected value of **$\hat{\epsilon}$**)
-
-```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
-```
-
-----------
-
-

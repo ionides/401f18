@@ -1,7 +1,0 @@
-
-\color{blue}
-
-**Solution**. FALSE. A central limit property applies to the prediction mean - it is the sum of small contributions from many data points. Therefore, a normal approximation is appropriate for the confidence interval even when the residuals indicate non-normality. The prediction interval is dominated by a single measurement error, so is not rescued by a central limit property.
-
-\color{black}
-

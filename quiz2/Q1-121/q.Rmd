@@ -1,7 +1,0 @@
-\TRUEorFALSE  Let $X\sim\mathcal{N}(0,1)$. Then $\text{P}(X< -c) = 1-\text{P}(X<c)$ where $c>0$.
-
-
-```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
-```
-
-----------

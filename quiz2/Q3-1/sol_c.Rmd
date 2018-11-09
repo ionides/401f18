@@ -1,16 +1,13 @@
 
 \color{blue}
 
-*Solution*
+**Solution**
 
 The 95% confidence interval for the relationship between zinc exposure and protein in minnow larvae is
-
-$$\begin{aligned}
-\hat{\beta}^* \pm 1.96SE(\hat\beta) \\
--0.045 \pm 1.96(0.007) \\
-[-0.058, -0.031]
-\end{aligned}
-$$.
+\[
+\hat{\beta}^* \pm 1.96SE(\hat\beta) = -0.045 \pm 1.96(0.007) 
+\]
+(This evaluates numerically to $[-0.058, -0.031]$.)
 
 \color{black}
 

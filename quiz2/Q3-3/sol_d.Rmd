@@ -1,7 +1,7 @@
 
 \color{blue}
 
-*Solution* 
+**Solution**
 
 We should check that our observed values for the average length of stay, the average culture count, the average number of X-rays, and the number of beds for the new hospital are similar to values observed in the data. We should also check that the predicted infection rate for the hospital makes sense given the observed explanatory variables based on similar hospitals in the data. 
 

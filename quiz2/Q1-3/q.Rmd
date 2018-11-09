@@ -1,9 +1,0 @@
-
-\TRUEorFALSE Sometimes a histogram of the residuals deviates considerably from a normal curve, indicating violation of the modeling assumption of normal errors for a linear model. This violation is more problematic for a confidence intervals on a prediction mean than for a prediction interval.
-
-```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
-```
-
-----------
-
-

@@ -1,0 +1,7 @@
+
+\color{blue}
+
+**Solution**. TRUE. If two variables are independent then larger values of one variable cannot be associated with larger values of the other so their linear dependence (correlation) is zero as well.
+
+\color{black}
+

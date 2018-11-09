@@ -1,0 +1,11 @@
+
+\color{blue}
+
+**Solution**. TRUE. 
+\[
+\E[\vect{\hat{\epsilon}}] = \E[Y] - \E[\hat{Y}] = \mat{X}\vec{\beta} - \mat{X}\E[\vec{\hat{\beta}}]=0,
+\]
+using the property that $\E[\vec{\hat{\beta}}]=\vec{\beta}$.
+
+\color{black}
+

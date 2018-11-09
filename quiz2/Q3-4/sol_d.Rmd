@@ -1,7 +1,7 @@
 
 \color{blue}
 
-*Solution* 
+**Solution**
 
 The model is a relatively good fit for the data. There are no trends or clusters in the plot of the fitted values against the fertility rate. However, there is a province that has a very low fertility rate compared to the other provinces. We may have some concerns about using our model to make our prediction, because of this potential outlier province.
 

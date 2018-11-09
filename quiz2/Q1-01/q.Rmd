@@ -1,0 +1,9 @@
+
+\TRUEorFALSE In the sample regression line $y = b_1 x + b_2$, the term $b_2$ is the y-intercept; this is the value of $y$ where the line intersects the $y$-axis whenever $x=0$.
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------
+
+

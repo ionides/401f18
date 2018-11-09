@@ -1,7 +1,0 @@
-Let $X\sim\mathcal{N}(0,1)$ and $Y$ be a random variable such that $\text{Cor}(X,Y)=1$.  
-If $\prob(X>Y) = 0.8413448$ and $\prob(X<Y+1) = 0.5$ then find $\prob(-2<Y<2)$. Write your answer as a call to `pnorm()`.  
-  
-***Hint:**  qnorm(0.8413448)=1. *
-
-```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
-```

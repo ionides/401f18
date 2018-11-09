@@ -1,0 +1,7 @@
+\TRUEorFALSE  Let $X\sim\normal(0,1)$. Then $\prob(X< -c) = 1-\prob(X<c)$ where $c>0$.
+
+
+```{r,child=paste(my_dir,"/sol.Rmd",sep=""),eval=SOL}
+```
+
+----------

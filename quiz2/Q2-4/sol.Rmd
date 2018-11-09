@@ -1,16 +1,47 @@
+
 \color{blue}
 
-**Solution**. 
+**Solution**.  
 
-$\mathbb{E}(X_1)=0 \times 0.25 + 4 \times 0.75 = 3$
+**(a)**  $X-2Y+W$ is a normal variable, since linear combinations of multivariate normal variables are normal.  
+We use linearity to find $\E(X-2Y+W)$.
+\[
+\E (X-2Y+W) = \E (X) - 2\E (Y) + \E (W)  = 2-2+0 = 0
+\] 
+There are different approaches to finding $\var(X-2Y+W)$. Here, we find the variance/covariance matrix of $\vec{U}=(X,Y,Z)$. First, we calculate the covariances.
+\begin{eqnarray*}
+\cov(X,Y) &=&  \cor(X,Y)\sqrt{\var(X)\, \var(Y)} = -0.5\sqrt{2\times 2} = -1
+\\
+\cov(X,W) &=& \cor(X,W)\sqrt{\var(X)\, \var(W)} = 0\sqrt{2\times 2} = 0
+\\
+\cov(Y,W) &=& \cor(Y,W)\sqrt{\var(Y)\, \var(W)} = -0.5\sqrt{2\times  2} = -1
+\end{eqnarray*}
+Then,
+\[
+\var\left(\vec{U})\right)
+= 
+\begin{bmatrix} \var(X) & \cov(X,Y) & \cov(X,W) \\ \cov(Y,X) & \var(Y)  & \cov(Y,W) \\ \cov(W,X) & \cov(W,Y) & \var(W) \end{bmatrix}
+=  
+\begin{bmatrix} 2& -1 & 0 \\ -1 &2&-1 \\ 0 & -1 & 2  \end{bmatrix}
+\]
+Then, we write $X-2Y+W$ in the form
+\[
+X-2Y+W = \begin{bmatrix} 1 & -2 & 1 \end{bmatrix} \begin{bmatrix} X \\ Y \\ W \end{bmatrix} = \mat{A}\vec{U}.
+\]
+We can now use the formula for the variance of a linear combination,
+\begin{eqnarray*}
+\var(X-Y+W) &=& \var(\mat{A}\vec{U}) = \mat{A}\var(\vec{U})\mat{A}^T \\
+&=& \begin{bmatrix} 1 & -2 & 1 \end{bmatrix} \begin{bmatrix} 2& -1 & 0 \\ -1 &2&-1 \\ 0 & -1 & 2  \end{bmatrix} \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix} \\
+&=& \begin{bmatrix} 1 & -2 & 1 \end{bmatrix} \begin{bmatrix} 2(1) + (-1)(-2) + 0(1) \\ (-1)1 + 2(-2) + (-1)1 \\ 0(1)+(-1)(-2)+2(1) \end{bmatrix} \\
+&=& \begin{bmatrix} 1 & -2 & 1 \end{bmatrix} \begin{bmatrix} 4 \\ -6 \\ 4 \end{bmatrix} \\
+&=& 1(4) + (-2)(-6) + 1(4) \\
+&=& 20
+\end{eqnarray*}
+So, $X-Y+W\sim \normal(0,\sqrt{20})$.  
 
-$\mathbb{E}(X_1^2)=0 \times 0.25 + 4^2 \times 0.75 = 12$
+**(b)** We rewrite $\prob(2Y<X+W+1)$ as  $\prob(X+W-2Y>-1)$. From (a) this can be computed as
 
-$Var(X_1)=\mathbb{E}(X_1^2)-(\mathbb{E}(X_1))^2=12-9=3$
+`1-pnorm(-1,mean=0,sd=sqrt(20))`
 
-Thus, $\mathbb{E}(X)=\mathbb{E}(\sum_{i=1}^n X_i)=n \mathbb{E}X_1=600$
-
-$Var(\bar{X})=Var(\sum_{i=1}^n X_i)=n Var(X_1)=600$
-
-$c = qnorm(0.9,600,sqrt(600),lower.tail=FALSE)$
 \color{black}
+

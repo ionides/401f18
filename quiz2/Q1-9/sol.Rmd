@@ -1,7 +1,0 @@
-
-\color{blue}
-
-**Solution**. TRUE. $E[\vect{\hat{\epsilon}}] = E[Y] - E[\hat{Y}] = 0$. Once we have data, we can estimate $\vect{\hat\epsilon}$ with $\frac{1}{n-p}\sum_{i=1}^n(y_i - \hat{y})$. However, we know that RSS = 0 which suggests that $\frac{1}{n-p}\sum_{i=1}^n(y_i - \hat{y}) = 0$.
-
-\color{black}
-

@@ -1,0 +1,13 @@
+
+\color{blue}
+
+**Solution**. FALSE. This is most easily seen by sketching a normal curve, marking on the center $\mu$ and a point $c$ and applying symmetry. We can also write it out in math.
+\begin{eqnarray*}
+\prob(X< -c) &=&  \prob\big( X < \mu - (\mu+c)\big) \\
+&=& \prob\big(X> \mu + (\mu+c)\big) \quad \mbox{using symmetry around the center, $\mu$} \\
+&=& 1-\prob(X < c+ 2\mu)
+\end{eqnarray*}
+
+\color{black}
+
+

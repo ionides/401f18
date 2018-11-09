@@ -1,7 +1,0 @@
-
-\color{blue}
-
-**Solution**. TRUE. The equation $\hat y = b_1 x + b_2$ denotes a line corresponding to the least squares fit for a sample, and substuting $x=0$ gives $\hat y=b_2$.
-
-\color{black}
-
