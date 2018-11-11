@@ -89,7 +89,7 @@ Due in lab on 10/26.
 -->
 
 * [Homework 7. Modeling and data analysis: standard errors, confidence intervals and a binary explanatory variable.](hw/hw07/hw07.html). Due in lab on 11/2.
-    * [HW 7 Solutions](hw/hw05/hw07_sol.html).
+    * [HW 7 Solutions](hw/hw07/hw07_sol.html).
 
 * [Homework 8. Making predictions and hypothesis tests.](hw/hw08/hw08.html). Due in lab on 11/9. 
 
