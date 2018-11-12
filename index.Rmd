@@ -48,6 +48,8 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 [(R code)](07/notes07.R).
 [(Annotations)](07/notes07annotated.pdf).
 
+    [Discussion: STATS 401 and the future of undergraduate data science](ds/ds.pdf).
+
 <!--
 8. [Additional topics in linear modeling](08/notes08.pdf). [(R code)](08/notes08.R).
 -->
