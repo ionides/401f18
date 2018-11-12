@@ -148,6 +148,18 @@ lm1 &lt;- lm(log_Sunday~log_Weekday+Competition,data=circulation)</code></pre>
 <p><font color="blue"> <em>Q1b Solution</em></p>
 <p>Recall that the standard error for the expected value of a prediction is given by <span class="math inline">\(SE({\boldsymbol{\mathrm{x^*b} } }) = s\sqrt{{\boldsymbol{\mathrm{x^*} } }(\mathbb{X}^T\mathbb{X})^{-1}{\boldsymbol{\mathrm{x^{*T}} } }}\)</span>.</p>
 <p>Recall that we can calculate this in R using the following:</p>
+<pre class="r"><code>x_star &lt;- c(1, log(150000), 0) # note x_star is a column vector here but in our formula it is a row vector
+coef &lt;- coef(lm1)
+pred &lt;- x_star %*% coef
+s &lt;- summary(lm1)$sigma
+design_matrix &lt;- model.matrix(lm1)
+se &lt;- s*sqrt(t(x_star) %*% solve(t(design_matrix) %*% design_matrix) %*% x_star)
+  # so we need to change when we transpose x_star and when we don't
+c &lt;- qnorm(0.975)
+cat(&quot;CI = [&quot;, round(pred-c*se,5),
+&quot;, &quot;, round(pred+c*se,5), &quot;]&quot;, sep = &quot;&quot;)</code></pre>
+<pre><code>## CI = [12.16452, 12.23957]</code></pre>
+<p>We can check our calculation using code from lab:</p>
 <pre class="r"><code>x &lt;- c(1, log(150000), 0)
 pred &lt;- x %*%coef(lm1)
 V &lt;- summary(lm1)$cov.unscaled
@@ -199,6 +211,19 @@ cat(&quot;CI = [&quot;, round(pred-c*SE,5),
 <li>Carry out this matrix computation in R.</li>
 </ol>
 <p><font color="blue"> <em>Q3b Solution</em></p>
+<p>Using R to do the matrix computation:</p>
+<pre class="r"><code>x_star &lt;- c(1, log(150000), 0) # note x_star is a column vector here but in our formula it is a row vector
+coef &lt;- coef(lm1)
+pred &lt;- x_star %*% coef
+s &lt;- summary(lm1)$sigma
+design_matrix &lt;- model.matrix(lm1)
+se_pred &lt;- s*sqrt(1 + t(x_star) %*% solve(t(design_matrix) %*% design_matrix) %*% x_star)
+  # so we need to change when we transpose x_star and when we don't
+c &lt;- qnorm(0.975)
+cat(&quot;PI = [&quot;, round(pred-c*se_pred,5),
+&quot;, &quot;, round(pred+c*se_pred,5), &quot;]&quot;, sep = &quot;&quot;)</code></pre>
+<pre><code>## PI = [11.92666, 12.47742]</code></pre>
+<p>Checking our calculation using code from lab:</p>
 <pre class="r"><code>x &lt;- c(1, log(150000), 0)
 pred &lt;- x %*%coef(lm1)
 V &lt;- summary(lm1)$cov.unscaled
