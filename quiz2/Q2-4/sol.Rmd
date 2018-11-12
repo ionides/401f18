@@ -52,7 +52,7 @@ We can now use the formula for the variance of a linear combination,
 &=& 1(4)  + 1(4) + (-2)(-6) \\
 &=& 20
 \end{eqnarray*}
-So, $X-2Y+W\sim \normal(-2,\sqrt{20})$.  
+So, $W+X-2Y\sim \normal(-2,\sqrt{20})$.  
 
 **(b)** We rewrite $\prob(2Y<X+W+1)$ as  $\prob(W+X-2Y>-1)$. From (a) this can be computed as
 
