@@ -1,16 +1,16 @@
 
 Let $\vec{U}=(W, X, Y)$ be a multivariate normal vector random variable. Suppose that  
 \[
-\E(X) = 2, \quad \E(Y) = 2, \quad \E(W)=0,
+\E(W)=0, \quad \E(X) = 2, \quad \E(Y) = 2
 \]
 \[  
-\var(X)=\var(Y)=\var(W)=2, \quad 
+\var(W)=\var(X)=\var(Y)=2, \quad 
 \cor(X,Y)=-0.5, \quad 
 \cor(Y,W)=-0.5, \quad
 \cor(X,W)=0.  
 \]
 
-(a) Find the distribution of $X-2Y+W$.
+(a) Find the distribution of $W+X-2Y$.
 
 (b) Find $\prob(2Y<X+W+1)$. Write your answer as a call to `pnorm()`. Your call to pnorm may involve specifying any necessary numerical calculations that you can't work out without access to a computer or calculator.
 

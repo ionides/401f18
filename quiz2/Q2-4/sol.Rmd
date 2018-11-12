@@ -3,12 +3,12 @@
 
 **Solution**.  
 
-**(a)**  $X-2Y+W$ is a normal variable, since linear combinations of multivariate normal variables are normal.  
-We use linearity to find $\E(X-2Y+W)$.
+**(a)**  $W+X-2Y$ is a normal variable, since linear combinations of multivariate normal variables are normal.  
+We use linearity to find $\E(W+X-2Y)$.
 \[
-\E (X-2Y+W) = \E (X) - 2\E (Y) + \E (W)  = 2-2+0 = 0
+\E (W+X-2Y) = \E[W]+ \E (X) - 2\E (Y)  = 0+2-2\times 2 = -2.
 \] 
-There are different approaches to finding $\var(X-2Y+W)$. Here, we find the variance/covariance matrix of $\vec{U}=(X,Y,Z)$. First, we calculate the covariances.
+There are different approaches to finding $\var(W+X-2Y)$. Here, we find the variance/covariance matrix of $\vec{U}=(W,X,Y)$. First, we calculate the covariances.
 \begin{eqnarray*}
 \cov(X,Y) &=&  \cor(X,Y)\sqrt{\var(X)\, \var(Y)} = -0.5\sqrt{2\times 2} = -1
 \\
@@ -20,28 +20,43 @@ Then,
 \[
 \var\left(\vec{U})\right)
 = 
-\begin{bmatrix} \var(X) & \cov(X,Y) & \cov(X,W) \\ \cov(Y,X) & \var(Y)  & \cov(Y,W) \\ \cov(W,X) & \cov(W,Y) & \var(W) \end{bmatrix}
+\begin{bmatrix} \var(W) & \cov(W,X) & \cov(W,Y) \\ \cov(X,W) & \var(X)  & \cov(X,Y) \\ \cov(Y,W) & \cov(Y,X) & \var(Y) \end{bmatrix}
 =  
-\begin{bmatrix} 2& -1 & 0 \\ -1 &2&-1 \\ 0 & -1 & 2  \end{bmatrix}
+\begin{bmatrix} 
+2& 0 & -1 \\ 
+0 &2&-1 \\ 
+-1 & -1 & 2  \end{bmatrix}
 \]
-Then, we write $X-2Y+W$ in the form
+Then, we write $W+X-2Y$ in the form
 \[
-X-2Y+W = \begin{bmatrix} 1 & -2 & 1 \end{bmatrix} \begin{bmatrix} X \\ Y \\ W \end{bmatrix} = \mat{A}\vec{U}.
+W+X-2Y = \begin{bmatrix} 1 & 1 & -2 \end{bmatrix} \begin{bmatrix} W \\ X \\ Y \end{bmatrix} = \mat{A}\vec{U}.
 \]
 We can now use the formula for the variance of a linear combination,
 \begin{eqnarray*}
-\var(X-Y+W) &=& \var(\mat{A}\vec{U}) = \mat{A}\var(\vec{U})\mat{A}^T \\
-&=& \begin{bmatrix} 1 & -2 & 1 \end{bmatrix} \begin{bmatrix} 2& -1 & 0 \\ -1 &2&-1 \\ 0 & -1 & 2  \end{bmatrix} \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix} \\
-&=& \begin{bmatrix} 1 & -2 & 1 \end{bmatrix} \begin{bmatrix} 2(1) + (-1)(-2) + 0(1) \\ (-1)1 + 2(-2) + (-1)1 \\ 0(1)+(-1)(-2)+2(1) \end{bmatrix} \\
-&=& \begin{bmatrix} 1 & -2 & 1 \end{bmatrix} \begin{bmatrix} 4 \\ -6 \\ 4 \end{bmatrix} \\
-&=& 1(4) + (-2)(-6) + 1(4) \\
+\var(W+X-2Y) &=& \var(\mat{A}\vec{U}) = \mat{A}\var(\vec{U})\mat{A}^T \\
+&=& \begin{bmatrix} 1 & 1 & -2 \end{bmatrix} 
+\begin{bmatrix} 
+2& 0 & -1 \\ 
+0 &2&-1 \\ 
+-1 & -1 & 2  
+\end{bmatrix} 
+\begin{bmatrix} 1 \\ 1 \\ -2 \end{bmatrix} \\
+&=& 
+\begin{bmatrix} 1 & 1 & -2 \end{bmatrix} 
+\begin{bmatrix} 
+2(1) + 0(1) + (-1)(-2)  \\ 
+0(1)+2(1) + (-1)(-2) \\
+(-1)1 + (-1)1 + 2(-2)   
+\end{bmatrix} \\
+&=& \begin{bmatrix} 1 & 1 & -2 \end{bmatrix} \begin{bmatrix} 4 \\ 4 \\ -6 \end{bmatrix} \\
+&=& 1(4)  + 1(4) + (-2)(-6) \\
 &=& 20
 \end{eqnarray*}
-So, $X-Y+W\sim \normal(0,\sqrt{20})$.  
+So, $X-2Y+W\sim \normal(-2,\sqrt{20})$.  
 
-**(b)** We rewrite $\prob(2Y<X+W+1)$ as  $\prob(X+W-2Y>-1)$. From (a) this can be computed as
+**(b)** We rewrite $\prob(2Y<X+W+1)$ as  $\prob(W+X-2Y>-1)$. From (a) this can be computed as
 
-`1-pnorm(-1,mean=0,sd=sqrt(20))`
+`1-pnorm(-1,mean=-2,sd=sqrt(20))`
 
 \color{black}
 
