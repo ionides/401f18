@@ -85,19 +85,13 @@ Due in lab on 10/19.
 
 * [Homework 6. The probability model for the linear model](hw/hw06/hw06.html). 
 Due in lab on 10/26. 
-
-<!--
-[Solutions](hw/hw06/sol_hw06.html).
--->
+    * [HW 6 Solutions](hw/hw06/hw6_sols.html).
 
 * [Homework 7. Modeling and data analysis: standard errors, confidence intervals and a binary explanatory variable.](hw/hw07/hw07.html). Due in lab on 11/2.
     * [HW 7 Solutions](hw/hw07/hw07_sol.html).
 
-* [Homework 8. Making predictions and hypothesis tests.](hw/hw08/hw08.html). Due in lab on 11/9. 
-
-<!--
-[Solutions](hw/hw08/sol_hw08.html).
--->
+* [Homework 8. Making predictions and hypothesis tests.](hw/hw08/hw08.html). Due in lab on 11/9.
+    * [HW 8 Solutions](hw/hw08/hw08_solutions.html).
 
 * [Homework 9. Kicking goals: linear models with factors.](hw/hw09/hw09.html). Due in lab on 11/16.
 

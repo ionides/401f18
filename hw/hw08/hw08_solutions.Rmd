@@ -66,6 +66,21 @@ Recall that the standard error for the expected value of a prediction is given b
 Recall that we can calculate this in R using the following:
 
 ```{r}
+x_star <- c(1, log(150000), 0) # note x_star is a column vector here but in our formula it is a row vector
+coef <- coef(lm1)
+pred <- x_star %*% coef
+s <- summary(lm1)$sigma
+design_matrix <- model.matrix(lm1)
+se <- s*sqrt(t(x_star) %*% solve(t(design_matrix) %*% design_matrix) %*% x_star)
+  # so we need to change when we transpose x_star and when we don't
+c <- qnorm(0.975)
+cat("CI = [", round(pred-c*se,5),
+", ", round(pred+c*se,5), "]", sep = "")
+```
+
+We can check our calculation using code from lab:
+
+```{r}
 x <- c(1, log(150000), 0)
 pred <- x %*%coef(lm1)
 V <- summary(lm1)$cov.unscaled
@@ -142,6 +157,23 @@ We can then construct a 95% prediction interval as [$\vec{x^*b}-1.96SE_{pred}(\v
 
 <font color = "blue">
 *Q3b Solution*
+
+Using R to do the matrix computation: 
+
+```{r}
+x_star <- c(1, log(150000), 0) # note x_star is a column vector here but in our formula it is a row vector
+coef <- coef(lm1)
+pred <- x_star %*% coef
+s <- summary(lm1)$sigma
+design_matrix <- model.matrix(lm1)
+se_pred <- s*sqrt(1 + t(x_star) %*% solve(t(design_matrix) %*% design_matrix) %*% x_star)
+  # so we need to change when we transpose x_star and when we don't
+c <- qnorm(0.975)
+cat("PI = [", round(pred-c*se_pred,5),
+", ", round(pred+c*se_pred,5), "]", sep = "")
+```
+
+Checking our calculation using code from lab:
 
 ```{r}
 x <- c(1, log(150000), 0)
