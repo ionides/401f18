@@ -4,8 +4,8 @@
 \input{../header.tex}
 \newcommand\CHAPTER{8}
 % \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
-% \newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
- \newcommand\answer[2]{#1} % to show blank space
+ \newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
+% \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
 # ANS=FALSE
@@ -93,10 +93,9 @@ What if the model describes some parts of the data okay, but not other parts?
 
 \begin{myitemize}
 \item Recall that the \myemph{residuals} for a linear model are \m{e_1,\dots,e_n} in the linear model \m{\vect{y}=\mat{X}\vect{b}+\vect{e}}.
-\item Residuals are also known as \myemph{residual errors} or \myemph{errors}.
-\item Residuals estimate the measurement errors \m{\epsilon_1,\dots,\epsilon_n} in the model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}.
-\item Statistical properties of \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}} are usually carried out using a probability model that \m{\epsilon_1,\dots,\epsilon_n \sim\iid \; \normal(0,\sigma)}.
-\item independent identically distributed (iid) random variables have no pattern.
+\item Residuals estimate the measurement errors \m{\epsilon_1,\dots,\epsilon_n} in the probability model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}.
+\item Since $\vec{b}$ is a noisy estimate of $\beta$, $\vec{e}$ is a noisy estimate of $\vec{\epsilon}$.
+\item The specification that \m{\epsilon_1,\dots,\epsilon_n \sim\iid \; \normal(0,\sigma)} implies the measurement errors have no pattern.
 \item Any pattern, or association with some other variable, that we can find in the residuals contradicts the model and could lead to improvements.
 \item The search for patterns in the residuals can take creativity and persistence.
 \end{myitemize}
@@ -262,7 +261,7 @@ with $y_i$ being either the life expectancy or unemployment for the $i$th year i
 
 \myquestion. It is a statistical detective puzzle to figure out how the residuals from \code{lm1} can have a linear trend when all the variables are detrended. Any ideas? Plotting the variables may give a clue.
 
-\answer{\vspace{5mm}}{Look at the axes. Careful reading of the code reveals (after plenty of head-scratching) that }
+\answer{\vspace{5mm}}{Look at the axes. Careful reading of the code reveals (after plenty of head-scratching) that the detrending was done before subsetting \code{L_detrended} to make the times match \code{U_detrended}. The removed part was trending up and the remaining part trends down.}
 
 \end{frame}
 
@@ -337,7 +336,7 @@ plot(L_detrended~Year,data=U)
 \item \myemph{A p-value is only as good as the probability model producing it.} 
 \item We have found that the probability model we used is seriously defective. It is based on assumptions that are substantially violated.
 \item This doesn't necessarily mean that the result is right or wrong. 
-\item It does mean we haven't yet found a good argument either way.
+\item It means we haven't yet found a good argument either way.
 \item This topic is of current interest:
 \url{https://www.nytimes.com/2017/10/16/upshot/how-a-healthy-economy-can-shorten-life-spans.html}
 \end{myitemize}
@@ -359,11 +358,11 @@ plot(L_detrended~Year,data=U)
 \item Sometimes one, or a few, points are inconsistent with a model that explains the rest of the data nicely.
 \item These points are called \myemph{outliers}.
 \item Our first responsibility is to notice them.
-\item Our second responsibility is to work out whether they affect the conclusions of the analysis (if they don't, the issue becomes less urgent).
+\item Our second responsibility is to work out whether they affect the conclusions of the analysis. If they don't, the issue becomes unimportant.
 \end{myitemize}
-\myquestion. It is tempting to remove clear outliers from the data analysis on the assumption that they are errors. When is that reasonable? When is it dangerous?
+\myquestion. It is tempting to remove clear outliers from the data analysis on the assumption that they are errors. When is that reasonable? When is it a bad decision?
 
-\vspace{30mm}
+\answer{\vspace{30mm}}{If you have good reason to believe they are errors, and you explain clearly in your analysis what you did, that is okay. However, outliers can be the most informative points: they can tell you about some unexpected special situation. Unexpected data points can be scientific discoveries: Alexander Fleming noticed an accidental mold contamination killed his cultured acteria.}
 
 \end{frame}
 
@@ -404,7 +403,8 @@ plot(L_detrended~Year,data=U)
 %\end{myitemize}
 \myquestion. Sketch a scatterplot (i.e., a plot of \m{\vect{y}} against a single explanatory vector \m{\vect{x}}) that has a point of high leverage, but not high influence.
 
-\vspace{40mm}
+\answer{\vspace{40mm}}{A cluster of x-values and an outlier in the x direction which is close to the linear regression line in the y direction.
+Archimedes: ``Give me a lever and a place to stand and I will move the earth.''}
 
 \end{frame}
 
@@ -416,7 +416,7 @@ plot(L_detrended~Year,data=U)
 %\end{myitemize}
 \myquestion. Sketch a scatterplot that has a point of high leverage which is also a point of high influence.
 
-\vspace{40mm}
+\answer{\vspace{40mm}}{A cluster of x-values and an outlier in the x direction which is also an outlier from the linear regression line in the y direction.}
 
 \end{frame}
 
@@ -428,7 +428,7 @@ plot(L_detrended~Year,data=U)
 %\end{myitemize}
 \myquestion. Sketch a scatterplot that has an outlier which is not influential.
 
-\vspace{40mm}
+\answer{\vspace{40mm}}{An outlier in the middle of a simple linear regression  scatterplot.}
 
 \end{frame}
 
@@ -473,26 +473,7 @@ plot(L_detrended~Year,data=U)
 \end{frame}
 
 
-
 \end{document} %%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-\begin{frame}[fragile]
-\frametitle{}
-
-\begin{myitemize}
-\item One way to see if a model can be improved is to look for a better one. 
-We already saw how to add new parameters and assess whether they improve model fit.
-\item
-
-\end{myitemize}
-
-
-\end{frame}
-
-
-\end{document}
 
 ------- This is just for copying to make new slides ---------
 
