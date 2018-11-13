@@ -121,7 +121,7 @@ What if the model describes some parts of the data okay, but not other parts?
 
 \myquestion. How can we look for temporal patterns in the residuals? Think of (at least) two plots to make.
 
-\answer{\vspace{100mm}}{todo}
+\answer{\vspace{100mm}}{(i) A timeplot plots residuals against time; (ii) plotting $e_i $ against $e_{i-1}$ for $i=2,\dots,n$ looks for correlations between neighboring residuals.}
 
 \end{frame}
 
@@ -154,11 +154,16 @@ where \m{h_i} is the residual error when \m{e_{i-1}} is used to predict \m{e_i}.
 \end{myitemize}
 \myquestion. Why do we not need an intercept here?
 
-\vspace{10mm}
+\answer{\vspace{10mm}}{The residuals are centered on zero by their construction, as long as there is an intercept in the model.}
 
 \myquestion. How would you fit this linear model for the residuals in R?
 
-\vspace{15mm}
+\answer{\vspace{15mm}}{\code{
+n <- length(L_detrended) \\
+e <- resid(lm1)[2:n] \\
+lag_e <- resid(lm1)[1:(n-1)]
+lm(e~lag_e-1)
+}}
 
 \end{frame}
 
@@ -178,7 +183,7 @@ summary(lm2)$coef
 
 \myquestion. What do you conclude from this analysis?
 
-\vspace{20mm}
+\answer{\vspace{20mm}}{The residuals are much more highly correlated than can be explained by chance variation.}
 
 \end{frame}
 
@@ -217,7 +222,7 @@ plot(lag_e,e)
 
 \myquestion. What do you these plots tell you about (i) the least squares estimate of the association between changes of life expectancy and unemployment; (ii) its standard error and confidence interval?
 
-\vspace{20mm}
+\answer{\vspace{20mm}}{The model assumption of independent measurement errors is far from the reality. All standard errors and confidence intervals built on this assumption are therefore brought into question.}
 
 \end{frame}
 
@@ -239,7 +244,12 @@ plot(lag_e,e)
 
 \myquestion. We removed a linear trend from both life expectancy and unemployment. What does that mean? What is the equation for the model that we have fitted?
 
-\answer{\vspace{30mm}}{todo}
+\answer{\vspace{30mm}}{It means we fitted a sample model
+\[
+y_{i}= a+bi+e_i, \quad i=1,2,\dots,n
+\]
+with $y_i$ being either the life expectancy or unemployment for the $i$th year in the dataset. The detrended data are the residuals $e_i$, $i=1,\dots,n$ from this regression.
+}
 
 \end{frame}
 
@@ -252,7 +262,7 @@ plot(lag_e,e)
 
 \myquestion. It is a statistical detective puzzle to figure out how the residuals from \code{lm1} can have a linear trend when all the variables are detrended. Any ideas? Plotting the variables may give a clue.
 
-\answer{\vspace{5mm}}{todo}
+\answer{\vspace{5mm}}{Look at the axes. Careful reading of the code reveals (after plenty of head-scratching) that }
 
 \end{frame}
 
@@ -457,7 +467,6 @@ plot(L_detrended~Year,data=U)
 \item Our usual probability model assumes (in addition to normality and independence) that the measurement errors have constant variance.
 \item Plotting the residuals (say, against fitted values or against time or against some other variable) may show that the spread of the residuals is larger in some places than others.
 \item Taking the logarithm of non-negative data may help in this case.
-\item 
 
 \end{myitemize}
 
