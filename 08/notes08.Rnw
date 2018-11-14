@@ -4,8 +4,8 @@
 \input{../header.tex}
 \newcommand\CHAPTER{8}
 % \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
- \newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
-% \newcommand\answer[2]{#1} % to show blank space
+%\newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
+ \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
 # ANS=FALSE
@@ -81,7 +81,7 @@ What if the model describes some parts of the data okay, but not other parts?
 \item \enumerateSpace
 \myemph{Graphical investigations}. Make informative plots.
 \item \enumerateSpace
-\myemph{Quantitative investigations}. Find informative tests, or other interpretable statistics.
+\myemph{Quantitative investigations}. Make relevant statistical tests, or calculate other interpretable statistics.
 \end{enumerate}
 \end{myitemize}
 
@@ -94,7 +94,7 @@ What if the model describes some parts of the data okay, but not other parts?
 \begin{myitemize}
 \item Recall that the \myemph{residuals} for a linear model are \m{e_1,\dots,e_n} in the linear model \m{\vect{y}=\mat{X}\vect{b}+\vect{e}}.
 \item Residuals estimate the measurement errors \m{\epsilon_1,\dots,\epsilon_n} in the probability model \m{\vect{Y}=\mat{X}\vect{\beta}+\vect{\epsilon}}.
-\item Since $\vec{b}$ is a noisy estimate of $\beta$, $\vec{e}$ is a noisy estimate of $\vec{\epsilon}$.
+\item \m{\vec{b}} is a noisy estimate of \m{\vec{\beta}}, meaning that we cannot find \m{\vec{\beta}} exactly due to measurement error. Similarly, \m{\vec{e}} is a noisy estimate of \m{\vec{\epsilon}}.
 \item The specification that \m{\epsilon_1,\dots,\epsilon_n \sim\iid \; \normal(0,\sigma)} implies the measurement errors have no pattern.
 \item Any pattern, or association with some other variable, that we can find in the residuals contradicts the model and could lead to improvements.
 \item The search for patterns in the residuals can take creativity and persistence.
@@ -153,16 +153,28 @@ where \m{h_i} is the residual error when \m{e_{i-1}} is used to predict \m{e_i}.
 \end{myitemize}
 \myquestion. Why do we not need an intercept here?
 
-\answer{\vspace{10mm}}{The residuals are centered on zero by their construction, as long as there is an intercept in the model.}
+\answer{\vspace{30mm}}{The residuals are centered on zero by their construction, as long as there is an intercept in the model.}
 
-\myquestion. How would you fit this linear model for the residuals in R?
 
-\answer{\vspace{15mm}}{\code{
-n <- length(L_detrended) \\
-e <- resid(lm1)[2:n] \\
-lag_e <- resid(lm1)[1:(n-1)]
-lm(e~lag_e-1)
-}}
+\end{frame}
+
+\begin{frame}
+
+\vspace{5mm}
+
+\myquestion. How would you fit the linear model 
+\mydisplaymath{
+e_i = b e_{i-1} + h_i,\quad \mbox{for } i=2,3,\dots,n,
+}
+for the residuals from \code{lm1 <- lm(L_detrended~U_detrended)} in R?
+
+
+\answer{\vspace{50mm}}{
+\code{n <- length(L_detrended)} \\
+\code{e <- resid(lm1)[2:n]} \\
+\code{lag_e <- resid(lm1)[1:(n-1)]}\\
+\code{lm(e~lag_e-1)}
+}
 
 \end{frame}
 
@@ -375,7 +387,7 @@ plot(L_detrended~Year,data=U)
 \end{myitemize}
 \myquestion. How could inappropriate treatment of outliers lead to charges of falsification? What can a careful data analyst do to avoid that?
 
-\vspace{40mm}
+\answer{\vspace{40mm}}{Suppose you remove outliers that do not match your hypothesis, believing them to be errors. If you don't acknowledge or document your action, you might be accidentally suppressing important information, manipulating the scientific record to make it look like it agrees with your hypothesis.}
 
 
 \end{frame}
@@ -396,39 +408,33 @@ plot(L_detrended~Year,data=U)
 
 
 \begin{frame}[fragile]
-%\frametitle{}
 
-%\begin{myitemize}
-%\item 
-%\end{myitemize}
+\vspace{5mm}
+
 \myquestion. Sketch a scatterplot (i.e., a plot of \m{\vect{y}} against a single explanatory vector \m{\vect{x}}) that has a point of high leverage, but not high influence.
 
-\answer{\vspace{40mm}}{A cluster of x-values and an outlier in the x direction which is close to the linear regression line in the y direction.
+\answer{\vspace{50mm}}{A cluster of x-values and an outlier in the x direction which is close to the linear regression line in the y direction.
 Archimedes: ``Give me a lever and a place to stand and I will move the earth.''}
 
 \end{frame}
 
 \begin{frame}[fragile]
-%\frametitle{}
 
-%\begin{myitemize}
-%\item 
-%\end{myitemize}
+\vspace{5mm}
+
 \myquestion. Sketch a scatterplot that has a point of high leverage which is also a point of high influence.
 
-\answer{\vspace{40mm}}{A cluster of x-values and an outlier in the x direction which is also an outlier from the linear regression line in the y direction.}
+\answer{\vspace{50mm}}{A cluster of x-values and an outlier in the x direction which is also an outlier from the linear regression line in the y direction.}
 
 \end{frame}
 
 \begin{frame}[fragile]
-%\frametitle{}
 
-%\begin{myitemize}
-%\item 
-%\end{myitemize}
+\vspace{5mm}
+
 \myquestion. Sketch a scatterplot that has an outlier which is not influential.
 
-\answer{\vspace{40mm}}{An outlier in the middle of a simple linear regression  scatterplot.}
+\answer{\vspace{50mm}}{An outlier in the middle of a simple linear regression  scatterplot.}
 
 \end{frame}
 
@@ -466,7 +472,8 @@ Archimedes: ``Give me a lever and a place to stand and I will move the earth.''}
 \begin{myitemize}
 \item Our usual probability model assumes (in addition to normality and independence) that the measurement errors have constant variance.
 \item Plotting the residuals (say, against fitted values or against time or against some other variable) may show that the spread of the residuals is larger in some places than others.
-\item Taking the logarithm of non-negative data may help in this case.
+\item Taking the logarithm of non-negative data help surprisingly often in this case.
+\item Other approaches to deal with this problem are beyond this course, though you now have the necessary background to learn and use these methods. These involve models with a different measurement model from the constant variance model \m{\epsilon_1,\dots,\epsilon_n\sim \iid\;\normal(0,\sigma)}.
 
 \end{myitemize}
 
