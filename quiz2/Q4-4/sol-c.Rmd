@@ -3,7 +3,7 @@
 
 **Solution**:
 
-The interpretation of the parameter $\beta_2$ is the difference in means between 8 cylinder cars and 4 cylinder cars for a fixed horsepower level. We therefore wish to test $H_0: \beta_2 = 0$ against $H_a: \beta_2 < 0$
+The interpretation of the parameter $\beta_2$ is the difference in means between 8 cylinder cars and 4 cylinder cars for a fixed horsepower level. We therefore wish to test $H_0: \beta_2 = 0$ against $H_a: \beta_2 < 0$. This is written as a 1-sided test; it is a judgement call whether to consider also the possibility that $\beta_2>0$.
 
 \color{black}
 

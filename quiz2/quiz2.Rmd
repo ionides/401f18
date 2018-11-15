@@ -14,8 +14,8 @@ csl: ecology.csl
 ```{r preliminaries,echo=F,cache=F}
 ALL <- TRUE
 #ALL <- FALSE
-#SOL <- TRUE
-SOL <- FALSE
+SOL <- TRUE
+#SOL <- FALSE
 QLABELS <- TRUE
 #QLABELS <- FALSE
 library(mat2tex)
@@ -74,19 +74,22 @@ The quiz will have several TRUE/FALSE questions drawn at random for Q1, and one 
 
 (1) $\quad\quad\mathbf{b}=\big(\mathbb{X}^\transpose \mathbb{X} \big)^{-1}\, \mathbb{X}^\transpose\mathbf{y}$
 
-(2) $\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
+(2) $\quad\quad \vec{\hat\beta}= \big(\mathbb{X}^\transpose \mathbb{X} \big)^{-1}\, \mathbb{X}^\transpose\mathbf{Y}, \quad \quad
+\var(\vec{\hat\beta})= \sigma^2 \big( \mathbb{X}^\transpose \mathbb{X} \big)^{-1}$
+
+(3) $\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
 
 
-(3) $\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
+(4) $\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
 
-(4) $\quad\quad\var(\mat{A}\mathbf{Y})=\mat{A}\var(\mathbf{Y})\mat{A}^\transpose$,
+(5) $\quad\quad\var(\mat{A}\mathbf{Y})=\mat{A}\var(\mathbf{Y})\mat{A}^\transpose$,
 $\quad\quad\varSample(\mat{X}\mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose$
 
-(5) $\quad\quad$The probability density function of the standard normal distribution is $\frac{1}{\sqrt{2\pi}} e^{-x^2/2}$
+(6) $\quad\quad$The probability density function of the standard normal distribution is $\frac{1}{\sqrt{2\pi}} e^{-x^2/2}$
 
-(6) $\quad\quad$If a random variable is normally distributed, the probability it falls within one standard deviation of the mean is 68%, within two standard deviations of the mean is 95%, and within three standard deviations of the mean is 99.7%.
+(7) $\quad\quad$If a random variable is normally distributed, the probability it falls within one standard deviation of the mean is 68%, within two standard deviations of the mean is 95%, and within three standard deviations of the mean is 99.7%.
 
-(7) $\quad\quad$Syntax from `?pnorm`:
+(8) $\quad\quad$Syntax from `?pnorm`:
 ```
 pnorm(q, mean = 0, sd = 1)
 qnorm(p, mean = 0, sd = 1)
@@ -94,7 +97,7 @@ q: vector of quantiles.
 p: vector of probabilities.
 ```
 
-(8)  $\quad\quad(\mat{A}\mat{B})^\transpose = \mat{B}^\transpose\mat{A}^\transpose$, 
+(9)  $\quad\quad(\mat{A}\mat{B})^\transpose = \mat{B}^\transpose\mat{A}^\transpose$, 
 \hspace{2mm} $(\mat{A}\mat{B})^{-1} = \mat{B}^{-1}\mat{A}^{-1}$, 
 \hspace{2mm} $(\mat{A}^\transpose)^{-1}=(\mat{A}^{-1})^\transpose$, 
 \hspace{2mm} $(\mat{A}^\transpose)^\transpose = \mat{A}$.

@@ -38,7 +38,7 @@ Thus, our normal approximation is $\bar{X}\sim\normal\left(2/3,1/15\right)$. Hen
 \begin{eqnarray*}
 \prob(0.45<\bar X<0.55) 
 &=& \prob(\bar X<0.55) - \prob(\bar X<0.45) \\
-&=& \mathtt{pnorm(0.55,2/3,2/450) - pnorm(0.45,2/3,2/450)}
+&=& \mathtt{pnorm(0.55,mean=2/3,sd=1/15) - pnorm(0.45,mean=2/3,sd=1/15)}
 \end{eqnarray*}
 
 \color{black}

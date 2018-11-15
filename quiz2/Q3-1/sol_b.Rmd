@@ -5,13 +5,13 @@
 
 Define 
 \[
-SE_{pred} = s \sqrt{\vect{x^*}^T (\mat{X}^T\mat{X})^{-1}\vect{x^*}+1},
+\SE_{\mathrm{pred}} = s \sqrt{\vect{x^*}^T (\mat{X}^T\mat{X})^{-1}\vect{x^*}+1},
 \]
 where $s$ is the residual standard error.
-$SE_{pred}$ is an estimate of $Var[\vect{Y} - \vect{x^*\beta}]$.
+$\SE_{pred}$ is an estimate of $\sd\big(\vect{Y^*} - \vect{x^*\beta}\big)$.
 Thus the prediction interval is
 \[
-\hat{y}^* \pm 1.96SE_{pred}.
+\hat{y}^* \pm 1.96\, \SE_{\mathrm{pred}}.
 \]
 
 \color{black}
