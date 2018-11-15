@@ -12,10 +12,10 @@ csl: ecology.csl
 
 
 ```{r preliminaries,echo=F,cache=F}
-# ALL <- TRUE
-ALL <- FALSE
-#SOL <- TRUE
-SOL <- FALSE
+ ALL <- TRUE
+#ALL <- FALSE
+SOL <- TRUE
+#SOL <- FALSE
 # QLABELS <- TRUE
 QLABELS <- FALSE
 library(mat2tex)
