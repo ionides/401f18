@@ -12,20 +12,20 @@ csl: ecology.csl
 
 
 ```{r preliminaries,echo=F,cache=F}
-ALL <- TRUE
-#ALL <- FALSE
-SOL <- TRUE
-#SOL <- FALSE
-QLABELS <- TRUE
-#QLABELS <- FALSE
+# ALL <- TRUE
+ALL <- FALSE
+#SOL <- TRUE
+SOL <- FALSE
+# QLABELS <- TRUE
+QLABELS <- FALSE
 library(mat2tex)
-set.seed(42)
+set.seed(12)
 knitr::opts_chunk$set(cache = FALSE)
 ```
 
 
-%% \newcommand\exam[1]{#1} %% exam paper formatting
-\newcommand\exam[1]{} %% omit exam paper formatting
+\newcommand\exam[1]{#1} %% exam paper formatting
+%% \newcommand\exam[1]{} %% omit exam paper formatting
 
 
 \newcommand\mat[1]{\mathbb{#1}}
@@ -135,10 +135,22 @@ for(q_dir in q_dirs){
 q_files <- paste(q_dirs,"/tmp.Rmd",sep="") 
 file.create(cat_file)
 file.append(cat_file,q_files)
+#
+# Sample 3 for the test
+#
+sample_files <- sample(q_files,size=3)
 ```
 
-```{r, child = sample(q_files,size=1),eval=!ALL}
+```{r, child = sample_files[1],eval=!ALL}
 ```
+
+```{r, child = sample_files[2],eval=!ALL}
+```
+
+```{r, child = sample_files[3],eval=!ALL}
+```
+
+
 ```{r, child = cat_file,eval=ALL}
 ```
 
@@ -170,13 +182,12 @@ for(q_dir in q_dirs){
 # Then concatenate these enhanced question files
 #
 q_files <- paste(q_dirs,"/tmp.Rmd",sep="") 
+if(!ALL) q_files <- sample(q_files,size=1)
 file.create(cat_file)
 file.append(cat_file,q_files)
 ```
 
-```{r, child = sample(q_files,size=1),eval=!ALL}
-```
-```{r, child = cat_file,eval=ALL}
+```{r, child = cat_file}
 ```
 
 \exam{\newpage}
@@ -208,13 +219,12 @@ for(q_dir in q_dirs){
 # Then concatenate these enhanced question files
 #
 q_files <- paste(q_dirs,"/tmp.Rmd",sep="") 
+if(!ALL) q_files <- sample(q_files,size=1)
 file.create(cat_file)
 file.append(cat_file,q_files)
 ```
 
-```{r, child = sample(q_files,size=1),eval=!ALL}
-```
-```{r, child = cat_file,eval=ALL}
+```{r, child = cat_file}
 ```
 
 \exam{\newpage}
@@ -245,16 +255,14 @@ for(q_dir in q_dirs){
 # Then concatenate these enhanced question files
 #
 q_files <- paste(q_dirs,"/tmp.Rmd",sep="") 
+if(!ALL) q_files <- sample(q_files,size=1)
 file.create(cat_file)
 file.append(cat_file,q_files)
 ```
 
-```{r, child = sample(q_files,size=1),eval=!ALL}
-```
-```{r, child = cat_file,eval=ALL}
+```{r, child = cat_file}
 ```
 
-\exam{\vspace{10cm}}
 
 ------
 

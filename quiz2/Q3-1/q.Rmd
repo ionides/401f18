@@ -20,15 +20,21 @@ Suppose we're interested in predicting the protein in a new observation at 100pp
 ```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\vspace{5cm}}
+
 (b) Explain how to use the data vector $\vect{y}$, the design matrix $\mat{X}$, and your row vector $\vect{x}^*$ to construct a prediction interval that will cover the new measurement in approximately 95% of replications. Your answer should include formulas to construct this interval.
 
 ```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\newpage}
+
 (c) Find a numerical expression for a 95% confidence interval for the relationship between zinc exposure and protein content in minnow larvae.
 
 ```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{4cm}}
 
 (d)
 
@@ -46,6 +52,9 @@ Based on the graph above and the corresponding summary statistics, is this model
 
 ```{r,child=paste(my_dir, "/sol_d.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{4cm}}
+
 
 -------
 

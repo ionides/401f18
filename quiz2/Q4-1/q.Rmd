@@ -15,17 +15,26 @@ summary(lm_crab)$coefficients[,1:2]
 ```
 
 (a) Interpret the meaning of $\mu_1$ and $\mu_2$ in the above probability model
+
 ```{r,child=paste(my_dir,"/sol-a.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\vspace{3cm}}
+
 (b) Build a 95% confidence interval for $\mu_1$ using the normal approximation. You do not need to simplify your upper and lower bounds.
+
 ```{r,child=paste(my_dir,"/sol-b.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\newpage}
 
 (c) What is the design matrix used to fit the model above? Write out the first 6 rows. 
 
 ```{r,child=paste(my_dir,"/sol-c.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{10cm}}
+
 
 ------------------
 

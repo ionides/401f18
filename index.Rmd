@@ -158,7 +158,7 @@ Due in lab on 10/26.
 * [Questions in the quiz 1 generator](quiz1/all_quiz1.pdf). [Solutions](quiz1/all_quiz1_sol.pdf).
 
 * [Questions in the quiz 2 generator](quiz2/questions_quiz2.pdf). [Solutions](quiz2/solutions_quiz2.pdf).
-
+ [Sample quiz](quiz2/sample.pdf).
 
 -----------
 
