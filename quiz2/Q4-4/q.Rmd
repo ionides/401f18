@@ -30,16 +30,23 @@ summary(lm_mpg)$coefficients[,1:2]
 ```{r,child=paste(my_dir,"/sol-a.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\newpage}
+
 (b) Suppose we have a new car that has 6 cylinders and a horsepower of 110. What is the predicted miles per gallon? You do not need to simplify your calculation.
 
 ```{r,child=paste(my_dir,"/sol-b.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{5cm}}
+
 
 (c) We want to know if 8 cylinder cars have lower miles per gallon on average than 4 cylinder cars (after controlling for horsepower). What are the null and alternative hypotheses we would use to answer this question?
 
 
 ```{r,child=paste(my_dir,"/sol-c.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{5cm}}
 
 
 ----------- 

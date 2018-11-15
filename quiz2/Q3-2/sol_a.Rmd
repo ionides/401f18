@@ -3,7 +3,7 @@
 
 **Solution**
 
-$[\vec{x}^*\vec{b} - 1.96\, \SE, \vect{x}^*\vec{b} + 1.96\, \SE]$, where $SE = s\sqrt{\vec{x^*}(\mathbb{X}^T\mathbb{X})^{-1}\vec{x^{*T}}}$. $\vec{x^*}$ is a row vector of the new observed covariates and $\mat{X}$ is the design matrix; $s$ is an approximation of $\sigma$, the standard deviation of the errors.
+$[\vec{x}^*\vec{b} - 1.96\, \SE, \vect{x}^*\vec{b} + 1.96\, \SE]$, where $SE = s\sqrt{\vec{x^*}(\mathbb{X}^T\mathbb{X})^{-1}\vec{x^{*T}}}$. $\vec{x^*}$ is a row vector of the new observed covariates and $\mat{X}$ is the design matrix; $s$ is an approximation of $\sigma$, the standard deviation of the errors; $\vec{b}=(b_1,b_2,b_3,b_4)$ is the vector of least squares coefficients corresponding to the intercept, depth, salinity and mixing ratio respectively.
 
 \color{black}
 

@@ -30,15 +30,21 @@ round(summary(lm1)$coefficients[,1:2], 3)
 ```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\newpage}
+
 (b) (i) What is your test statistic for part (a)? (ii) What is the distribution of a model-generated test statistic under the null hypothesis? (iii) What is your conclusion for the hypothesis test in part (a)? No calculations are necessary for this question. Note that if there is no explicit specification of whether the "sample" or "model generated" test statistic is intended, this usually refers to the sample version.
 
 ```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\vspace{8cm}}
+
 (c) A new province is conquered in 1889 and its statistics are added to our data. This new province had an agriculture rate of 70%, examination rate of 22%, and education rate of 10%, a catholic rate of 50%, and an infant mortality rate of 20%. Find a numeric expression for the predicted fertility rate of this new province. You are not expected to evaluate this expression.
 
 ```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\newpage}
 
 (d)
 
@@ -56,6 +62,8 @@ Based on the graph above and the corresponding summary statistics, is this model
 
 ```{r,child=paste(my_dir, "/sol_d.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{5cm}}
 
 -------
 

@@ -13,14 +13,22 @@ We fit a linear model in R and look at its design matrix $\mathbb{X}$.
 lm_mice <- lm(Bodyweight~Diet,data=mice)
 model.matrix(lm_mice)
 ```
+
+\exam{\newpage}
+
 (a) Write down the sample linear model fitted in `lm_mice` using subscript format--this asks for the usual subscript format for linear models, not the double subscript format introduced to describe models with factors. Make sure to define appropriate notation.
 
 ```{r,child=paste(my_dir,"/sol-a.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\vspace{8cm}}
+
 (b) In terms of the coefficients of this sample linear model, explain how to obtain estimates of the means of both treatment groups and the difference between these means.
 
 ```{r,child=paste(my_dir,"/sol-b.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{8cm}}
+
 ----------- 
 

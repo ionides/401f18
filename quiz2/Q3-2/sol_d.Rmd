@@ -4,13 +4,11 @@
 *Solution* 
 
 The 95% confidence interval for the relationship between oxygen levels and water temperature is
-
-$$\begin{aligned}
-\hat{\beta}^* \pm 1.96SE(\hat\beta) \\
-1.956 \pm 1.96(0.024) \\
-[1.909, 2.003]
-\end{aligned}
-$$.
+\[
+b_4 \pm 1.96\, \SE(b_4) 
+= 1.956 \pm 1.96(0.024)
+\]
+This evaluates to $[1.909, 2.003]$.
 
 \color{black}
 

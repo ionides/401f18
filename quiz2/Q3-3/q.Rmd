@@ -20,20 +20,29 @@ round(summary(lm1)$coefficients[,1:2], 5)
 ```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\newpage}
+
 (b) What is the distribution of your test statistic from part (a)?
 
 ```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{4cm}}
 
 (c) Suppose we know that a local hopital has an average length of stay of 8 days, the average culture count is 14, the average number of X-rays is 90, and the number of beds is 40. Find a numeric expression for the predicted value for this observation; you are not expected to evaluate it.
 
 ```{r,child=paste(my_dir, "/sol_c.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\vspace{4cm}}
+
 (d) Suppose we constructed a confidence interval for the expected infection rate for the hospital in part c. How would you check that your confidence interval is plausible?
 
 ```{r,child=paste(my_dir, "/sol_d.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{4cm}}
+
 
 ---------------
 

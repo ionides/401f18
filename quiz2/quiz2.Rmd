@@ -14,18 +14,18 @@ csl: ecology.csl
 ```{r preliminaries,echo=F,cache=F}
  ALL <- TRUE
 #ALL <- FALSE
-SOL <- TRUE
-#SOL <- FALSE
-# QLABELS <- TRUE
-QLABELS <- FALSE
+#SOL <- TRUE
+SOL <- FALSE
+ QLABELS <- TRUE
+#QLABELS <- FALSE
 library(mat2tex)
 set.seed(12)
 knitr::opts_chunk$set(cache = FALSE)
 ```
 
 
-\newcommand\exam[1]{#1} %% exam paper formatting
-%% \newcommand\exam[1]{} %% omit exam paper formatting
+%% \newcommand\exam[1]{#1} %% exam paper formatting
+ \newcommand\exam[1]{} %% omit exam paper formatting
 
 
 \newcommand\mat[1]{\mathbb{#1}}

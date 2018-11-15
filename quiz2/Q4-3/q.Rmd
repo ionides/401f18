@@ -21,14 +21,22 @@ summary(lm_vg2)
 ```{r,child=paste(my_dir,"/sol-a.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\newpage}
+
 (b) What is the design matrix used to fit the model? Write out the first 6 rows.
 
 ```{r,child=paste(my_dir,"/sol-b.Rmd",sep=""),eval=SOL}
 ```
 
+\exam{\vspace{5cm}}
+
 (c) Suppose we wish to fit the model $y_i = b_0 + b_1x_{i,1} + e_i$ for $i = 1, \dots, 580$. What is the value of $b_1$?
 ```{r,child=paste(my_dir,"/sol-c.Rmd",sep=""),eval=SOL}
 ```
+
+\exam{\vspace{5cm}}
+
+
 -----------------------
 
 
