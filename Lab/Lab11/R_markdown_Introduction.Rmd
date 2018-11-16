@@ -1,0 +1,88 @@
+---
+title: "Welcome to Using R Markdown"
+author: "Naomi Giertych"
+date: "11/16/2018"
+output: pdf_document
+urlcolor: blue
+---
+
+Now that you're hopefully becoming more confident in your R skills, we can start thinking about how to integrate code and text to make a more coherent document.
+
+# Opening up an R Markdown Script
+
+- Once you're in R Studio, you can open up an R markdown by clicking this icon ![](new_doc.png)
+
+- **You do not need to download anything additional if you want to knit to an HTML file.**
+
+- If you would like to knit to a pdf, you need to install MiKTex for Windows or MacTex for Macs. You can download both of these [here](https://www.latex-project.org/get/).
+
+- *It is not recommended that you knit to a Word document.*
+
+# Setting up your document
+
+Markdown is an easy way of displaying code, output, and text all contained in the same file.
+
+- Headers are started with a '#' sign
+- Text is anything outside of an R chunk
+- R chunks look like this: ```{r} #example R chunk ```.
+
+There are several useful commands that help you be flexible in displaying your output. Some include:
+  - include: tells R whether to include the R code and the corresponding output
+  - echo: tells R whether to include the R code
+  - eval: tells R whether to evaluate the code in the chunk
+
+- All of these commands are entered when you start the R chunk.
+
+- R markdown automatically includes a setup R chunk (below).
+    - This allows all of your chunks to be set in the same way.
+    -  If you need to change a specific chunk you can override this default in the chunk.
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 4, fig.height = 4)
+```
+
+**Your GSI's and Google are great resources!**
+
+## R Markdown
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. Here is an example of outputing the summary statistics of the cars dataset contained in base R:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Including Math Symbols
+
+Install the mat2tex package using ```install.packages('mat2tex')```
+
+Note: This package is not available for R 3.5.1. To check the version of R that you are using type ```version``` into the console.
+
+- Vector notation $\mathbf{x}$
+- Matrix notation $\mathbb{X}$
+
+- Centering an Equation
+\[
+\mathbf{\hat\beta} = (\mathbb{X}^\mathrm{T}\mathbb{X})^{-1}\mathbb{X}^\mathrm{T}\mathbf{Y}
+\]
+
+- Aligning Multiple Equations:
+\[
+\begin{aligned}
+\mathbf{\hat\beta} = (\mathbb{X}^\mathrm{T}\mathbb{X})^{-1}\mathbb{X}^\mathrm{T} \mathbf{Y}\\
+\mathbf{b} = (\mathbb{X}^\mathrm{T}\mathbb{X})^{-1}\mathbb{X}^\mathrm{T}\mathbf{y}
+\end{aligned}
+\]
+
+# Some Helpful Documents
+
+Some helpful starter documents are [Markdown Basics](https://rmarkdown.rstudio.com/authoring_basics.html) and [Markdown Intro](https://rmarkdown.rstudio.com/articles_intro.html)
