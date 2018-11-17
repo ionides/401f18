@@ -1,0 +1,9 @@
+\solution. 
+All observational studies can be subject to **confounding variables**, which are unmeasured phenomena that affect both the explanatory variables and the response. A particulary type of confounding is **selection bias**. Here, a possible source of selection bias is that these kickers were selected to be those who held their job for 5 consecutive years, so they may not be representative of all kickers. In particular, those who held their job are more likely to have successful earlier seasons, whether by luck or by skill.
+Another potential confounding variable is coaching strategies. The observational study can readily infer **association** but not so easily establish the **causal mechanism**.
+
+
+\grade{
+Confounding and ``association is not causation'' were basic components worth a point each. One point for a concrete suggestion of a confounder. One point for reasonable, clear and correct reasoning.
+}
+

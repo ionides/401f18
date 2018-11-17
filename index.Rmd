@@ -198,13 +198,14 @@ Due in lab on 10/26.
 
 8. Observational studies and causation.
 
+-->
+
 * The style and format of the final exam will be based on the practice final exam below. The exam will work through a data analysis, asking questions to requiring understanding of the statistical techniques used, how they are computed, and how they are interpreted.
 
-* [Practice final exam](final/practice/practice.pdf), with [solutions](final/practice/sol_practice.pdf) for questions not discussed in class.
+* [Practice final exam](final/final401w18/final401w18.pdf). [Solutions](final/final401w18/sol_final401w18.pdf). This is a past final exam that includes a question on collinearity which we may or may not cover.
 
-* [Exam](final/final401w18/final401w18.pdf). [Solutions](final/final401w18/sol_final401w18.pdf).
+* The final exam will cover all material in Chapters 1-8 of the notes, as well as all homeworks and labs. The material will focus on material after Chapter 5, but this builds closely on Chapters 1-5. Some topics from Chapter 9 will be included, depending on which get covered in class. An announcement will be made later about this.
 
--->
 
 ------------
 

@@ -1,0 +1,11 @@
+
+\solution.
+```{r,echo=F}
+mm<- model.matrix(lm1)
+dimnames(mm) <- NULL
+head(mm)
+```
+
+\grade{
+1 point for intercept and covariate columns; 1 point for basic setup of binary columns for kicker; 1 point for getting the factor level coding right (e.g., no factor for the first kicker)
+}

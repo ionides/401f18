@@ -1,0 +1,88 @@
+---
+title: "Homework 11, STATS 401 F18"
+author: "Due in lab on 12/7"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+\newcommand\prob{\mathrm{P}}
+\newcommand\E{\mathrm{E}}
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\xtranspose{{\mbox{\tiny \textsc{t}}}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov}}
+\newcommand\corSample{\mathrm{cor}}
+\newcommand\cor{\mathrm{Cor}}
+\newcommand\normal{\mathrm{normal}}
+\newcommand\iid{\mathrm{iid}}
+\newcommand\MVN{\mathrm{MVN}}
+
+**Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+
+**Optional: If you like, you are encouraged to write your homework report as an Rmarkdown document**. The [slides for Lab 11](https://ionides.github.io/401f18/Lab/Lab11/R_markdown_Introduction.html) are a good start. Rmarkdown is a powerful tool for applied statistics, since it leads to reproducible analysis that can be relatively easily modified and shared. Combining text, code and R output helps to clarify what you did, why you did it, what you found, and what you conclude. 
+You can edit the [Rmarkdown file generating this homework](https://ionides.github.io/401f18/hw/hw11/hw11.Rmd) as a starting point.
+
+It is easier to learn Rmarkdown once you feel comfortable with R. So, if you don't feel ready to figure our Rmarkdown, **TODO**
+
+--------------
+
+-------------
+
+### Data analysis: investigating hospital infections
+
+Data on 12 variables for 113 hospitals from the Study on the Efficacy of Nosocomial Infection Control (SENIC) are provided in the file [senic.txt](senic.txt). 
+The primary purpose of this study is to look for properties of hospitals associated with high (or low) rates of hospital-acquired infections, which have the technical name of *nosocomial infections*.
+The rate of nosocomial infections is measured by the variable `Infection risk`.
+The SENIC study was described in a sequence of articles in The American Journal of Epidemiology, Volume 111, Issue 5, 1980, Pages 465–653. 
+You are not expected to read these articles.
+Nosocomial infection continues to be a concern for hospital management, and SENIC was a landmark study on this topic. 
+The variables are described as follows:
+
+**Hospital**: index from 1 to 113
+
+**Length of stay**: average duration (in days) for all patients
+
+**Age**: average age (in years) for all patients
+
+**Infection risk**: estimated percentage of patients acquiring an infection in hospital
+
+**Culture**: average number of cultures for each patient without signs or symptoms of hospital-acquired infection, times 100
+
+**X-ray**: number of X-ray procedures divided by number of patients without signs or symptoms of pneumonia, times 100
+
+**Beds**: average number of beds in the hospital
+
+**Med school**: does the hospital have an affiliated medical school (1=Yes;2=No)
+
+**Region**: geographic region (1=North-East, 2=North-Central, 3=South, 4=West)
+
+**Patients**: average daily census of number of patients in the hospital
+
+**Nurses**: average number of full-time equivalent registed and licensed nurses
+
+**Facilities**: percent of 35 specific facilities and services which are provided by the hospital
+
+Explore these data to find statistically supported evidence of associations that might explain nosocomial infection risk.
+You are expected to use the linear modeling techniques we have learned in class, as well as making one or more appropriate graphs.
+You may try as many different models as you like, but focus your report on a subset of analyses that you find informative.
+Numerical analysis that you present should be combined with explanation of your methods and conclusions.
+
+
+--------------
+
+-------------
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+
+
+------

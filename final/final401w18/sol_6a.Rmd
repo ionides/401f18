@@ -1,0 +1,11 @@
+\solution.
+`NA` estimates occur when the columns of the design matrix $\mat{X}$ are collinear.
+Here, we can expect considerable collinearity between the team and the kicker. 
+If a kicker stays with the same team throughout the 4 years of the dataset, the effect of this team and this kicker are indistinguishable.
+This is equivalent to the corresponding columns of the design matrix being collinear.
+ The effects only become distinguishable when the kicker changes team, and this apparently occurs on only 4 occasions.
+
+\grade{
+Basic points: R gives NA for a new variable collinear with previous ones; collinearity arises if a kicker doesn't change team. Points are for these basic points, plus two other points making a coherent argument. If the basic points are explained clearly, but with extra detail, only take off 1 point. If there are only 3 points but they provide a clear and complete answer, give full credit.
+}
+

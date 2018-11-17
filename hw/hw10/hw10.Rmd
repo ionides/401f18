@@ -15,9 +15,6 @@ output:
 
 Carry out either option A or option B below. You can do both if you want, but only one will give you credit. Report briefly on your progress with your chosen option.
 
-**Option A**. Write your homework report as an Rmarkdown document. The [slides for Lab 11](https://ionides.github.io/401f18/Lab/Lab11/R_markdown_Introduction.html) are a good start. Rmarkdown is a powerful tool for applied statistics, since it leads to reproducible analysis that can be relatively easily modified and shared. Combining text, code and R output helps to clarify what you did, why you did it, what you found, and what you conclude. 
-You can edit the [Rmarkdown file generating this homework](https://ionides.github.io/401f18/hw/hw10/hw10.Rmd) as a starting point.
-It is easier to learn Rmarkdown once you feel comfortable with R. So, if you don't feel ready to figure our Rmarkdown, there's another option.
 
 **Option B**. There are many R exercises and tutorials online, at varying technical levels. One that may help reinforce the material in STATS 401 is 
 [rstatistics.net/r-tutorial-exercise-for-beginners](http://rstatistics.net/r-tutorial-exercise-for-beginners/).

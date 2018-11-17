@@ -1,0 +1,15 @@
+
+\solution.
+$b$ is computed as a component of $\big(\mat{X}\mat{X}^\transpose\big)^{-1}\mat{X}^\transpose \vect{y}$.
+According to the implicit probability model for Question~1, the sample coefficient $b=-0.504$ is an unbiased estimate of a true coefficient $\beta$ with variance given by the corresponding diagonal term of $\sigma^2\big(\mat{X}\mat{X}^\transpose\big)^{-1}$ where $\sigma$ is the standard deviation of the measurement error model and $\mat{X}$ is the design matrix. 
+We estimate $\sigma^2$ by $s^2=\frac{1}{n-p}\sum_{i=1}(y_i-\hat y_i)^2$ where $\hat y_i$ is the fitted value and $p=20$ is the degrees of freedom.
+This gives us a standard error which, from the R output provided, is 
+\[
+\SE=0.113.
+\]
+Using a normal approximation, a 95% confidence interval is $[b-1.96\times\SE,b+1.96\times\SE]$.
+
+\grade{
+1 point for a formula for $b$; 1 point for covariance matrix; 1 point for standard error; 1 point for structure of the CI; 1 point for adding appropriate words to describe the quantities.
+}
+

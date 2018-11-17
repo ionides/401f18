@@ -41,7 +41,7 @@
 
 \begin{myitemize}
 \item When the explanatory variable for \m{y_i} is the time of measurement, \m{t_i}, then we call the linear model a trend.
-\item When we fit \m{y_i} using a function of an arbitrary explanatory variable $x_i$ we say we are \myemph{smoothing}.
+\item When we fit \m{y_i} using a function of an arbitrary explanatory variable \m{x_i} we say we are \myemph{smoothing}.
 \item We can choose any \m{p} in the general order $p$ polynomial smoothing model,
 \end{myitemize}
 \altdisplaymath{
@@ -117,7 +117,7 @@ par(mai=c(0.8,0.8,0.1,0.1))
 
 \myquestion. Why do we need to write \code{I(Year^2)} not just \code{Year^2} to fit a polynomial smoothing model in the R formula notation?
 
-\answer{\vspace{20mm}}{todo}
+\answer{\vspace{20mm}}{This is a technical consideration. \code{Year^2} happens to denote an interaction term in R's model formula language, so we have to tell R we just want the squared variable.}
 
 \end{frame}
 
@@ -125,11 +125,11 @@ par(mai=c(0.8,0.8,0.1,0.1))
 \frametitle{Checking the cubic smoothing calculation}
 \myquestion. How would you check that the R model formula we wrote is correct for the cubic polynomial we intend to fit?
 
-\answer{\vspace{25mm}}{todo}
+\answer{\vspace{25mm}}{Look at the design matrix!}
 
 \myquestion. If we have done a good job of modeling the trend, we might hope that the residuals look like independent measurement errors. How would you check if this is the case?
 
-\answer{\vspace{25mm}}{todo}
+\answer{\vspace{25mm}}{make a timeplot and/or a plot of the residuals against the lagged residuals.}
 
 \end{frame}
 

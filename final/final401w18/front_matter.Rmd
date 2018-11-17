@@ -1,0 +1,69 @@
+
+\vspace{4mm}
+
+$\quad\quad\quad$ \textbf{Name}:
+
+\vspace{6mm}
+
+$\quad\quad\quad$ \textbf{UMID}: 
+
+\vspace{8mm}
+
+
+**Instructions** 
+
+* You have a time allowance of 120 minutes.  The exam is closed book and closed notes. Any electronic devices (including calculators) in your possession must be turned off and remain in a bag on the floor. 
+
+* If you need extra paper, please number the pages and put your name and UMID on each page.
+  
+* Responses will be assessed on quality of explanation as well as whether they lead to a correct answer.
+
+* You may use the following formulas. Proper use of these formulas may involve making appropriate definitions of the necessary quantities.
+
+
+
+(1)$\quad\quad\mathbf{b}=\big(\mathbb{X}^\top \mathbb{X} \big)^{-1}\, \mathbb{X}^\top\mathbf{y}$
+
+(2)$\quad\quad\var(\hat{\mathbf{\beta}})= \sigma^2 \big( \mathbb{X}^\top \mathbb{X} \big)^{-1}$
+
+(3)$\quad\quad\var(\mathbb{A}\mathbf{Y})=\mathbb{A}\var(\mathbf{Y})\mathbb{A}^\top$
+
+(4)$\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
+
+(5)$\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
+
+(6)$\quad\quad$
+The binomial ($n,p$) distribution has mean $np$ and variance $np(1-p)$.
+
+(7)$\quad\quad \displaystyle f=\frac{(\RSS_0-\RSS_a)/(q-p)}{\RSS_a/(n-q)}.$
+\vspace{1cm}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{||c|c|c||}
+\hline
+\hline
+{Problem} & {Points} & {Your Score}\\
+\hline
+\hline
+1 & 8 & \\
+\hline
+2 & 4 & \\
+\hline
+3 & 6 & \\
+\hline
+4 & 10 & \\
+\hline
+5 & 8 & \\
+\hline
+6 & 8 & \\
+\hline
+Total & 44 &  \\
+\hline
+\hline
+\end{tabular}
+\\
+\renewcommand{\arraystretch}{1}
+
+\end{center}
+

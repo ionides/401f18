@@ -131,6 +131,7 @@ R^2_{\mathrm{adj}}=1-\frac{\RSS/(n-p)}{\SST/(n-1)}.
 
 \begin{frame}[fragile]
 <<gpa_summary,echo=F>>=
+gpa <- read.table("gpa.txt",header=T)
 summary(lm(GPA~ACT+High_School,data=gpa))
 @
 

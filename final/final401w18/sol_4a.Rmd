@@ -1,0 +1,12 @@
+\solution. Under the alternative hypothesis, the observation $y_{ij}$ is modeled as being generated according to a random variable $Y_{ij}$ constructed according to the equation 
+\[ Y_{ij}=\mu+\alpha_i + \beta_j+ \gamma x_{ij} +\epsilon_{ij}. \]
+Here, $x_{ij}$ is the previous year kicking average for the $j$th measurement on kicker $i$, for $i=1,\dots,k$ and $j=1,\dots,4$.
+The measurement error $\epsilon_{ij}$ is a normally distributed random variable with mean $0$ and standard deviation $\sigma$, independent of the other error terms. $\mu$ is the intercept, $\alpha_i$ is an additive effect for kicker $i$, and $\beta_j$ is an additive effect for year $j$. 
+We set $\alpha_1=\beta_1=0$ to avoid colinearity.
+$\gamma$ is the coefficient for the effect of last year's kicking average.
+
+
+\grade{
+2 points for the model equation; 1 point for correct definition of the error term; 1 point for defining the rest of the coefficients; 1 point for the constraint on the levels of the factors (first one is zero).
+}
+

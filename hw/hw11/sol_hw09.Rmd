@@ -1,0 +1,222 @@
+---
+title: "Hospital Infection Rate"
+author: "GSI Team"
+date: "4/17/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = F)
+```
+
+Data on 12 variables for 113 hospitals from the Study on the Efficacy of Nosocomial Infection Control (SENIC) are provided. The primary purpose of this study is to look for properties of hospitals associated with high (or low) rates of hospital-acquired infections, which have the technical name of *nosocomial infections*. The rate of nosocomial infections is measured by the variable `Infection risk`.
+
+We were asked to explore these data and find statistically supported evidence of associations that might explain nosocomial infection risk.
+
+First, I read in the data and change the `Med.school` and `Region` to factor variables. Below are the summary statistics of the data.
+
+```{r}
+
+library(GGally)
+library(stats)
+library(gridExtra)
+library(faraway)
+
+# read in the data and remove observation number labelled 'Hospital'
+
+senic <- read.table("https://ionides.github.io/401w18/hw/hw09/senic.txt", header =T)
+senic <- senic[,-1]
+senic$Region <- as.factor(senic$Region)
+senic$Med.school <- as.factor(senic$Med.school)
+summary(senic)
+
+```
+
+The summary statistics above suggest that overall the data have a wide range with a fairly even number of schools in each region. However, it also suggests that there may be outliers in each of the categories. These may be a particularly large or problematic hospital(s). It is interesting to note that many of the hospitals do not have medical schools. Additionally, we graph the each variable against all of the others to get a general understanding of the data.  **Note: You were not required to know this. A couple of exploratory graphs is sufficient.**
+
+```{r}
+
+# remove categorical variables for the purposes of graphing
+senic_num <- senic[,c(-7,-8)]
+ggpairs(senic_num)
+
+```
+
+Based on the graph above, patients, beds, and nurses are highly correlated. To avoid collinearity in the final model, we will only use `Nurses` as it has the highest correlation with `Infection.Risk`. We also see that `Nurses` seems to have a non-linear relationship with infection risk; a transformation of this variable may be needed. All of the other variables we will be using appear to have a linear relationship with `Infection.Risk`. Below, we have plotted `Nurses` against `Infection.Risk` to have a better look.
+
+```{r}
+
+plot(senic$Nurses, senic$Infection.risk, xlab="Nurses", ylab="infection risk", main="Plot of Infection Risk vs Nurses")
+
+```
+
+Based on this graph, `Nurses` appears to have an inverse-log relationship with `Infection.Risk`. To account for this, we take the log of `Nurses` and re-plot to check that `log_nurses` now as a linear relationship with `Infection.Risk`.
+
+```{r}
+
+senic$log_nurses <- log(senic$Nurses)
+plot(senic$log_nurses, senic$Infection.risk)
+
+```
+
+`log_nurses` has a linear relationship with `Infection.Risk`. We can now begin fitting initial models.
+
+The first model we fit will take the following form:
+
+$$
+Y_{ijk} = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4} + \beta_5x_{ij} + \beta_6x_{ik} + \beta_7x_{i5} + \beta_8x_{i6}
+$$
+
+where
+
+  - $Y_{ijk}$ is the estimated percentage of patients acquiring an infection in hospital $i$
+  - $\beta_0, \dots, \beta_8$ are the true but unknown coefficients
+  - $x_{i1}$ is the average duration (in days) for all patients in hospital $i$
+  - $x_{i2}$ is the average age (in years) for all patients in hospital $i$
+  - $x_{i3}$ is the average number of cultures for each patient without signs or symptoms of hospital-acquired infection in hospital $i$
+  - $x_{i4}$ is the number of X-ray procedures divided by number of patients without signs or symptoms of pneumonia in hospital $i$
+  - $x_{ij}$ is the indicator for whether hospital $i$ has a medical school or not, where $j = 0 or 1$.
+  - $x_{ik}$ is the indicator for which region hospital $i$ is in, where $k = 1, 2, 3, or 4$ (1=North-East, 2=North-Central, 3=South, 4=West).
+  - $x_{i5}$ is percent of 35 specific facilities and services which are provided by hospital $i$
+  - $x_{i6}$ is the log-transform of the average number of full-time equivalent registered and licensed nurses in hospital $i$
+
+```{r}
+#remove patients, beds, and nurses from data for the purposes of modelling
+senic_nurses <- senic[,c(-6,-9, -10)]
+
+lm1 <- lm(Infection.risk ~ ., data = senic_nurses)
+summary(lm1)
+```
+
+As we can see from the initial model, some of the variables are not significant or weakly significant.
+
+```{r}
+plot(lm1$fitted.values,lm1$residuals)
+```
+
+Examining the residuals (above) against the fitted values of the model does not immediately reveal anything wrong with the model assumptions. They appear to be randomly scattered about zero and have a constant variance. Since an additional assumption is that the residuals are normally distributed, we examine the QQplot to confirm this.
+
+```{r}
+qqnorm(lm1$residuals)
+```
+
+The QQplot agrees that the residuals are approximately normally distributed, perhaps with some heavy tails.
+
+Since we are interested in obtaining the simplest model for determining the risk of infection, we iteratively remove variables with the highest p-value from the model; this is known as the backwards selection method. Since `Region4` is significant, we will hold off on testing whether `Region` is significant as a whole until all the other variables are significant.
+
+We start by removing facilities and re-examining the model.
+
+```{r}
+lm2 <- lm(Infection.risk ~ . -Facilities , data = senic_nurses)
+summary(lm2)
+plot(lm2$fitted.values,lm2$residuals)
+qqnorm(lm2$residuals)
+```
+
+Notice that upon removing facilities, the residuals did not change much and the QQplot still suggests slightly heavy tails. Since `Age` is still not significant, we will remove it from the model.
+
+```{r}
+lm3 <- lm(Infection.risk ~ . -Age -Facilities, data = senic_nurses)
+summary(lm3)
+plot(lm3$fitted.values,lm3$residuals)
+qqnorm(lm3$residuals)
+```
+
+Residuals appear to be about the same as the previous model, but now the QQplot of the residuals does not suggest heavy tails which suggests that the errors are normally distributed.
+
+Next, we check if we can exclude Med school from our model. In order to do this, we perform an F-test.
+
+```{r}
+
+lm3 <- lm(Infection.risk ~ . -Age -Facilities, data = senic_nurses)
+lm4 <-  lm(Infection.risk ~ . -Age -Facilities -Med.school, data = senic_nurses)
+summary(lm3)
+anova(lm4,lm3)
+```
+
+As we can see from both the summary as well as the anova table, Med school is clearly significant and hence we can not exclude it from our model. 
+
+Finally, we still need to test for whether `Region` is significant in the model. Since `Region` is a factor variable, we need to perform an ANOVA at the 5% level with the following null and alternative hypotheses:
+
+$H_0: Y_{ijk} = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{ij} + \beta_5x_{ik} $
+
+$H_a: Y_{ij} = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{ij} + \beta_5x_{i4} + \beta_6x_{i4}$
+
+where
+
+  - $Y_{ijk}$ is the estimated percentage of patients acquiring an infection in hospital $i$
+  - $\beta_0, \dots, \beta_8$ are the true but unknown coefficients
+  - $x_{i1}$ is the average duration (in days) for all patients in hospital $i$
+  - $x_{i2}$ is the average number of cultures for each patient without signs or symptoms of hospital-acquired infection in hospital $i$
+  - $x_{i3}$ is the number of X-ray procedures divided by number of patients without signs or symptoms of pneumonia in hospital $i$
+  - $x_{ij}$ is the indicator for whether hospital $i$ has a medical school or not, where $j = 0 or 1$.
+  - $x_{ik}$ is the indicator for which region hospital $i$ is in, where $k = 1, 2, 3, or 4$ (1=North-East, 2=North-Central, 3=South, 4=West).
+  - $x_{i4}$ is the log-transform of the average number of full-time equivalent registered and licensed nurses in hospital $i$
+
+```{r}
+lm4 <- lm(Infection.risk ~ . -Age -Facilities -Region, data = senic_nurses)
+anova(lm4, lm3)
+```
+
+Based on the ANOVA, wwe can reject the null hypothesis and conclude that `Region` is statistically significant for determining the infection rate at the 5% level.
+
+
+Therefore the final model is $Y_{ij} = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{ij} + \beta_5x_{i4}$
+
+where
+
+  - $Y_{ijk}$ is the estimated percentage of patients acquiring an infection in hospital $i$
+  - $\beta_0, \dots, \beta_8$ are the true but unknown coefficients
+  - $x_{i1}$ is the average duration (in days) for all patients in hospital $i$
+  - $x_{i2}$ is the average number of cultures for each patient without signs or symptoms of hospital-acquired infection in hospital $i$
+  - $x_{i3}$ is the number of X-ray procedures divided by number of patients without signs or symptoms of pneumonia in hospital $i$
+  - $x_{ij}$ is the indicator for whether hospital $i$ has a medical school or not, where $j = 0 or 1$.
+  - $x_{ik}$ is the indicator for which region hospital $i$ is in, where $k = 1, 2, 3, or 4$ (1=North-East, 2=North-Central, 3=South, 4=West).
+  - $x_{i4}$ is the log-transform of the average number of full-time equivalent registered and licensed nurses in hospital $i$
+  
+## Additional diagnostics
+
+Now that we have our final model, we should check for outliers and leverage points. Cook's distance check's for both of these things.
+
+```{r}
+cook <- cooks.distance(lm3)
+halfnorm(cook, nlab = 3, ylab = "Cook's Distance")
+```
+
+Based on the Cook's Distance plot we should examine what happens to the fit of our model when we remove observation 8. Below is the fitted model without observation 8.
+
+```{r}
+senic_nurses_8 <- senic_nurses[-8,]
+lm4 <- lm(Infection.risk ~ . -Age -Facilities, data = senic_nurses_8)
+summary(lm4)
+```
+
+Additionally, we re-examine the residuals.
+
+```{r}
+plot(lm4$fitted.values, lm4$residuals)
+qqnorm(lm4$residuals)
+```
+
+Since the coefficients of the model did not change much and only `X.ray` changed from being statistically significant at the 5% level to statistically significant at the 10% level, we can keep observation 8 in the analysis but we should examine how it compares with the other observations.
+
+---
+
+Additionally, it would be interesting to plot `Infection.Risk` against the fitted values and against the residuals of our final model above to see if there are infact modelling the infection risk well.
+
+```{r}
+
+plot(lm3$fitted.values, senic$Infection.risk, main = "Fitted Values against Infection Risk")
+lines(quantile(senic$Infection.risk, c(0.01, 0.99)), quantile(senic$Infection.risk, c(0.01, 0.99)), col = "red")
+
+
+plot(senic$Infection.risk, lm3$residuals)
+
+```
+
+As we can see from the plots above, hospitals with very low infection rates are not predicted well with the model; the fitted values are consistently larger than the actual value. Similarly, hospitals with very high infection rates have consistently smaller fitted values.
+
+## Conclusion
+
+We are interested in determining what hospital properties are associated with high (or low) risks of infection. Our final model suggests that the length of stay, the number of cultures, the number of x-rays, whether or not the hospital is associated with a medical school, the region the hospital is in, and the logarithm of the number of nurses helps determine the infection risk of a hospital. From the values of the coefficients in our final model and assuming that a hospital cannot change its region or whether it is associated with a medical school, hospitals with low numbers of cultures, x-rays, nurses, and a shorter length of stay would see a reduction in the percentage of hospital-acquire infections. Of course, this should be taken with some caution as the number of nurses for instance is driven primarily by the size of the hospital and reducing the number of employees could result in negative consequences.
+

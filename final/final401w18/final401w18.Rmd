@@ -1,0 +1,284 @@
+---
+title: "Final exam, STATS 401 W18"
+output:
+  pdf_document:
+  toc: no
+header-includes:
+   - \usepackage{ifthen}
+html_document:
+  theme: flatly
+toc: no
+word_document:
+  toc: no
+csl: ecology.csl
+---
+  
+
+```{r preliminaries,echo=F,cache=F}
+FRONTMATTER <- TRUE 
+# FRONTMATTER <- FALSE
+SOL <- FALSE
+# SOL <- TRUE
+set.seed(12)
+# library(mat2tex)
+```
+
+\newcommand\solution{ {\bf Solution}}
+
+%% \newcommand\exam[1]{} %% remove exam formatting, e.g., for solutions
+\newcommand\exam[1]{#1} %% use exam paper formatting
+
+
+\newcommand\grade[1]{} %% hide grade scheme
+%% \newcommand\grade[1]{ {\bf Summary of grade scheme}. #1} %% show grade scheme
+
+\newcommand\mat[1]{\mathbb{#1}}
+\newcommand\vect[1]{\boldsymbol{#1}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\prob{\mathrm{P}}
+\newcommand\E{\mathrm{E}}
+\newcommand\SE{\mathrm{SE}}
+\newcommand\SD{\mathrm{SD}}
+\newcommand\RSS{\mathrm{RSS}}
+\newcommand\SST{\mathrm{SST}}
+\newcommand\pval{\mathrm{pval}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\cov{\mathrm{Cov}}
+
+
+```{r,child="front_matter.Rmd",eval=FRONTMATTER}
+```
+
+
+```{r read_data,echo=F}
+goals <- read.table("FieldGoals2003to2006.csv",header=T,sep=",")
+goals <- goals[,1:8]
+```
+
+\exam{\newpage}
+
+All the questions in this exam refer to the field goal kicking data provided in the R dataframe `goals`. These data record the results of field goal attempts for the kickers who played in all the 2002--2006 National Football League (NFL) seasons. The primary question of interest is whether a kicker who exceeds expectations in one season is likely to do better, or worse, than expected in the following season.
+
+**Name**. The name of the field goal kicker.
+
+**Yeart**. The year $t$ corresponding to the row in the dataset.
+
+**Teamt**. An abbreviation of the name of the team for the kicker in year $t$.
+
+**FGAt**. Field goal attempts in year $t$.
+
+**FGt**. Percentage of field goal attempts that were successful in year $t$.
+
+**Team.t.1**. An abbreviation of the name of the team for the kicker in year $t-1$. 
+
+**FGAtM1**. Field goal attempts in year $t-1$.
+
+**FGtM1**. Percentage of field goal attempts that were successful in year $t-1$.
+
+Throughout the exam, you may write $y_i$ for the field goal percentage recorded on the $i$th row of the data file, for $i=1,\dots,n$ with $n=4k$ corresponding to four data points on eack of $k=19$ kickers. 
+You may also write $y_{ij}$ for the $j$th measurement on kicker $i$, for $i=1,\dots,k$ and $j=1,\dots,4$.
+You may use this notation without explanation. Other additional notation you use should be defined as appropriate.
+
+```{r show_data}
+head(goals)
+```
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{2mm}
+
+**1. Factors and their coding in R**. 
+
+We will start the analysis by fitting a basic model, seen earlier in class and homework, specified in R code as
+```{r lm1_and_lm2}
+lm1 <- lm(FGt~Name+FGtM1, data=goals)
+```
+
+\vspace{-3mm}
+
+(a) _[5 points]_. Write down the sample model fitted by `lm1` in subscript form.
+
+\exam{
+\vspace{7cm}
+\newpage
+}
+
+
+```{r,child="sol_1a.Rmd",eval=SOL}
+```
+
+(b) _[3 points]_. Write down the first 6 rows of the design matrix for `lm1`. You may use dots ($\cdots$) to abbreviate entries following a repeated pattern, but if you do this it must be clear what they represent.
+
+\exam{\vspace{8cm}}
+
+```{r,child="sol_1b.Rmd",eval=SOL}
+```
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{2mm}
+
+```{r lm1_results}
+coef(summary(lm1))["FGtM1",]
+```
+
+**2. Model interpretation**. _[4 points]_.
+
+A direct interpretation of the estimated coefficient for the previous year field goal percentage from `lm1` (shown above) is that field goal kickers who kick well one season tend to kick relatively poorly the next season. 
+Explain why general principles for the interpretation of observational studies should make us cautious about jumping to that conclusion.
+
+```{r,child="sol_2.Rmd",eval=SOL}
+```
+
+\exam{\vspace{8cm}}
+
+\vspace{2mm}
+
+\hrule
+
+\exam{\newpage}
+
+\vspace{2mm}
+
+**3. Model diagnostics**.
+
+One possible explanation behind some, or all, of the negative association between kicking percentages in subsequent years could be that coaches who have lower expectation of the abilities of the kicker tend to refrain from hard field goal attempts the following season, pushing up the next season's success rate average. Correspondingly, a coach emboldened by successful kicking may follow this up with choosing to kick in challenging situations. To investigate this, we can consider a linear model where the number of field goal attempts in year $t$ is explained by the field goal success rate in year $t-1$.
+
+```{r attempts}
+lm2 <- lm(FGAt~Name+FGtM1, data=goals)
+anova(lm2)
+```
+
+(a) _[4 points]_. Interpret the results of this fitted linear model in the context of question of primary interest in the data analysis. You are not asked to give all the details for a hypothesis test or confidence interval. That will come in later questions; here, it is enough to describe briefly the statistical reasoning behind your interpretation.
+
+\exam{\vspace{5cm}}
+
+```{r,child="sol_3a.Rmd",eval=SOL}
+```
+
+\exam{\newpage}
+
+We should always investigate the data graphically in addition to fitting a model.
+```{r plot_attempts,fig.width=6,out.width="4in"}
+plot(resid(lm2)~FGtM1, data=goals)
+```
+
+\vspace{-3mm}
+
+(b) _[2 points]_. Comment on your interpretation of the above residual plot, and how it relates to your answer to (a).
+
+\exam{\vspace{5cm}}
+
+```{r,child="sol_3b.Rmd",eval=SOL}
+```
+
+\vspace{2mm}
+
+
+\hrule
+
+
+\vspace{2mm}
+
+One other possibility proposed in class to explain the unexpected results of our first model is that kickers must do well in the earlier years included in the dataset, since they necessarily maintained their position on the team throughout the 2002--2006 interval. The following model investigated the evidence for the magnitude of this effect.
+```{r time_anova}
+lm3 <- lm(FGt~Name+FGtM1+factor(Yeart), data=goals)
+anova(lm3)
+```
+
+\exam{\newpage}
+
+**4. An investigation using an F-test**.  
+
+(a) _[5 points]_. Write out in full, using subscript form, the alternative hypothesis, $H_a$, for using `lm3` to test whether the field goal average changes over time.
+
+```{r,child="sol_4a.Rmd",eval=SOL}
+```
+
+\exam{\vspace{9cm}}
+
+(b) _[5 points]_. Carry out an F test of the hypothesis $H_a$ against a suitably constructed null hypothesis, $H_0$, giving explanation of how this test is constructed. What do you conclude?
+
+```{r,child="sol_4b.Rmd",eval=SOL}
+```
+
+\exam{\vspace{8cm}}
+
+\vspace{2mm}
+
+\hrule
+
+\exam{\newpage}
+
+\vspace{2mm}
+
+**5. A confidence interval**.
+
+(a) _[5 points]_. Using the model in Question 1 and the R output on `lm1`, explain how R obtains the estimated coefficient of goal kicking percentage in year $t-1$ as a predictor of goal kicking percentage in year $t$. 
+Also, using the probability model implicitly assumed in the analysis of Question 1, explain how to the construct a 95% confidence interval for the true coefficient.
+
+
+```{r,child="sol_5a.Rmd",eval=SOL}
+```
+
+\exam{\vspace{11cm}}
+
+(b) _[3 points]_. A confidence interval is only as trustworthy as the model that it is derived from. Explain to what extent you feel the confidence interval is justified based on the analysis available in this exam. Propose any supplementary analysis you would do to strengthen this inference.
+
+
+```{r,child="sol_5b.Rmd",eval=SOL}
+```
+
+\exam{\vspace{7cm}}
+
+\vspace{2mm}
+
+\hrule
+
+\exam{\newpage}
+
+\vspace{2mm}
+
+**6. Collinearity**. 
+
+Suppose someone suggests that the rest of the team may also be an important component of field goal success. This leads you to try adding to the model a factor for the team in year $t$ with the following consequence. 
+```{r team}
+lm4 <- lm(FGt~Name+Teamt+FGtM1, data=goals)
+summary(lm4)
+```
+
+(a) _[4 points]_. Explain why all but four of the coefficients for the team factors take value `NA`.
+
+
+```{r,child="sol_6a.Rmd",eval=SOL}
+```
+
+\exam{\vspace{9cm}}
+
+The following results show that if we put the kicker into the model first, then the team appears insignificant from an F test.  However, if we put team first then it is significant and kicker becomes insignificant. 
+```{r team_anova}
+anova(lm(FGt~Name+Teamt+FGtM1, data=goals))
+anova(lm(FGt~Teamt+Name+FGtM1, data=goals))
+```
+
+(b) _[4 points]_. Explain why the significance of the effect of the team and the kicker depends on the order in which the variables occur in the model. Can the data distinguish whether the goal kicking percentage is best explained by team or by kicker or by both?
+
+
+```{r,child="sol_6b.Rmd",eval=SOL}
+```
+
+\exam{\vspace{9cm}}
+
+--------
+
+**Acknowledgments**: The `goals` data were presented by _A Modern Approach to Regression with R_ by S. J. Sheather, and originally come from  http://www.rorotimes.com/nfl/stats.
+
+**License**: This material is provided under an [MIT license] (https://ionides.github.io/401w18/LICENSE)
+
+----------
+
+

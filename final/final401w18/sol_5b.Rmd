@@ -1,0 +1,7 @@
+
+The model diagnostics we have seen in questions 2, 3 and 4 all support the linear model of question 1. This gives some support for the resulting confidence interval. We didn't check normality: the scatter of points in the residual plot suggests that there are no outliers and normality is a reasonable approximation. Normality is more critical for prediction than for confidence intervals on coefficients, since in the latter case a cental limit theorem applies: the coefficient estimate is a certain average of all the data points, and averages can be expected to have the _central limit property_ that they are well approximated by a normal distribution.
+
+\grade{
+1 point for acknowledging that presented diagnostics support the model; 1 point for suggesting a reasonable supplementary analysis; 1 point for writing a correct and logical argument.
+}
+

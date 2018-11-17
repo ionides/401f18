@@ -1,0 +1,8 @@
+\solution.
+There is no clear nonlinear pattern. The residuals are scattered in a football shape, consistent with the model. This supports the finding from (a), since we can't tell without looking at the data whether there are serious model violations that could make the ANOVA table in (a) unreliable.
+
+
+\grade{
+(1) no pattern; (1) this supports the finding from (a), with partial credit for consistency despite incorrect assessment of the pattern.
+}
+

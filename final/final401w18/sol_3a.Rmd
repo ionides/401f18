@@ -1,0 +1,8 @@
+
+\solution.
+According to this ANOVA table, field goal percentage in the previous year does not significantly help in predicting subsequent field goal attempts (F test, p-value = 0.871). Also, kicker does not significantly predict field goal attempts (F test, p-value = 0.946). The identity of the kicker is closely related to the identity of the team, so we also infer that teams do not vary substantially on their field goal kicking strategies. It appears that coaching strategies cannot substantially explain the negative association of primary interest to this investigation.
+
+\grade{
+(1) coefficient for previous year FGA is not significient; (1) the kicker identify is not significant either [this point could be replaced by a high quality solution or extra detail excluding this point]; (1) a mention of p-values or F-values to support this; (1) conclusion relating back to the primary question (explanation of the observed negative association).
+}
+

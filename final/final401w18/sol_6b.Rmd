@@ -1,0 +1,12 @@
+\solution.
+As discussed in 6(a), the team and the kicker are almost indistinguishable---they are perfectly indistinguishable unless the kicker changes team. If we include the `Name` variable first, and then test for the inclusion of `Teamt` we are testing whether the team adds significantly more explanatory power over the kicker identity, which it doesn't (since both carry almost the same information). However, if we include `Teamt` first, it shows up as significant, as expected since we have already found that `Name` alone is significiant.
+
+The data alone do not establish whether the observed effect is due to the kicker or due to some other aspect of the team, since `Teamt` alone explains the data similary well to `Name` alone. Some common knowledge about football may suggest that the kicker is more responsible for the success of the goal attempt than his team mates, but that conclusion doesn't come directly out of these data.
+
+\grade{Basic points: (1) we cannot establish which; (2) order of inclusion shows what is explained beyond what is previously in the model. It is appropriate to say that there are weak indications by looking at the different p-values, but this is inconclusive. Points are for the two basic points and two other points that make a coherent argument. Just saying that you can have either but not both, duel to colinearity, is not quite enough without discussion of the evidence since some of the factor levels are not perfectly collinear.
+
+Carry-over points were awarded for points missing from (a) even if they would have been more appropriate in (a).
+
+Good solutions distinguished between exact collinearity of some factor levels and the approximate collinearity between the entire factors - there is some difference between team and kicker, and so one can look for evidence on whether this difference is significant.
+}
+
