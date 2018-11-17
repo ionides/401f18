@@ -1,0 +1,138 @@
+
+\begin{frame}[fragile]
+\frametitle{The R-squared statistics to assess goodness of fit}
+
+\begin{myitemize}
+\item \m{R^2} is the square of the correlation between the data and the fitted values.
+\item It can also be computed as
+\mydisplaymath{
+R^2 = 1- \frac{\RSS}{\SST} = \frac{\SST-\RSS}{\SST}
+}
+where \m{\RSS} is the residual sum of squares and \m{\SST} is the total sum of squares, defined as
+\mydisplaymath{
+\SST = \sum_{i=1}^n \big(y_i-\bar y\big)^2, \quad \mbox{ where } \bar y = \frac{1}{n}\sum_{i=1}^n y_i.
+}
+\item \m{R^2} is sometimes described as the fraction of the variation in the data explained by the linear model.
+\item \m{1-R^2} is the fraction of the variation in the data left unexplained by the model.
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Uses and abuses of R-squared}
+
+\begin{myitemize}
+
+\item A low \m{R^2} sends a clear signal: the fitted  model doesn't describe the data much better than the sample mean. 
+
+\item Sometimes a small, but statistically significant, correlation is of interest. 
+If you are monitoring data on the operation of an aircraft jet engine, you want to know about evidence suggesting a malfunction as soon as it is statistically significant. 
+\myemph{Interpretation of R-squared depends on context}. 
+
+\item The \m{R^2} statistic compares the residual sum of squares under the full model with the residual sum of squares under a model with a constant mean. By contrast, the F test compares the full model with a model that omits specific selected explanatory variables. The F test is more appropriate for assessing whether a variable, or group of variables, should be included in the model. 
+
+\end{myitemize}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A relationship between the F statistic and R-squared}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item Recall that in a regression setting, the F statistic is expressed in the following way.
+\mydisplaymath{
+f=\frac{(\RSS_0-\RSS_a)/d}{\RSS_a/(n-q)}.
+}
+\item \m{q} is the dimension of the alternative hypothesis.
+\item \m{d} is the difference in dimension between the null and alternative hypotheses.
+\end{myitemize}
+
+\vspace{-1mm}
+
+\myquestion. Write the hypotheses \m{H_0} and \m{H_a} to match the \m{R^2} statistic in a linear model with \m{p} explanatory variables (including the intercept). Set up these hypotheses so that \m{\RSS_0} is \m{\SST}, and \m{\RSS_a} is \m{RSS}.
+
+\answer{\vspace{20mm}}{todo}
+
+
+\begin{myitemize}
+\item In this context, we see that \m{q=p} and \m{d=p-1}.
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Writing $R^2$ in terms of an F statistic}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item From last slide, we have
+\mydisplaymath{ 
+f=\frac{(\SST-\RSS)/(p-1)}{\RSS/(n-p)}
+}
+\item Recall that \m{R^2 = 1-\RSS/\SST}. 
+\end{myitemize}
+
+\vspace{-3mm}
+
+\myquestion. Check by algebra that
+\m{ \displaystyle
+R^2=1 - \frac{1}{1+f \times (p-1)/(n-p)}
+}
+
+\answer{\vspace{35mm}}{todo}
+
+\myquestion. What is \m{R^2} when \m{F} is very large? or close to zero?
+
+\answer{\vspace{15mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\myquestion. Explain why \m{R^2} cannot decrease when you add an extra explanatory variable into a linear model. (Explanations for questions like this should involve some math notation, not just words.)
+
+\answer{\vspace{45mm}}{todo}
+
+\begin{myitemize}
+\item Simplicity in a model is a good thing. The fact that any added model complexity makes \m{R^2} seem ``better'' requires caution in interpretation. 
+%\item 
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Adjusted R-squared}
+
+\vspace{-1.5mm}
+
+\begin{myitemize}
+\item One approach to penalize \m{R^2} for a more complex model is to divide each sum of squares by its degrees of freedom. This gives the \myemph{adjusted R-squared},
+\mydisplaymath{
+R^2_{\mathrm{adj}}=1-\frac{\RSS/(n-p)}{\SST/(n-1)}.
+}
+\item Dividing by the degrees of freedom in \m{R^2_{\mathrm{adj}}} is like what we do in the F statistic. 
+\item The F statistic takes advantage of the nice mathematical property that \m{\SST-\RSS} and \m{\RSS} are independent random variables for the probability model with normally distributed measurement error.
+\item For comparing two \myemph{nested} models (when the larger model consists of adding variables to the smaller model) an F test is a clearer statistical argument than comparing \m{R^2_{\mathrm{adj}}}.
+\item When the models are not nested, the F test is not applicable. Comparing \m{R^2_{\mathrm{adj}}} values gives one way to assess the models, though not a formal test.
+
+\item  Now we've studied \m{R^2_{\mathrm{adj}}}, we understand everything in \code{summary(lm())}.
+
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+<<gpa_summary,echo=F>>=
+summary(lm(GPA~ACT+High_School,data=gpa))
+@
+
+\end{frame}
+

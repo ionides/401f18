@@ -1,0 +1,159 @@
+
+\begin{frame}[fragile]
+\frametitle{Collinear explanatory variables in a linear model}
+
+
+\begin{myitemize}
+\item Let \m{\mat{X}=[x_{ij}]_{n\times p}} be an \m{n\times p} design matrix. 
+\item If there is a nonzero vector \m{\vect{\alpha}=(\alpha_1,\dots,\alpha_p)} such that \m{\mat{X}\vect{\alpha}=\vect{0}} then the columns of \m{\mat{X}} are \myemph{collinear}.
+\item Here, \m{\vect{0}} is the zero vector, \m{(0,0,\dots,0)}.
+\item We can write \m{\vect{x}_j=(x_{1j},x_{2j},\dots,x_{nj})} for the \m{j}th column of \m{\mat{X}}. Then,
+\mydisplaymath{
+\mat{X}\vect{\alpha} = \alpha_1\vect{x}_1+\alpha_2\vect{x}_2+\dots+\alpha_j\vect{x}_j.
+}
+We see that \m{\mat{X}\vect{\alpha}} can be thought of as a \myemph{linear combination of the columns of \m{\mat{X}}}.
+\item Collinearity of explanatory variables has important consequences for fitting a linear model to data.
+\item It can also be useful to notice whether the variables are close to collinear, meaning that  \m{\mat{X}\vect{\alpha}} is small but nonzero.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example: an intercept with a coefficient for each factor}
+
+\begin{myitemize}
+\item Recall the mouse weight dataset. Consider a sample linear model,
+
+\vspace{-2mm}
+
+\mydisplaymath{
+y_{ij}=\mu+\mu_j+e_{ij}.
+}
+
+\vspace{-2mm}
+
+\item Suppose that we don't set the $\mu_1=0$ so we try to estimate both $\mu_1$ and $\mu_2$ at the same time as the intercept, $\mu$.
+\item Let's work with just 3 mice in each treatment group, so \m{i=1,2,3} and \m{j=1,2}. The design matrix is therefore
+<<>>=
+X <- cbind(rep(1,6),rep(c(1,0),each=3),rep(c(0,1),each=3)) ; X
+@
+\item For \m{\vect{\alpha}=(1,-1,-1)}, we have \m{\mat{X}\vect{\alpha}=0}
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The least squares fit with collinear predictors}
+
+\begin{myitemize}
+\item Suppose that \m{\vect{b}} is a least squares coefficient vector, so that the fitted value vector \m{\vect{\hat y}=\mat{X}\vect{b}} minimizes \m{\sum_{i=1}^n \big(y_i - \hat y_i\big)^2}.
+\item Suppose that \m{\mat{X}} is collinear, with \m{\mat{X}\vect{\alpha}=\vect{0}}.
+\item Since
+\mydisplaymath{
+\mat{X}(\vect{b}+\vect{\alpha}) = \mat{X}\vect{b}+\mat{X}\vect{\alpha} = \mat{X}\vect{b}+\vect{0} = \mat{X}\vect{b},
+}
+we see that \m{\vect{b}+\vect{\alpha}} is also a least squares coefficient vector.
+\item
+\myemph{When \m{\mat{X}} is collinear, a least squares coefficent still exists, but it is not unique.}
+
+\end{myitemize}
+\myquestion. Let \m{c} be any number. Recall multiplication of a vector by a scalar: \m{c\vect{\alpha}=(c\alpha_1,\dots,c\alpha_p)}. Show that \m{\vect{b}+c \vect{\alpha}} is also a least squares fit.
+
+\vspace{20mm}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Standard errors for collinear variables}
+
+\myquestion. Any variable that is part of a collinear combination of variables has infinite standard error. Why?
+
+\answer{\vspace{50mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What does R do if give it collinear variables?}
+<<>>=
+mice <- read.table("femaleMiceWeights.csv",header=T,sep=",")
+chow=rep(c(1,0),each=12)
+hf=rep(c(0,1),each=12)
+lm1 <- lm(Bodyweight~chow+hf,data=mice)
+coef(summary(lm1))
+@
+
+\begin{myitemize}
+\item R noticed that the three explanatory variables are collinear, and refused to fit the third
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+<<>>=
+model.matrix(lm1)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Collinear variables and the determinant of $\mat{X}^\transpose\mat{X}$}
+
+\begin{myitemize}
+\item Recall that the variance of \m{\hat\beta} in the usual linear model is \m{\sigma^2 \big(\mat{X}^\transpose\mat{X}\big)^{-1}}.
+\item Collinearity means the variance is infinite, a matrix version of dividing by zero.
+\item Recall that a square matrix is invertible if its determinant is nonzero.
+\item We can check that collinearity means \m{\mathrm{det}\big(\mat{X}^\transpose\mat{X}\big)=0}.
+<<>>=
+X <- model.matrix(lm1)
+t(X)%*%X
+det(t(X)%*%X)
+@
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Linearly independent vectors and matrix rank}
+
+\begin{myitemize}
+\item Columns of a matrix that are not collinear are said to be \myemph{linearly independent}.
+\item The \myemph{rank} of \m{\mat{X}} is the number of linearly independent columns.
+\item \m{\mat{X}} has \myemph{full rank} if all the columns are linearly independent. In this case, we expect the least squares coefficient to be uniquely defined and so \m{\mat{X}^\transpose\mat{X}} has non-zero determinant and is invertible.
+\item If \m{\mat{X}} does not have full rank, we can drop \myemph{linearly dependent} columns until the remaining columns are linearly independent. This is a practical approach to handling collinearity.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example: reducing a design matrix to full rank}
+
+\vspace{-2mm}
+
+<<>>=
+X <- model.matrix(lm1)
+det(t(X)%*%X)
+X2 <- X[,1:2]
+det(t(X2)%*%X2)
+@
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item Dropping the third column of \code{X} has given us a full-rank design matrix.
+\end{myitemize}
+\myquestion. The least squares fitted values are the same using the predictor matrix \code{X2} as \code{X}. Why does dropping the last column not change the fitted values?
+
+\answer{\vspace{20mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Almost collinear variables}
+
+\begin{myitemize}
+\item If the determinant of \m{\mat{X}^\transpose\mat{X}} is close to zero, the variance of the model-generated least squares coefficient vector becomes large.
+\item This can happen when multiple explanatory variables are included in a model which all model similar things.
+\end{myitemize}
+
+\myquestion. Recall our data analysis using unemployment to explain life expectancy. What would happen if we added total employment as an additional explanatory variable? (Being unemployed is not the only alternative to being employed, since only adults currently looking for work are counted as unemployed.)
+
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+

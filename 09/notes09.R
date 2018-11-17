@@ -2,76 +2,7 @@
 # library(broman) # used for myround 
 par(mai=c(0.8,0.8,0.1,0.1))
 
-## ----gpa_data------------------------------------------------------------
-gpa <- read.table("gpa.txt",header=T); head(gpa,3)
-
-## ----lm_a----------------------------------------------------------------
-lm1 <- lm(GPA~ACT+High_School*Year,data=gpa) 
-coef(summary(lm1))[,1:2]
-
-## ----lm_b----------------------------------------------------------------
-head(model.matrix(lm1))
-
-## ------------------------------------------------------------------------
-lm2 <- lm(GPA~ACT+High_School+Year+High_School:Year,data=gpa)
-head(model.matrix(lm2),4)
-
-## ------------------------------------------------------------------------
-lm3 <- lm(GPA~ACT*High_School,data=gpa)
-
-## ------------------------------------------------------------------------
-coef(summary(lm3))[,1:2]
-
-## ------------------------------------------------------------------------
-ACT_centered <- gpa$ACT-mean(gpa$ACT)
-HS_centered <- gpa$Hi - mean(gpa$Hi)
-lm3b <- lm(GPA~ACT_centered*HS_centered,data=gpa)
-signif(coef(summary(lm3b))[,c(1,2,4)],3)
-
-## ------------------------------------------------------------------------
-s3 <- summary(lm3)$sigma
-lm4 <- lm(GPA~ACT+High_School,data=gpa)
-s4 <- summary(lm4)$sigma
-lm5 <- lm(GPA~1,data=gpa)
-s5 <- summary(lm5)$sigma
-cat("s3 =",s3,"; s4 =",s4,"; s5 =",s5)
-
-## ------------------------------------------------------------------------
-
-## ----data----------------------------------------------------------------
-goals <- read.table("FieldGoals2003to2006.csv",header=T,sep=",")
-goals[1,c("Name","Teamt","FGt","FGtM1")]
-lm6 <- lm(FGt~FGtM1*Name,data=goals)
-
-## ------------------------------------------------------------------------
-X<-model.matrix(lm6) ; colnames(X)<-1:38 ; X[1:17,c(1:8,21:26)]
-
-## ------------------------------------------------------------------------
-anova(lm6)
-
-## ------------------------------------------------------------------------
-X <- cbind(rep(1,6),rep(c(1,0),each=3),rep(c(0,1),each=3)) ; X
-
-## ------------------------------------------------------------------------
-mice <- read.table("femaleMiceWeights.csv",header=T,sep=",")
-chow=rep(c(1,0),each=12)
-hf=rep(c(0,1),each=12)
-lm1 <- lm(Bodyweight~chow+hf,data=mice)
-coef(summary(lm1))
-
-## ------------------------------------------------------------------------
-model.matrix(lm1)
-
-## ------------------------------------------------------------------------
-X <- model.matrix(lm1)
-t(X)%*%X
-det(t(X)%*%X)
-
-## ------------------------------------------------------------------------
-X <- model.matrix(lm1)
-det(t(X)%*%X)
-X2 <- X[,1:2]
-det(t(X2)%*%X2)
+## ----poly,child="polynomial.Rnw"-----------------------------------------
 
 ## ----reconstruct_variables,echo=F----------------------------------------
 L <- read.table(file="life_expectancy.txt",header=TRUE)
@@ -167,6 +98,95 @@ plot(lag_e,e)
 ## ------------------------------------------------------------------------
 coef(summary(lm_loess))
 
+
+## ----rsq,child="r-squared.Rnw"-------------------------------------------
+
 ## ----gpa_summary,echo=F--------------------------------------------------
 summary(lm(GPA~ACT+High_School,data=gpa))
+
+
+## ----collinear,child="collinear.Rnw"-------------------------------------
+
+## ------------------------------------------------------------------------
+X <- cbind(rep(1,6),rep(c(1,0),each=3),rep(c(0,1),each=3)) ; X
+
+## ------------------------------------------------------------------------
+mice <- read.table("femaleMiceWeights.csv",header=T,sep=",")
+chow=rep(c(1,0),each=12)
+hf=rep(c(0,1),each=12)
+lm1 <- lm(Bodyweight~chow+hf,data=mice)
+coef(summary(lm1))
+
+## ------------------------------------------------------------------------
+model.matrix(lm1)
+
+## ------------------------------------------------------------------------
+X <- model.matrix(lm1)
+t(X)%*%X
+det(t(X)%*%X)
+
+## ------------------------------------------------------------------------
+X <- model.matrix(lm1)
+det(t(X)%*%X)
+X2 <- X[,1:2]
+det(t(X2)%*%X2)
+
+
+## ----r-formula,child="r_formula.Rnw"-------------------------------------
+
+## ----gpa_data------------------------------------------------------------
+gpa <- read.table("gpa.txt",header=T); head(gpa,3)
+
+## ----lm_a----------------------------------------------------------------
+lm1 <- lm(GPA~ACT+High_School*Year,data=gpa) 
+coef(summary(lm1))[,1:2]
+
+## ----lm_b----------------------------------------------------------------
+head(model.matrix(lm1))
+
+## ------------------------------------------------------------------------
+lm2 <- lm(GPA~ACT+High_School+Year+High_School:Year,data=gpa)
+head(model.matrix(lm2),4)
+
+## ------------------------------------------------------------------------
+lm3 <- lm(GPA~ACT*High_School,data=gpa)
+
+## ------------------------------------------------------------------------
+coef(summary(lm3))[,1:2]
+
+## ------------------------------------------------------------------------
+ACT_centered <- gpa$ACT-mean(gpa$ACT)
+HS_centered <- gpa$Hi - mean(gpa$Hi)
+lm3b <- lm(GPA~ACT_centered*HS_centered,data=gpa)
+signif(coef(summary(lm3b))[,c(1,2,4)],3)
+
+## ------------------------------------------------------------------------
+s3 <- summary(lm3)$sigma
+lm4 <- lm(GPA~ACT+High_School,data=gpa)
+s4 <- summary(lm4)$sigma
+lm5 <- lm(GPA~1,data=gpa)
+s5 <- summary(lm5)$sigma
+cat("s3 =",s3,"; s4 =",s4,"; s5 =",s5)
+
+## ------------------------------------------------------------------------
+
+## ----data----------------------------------------------------------------
+goals <- read.table("FieldGoals2003to2006.csv",header=T,sep=",")
+goals[1,c("Name","Teamt","FGt","FGtM1")]
+lm6 <- lm(FGt~FGtM1*Name,data=goals)
+
+## ------------------------------------------------------------------------
+X<-model.matrix(lm6) ; colnames(X)<-1:38 ; X[1:17,c(1:8,21:26)]
+
+## ------------------------------------------------------------------------
+anova(lm6)
+
+
+## ----causation,child="causation.Rnw"-------------------------------------
+
+
+
+## ----selection,child="model_selection.Rnw"-------------------------------
+
+
 

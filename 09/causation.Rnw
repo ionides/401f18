@@ -1,0 +1,110 @@
+
+\begin{frame}[fragile]
+\frametitle{The causal interpretation of observational studies}
+
+\begin{myitemize}
+\item Consider a simple least-squares linear model \m{y_i=ax_i + b +e_i} for \m{i=1,\dots,n}.
+The usual corresponding probability model is \m{Y_i=\alpha x_i+\beta +\epsilon_i} with \m{\epsilon_1,\dots,\epsilon_n} being independent \m{N[0,\sigma]} random variables. 
+
+\item The coefficient \m{\alpha} for \m{x_i}, \m{i=1,\dots,n} is commonly called the \myemph{effect} of \m{x_i} on \m{y_i}.
+\item Sometimes \m{a} is called the effect, but it is more properly an \myemph{estimated effect}.
+
+\item The \myemph{causal interpretation} of the linear model is that, if we manipulated \m{x_i} to increase it by one unit for individual \m{i}, keeping everything else fixed, we would expect \m{y_i} to increase by \m{a} units.
+
+\item The use of the word ``effect'' has a causal meaning in common usage. 
+
+\item We should think carefully about when this meaning is justified.
+
+\end{myitemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Does coffee cause heart attacks?}
+
+\begin{myitemize}
+\item Coffee has relatively high levels of caffeine, a commonly consumed drug. Many studies have been done to see if it has adverse (or positive) health effects. 
+\item A typical observational study will model a health outcome (say, a measure of heart health) and investigate linear models based on available explanatory variables.
+\item If higher levels of coffee consumption are associated with lower heart health scores, beyond what can be explained by chance variation in our sample, we will be suspicious about drinking coffee.
+\end{myitemize}
+\myquestion. Suggest important confounding variable(s) in the causal interpretation of this model. What would you do to help make a convincing argument for or against coffee?
+
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Which surgeon do you choose?}
+
+\begin{myitemize}
+\item Cost effectiveness of medical treatment is a major current issue. You are advising a health insurance program, and your boss gives you data on success rates for a certain heart surgery, together with the salary of the surgeon performing the operation. 
+\end{myitemize}
+\myquestion. Suppose you find the estimated effect is negative and statistically significant: higher salaries are associated with lower success rates. How would you interpret this result? What are possible confounding factors?
+
+\answer{\vspace{40mm}}{todo}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{When can we infer causation from observational data?}
+The following considerations may add weight to the causal interpretation of an association
+\begin{myitemize}
+\item There is a plausible mechanism.
+\item There are no un-measured variables considered plausible mechanisms.
+\item The effect is consistent across population subgroups.
+\item For data collected though time, the proposed cause precedes the consequence.
+\item Consistency with available experimental evidence.
+  \item A consistent gradient between increases in the proposed cause and its consequence. 
+\end{myitemize}
+The ideas were developed in the 1950s while tracking down the case against cigarettes (Wikipedia: Bradford Hill criteria) and continue to be debated.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{How did the observations get into the study?}
+
+
+\begin{myitemize}
+\item  There is risk of \myemph{selection bias} if the individuals are not selected randomly from the population they are supposed to represent.
+  \item Selection bias is a type of confounding. The confounder is a variable that explains the selection process.
+\end{myitemize}
+\myquestion. In World War II, the US Airforce was suffering heavy losses in bombing raids over Germany. To decide where to add extra armor, engineers studied bullet holes on returning planes to see which parts were exposed to most gunfire. A prominent statistician, Abraham Wald, provided a different interpretation. What was it?
+
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Revisiting the fieldgoal kicker data}
+
+\begin{myitemize}
+\item Any observations study can and should be examined for confounding and selection bias issues.
+\end{myitemize}
+\myquestion. Consider the field goal percentage data. Recall that we analyzed the 19 NFL kickers who made at least ten field goal attempts in each of 2002, 2003, 2004, 2005 and 2006 seasons. We found a slope of -0.504 when predicting field goal percentage in year t using field goal percentage in year t-1, with a separate intercept for each kicker. Comment on the possible roles of selection bias and/or confounding for interpreting this result.
+
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Randomized experiments and random samples}
+
+\begin{myitemize}
+\item The huge difficulties interpreting observational studies motivate avoiding them whenever possible
+\item Random assignment to treatment in a controlled experiment removes the possibility of confounding, and ensures that any statistically significan effect can legitimately be given a causal interpretation.
+\item A \myemph{randomized experiment} occurs when individual \m{i} is randomly assigned a \myemph{treatment}. A treatment is a set of explanatory variables corresponding to a row of \m{\mat{X}}.
+\item In a randomized experiment the independence assumption on the errors is reasonable: we can view the errors as coming from differences between individuals drawn independently from a large population.
+  \item STATS 470 investigates design and analysis of experiments, which is an extension of linear statistical modeling.
+  \item Random sampling removes selection bias, apart from missing data.
+    \item STATS 480 investigates sample survey analysis, which also builds on linear statistial modeling.
+\end{myitemize}
+
+\end{frame}
+

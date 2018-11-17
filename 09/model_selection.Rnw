@@ -1,0 +1,68 @@
+
+\begin{frame}[fragile]
+\frametitle{Selecting from many possible models}
+
+\vspace{-1mm}
+
+\begin{myitemize}
+\item Suppose we have a large number \m{\ell} of potential explanatory variables in our dataset. 
+\item The total number of possible linear models is \m{2^\ell} since each of the \m{\ell} variables can be either in or out of the model.
+\item If we allow for the possiblity of interactions, things are even worse. 
+\item For two variables \m{x_{i1}} and \m{x_{i2}} on each individual \m{i=1,2,\dots,n}, modeling an \myemph{interaction} can be viewed as including a new variable \m{x_{i3}=x_{i1}x_{i2}}.
+\end{myitemize}
+\myquestion. If there are \m{\ell} explanatory variables, considered as \myemph{main effects}, and any pair of them could give rise to an \myemph{interaction effect}, how many possible models are there? For simplicity, allow for the possibility of including interactions without the main effects.
+
+\vspace{30mm}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Practical considerations for model selection}
+
+%\vspace{-2mm}
+
+\begin{myitemize}
+\item Sometimes, you build models based on specific hypotheses about the system you are investigating. 
+\item In this case, our tools for hypothesis testing work well. You work through a process of starting with a basic model and considering a relatively small sequence of alternative hypotheses to build up an understanding of the data.
+\item A different scenario occurs when you explore a very large number of different models. 
+\item If you consider \m{1000} alternative models and each one is tested at significance level \m{0.01} then you expect to find \m{10} models that would formally let you reject the null hypothesis at a ``high'' level of significance for random variables generated under the null model.
+
+\item Similar issues arise if you consider many variables in a single linear model and look to identify significant ones.
+\end{myitemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The expected number of false discoveries}
+
+\myquestion.  Suppose that you consider \m{\ell=100} variables by placing them all in a linear model and reporting the variables whose t statistic is significant at the \m{0.05} level. How many ``significant'' variables would you expect to report under a null probability model where all the coefficients are zero?
+
+\answer{\vspace{40mm}}{todo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Confidence intervals after model selection}
+
+\myquestion. Suppose you have \m{\ell=100} explanatory variables and you consider \m{\ell=100} different models, each with only one of the explanatory variables in the model. You pick as your favorite model the one with the highest \m{R^2} statistic, which is equivalent to picking the one with the smalles p-value for its t statistic. You report a 95\% confidence interval for the coefficient in this linear model. What is the chance that this confidence interval will cover the truth, under the null probability model where all the coefficients for all the explanatory variables are zero?
+
+\answer{\vspace{40mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Dealing with multiple testing}
+
+\begin{myitemize}
+\item The difficulty of properly evaluating statistical significance when investigating very many hypotheses is called the \myemph{multiple testing} situation.
+\item Dealing with multiple testing is a current scientific concern. It is related to the so-called crisis in scientific reproducibility.
+\item Advances in data acquisition and computation increasingly lead to large datasets to be investigated.
+\item One principle: report all the tests you make, not just the nominally significant ones. This lets the reader assess the hazard of multiple testing bias.
+\item Another principle: any result not yet confirmed by an independent experiment is suspicious.
+\end{myitemize}
+
+\end{frame}
+

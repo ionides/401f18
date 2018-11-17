@@ -1,0 +1,218 @@
+
+\begin{frame}[fragile]
+\frametitle{More on the R model formula notation}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item A \myemph{model formula} in \code{lm()} is something that looks like \code{y~x}.
+\item The R formula notation has various conventions that are designed to make it easy to specify useful models.
+\item \code{?formula} tells you everything you need to know, and more.
+\item You can think of the R formula for \code{lm()} is a way of constructing a design matrix.
+\item Inspect the resulting design matrix using \code{model.matrix()} and check you understand what R has produced. If you can do this, you can safely use the power of the formula notation.
+\end{myitemize}
+\myquestion. In a report, the model should be written in mathematical notation, not as an R formula. Why?
+
+\answer{\vspace{25mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Experimenting with the R formula notation}
+
+\begin{myitemize}
+\item Consider the freshman GPA data
+<<gpa_data>>=
+gpa <- read.table("gpa.txt",header=T); head(gpa,3)
+@
+
+\item We can play the game of trying out various things in R formula notation, inspecting the resulting design matrix, and figuring out how to write the model efficiently in mathematical notation.
+\item You can also think about whether the different models give any new insights into the data.
+
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+<<lm_a>>=
+lm1 <- lm(GPA~ACT+High_School*Year,data=gpa) 
+coef(summary(lm1))[,1:2]
+@
+\begin{myitemize}
+\item The \code{*} here denotes inclusion of an \myemph{interaction} between \code{High_School} and \code{Year}, written in the R output as \code{High_School:Year}.
+\end{myitemize}
+
+\vspace{-1mm}
+
+\myquestion. Conceptually, what do you think an interaction between two variables is, and why might it be needed?
+
+\answer{\vspace{15mm}}{todo}
+
+\begin{myitemize}
+\item To find out exactly what R thinks an interaction is, we can check the design matrix.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+<<lm_b>>=
+head(model.matrix(lm1))
+@
+
+\vspace{-3mm}
+
+\myquestion. Write out the sample model that R has computed in \code{lm1} using subscript notation.
+
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Interactions and additivity}
+<<>>=
+lm2 <- lm(GPA~ACT+High_School+Year+High_School:Year,data=gpa)
+head(model.matrix(lm2),4)
+@
+
+\begin{myitemize}
+\item \code{lm2} has the same design matrix as \code{lm1}.
+\item We see that, in R formula notation, \code{y~u*v} is the same as \code{y~u+v+u:v}.
+\item In the model \code{y~u+v} the effects of the variables  are said to be \myemph{additive}. 
+\item In a causal interpretation of an additive model, the result of changing \code{u} to \code{u2} and \code{v} to \code{v2} is the sum of the marginal effect of changing \code{u} to \code{u2} plus the marginal effect of changing \code{v} to \code{v2}.
+\item The interaction term \code{u:v} breaks additivity. In this case, we can't know the consequence for the fitted value of changing \code{u} to \code{u2} unless we know the value of \code{v}. 
+\end{myitemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{The interaction between ACT and high school percentile}
+
+\begin{myitemize}
+\item We have not (yet) found any interesting effect of year. Let's drop year out of the model and look for whether there is an interaction between ACT and high school percentile for predicting freshman GPA.
+\end{myitemize}
+<<>>=
+lm3 <- lm(GPA~ACT*High_School,data=gpa)
+@
+\myquestion. Write out the fitted sample linear model in subscript form, letting \m{y_i}, \m{a_i}, \m{h_i} and \m{e_i} be the freshman GPA, ACT score, high school percentile and residual error respectively for the \m{i}th student.
+
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Interpreting a discovered interaction}
+
+\vspace{-2mm}
+
+<<>>=
+coef(summary(lm3))[,1:2]
+@
+
+\vspace{-2mm}
+
+\myquestion. Explain in words to the admissions director what you have found about the interaction under investigation here.
+
+\answer{\vspace{35mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Marginal effects when there is an interaction}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item Notice in `lm3` that the coefficients for ACT score and high school percentile are negative. That is surprising!
+\end{myitemize}
+
+\vspace{-2mm}
+
+<<>>=
+ACT_centered <- gpa$ACT-mean(gpa$ACT)
+HS_centered <- gpa$Hi - mean(gpa$Hi)
+lm3b <- lm(GPA~ACT_centered*HS_centered,data=gpa)
+signif(coef(summary(lm3b))[,c(1,2,4)],3)
+@
+
+\vspace{-3mm}
+
+\myquestion. After centering the variables, the interaction effect stays the same, but the marginal effects change sign. What is happening? Why?
+
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Quantifying the improvement in the model}
+
+\vspace{-2mm} 
+
+<<>>=
+s3 <- summary(lm3)$sigma
+lm4 <- lm(GPA~ACT+High_School,data=gpa)
+s4 <- summary(lm4)$sigma
+lm5 <- lm(GPA~1,data=gpa)
+s5 <- summary(lm5)$sigma
+cat("s3 =",s3,"; s4 =",s4,"; s5 =",s5)
+@
+
+\vspace{-2mm} 
+
+\myquestion. Comment on both \myemph{statistical significance} and \myemph{practical significance} of the interaction between  a prediction of freshman GPA.
+
+
+\answer{\vspace{30mm}}{todo}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{An interaction involving a factor}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item Let's go back to the football field goal data. 
+\end{myitemize}
+
+\vspace{-2mm} 
+
+<<>>=
+<<data>>=
+goals <- read.table("FieldGoals2003to2006.csv",header=T,sep=",")
+goals[1,c("Name","Teamt","FGt","FGtM1")]
+lm6 <- lm(FGt~FGtM1*Name,data=goals)
+@
+
+\vspace{-2mm} 
+
+\myquestion. What model do you think is being fitted here? Write it in subscript form, where \m{y_{ij}} is the field goal average for the \m{j}th year of kicker \m{i}, with \m{i=1,\dots,19} and \m{j=1,2,3,4}. Let \m{e_{ij}} be the residual error, and let \m{x_{ij}} be the previous year's average. Check your answer against the design matrix shown on the next slide.
+
+\answer{\vspace{30mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+<<>>=
+X<-model.matrix(lm6) ; colnames(X)<-1:38 ; X[1:17,c(1:8,21:26)]
+@
+
+\end{frame}
+
+\begin{frame}[fragile]
+\myquestion. Interpret the ANOVA table below.
+
+\answer{\vspace{25mm}}{todo}
+
+<<>>=
+anova(lm6)
+@
+
+\end{frame}
+

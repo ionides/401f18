@@ -1,0 +1,285 @@
+
+\begin{frame}[fragile]
+\frametitle{Using linear models to fit polynomial relationships}
+
+\begin{myitemize}
+\item Recall the basic linear trend model from Chapter~1 for data \m{y_1,\dots,y_n} with \m{y_i} measured at time \m{t_i},
+
+\altdisplaymath{
+\mathrm{[M1]} \quad y_i = b_0 + b_1 t_i + e_i, \quad i=1,\dots,n
+}
+\item What if the data have a trend that is not linear?
+\item The next thing we might consider is a quadratic trend model,
+
+\altdisplaymath{
+\mathrm{[M2]} \quad y_i = b_0 + b_1 t_i + b_2 t_i^2 + e_i, \quad i=1,\dots,n
+}
+\item M1 and M2 are both linear models, with respective design matrices
+\mydisplaymath{
+\mat{X}^{[1]}=\begin{bmatrix}
+1 & t_1 \\
+1 & t_2 \\
+\vdots & \vdots \\
+1 & t_n
+\end{bmatrix}
+\quad\quad
+\mat{X}^{[2]}=\begin{bmatrix}
+1 & t_1 & t_1^2 \\
+1 & t_2 & t_2^2 \\
+\vdots & \vdots \\
+1 & t_n & t_n^2
+\end{bmatrix}
+}
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The order $p$ polynomial smoothing model}
+
+\vspace{-2mm}
+
+\begin{myitemize}
+\item When the explanatory variable for \m{y_i} is the time of measurement, \m{t_i}, then we call the linear model a trend.
+\item When we fit \m{y_i} using a function of an arbitrary explanatory variable $x_i$ we say we are \myemph{smoothing}.
+\item We can choose any \m{p} in the general order $p$ polynomial smoothing model,
+\end{myitemize}
+\altdisplaymath{
+\mathrm{[M3]} \quad y_i = b_0 + b_1 x_i + b_2 x_i^2 + b_3 x_i^3 + \dots + b_px_i^p + e_i, \quad i=1,\dots,n
+}
+\begin{myitemize}
+\item This is a linear model with design matrix
+\mydisplaymath{
+\mat{X}^{[3]}=\begin{bmatrix}
+1 & x_1 & x_1^2 & \dots & x_1^p\\
+1 & x_2 & x_2^2 & \dots & x_2^p\\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & x_n & x_n^2 & \dots & x_n^p
+\end{bmatrix}
+}
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\vspace{5mm}
+
+\myquestion. How would you decide what order \m{p} to use when applying the polynomial smoothing model,
+\mydisplaymath{
+y_i = b_0 + b_1 x_i + b_2 x_i^2 + b_3 x_i^3 + \dots + b_px_i^p + e_i, \quad i=1,\dots,n
+}
+
+\answer{\vspace{60mm}}{Ideas: (i) look for which coefficients are statistically significant in the probability model
+\[
+Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \dots + \beta_px_i^p + \epsilon_i,
+\]
+with $\epsilon_i\sim\iid\; \normal(0,\sigma)$ and $i=1,\dots,n$.
+(ii) make F tests to compare models with two different values of $p$ under this probability model.
+(iii) look at the fitted line and see if you like it.
+}
+\end{frame}
+
+<<reconstruct_variables,echo=F>>=
+L <- read.table(file="life_expectancy.txt",header=TRUE)
+U <- read.table(file="unemployment.csv",sep=",",header=TRUE)
+@
+
+\begin{frame}[fragile]
+\frametitle{Cubic polynomial smoothing of life expectancy}
+
+\vspace{-2mm}
+
+<<fit_L_poly3>>=
+L_poly3 <- lm(Total~Year+I(Year^2)+I(Year^3),data=L)
+@
+
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+<<fig_L3,eval=F,echo=T>>=
+plot(L$Year,L$Total,
+  type="line",
+  xlab="Year",
+  ylab="Life expectancy")
+  
+lines(L$Year,fitted(L_poly3),
+  lty="dashed")
+@
+
+\end{column}
+\begin{column}{0.45\textwidth}
+<<fig_L3_eval,fig.width=5,fig.height=4,out.width="2in",echo=F>>=
+par(mai=c(0.8,0.8,0.1,0.1))
+<<fig_L3>>
+@
+\end{column}
+\end{columns}
+
+\myquestion. Why do we need to write \code{I(Year^2)} not just \code{Year^2} to fit a polynomial smoothing model in the R formula notation?
+
+\answer{\vspace{20mm}}{todo}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Checking the cubic smoothing calculation}
+\myquestion. How would you check that the R model formula we wrote is correct for the cubic polynomial we intend to fit?
+
+\answer{\vspace{25mm}}{todo}
+
+\myquestion. If we have done a good job of modeling the trend, we might hope that the residuals look like independent measurement errors. How would you check if this is the case?
+
+\answer{\vspace{25mm}}{todo}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Repeating diagnostic tests for life expectancy vs unemployment using cubic detrending}
+<<lag_lm>>=
+L_detrended <- L_poly3$residuals
+U_annual <- apply(U[,2:13],1,mean)
+U_detrended <- lm(U_annual~Year+I(Year^2)+I(Year^3),
+  data=U)$residuals
+L_detrended <- subset(L_detrended,L$Year %in% U$Year)
+lm_poly3 <- lm(L_detrended~U_detrended)
+n <- length(resid(lm_poly3))
+e <- resid(lm_poly3)[2:n] ; lag_e <- resid(lm_poly3)[1:(n-1)]
+@
+
+\vspace{-5mm}
+
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+<<timeplot_code,eval=F,echo=T>>=
+plot(U$Year,resid(lm_poly3))
+@
+
+\vspace{-14mm}
+
+<<timeplot_plot,fig.width=3,fig.height=3.5,out.width="2in",echo=F>>=
+<<timeplot_code>>
+@
+\end{column}
+\begin{column}{0.45\textwidth}
+<<lagplot_code,eval=F,echo=T>>=
+plot(lag_e,e)
+@
+
+\vspace{-14mm}
+
+<<lagplot_plot,fig.width=3,fig.height=3.5,out.width="2in",echo=F>>=
+<<lagplot_code>>
+@
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{Local linear smoothing of life expectancy}
+
+\vspace{-2mm}
+
+<<fit_L_loess>>=
+L_loess <- loess(Total~Year,data=L,span=0.3)
+@
+
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+<<fig_L_loess,eval=F,echo=T>>=
+plot(L$Year,L$Total,
+  type="line",
+  xlab="Year",
+  ylab="Life expectancy")
+  
+lines(L$Year,fitted(L_loess),
+  lty="dashed",col="red")
+@
+
+\end{column}
+\begin{column}{0.45\textwidth}
+<<fig_L_loess_eval,fig.width=5,fig.height=4,out.width="2in",echo=F>>=
+par(mai=c(0.8,0.8,0.1,0.1))
+<<fig_L_loess>>
+@
+\end{column}
+\end{columns}
+
+\vspace{-3mm}
+
+\begin{myitemize}
+\item \code{loess()} is a \myemph{smoother} that fits a local linear model. This means that, at each point \m{x_j}, the smoother predicts \m{y_i} fitting a linear model that ignores all the data except for points close to \m{x_i}.
+\item Setting \code{span=0.3} means that the closest 30\% of the points are used.
+\end{myitemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Repeating diagnostic tests for life expectancy vs unemployment using a smoother}
+<<lag_loess>>=
+L_detrended <- resid(L_loess)
+U_annual <- apply(U[,2:13],1,mean)
+U_detrended <- resid(loess(U_annual~Year,data=U,span=0.3))
+L_detrended <- subset(L_detrended,L$Year %in% U$Year)
+lm_loess <- lm(L_detrended~U_detrended)
+n <- length(resid(lm_loess))
+e <- resid(lm_loess)[2:n] ; lag_e <- resid(lm_loess)[1:(n-1)]
+@
+
+\vspace{-5mm}
+
+\begin{columns}[T] 
+\begin{column}{0.45\textwidth}
+<<timeplot_code_loess,eval=F,echo=T>>=
+plot(U$Year,resid(lm_loess))
+@
+
+\vspace{-14mm}
+
+<<timeplot_plot_loess,fig.width=3,fig.height=3.5,out.width="2in",echo=F>>=
+<<timeplot_code_loess>>
+@
+\end{column}
+\begin{column}{0.45\textwidth}
+<<lagplot_code_loess,eval=F,echo=T>>=
+plot(lag_e,e)
+@
+
+\vspace{-14mm}
+
+<<lagplot_plot_loess,fig.width=3,fig.height=3.5,out.width="2in",echo=F>>=
+<<lagplot_code_loess>>
+@
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Revisiting the evidence for pro-cyclical mortality}
+<<>>=
+coef(summary(lm_loess))
+@
+
+\vspace{-4mm}
+
+\begin{myitemize}
+\item Recall that linear detrending gave a signficant association between life expectancy and unemployment.
+\item This suggested that mortality is \myemph{pro-cyclical}, meaning it increases when the business cycles is in economic expansion and unemployment is low.
+\item In Chapter 7, we found the residuals in this regression had a strong pattern, casting doubt on the validity of our linear model and its unintuitive conclusion.
+\end{myitemize}
+
+\vspace{-2mm}
+
+\myquestion. Re-assess the evidence based on this new analysis.
+
+\vspace{20mm}
+
+\end{frame}
+
