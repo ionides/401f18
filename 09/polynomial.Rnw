@@ -136,6 +136,9 @@ par(mai=c(0.8,0.8,0.1,0.1))
 
 \begin{frame}[fragile]
 \frametitle{Repeating diagnostic tests for life expectancy vs unemployment using cubic detrending}
+
+\vspace{-2mm}
+
 <<lag_lm>>=
 L_detrended <- L_poly3$residuals
 U_annual <- apply(U[,2:13],1,mean)
@@ -147,7 +150,7 @@ n <- length(resid(lm_poly3))
 e <- resid(lm_poly3)[2:n] ; lag_e <- resid(lm_poly3)[1:(n-1)]
 @
 
-\vspace{-5mm}
+\vspace{-6mm}
 
 \begin{columns}[T] 
 \begin{column}{0.45\textwidth}
@@ -155,9 +158,9 @@ e <- resid(lm_poly3)[2:n] ; lag_e <- resid(lm_poly3)[1:(n-1)]
 plot(U$Year,resid(lm_poly3))
 @
 
-\vspace{-14mm}
+\vspace{-15mm}
 
-<<timeplot_plot,fig.width=3,fig.height=3.5,out.width="2in",echo=F>>=
+<<timeplot_plot,fig.width=3,fig.height=3.5,out.width="1.8in",echo=F>>=
 <<timeplot_code>>
 @
 \end{column}
@@ -166,9 +169,9 @@ plot(U$Year,resid(lm_poly3))
 plot(lag_e,e)
 @
 
-\vspace{-14mm}
+\vspace{-15mm}
 
-<<lagplot_plot,fig.width=3,fig.height=3.5,out.width="2in",echo=F>>=
+<<lagplot_plot,fig.width=3,fig.height=3.5,out.width="1.8in",echo=F>>=
 <<lagplot_code>>
 @
 \end{column}
@@ -220,6 +223,9 @@ par(mai=c(0.8,0.8,0.1,0.1))
 
 \begin{frame}[fragile]
 \frametitle{Repeating diagnostic tests for life expectancy vs unemployment using a smoother}
+
+\vspace{-2mm}
+
 <<lag_loess>>=
 L_detrended <- resid(L_loess)
 U_annual <- apply(U[,2:13],1,mean)
@@ -230,7 +236,7 @@ n <- length(resid(lm_loess))
 e <- resid(lm_loess)[2:n] ; lag_e <- resid(lm_loess)[1:(n-1)]
 @
 
-\vspace{-5mm}
+\vspace{-6mm}
 
 \begin{columns}[T] 
 \begin{column}{0.45\textwidth}
@@ -238,9 +244,9 @@ e <- resid(lm_loess)[2:n] ; lag_e <- resid(lm_loess)[1:(n-1)]
 plot(U$Year,resid(lm_loess))
 @
 
-\vspace{-14mm}
+\vspace{-15mm}
 
-<<timeplot_plot_loess,fig.width=3,fig.height=3.5,out.width="2in",echo=F>>=
+<<timeplot_plot_loess,fig.width=3,fig.height=3.5,out.width="1.8in",echo=F>>=
 <<timeplot_code_loess>>
 @
 \end{column}
@@ -249,9 +255,9 @@ plot(U$Year,resid(lm_loess))
 plot(lag_e,e)
 @
 
-\vspace{-14mm}
+\vspace{-15mm}
 
-<<lagplot_plot_loess,fig.width=3,fig.height=3.5,out.width="2in",echo=F>>=
+<<lagplot_plot_loess,fig.width=3,fig.height=3.5,out.width="1.8in",echo=F>>=
 <<lagplot_code_loess>>
 @
 \end{column}
@@ -263,23 +269,26 @@ plot(lag_e,e)
 
 \begin{frame}[fragile]
 \frametitle{Revisiting the evidence for pro-cyclical mortality}
+
+\vspace{-2mm}
+
 <<>>=
 coef(summary(lm_loess))
 @
 
-\vspace{-4mm}
+\vspace{-3.5mm}
 
 \begin{myitemize}
-\item Recall that linear detrending gave a signficant association between life expectancy and unemployment.
+\item Recall that linear detrending gave a statistically signficant association between life expectancy and unemployment.
 \item This suggested that mortality is \myemph{pro-cyclical}, meaning it increases when the business cycles is in economic expansion and unemployment is low.
-\item In Chapter 7, we found the residuals in this regression had a strong pattern, casting doubt on the validity of our linear model and its unintuitive conclusion.
+\item We found the residuals in this regression had a strong pattern, casting doubt on the validity of our linear model and its unintuitive conclusion.
 \end{myitemize}
 
-\vspace{-2mm}
+\vspace{-1mm}
 
 \myquestion. Re-assess the evidence based on this new analysis.
 
-\vspace{20mm}
+\answer{\vspace{30mm}}{With appropriate nonlinear detrending, the residuals show no pattern and the p-value is smaller. This strengthens the evidence for pro-cyclical mortality.}
 
 \end{frame}
 
