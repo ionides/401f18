@@ -140,10 +140,13 @@ Due in lab on 10/26.
 
 * [Lab 10. Factors in the Linear Model](Lab/Lab10/lab10.pdf). Slides for 11/9.
 
+* Lab 11. Quiz 2 and Introduction to R Markdown.
+    * [Introduction to R Markdown HTML](Lab/Lab11/R_markdown_Introduction.html)
+    * [Introduction to R Markdown PDF](Lab/Lab11/R_markdown_Introduction.pdf)
+    * [Code](Lab/Lab11/R_markdown_Introduction.Rmd)
+
 <!--
  [Solutions](lab/lab10/sol_lab10.html).
-
-* Lab 11. Quiz 2.
 
 * Lab 12. Data analysis. [Code](lab/lab12/lab12.R).
 
