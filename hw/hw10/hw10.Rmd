@@ -1,0 +1,59 @@
+---
+title: "Homework 10, STATS 401 F18"
+author: "Due in your lab on 11/30"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+---
+
+**Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+<br>
+
+### Q1. R exercises.
+
+Carry out either option A or option B below. You can do both if you want, but only one will give you credit. Report briefly on your progress with your chosen option.
+
+**Option A**. Write your homework report as an Rmarkdown document. The [slides for Lab 11](https://ionides.github.io/401f18/Lab/Lab11/R_markdown_Introduction.html) are a good start. Rmarkdown is a powerful tool for applied statistics, since it leads to reproducible analysis that can be relatively easily modified and shared. Combining text, code and R output helps to clarify what you did, why you did it, what you found, and what you conclude. 
+You can edit the [Rmarkdown file generating this homework](https://ionides.github.io/401f18/hw/hw10/hw10.Rmd) as a starting point.
+It is easier to learn Rmarkdown once you feel comfortable with R. So, if you don't feel ready to figure our Rmarkdown, there's another option.
+
+**Option B**. There are many R exercises and tutorials online, at varying technical levels. One that may help reinforce the material in STATS 401 is 
+[rstatistics.net/r-tutorial-exercise-for-beginners](http://rstatistics.net/r-tutorial-exercise-for-beginners/).
+It may be helpful to read this tutorial and carry out the exercises. Alternatively, you can repeat the `swirl` tutorials from the start of the semester now you have more R experience. Or, if you find some other R training material that you prefer, study that instead.
+
+
+--------------
+
+### Q2. Making and interpreting an F test
+
+We consider again the data on freshman GPA, ACT exam scores and percentile ranking of each student within their high school for 705 students at a large state university in the file [gpa.txt](gpa.txt).
+In addition, we now consider the year (1996 to 2000) in which the student entered college.
+```{r read_data}
+gpa <- read.table("gpa.txt",header=T)
+head(gpa)
+```
+There are many ways in which the predictive relationship between freshman GPA and the admission scores may, or may not, be stable over time.
+The director of admissions is interested in what ways, if any, there is evidence for changes larger than can be explained by chance variation. 
+Let the null hypothesis, $H_0$, be the probability model considered in the midterm exam, where freshman GPA is modeled to depend linearly on ACT score and high school ranking.
+Let $H_a$ be the probability model where $H_0$ is extended to include year as a factor, as fitted in R by
+```{r lm}
+lm_gpa <- lm(GPA~High_School+ACT+factor(Year),data=gpa)
+```
+
+(a) Write out the null and alternative hypotheses by completely specifying the probability models. Sometimes in class, to save time and space, we don't write the complete details of each model. Here, you are asked to do that. Looking at `model.matrix(lm_gpa)` may help you to understand the model that R has fitted. You can write the models in either matrix or subscript form.
+
+(b) Interpret the results in `summary(lm_gpa)`. Is there any evidence that some year, or years, may have different intercept? Why is there no row in the results table for `factor(Year)1996`?
+
+(c) Interpret the results in `anova(lm_gpa)`. Write out in detail an F test to test $H_0$ against $H_a$, explaining how the sample test statistic is constructed, giving the distribution of the model-generated test statistic under $H_0$, and saying how the resulting p-value is calculated and interpreted.
+
+
+--------------
+
+-------------
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+
+
+------
