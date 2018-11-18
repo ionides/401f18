@@ -15,14 +15,14 @@ lm1 <- lm(Infection.risk ~ Length.of.stay + Culture + X.ray + Beds, data = senic
 round(summary(lm1)$coefficients[,1:2], 5)
 ```
 
-(a) The CDC director asks you to determine if the size of the hospital (measured in the number of beds) affects the infection rate of the hospital. Write the null and alternative hypotheses we would use to answer this question.
+(a) The CDC director asks you to determine if the size of the hospital (measured in the number of beds) affects the infection rate of the hospital. Write the null and alternative hypotheses and sample test statistic we would use to answer this question. 
 
 ```{r,child=paste(my_dir, "/sol_a.Rmd",sep=""),eval=SOL}
 ```
 
 \exam{\newpage}
 
-(b) What is the distribution of your test statistic from part (a)?
+(b) What is the distribution of the model-generated test statistic corresponding to your sample test statistic from part (a)?
 
 ```{r,child=paste(my_dir, "/sol_b.Rmd",sep=""),eval=SOL}
 ```

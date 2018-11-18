@@ -3,12 +3,14 @@
 
 **Solution**
 
+Null and alternative hypotheses are
 $$
 \begin{aligned}
 H_0: \beta_4 = 0 \\
 H_a: \beta_4 \ne 0
 \end{aligned}
 $$
+Write the sample model as $\vec{y}=\mat{X}\vec{b}+\vec{e}$ with $\vec{b}=(b_0,b_1,b_2,b_3,b_4)$. Then, $\vec{b}=(\mat{X}^\transpose\mat{X})^{-1}\mat{X}^\transpose \vec{y}$ and the usual test statistic is $b_4$.
 
 \color{black}
 

@@ -1,0 +1,134 @@
+---
+title: "GSI notes for STATS 401"
+author: "Instructor: Edward L. Ionides"
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+csl: ecology.csl
+---
+
+------
+
+\newcommand\prob{\mathrm{P}}
+\newcommand\normal{\mathrm{normal}}
+\newcommand\iid{\mathrm{iid}}
+\newcommand\MVN{\mathrm{MVN}}
+\newcommand\E{\mathrm{E}}
+\newcommand\SE{\mathrm{SE}}
+\newcommand\pval{\mathrm{pval}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov}}
+\newcommand\corSample{\mathrm{cor}}
+\newcommand\cor{\mathrm{Cor}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\vect[1]{\vec{#1}}
+\newcommand\mat[1]{\mathbb{#1}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+
+### Fonts and Latex macros
+
+Keeping font types consistent helps deal with the variety of objects in play. Please enforce the font rules via the following Latex macros. These help consistency and facilitate any change to notation that may be carried out at a later time. The macros for the notes are in the `header.tex` file in the main course directory. For homeworks, the necessary macros are defined at the top of each homework file.
+
+* vectors are in bold, using `\vect{}` or `\vec{}` which are defined to be the same thing. Vector random variables are also in bold, but follow the naming convention below for random variables.
+
+* matrices are in blackboard bold, using `\mat{}`.
+
+* random variables are capital letters, with some exceptions. $\vec{\epsilon}$ is used for a vector of iid measurement errors. $\vec{\hat\beta}$ is the random variable for model-generated least squares linear model coefficients. 
+
+--------------
+
+### Working with matrices
+
+* A vector is neither a row vector nor a column vector, just a sequence of $n$ numbers. This is consistent with R. It means we have to say when it is interpreted as a row vector (i.e., a $1\times n$ matrix) or a colum vector (a $n\times 1$ matrix).
+
+* Remember that around half the students have never multiplied a matrix before this course. Try to reinforce and explain the basic operations (addition, multiplication, inverse, transpose, determinant) without introducing other ideas. 
+
+* Experiment with the properties of matrices empirically, via R calculations, rather than adding extra math beyond what the class notes already cover.
+
+-----------------------------------
+
+### Random variables
+
+* `\prob` and `\E` are the Latex macros for probability and expectation.
+
+* Use the Latex macros `\normal` and `\MVN` for the normal and multivariate normal distribution, and `\iid` for iid. We write `X\sim\normal(\mu,\sigma)` and `\vec{X}\sim\MVN(\vec{\mu},\mat{V}`. This parameterizes the univariate normal by the standard deviation and the multivariate normal by the variance/covariance matrix.
+
+* The matrix of variances and covariances is called the variance/covariance matrix and written $\var(\vec{X})=\mat{V}$ which in Latex is `\var(\vec{X})=\mat{V}`.
+
+* Variance, standard deviation, expectation (or mean), covariance and correlation are properties of random variables.  Corresponding Latex macros are `\var`, `\sd`, `\E`, `\cov`, `\cor`.
+
+* The sample variance, sample standard deviation and sample mean are properties of data. Corresponding Latex macros are `\varSample`, `\sdSample`, `\covSample`, `\corSample`.
+
+* A standard error is an estimated standard deviation, usually using a sample estimate of the measurement standard deviation $\sigma$. We write $\SE(b_1)$ for the standard error on $b_1$, which is `\SE(b_1)` in Latex.
+
+
+----------------
+
+### Probability models
+
+* A probability model defines a collection of random variables. The course separates probability models from data. 
+
+* Emphasize that we can fit a line by least squares without having a probability model. To talk about probabilities, expected values, standard deviations and variances (which are properties of random variables) we need a probability model.
+
+
+------------------
+
+### Notation for linear models
+
+* $\vec{y}=\mat{X}\vec{b}+\vec{e}$ is the sample version of the linear model, and  $\vec{Y}=\mat{X}\vec{\beta}+\vec{\epsilon}$ the corresponding probability model.
+
+* The sample least squares coefficient is
+\[ 
+\vec{b}= (\mat{X}^\transpose \mat{X})^{-1}\mat{X}^\transpose \vec{y}
+\]
+
+* The model-generated least squares coefficient is
+\[ 
+\vec{\hat\beta}= (\mat{X}^\transpose \mat{X})^{-1}\mat{X}^\transpose \vec{Y}
+\]
+with $\vec{Y}$ generated under a probability model. The probability model may be different for different hypotheses.
+
+* The confusion between $\vec{b}$ and $\vec{\hat\beta}$ has been considerable, so here are some rules.
+
+* $\vec{\hat\beta}$ is a random variable. It can have a normal distribution, mean and variance. You can make probability statements about it.
+
+* $\vec{b}$ is not a random variable. If you find yourself making any statement about $\vec{b}$ that supposes $\vec{b}$ is a random variable then there is an error. Saying $\vec{b}\sim\normal(\cdot,\cdot)$ is one such example.  
+
+* The separation between random variables and sample quantities is not carried out well in many courses and textbooks, so does not come naturally to many of us. Once you are clear about this separation, the logic of statistical inference becomes more transparent. However, to give the students a chance to understand this separation, we have to keep it clear ourselves, both notationally and conceptually.
+
+------------------------
+
+### Latex macros
+
+
+```
+\newcommand\prob{\mathrm{P}}
+\newcommand\normal{\mathrm{normal}}
+\newcommand\iid{\mathrm{iid}}
+\newcommand\MVN{\mathrm{MVN}}
+\newcommand\E{\mathrm{E}}
+\newcommand\SE{\mathrm{SE}}
+\newcommand\pval{\mathrm{pval}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov}}
+\newcommand\corSample{\mathrm{cor}}
+\newcommand\cor{\mathrm{Cor}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\vect[1]{\vec{#1}}
+\newcommand\mat[1]{\mathbb{#1}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+```
+
+------------
+
+-----------
+
