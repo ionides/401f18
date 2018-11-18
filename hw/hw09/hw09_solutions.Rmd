@@ -1,0 +1,307 @@
+---
+title: "Homework 9, STATS 401 F18"
+author: "Due in lab on 11/16"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+csl: ecology.csl
+---
+
+
+\newcommand\prob{\mathrm{P} }
+\newcommand\E{\mathrm{E} }
+\newcommand\mat[1]{\mathbb{#1} }
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1} } }
+\newcommand\transpose{ {\scriptscriptstyle \mathrm{T} } }
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov} }
+\newcommand\corSample{\mathrm{cor} }
+\newcommand\cor{\mathrm{Cor}}
+\newcommand\normal{\mathrm{normal} }
+\newcommand\iid{\mathrm{iid} }
+\newcommand\MVN{\mathrm{MVN} }
+
+**Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+--------------
+
+-------------
+
+### Kicking goals: linear models with factors.
+
+We consider the field goal kicking data introduced in Chapter 7 of the notes. The primary question under investigation is whether an athlete that has a good season, is likely to perform above or below their typical level in the next season. There is also the possibility that the previous season has no predictive skill. We consider field goal kicking success for the 19 National Football League (NFL) kickers who played every season during 2002-2006.
+```{r,eval=F}
+download.file(destfile="FieldGoals.csv", 
+  url="https://ionides.github.io/401f18/hw/hw09/FieldGoals.csv")
+```
+```{r}
+goals <- read.table("FieldGoals.csv",header=TRUE,sep=",")
+head(goals[,1:8]) 
+```
+
+**Q1**. Let $i$ correspond to the $i$th row of the data table. 
+Recall that each kicker has $4$ rows for the seasons 2003, 2004, 2005, 2006.
+Let $y_i$ be the percentage of successful field goal average for row $i$, denoted by the `FGt` variable in `goals`. 
+Let $x_i$ be the percentage for the previous season, denoted by `FGt1`.
+A simple linear regression model predicting performance based on the previous season (in the sample form) is
+\[
+y_i = a x_i + b + e_i, \quad \mbox{for $i=1,\dots,4\times 19$}.
+\]
+
+(a) Use R to find the least squares values of $a$ and $b$.
+
+<font color = "blue">
+```{r}
+lm1 <- lm(FGt~FGt1,data = goals)
+summary(lm1)$coefficients
+```
+Thus, $a=-0.1509583$ and $b=94.6097871$.
+</font>
+
+
+(b) Make a scatterplot of $y_i$ against $x_i$ and add the fitted line $y=ax+b$.
+
+<font color = "blue">
+```{r}
+plot(goals$FGt1, goals$FGt, xlab="FGt1: percentage for previous year", ylab="FGt: percentage of successful field goal average", title("Plot of FGt vs FGt1"))
+abline(summary(lm1)$coefficients[,"Estimate"],col="blue")
+```
+
+</font>
+
+(c) Is the value of $a$ large enough to convince you that it can't reasonably be explained by chance variation? Explain your reasoning. This should include a formal statistical test.
+
+<font color = "blue">
+We can see this from the output of the `lm` output. As we can see, the t-statistic, which is -1.21 which the t-test compares with the t distribution on (76-2) 74 degrees of freedom to get a p-value of 0.23. Since this is greater than 0.05, we conclude that we don't have sufficient evidence to reject the null hypothesis of $a=0$ and say that the value of a is infact due to chance variation.
+</font>
+
+
+
+**Q2**. Now, we consider a linear model for predicting performance based on the previous season where each kicker has their own intercept. 
+In double subscript notation this is
+\[
+y_{ij} = a x_{ij} + b_i + e_{ij}, \quad\mbox{for $i=1,\dots,19$ and $j=1,\dots,4$},
+\]
+where $x_{ij}=y_{i,j-1}$ with $y_{i0}$ corresponding to the successful field goal percentage in 2002.
+This gives a different parameterization from the model corresponding to `lm(FGt~FGt1+Name,data=goals)` that is investigated in the Chapter 7 notes.
+
+(a) Write this model in matrix form, $\vec{y}=\mat{X}\vec{b}+\vec{e}$. You will find that $\mat{X}$ has many 0 and 1 entries. It is not practical to write all the entries of $\mat{X}$ so judicious use of "$\dots$" is appropriate.
+
+<font color = "blue">
+In this model, $\textbf{y}$ is the 76-vector whose $i^{th}$ entry corresponds to the percentage of successful field goal average for row $i$. $\mathbf{b}$ is the 20-vector of least-square fitted coefficients, $\mathbf{b}=(b_1,a,b_2,\dots,b_19)$. $\mathbf{e}$ is the 76-vetor of errors. $\mathbb{X}$ is the design matrix with 20 columns and 76 rows, i.e. $\mathbb{X}=\mathbb{X} = \begin{bmatrix} | & | & \dots & | \\ \textbf{x}_1 & \textbf{x}_2 & \dots & \textbf{x}_{20} \\ | & | & \dots & | \end{bmatrix}$. The first column corresponds to `FGt1` for which the $i^{th}$ entry is the $i^{th}$ entry of `FGt1` in the dataset. Columns 2-20 of the design matrix, that is, $\textbf{x}_2 - \vec{x}_{20}$ are dummy variables corresponding to each of the 19 players. Since for each player we have information worth 4 years, each of the dummy variables will have 4 1's and the remaining 0's. For the first player, the information corresponds to the first four rows of the dataset and therefore $\textbf{x}_1=(\underbrace{1,\dots,1}_\text{4 times},\underbrace{0,\dots,0}_\text{72 times})$. Similarly, $\vec{x}_2 = (\underbrace{0,\dots,0}_\text{4 times},\underbrace{1,\dots,1}_\text{4 times},\underbrace{0,\dots,0}_\text{68 times})$. Generalizing for the $i^{th}$ dummy variable, $\vec{x}_i$ will have 4 1's corresponding to the rows which contain information about the $i^{th}$ player and would have the remaining 72 entries as 0. Which rows contain information about the $i^{th}$ player? We know that there are $i-1$ players before the $i^{th}$ player and each player has 4 years worth of data, so, the first $\underbrace{4 + 4  +\dots + 4}_\text{i-1 times} = (i-1)\times 4$ rows contain information about the first $i-1$ players. The next four rows, which is $(i-1)\times 4 +1, (i-1)\times 4+2, (i-1)\times 4+3,(i-1)\times 4+4 = i\times 4$ rows contain information about the $i^{th}$ player and the remaining rows  $i\times 4 +1,\dots , 76$ contain information about the remaining $19-i$ players. Since each of the remaining $19-i$ players also have 4 years worth of data each, there will be $(19-i)\times 4$ 0's in $\vec{x}_i$ followinf the 1's.  So, $\vec{x}_i = (\underbrace{0,\dots,0}_\text{(i-1)x4 times},\underbrace{1,\dots,1}_\text{4 times},\underbrace{0,\dots,0}_\text{(19-i)x4 times})$. Therefore, we have
+$$
+\mathbb{X} = 
+\begin{bmatrix}
+| & | & \dots & | \\
+\textbf{x}_1 & \textbf{x}_2 & \dots & \textbf{x}_{20} \\
+| & | & \dots & |
+\end{bmatrix}= 
+\begin{bmatrix}
+90.0 & 1 & 0 & 0 & & \dots & & 0 \\
+73.5 & 1 & 0 & 0 & & \dots & & 0 \\
+93.9 & 1 & 0 & 0 & & \dots & & 0\\
+80.0 & 1 & 0 & 0 & & \dots & & 0\\
+88.2 & 0 & 1 & 0 & & \dots & & 0\\
+82.7 & 0 & 1 & 0 & & \dots & & 0\\
+84.3 & 0 & 1 & 0 & & \dots & & 0\\
+72.7 & 0 & 1 & 0 & & \dots & & 0\\
+72.2 & 0 & 0 & 1 & & \dots & & 0\\
+87.0 & 0 & 0 & 1 & & \dots &  & 0\\
+85.2 & 0 & 0 & 1 & & \dots & & 0\\
+75.0 & 0 & 0 & 1 & & \dots & & 0\\
+\vdots & \vdots & \vdots & \vdots & \ddots & & & \vdots\\
+\vdots & \vdots & \vdots & \vdots & & \ddots & & \vdots\\
+\vdots & \vdots & \vdots & \vdots &  &  & \ddots & \vdots \\
+72.2 & 0 & 0 & 0 & & \dots & & 1\\
+88.0 & 0 & 0 & 0 & & \dots & & 1\\
+87.0 & 0 & 0 & 0 & & \dots & & 1\\
+87.5 & 0 & 0 & 0 & & \dots & & 1
+\end{bmatrix}
+$$
+
+</font>
+
+(b) Construct the design matrix $\mat{X}$ in R. There are many ways to do this. A direct approach is to build each column using `rep()` and stick them together using `cbind()`. If you don't want to build each of the columns separately, one way to code this more compactly is via the R function `for()`,  using `for(i in 1:19){...}` and then inserting code to build the column corresponding to the `i`th dummy variable. Using `for()` is optional, but if you choose to try it you might like to look at `?Control` for documentation and examples.
+You are asked not to solve this problem indirectly by calling `model.matrix()` on a fitted linear model since our goal here is to build the design matrix by hand and then cross-check it against the `lm()` output.
+
+<font color = "blue">
+Let us define $\mathbb{X}$ using two ways. First, we will define each column using `rep()` which we will paste together using `cbind()`. Second, we will directly define the matrix using a for loop (`for()`)
+```{r}
+## Method 1
+# Define each column seperately
+dummy_1 <- rep(c(1,0),c(4,76-4))
+dummy_2 <- rep(c(0,1,0),c(4,4,76-2*(4)))
+dummy_3 <- rep(c(0,1,0),c(2*4,4,76-3*(4)))
+dummy_4 <- rep(c(0,1,0),c(3*4,4,76-4*(4)))
+dummy_5 <- rep(c(0,1,0),c(4*4,4,76-5*(4)))
+dummy_6 <- rep(c(0,1,0),c(5*4,4,76-6*(4)))
+dummy_7 <- rep(c(0,1,0),c(6*4,4,76-7*(4)))
+dummy_8 <- rep(c(0,1,0),c(7*4,4,76-8*(4)))
+dummy_9 <- rep(c(0,1,0),c(8*4,4,76-9*(4)))
+dummy_10 <- rep(c(0,1,0),c(9*4,4,76-10*(4)))
+dummy_11 <- rep(c(0,1,0),c(10*4,4,76-11*(4)))
+dummy_12 <- rep(c(0,1,0),c(11*4,4,76-12*(4)))
+dummy_13 <- rep(c(0,1,0),c(12*4,4,76-13*(4)))
+dummy_14 <- rep(c(0,1,0),c(13*4,4,76-14*(4)))
+dummy_15 <- rep(c(0,1,0),c(14*4,4,76-15*(4)))
+dummy_16 <- rep(c(0,1,0),c(15*4,4,76-16*(4)))
+dummy_17 <- rep(c(0,1,0),c(16*4,4,76-17*(4)))
+dummy_18 <- rep(c(0,1,0),c(17*4,4,76-18*(4)))
+dummy_19 <- rep(c(0,1,0),c(18*4,4,76-19*(4)))
+
+# Define X
+X1 <- cbind(goals$FGt1,dummy_1,dummy_2,dummy_3,dummy_4,dummy_5,dummy_6,dummy_7,dummy_8,dummy_9,dummy_10,dummy_11,dummy_12,dummy_13,dummy_14,dummy_15,dummy_16,dummy_17,dummy_18,dummy_19)
+
+## Method 2
+X2 <- matrix(nrow=76, ncol=20)
+X2[,1] <- goals$FGt1 # First column corresponds to FGt1
+for(i in 1:19){X2[,i+1] <- rep(c(0,1,0),c((i-1)*4,4,76-i*4))}
+```
+
+</font>
+
+(c) Check that the design matrix matches the design matrix used by `lm(FGt~FGt1+Name-1,data=goals)`.
+ The `-1` in the model formula removes the intercept term. It is not obvious that asking R to remove the intercept term will lead R to fit exactly the model above, so this gives a situation where checking the design matrix is a good way to explore how to use `lm()` correctly. The order of the columns in the two design matrices may differ, but this is inconsequential for the model.
+ 
+<font color = "blue">
+Let us now check if both the above matrices are equal to each other and to the matrix extracted from `lm()` using `model.matrix()`.
+```{r}
+## Fit regression model
+lm2 <- lm(FGt~FGt1+Name-1,data=goals)
+
+## Check matrix equiavalence
+X1X2 <- all.equal(X1,X2,check.attributes=FALSE, check.names=FALSE)
+X1mmat <- all.equal(X1,model.matrix(lm2),check.attributes=FALSE, check.names=FALSE)
+X2mmat <- all.equal(X2,model.matrix(lm2),check.attributes=FALSE, check.names=FALSE)
+
+cat(" X1 and X2 are equal:", X1X2, "\n", "X1 and model.matrix(lm2) are equal:", X1mmat,
+    "\n", "X2 and model.matrix(lm2) are equal:", X2mmat)
+
+
+# We could also directly check using the following
+X1X2 <- sum(X1==X2)/(20*76)
+X1mmat <- sum(X1==model.matrix(lm2))/(20*76)
+X2mmat <- sum(X1==model.matrix(lm2))/(20*76)
+```
+
+</font>
+
+(d) Plot all the fitted lines,
+\[
+y = ax+b_i, \quad\mbox{for $i=1,\dots,19$}
+\]
+on top of a scatterplot of $y_{ij}$ against $x_{ij}$. This should look identical to the corresponding plot in Chapter 7 of the notes, with a parallel line for each kicker. 
+
+<font color = "blue">
+```{r}
+plot(FGt~FGt1,data=goals)
+intercept <- as.numeric(lm2$coefficients[2:20])
+slope <- lm2$coefficients[1]
+for(i in 1:19){abline(a=intercept[i], b=slope)}
+abline(summary(lm1)$coefficients[,"Estimate"],col="blue")
+```
+
+</font>
+
+(e) Comment on your interpretation of the difference between the fitted lined in Q2(d) and Q1(b).
+
+<font color = "blue">
+```{r,eval=FALSE}
+int <- c();for(i in 1:19){int <- c(int,mean(goals[goals$Name==levels(goals$Name)[i],"FGt"]))}
+
+int
+summary(lm1)$coefficients
+summary(lm2)
+lm(FGt ~ Name-1, data=goals);int
+
+mean(summary(lm2)$coefficients[2:20,"Estimate"]) 
+```
+
+</font>
+
+**Q3**. Suppose you want to address the question of whether there is convincing evidence that Shayne Graham ($i=19$) is a better kicker than Jay Feely ($i=5$). We can rephrase this to ask if it is plausible that the difference in their kicking record could just be due to small differences in luck between two players of equal skill.
+
+(a) Write out a probability model for which this null hypothesis is $H_0: \beta_5=\beta_{19}$.
+
+<font color = "blue">
+The probability model is the probability model correspondnig to the sample model in Q2(a) above. That , is $\vec{Y} = \mathbb{X}\vec{\beta} + \vec{\epsilon}$ where $\vec{Y}$ is the random vector which models the percentage successful field goal averages, $\mathbb{X}$ is the design matrix as described in Q2, $\mathbf{\beta} = (\beta_0, \beta_1 \dots, \beta_{19})$ is the vector of the true but unknown population coefficients where $\beta_0$ corresponds to the marginal effect of `FGt1` onto `FGt` and $\beta_i$ corresponds to the marignal effect of kicker $i$ onto `FGt`. Lastly, $\mathbf{\epsilon} = (\epsilon_1,\dots ,\epsilon_{76})$ is the vector of iid errors, i.e. $\epsilon_i \sim \mathcal{N}(0,\sigma^2), \hspace{0.4cm} i=1,2,\dots,76$.
+
+The null hypothesis correponds to the coefficient corresponding to kicker 5 = coefficient corresponding to kicker 19, that is, $\beta_5 = \beta_{19}$.  
+</font>
+
+(b) Find the mean and estimated variance of $\hat\beta_{19}-\hat\beta_{5}$ in the context of this model and hypothesis. You can do this one of two ways, either (i) construct a row vector $\vec{x}$ such that 
+$\hat\beta_{19}-\hat\beta_{5}=\vec{x}\vec{\hat\beta}$ and use the formulas for the mean and variance/covariance matrix of $\mat{A}\vec{X}$ with $\vec{X}=\vec{\hat\beta}$, or (ii) use the formulas for the mean and variance of $X-Y$ with $X=\hat\beta_{19}$ and $Y=\hat\beta_{5}$. Either way, you will need to work with the variance/covariance matrix of $\vec{\hat\beta}$ which you may obtain either from appropriate output of `lm()` or by direct matrix calculation. At some point, you will have to replace the standard deviation of the measurement errors with its estimate from the sample.
+
+<font color = "blue">
+We can find the expected value and variance of $\hat{\beta}_{19} - \hat\beta_5$ using the formulae we know. Note that we can  get the mean and variance-covariance matric of $\vec{\hat{\beta}}$ from the`lm2` output as follows:
+```{r}
+betahat <- lm2$coefficients
+# Cov using output of lm
+cov_betahat <- summary(lm2)$cov.unscaled
+cov_betahat <- (summary(lm2)$sigma)^2 *cov_betahat
+
+# Cov using matrix multiplication
+X<- model.matrix(lm2)
+cov_betaHat <- (summary(lm2)$sigma)^2 * solve(t(X)%*%X)
+
+# Check that they are the same
+all.equal(cov_betahat,cov_betaHat)
+```
+
+Then, we can calculate the mean and variance in two ways as explained in the question.  
+i. Let $\hat{\vec{\beta}} = (\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_{19})$. So, $\hat{\beta}_{19} - {\hat{\beta}}_5 = [0,0,0,0,-1,\underbrace{0,\dots,0}_\text{13 times},1]\hat{\beta} = \vec{x}\vec{\hat{\beta}}$  
+Using the following formulae we can then compute the mean and variance as shown below  
+- $\text{E}[\vec{x}\vec{\hat{\beta}}] = \vec{x}\text{E}[\vec{\hat{\beta}}] = \vec{x}\vec{b}$  
+- $\text{Var}({\vec{x}\vec{\hat{\beta}}}) = \vec{x}\text{Var}{\vec{\hat{\beta}}} \vec{x}^{T}$
+```{r}
+x<- c(rep(0,5),-1,rep(0,13),1)
+diff <- x%*%betahat
+mean_diff <- diff
+var_diff <- x%*%cov_betahat%*%x
+```
+(ii) We could calculate the variance of the difference (diff = $\hat{\beta}_{19} - \hat\beta_5$) directly using variance formula for the difference of two random variables, that is, $\text{Var}(\hat{\beta}_{19} - \hat{\beta}_5) = \text{Var}(\hat{\beta}_19) + \text{Var}(\hat{\beta}_5) - 2*\text{Cov}(\hat{\beta}_{19},\hat{\beta}_5)$ as follows:
+```{r}
+var_diff_direct <- cov_betaHat[6,6] + cov_betaHat[20,20] - 2*cov_betaHat[20,6]
+
+#comparing the variances
+cat(" Mean of diff:", mean_diff, "\n",
+    "Variance using method (i):", var_diff, "\n",
+    "Variance using method (i):", var_diff_direct)
+```
+
+</font>
+
+(c) Use a standard error based on this variance to carry out a normal approximation test of $H_0$ with the test statistic being $b_{19}-b_{5}$.
+
+<font color = "blue">
+Since our null hypothesis is $\hat{\beta}_{19} - \hat\beta_5=0$, hence, the test statistic would be $\text{z_stat} = \frac{(b_{19} - b_{5}) - \text{E}(\hat{\beta}_{19} - \hat{\beta}_5)}{\text{sd}(\hat{\beta}_{19} - \hat{\beta}_5)}$. We then find the p-value, which is $\text{prob}(\text{z}\geq \text{z_stat})$ where $z\sim\mathcal{N}(0,1)$ as below:
+
+```{r}
+# Define test statistic
+z_stat <- diff/var_diff
+# Find the p-value 
+pnorm(z_stat,lower.tail = FALSE)
+```
+Since the p-value of 0.2628432 is greater than 0.05, we fail to reject the null hypothesis and thus conclude that the we do not have sufficient evidence to say that Shayne Graham ($i=19$) is a better kicker than Jay Feely ($i=5$).
+</font>
+
+(d) Implicit in the hypothesis test developed above is a causal interpretation: if there is evidence that $b_{19}$ larger than $b_{5}$ beyond what can be explained by chance variation then we are tempted to conclude that Shayne Graham is a more skillfull kicker than Jay Feely. Explain the limitations and disclaimers that should be understood for this causal interpretation.
+
+<font color = "blue">
+</font>
+
+
+--------------
+
+-------------
+
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+Acknowledgement: The field goal data come from S. J. Sheather (2009) "A Modern Approach to Regression with R."
+
+------
