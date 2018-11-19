@@ -1,6 +1,9 @@
-## ----setup,echo=F,results=F,cache=F--------------------------------------
-# library(broman) # used for myround 
-par(mai=c(0.8,0.8,0.1,0.1))
+## ----rv, child="random_variables.Rnw"------------------------------------
+
+## ------------------------------------------------------------------------
+z <- rnorm(1)
+z
+
 
 ## ----poly,child="polynomial.Rnw"-----------------------------------------
 
@@ -43,13 +46,13 @@ e <- resid(lm_poly3)[2:n] ; lag_e <- resid(lm_poly3)[1:(n-1)]
 ## ----timeplot_code,eval=F,echo=T-----------------------------------------
 ## plot(U$Year,resid(lm_poly3))
 
-## ----timeplot_plot,fig.width=3,fig.height=3.5,out.width="2in",echo=F-----
+## ----timeplot_plot,fig.width=3,fig.height=3.5,out.width="1.8in",echo=F----
 plot(U$Year,resid(lm_poly3))
 
 ## ----lagplot_code,eval=F,echo=T------------------------------------------
 ## plot(lag_e,e)
 
-## ----lagplot_plot,fig.width=3,fig.height=3.5,out.width="2in",echo=F------
+## ----lagplot_plot,fig.width=3,fig.height=3.5,out.width="1.8in",echo=F----
 plot(lag_e,e)
 
 ## ----fit_L_loess---------------------------------------------------------
@@ -86,13 +89,13 @@ e <- resid(lm_loess)[2:n] ; lag_e <- resid(lm_loess)[1:(n-1)]
 ## ----timeplot_code_loess,eval=F,echo=T-----------------------------------
 ## plot(U$Year,resid(lm_loess))
 
-## ----timeplot_plot_loess,fig.width=3,fig.height=3.5,out.width="2in",echo=F----
+## ----timeplot_plot_loess,fig.width=3,fig.height=3.5,out.width="1.8in",echo=F----
 plot(U$Year,resid(lm_loess))
 
 ## ----lagplot_code_loess,eval=F,echo=T------------------------------------
 ## plot(lag_e,e)
 
-## ----lagplot_plot_loess,fig.width=3,fig.height=3.5,out.width="2in",echo=F----
+## ----lagplot_plot_loess,fig.width=3,fig.height=3.5,out.width="1.8in",echo=F----
 plot(lag_e,e)
 
 ## ------------------------------------------------------------------------
@@ -102,6 +105,7 @@ coef(summary(lm_loess))
 ## ----rsq,child="r-squared.Rnw"-------------------------------------------
 
 ## ----gpa_summary,echo=F--------------------------------------------------
+gpa <- read.table("gpa.txt",header=T)
 summary(lm(GPA~ACT+High_School,data=gpa))
 
 

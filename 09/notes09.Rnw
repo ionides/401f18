@@ -49,17 +49,12 @@ opts_chunk$set(
 options(width = 60) # number of characters in R output before wrapping
 @
 
-% other set up
-<<setup,echo=F,results=F,cache=F>>=
-# library(broman) # used for myround 
-par(mai=c(0.8,0.8,0.1,0.1))
-@
-
 
 \begin{frame}
 \frametitle{\CHAPTER. Additional topics in linear modeling}
 
 \begin{myitemize}
+\item Review of random variables.
 \item Fitting polynomial relationships and other nonlinear trend models using linear models.
 \item The \m{R^2} statistic to assess model fit.
 \item Multicollinearity: What happens when two or more explanatory variables are highly correlated. How to notice it, and what to do about it.
@@ -70,6 +65,9 @@ par(mai=c(0.8,0.8,0.1,0.1))
 \end{myitemize}
 
 \end{frame}
+
+<<rv, child="random_variables.Rnw">>=
+@
 
 <<poly,child="polynomial.Rnw">>=
 @

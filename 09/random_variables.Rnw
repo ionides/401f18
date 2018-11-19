@@ -1,0 +1,134 @@
+
+\begin{frame}[fragile]
+\frametitle{Reviewing random variables}
+\begin{myitemize}
+\item Our definition of a random variable was \myemph{A random variable X is a random number with probabilities assigned to outcomes}.
+\item  For the purposes of this course, a random variable is equivalent to the probability distribution of its possible values.
+\item
+In other words, a random variable is a range of possible values with assigned probabilities.
+\item 
+A single draw of the random variable can only take on one value, but you can think of the random variable itself taking all possible values simultaneously.
+\item Let's investigate some consequences of this idea.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example: Rolling a die}
+
+\begin{myitemize}
+\item
+A die can be considered as a random variable with probability \m{1/6} of taking each possible value \m{1,2,3,4,5,6}.
+\item
+A single roll of the die is called a draw from the random variable. The roll may take some specific value. Say, we roll the die and it shows \m{5}. However, \m{5} is not the random variable.
+\item The random variable is like die while it is in the air. You can think that it simultaneously takes all the possible values \m{1,2,3,4,5,6} before it lands and only one value is drawn.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example: the normal distribution}
+<<,echo=F>>=
+set.seed(49)
+@
+\begin{myitemize}
+\item Let \m{Z} be a standard normal random variable.
+\item We can make a draw from \m{Z} using \code{rnorm(1)} in R.
+<<>>=
+z <- rnorm(1)
+z
+@
+\item When we interpret the probability statement
+\m{\prob(Z<1.5)}. 
+we are not asking whether this particular draw is less than \m{1.5}. 
+\item We think of \m{Z} ranging over all its possible values, drawn according to the normal distribution. Then, \m{\prob(Z<1.5)} asks what proportion of these draws is less than \m{1.5}.
+<<>>=
+pnorm(1.5)
+z <- rnorm(10000)
+sum(z<1.5)/length(z)
+@
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example: $\vec{b}$ and $\vec{\hat\beta}$}
+
+\begin{myitemize}
+\item The probability model \m{\vec{Y}=\mat{X}\vec{\beta}+\vec{\epsilon}} gives  the distribution of all possible outcomes of \m{\vec{Y}} in terms of the possible outcomes of \m{\vec{\epsilon}}.
+
+\item  \m{\vec{\hat \beta}=(\mat{X}^\transpose \mat{X})^{-1} \mat{X}^\transpose \vec{Y}} is a random variable that represents all the possible least squares coefficient vectors and their associated probabilities under the probability model.
+\item The random variable \m{\vec{\hat\beta}} is constructed using \m{\vec{Y}} which is in turn constructed using \m{\vec{\epsilon}\sim\MVN(\vec{0},\sigma^2\mat{I})}.
+\item When we construct one random variable as a function of another, we don't necessarily know its probability distribution.
+
+\item In this case, we have worked out the distributions:
+
+\m{\quad \quad \vec{Y}\sim\MVN\big(\mat{X}\vec{\beta},\sigma^2\mat{I}\big)}
+
+\m{\quad \quad \vec{\hat\beta}\sim \MVN\big(\vec{\beta},\sigma^2 (\mat{X}^\transpose \mat{X})^{-1}\big)}
+
+\item By contrast, \m{\vec{b}} is one specific vector derived from the data, and \m{\vec{\beta}} is an unknown constant vector which plays a role in the probability model.
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example continued: $\vec{b}$ and $\vec{\hat\beta}$}
+\begin{myitemize}
+\item 
+When we look at a probability statement like
+\altdisplaymath{
+\prob(\hat\beta_1>b_1)
+}
+we are asking what proportion of the possible outcomes of the random variable \m{\hat\beta_1} are larger than the specific number \m{b_1}.
+\item
+This probability must be defined under some specific probability model, usually corresponding to a null hypothesis \m{H_0}.
+\item 
+To make sense of a probability statement like this, it is helpful to keep track of which quantities are random variables and which are constants. 
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Keeping track of random variables}
+\begin{myitemize}
+\item Which of the following make sense, for data \m{y_1,\dots,y_n}
+
+\vspace{1mm}
+
+A. A simple model is \m{y_1,\dots,y_n\sim\normal(\mu,\sigma)}.
+
+\vspace{3mm}
+
+B. \m{\var(y_1)=\frac{1}{n-1}\sum_{i=1}^n (y_i-\bar y)^2} for \m{\bar y = \frac{1}{n}\sum_{i=1}^n y_i}.
+
+\vspace{3mm}
+
+C. In a linear model, \m{\E[\vec{b}] = \vec{\beta}}.
+
+\vspace{3mm}
+
+D. Because \m{\hat\beta_1 \pm 1.96 \sd{\hat\beta_1}} covers \m{\beta_1} with probability 0.95, we call \m{b_1 \pm 1.96 \SE{b_1}} a 95\% confidence interval.
+
+\vspace{3mm}
+
+\end{myitemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Keeping track of random variables: summary}
+
+\begin{myitemize}
+\item If you compute a probability, or an expectation, or a variance/covariance (not to be confused with the sample variance/covariance of data) then make sure you are working with random variables.
+
+\item If you say that a quantity has a probability distribution, such as the normal distribution, then that quantity should be a random variable.
+
+\item If the histogram of data, or residuals, follows a normal curve we are tempted to say that the data are normally distributed. Resist this temptation. It conflicts with our definition, according to which only a random variable can have a distribution. Say that the histogram shows that a normal model for the data, or measurement errors, is appropriate.
+
+\end{myitemize}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
