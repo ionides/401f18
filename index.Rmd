@@ -18,39 +18,37 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 
 1. [Getting started](01/notes01.pdf). 
 [(R code)](01/notes01.R).
-[(Annotations)](01/notes01annotated.pdf).
+[(Annotations)](01/annotated-notes01.pdf).
 
 2. [Matrices for applied statistics](02/notes02.pdf). 
 [(R code)](02/notes02.R).
-[(Annotations)](02/notes02annotated.pdf).
+[(Annotations)](02/annotated-notes02.pdf).
 
 3. [Fitting a linear model to data by least squares](03/notes03.pdf). 
 [(R code)](03/notes03.R).
-[(Annotations)](03/notes03annotated.pdf).
+[(Annotations)](03/annotated-notes03.pdf).
 
 4. [Probability models](04/notes04.pdf).
 [(R code)](04/notes04.R).
-[(Annotations)](04/notes04annotated.pdf).
+[(Annotations)](04/annotated-notes04.pdf).
  
 5. [Vector random variables](05/notes05.pdf).
 [(R code)](05/notes05.R).
-[(Annotations)](05/notes05annotated.pdf).
+[(Annotations)](05/annotated-notes05.pdf).
 
 6. [Confidence intervals and hypothesis testing](06/notes06.pdf).
 [(R code)](06/notes06.R).
-[(Annotations)](06/notes06annotated.pdf).
-
-<!--
-[Log transformations](06/log_transform.pdf).
--->
+[(Annotations)](06/annotated-notes06.pdf).
 
 7. [Factors and the ANOVA F-test](07/notes07.pdf).
 [(R code)](07/notes07.R).
-[(Annotations)](07/notes07annotated.pdf).
+[(Annotations)](07/annotated-notes07.pdf).
 
-    [Discussion: STATS 401 and the future of undergraduate data science](ds/ds.pdf). [Feedback](ds/response.pdf).
+    [Discussion: STATS 401 and the future of undergraduate data science](ds/ds.pdf). [(Feedback)](ds/response.pdf).
 
-8. [Model diagnostics](08/notes08.pdf). [(R code)](08/notes08.R).
+8. [Model diagnostics](08/notes08.pdf).
+[(R code)](08/notes08.R).
+[(Annotations)](08/annotated-notes08.pdf).
 
 <!--
 9. [Additional topics in linear modeling](09/notes09.pdf). [(R code)](09/notes09.R).
