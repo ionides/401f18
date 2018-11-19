@@ -1,4 +1,5 @@
 
+
 \begin{frame}[fragile]
 \frametitle{Collinear explanatory variables in a linear model}
 
@@ -66,7 +67,7 @@ we see that \m{\vect{b}+\vect{\alpha}} is also a least squares coefficient vecto
 
 \myquestion. Any variable that is part of a collinear combination of variables has infinite standard error. Why?
 
-\answer{\vspace{50mm}}{todo}
+\answer{\vspace{50mm}}{The same least squares fit can be achieved with any set of equivalent variables. These equivalent variables fall on a line or plane heading off to infinity.}
 
 \end{frame}
 
@@ -139,7 +140,9 @@ det(t(X2)%*%X2)
 \end{myitemize}
 \myquestion. The least squares fitted values are the same using the predictor matrix \code{X2} as \code{X}. Why does dropping the last column not change the fitted values?
 
-\answer{\vspace{20mm}}{todo}
+\answer{\vspace{20mm}}{All fitted values achievable using the last column can be replaced by a different rule using only the first two. 
+For example, the row vector $\vec{x^*}=(x_1,x_2,x_3)$ gives the same prediction as $\vec{x^{**}}=(x_1+x_3,x_2-x_3,0)$
+}
 
 \end{frame}
 
@@ -153,7 +156,7 @@ det(t(X2)%*%X2)
 
 \myquestion. Recall our data analysis using unemployment to explain life expectancy. What would happen if we added total employment as an additional explanatory variable? (Being unemployed is not the only alternative to being employed, since only adults currently looking for work are counted as unemployed.)
 
-\answer{\vspace{30mm}}{todo}
+\answer{\vspace{30mm}}{Fluctuations around the trend in total employment are highly negatively correlated with fluctuations in unemployment. Since these variables are close to collinear, the fitted values would change little and the standard errors on each one would become large. Likely, the data could not tell us whether employment or unemployment is better as an explanatory variable for understanding cyclical mortality fluctuations.}
 
 \end{frame}
 
