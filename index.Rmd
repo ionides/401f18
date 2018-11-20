@@ -99,6 +99,12 @@ Due in lab on 10/26.
 [Solutions](hw/hw09/sol_hw09.html).
 -->
 
+* [Homework 10. Making and interpreting an F test.](hw/hw10/hw10.html). Due in lab on 11/30.
+
+<!--
+[Solutions](hw/hw09/sol_hw09.html).
+-->
+
 ------------
 
 ## Lab materials

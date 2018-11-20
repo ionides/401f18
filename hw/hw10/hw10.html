@@ -128,17 +128,12 @@ $(document).ready(function () {
 
 
 <p><strong>Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of <em>Sources</em> is required to get credit for the homework.</strong></p>
-<p><br></p>
-<div id="q1.-r-exercises." class="section level3">
-<h3>Q1. R exercises.</h3>
-<p>Carry out either option A or option B below. You can do both if you want, but only one will give you credit. Report briefly on your progress with your chosen option.</p>
-<p><strong>Option A</strong>. Write your homework report as an Rmarkdown document. The <a href="https://ionides.github.io/401f18/Lab/Lab11/R_markdown_Introduction.html">slides for Lab 11</a> are a good start. Rmarkdown is a powerful tool for applied statistics, since it leads to reproducible analysis that can be relatively easily modified and shared. Combining text, code and R output helps to clarify what you did, why you did it, what you found, and what you conclude. You can edit the <a href="https://ionides.github.io/401f18/hw/hw10/hw10.Rmd">Rmarkdown file generating this homework</a> as a starting point. It is easier to learn Rmarkdown once you feel comfortable with R. So, if you don’t feel ready to figure our Rmarkdown, there’s another option.</p>
-<p><strong>Option B</strong>. There are many R exercises and tutorials online, at varying technical levels. One that may help reinforce the material in STATS 401 is <a href="http://rstatistics.net/r-tutorial-exercise-for-beginners/">rstatistics.net/r-tutorial-exercise-for-beginners</a>. It may be helpful to read this tutorial and carry out the exercises. Alternatively, you can repeat the <code>swirl</code> tutorials from the start of the semester now you have more R experience. Or, if you find some other R training material that you prefer, study that instead.</p>
 <hr />
-</div>
-<div id="q2.-making-and-interpreting-an-f-test" class="section level3">
-<h3>Q2. Making and interpreting an F test</h3>
-<p>We consider again the data on freshman GPA, ACT exam scores and percentile ranking of each student within their high school for 705 students at a large state university in the file <a href="gpa.txt" class="uri">gpa.txt</a>. In addition, we now consider the year (1996 to 2000) in which the student entered college.</p>
+<div id="q1.-making-and-interpreting-an-f-test" class="section level3">
+<h3>Q1. Making and interpreting an F test</h3>
+<p>We consider again the data on freshman GPA, ACT exam scores and percentile ranking of each student within their high school for 705 students at a large state university. In addition, we now consider the year (1996 to 2000) in which the student entered college.</p>
+<pre class="r"><code>download.file(destfile=&quot;gpa.txt&quot;,
+  url=&quot;https://ionides.github.io/401f18/hw/hw10/gpa.txt&quot;)</code></pre>
 <pre class="r"><code>gpa &lt;- read.table(&quot;gpa.txt&quot;,header=T)
 head(gpa)</code></pre>
 <pre><code>##   ID  GPA High_School ACT Year
@@ -148,12 +143,30 @@ head(gpa)</code></pre>
 ## 4  4 1.32          95  23 1996
 ## 5  5 1.48          77  28 1996
 ## 6  6 1.57          47  23 1996</code></pre>
-<p>There are many ways in which the predictive relationship between freshman GPA and the admission scores may, or may not, be stable over time. The director of admissions is interested in what ways, if any, there is evidence for changes larger than can be explained by chance variation. Let the null hypothesis, <span class="math inline">\(H_0\)</span>, be the probability model considered in the midterm exam, where freshman GPA is modeled to depend linearly on ACT score and high school ranking. Let <span class="math inline">\(H_a\)</span> be the probability model where <span class="math inline">\(H_0\)</span> is extended to include year as a factor, as fitted in R by</p>
+<p>The predictive relationship between freshman GPA and the admission scores may, or may not, be stable over time. Intercepts and/or slopes of fitted lines may be approximately constant, or may show trends through time. The director of admissions is interested in what ways, if any, there is evidence for changes larger than can be explained by chance variation. Let the null hypothesis, <span class="math inline">\(H_0\)</span>, be a probability model for which freshman GPA is modeled to depend linearly on ACT score and high school ranking. Let <span class="math inline">\(H_a\)</span> be the probability model where <span class="math inline">\(H_0\)</span> is extended to include year as a factor, as fitted in R by</p>
 <pre class="r"><code>lm_gpa &lt;- lm(GPA~High_School+ACT+factor(Year),data=gpa)</code></pre>
 <ol style="list-style-type: lower-alpha">
-<li><p>Write out the null and alternative hypotheses by completely specifying the probability models. Sometimes in class, to save time and space, we don’t write the complete details of each model. Here, you are asked to do that. Looking at <code>model.matrix(lm_gpa)</code> may help you to understand the model that R has fitted. You can write the models in either matrix or subscript form.</p></li>
-<li><p>Interpret the results in <code>summary(lm_gpa)</code>. Is there any evidence that some year, or years, may have different intercept? Why is there no row in the results table for <code>factor(Year)1996</code>?</p></li>
-<li><p>Interpret the results in <code>anova(lm_gpa)</code>. Write out in detail an F test to test <span class="math inline">\(H_0\)</span> against <span class="math inline">\(H_a\)</span>, explaining how the sample test statistic is constructed, giving the distribution of the model-generated test statistic under <span class="math inline">\(H_0\)</span>, and saying how the resulting p-value is calculated and interpreted.</p></li>
+<li><p>Write out the null and alternative hypotheses by completely specifying the probability models. Sometimes, to save time and space, we don’t write the complete details of each model. Here, you are asked to write out the details in full. Looking at <code>model.matrix(lm_gpa)</code> may help you to understand the model that R has fitted. You can write the models in matrix, subscript or double subscript form.</p></li>
+<li><p>Interpret the results in <code>summary(lm_gpa)</code> in the context of whether there is evidence that some year, or years, may have substantially different intercepts. Why is there no row in the results table for <code>factor(Year)1996</code>?</p></li>
+<li><p>Explain which numbers in <code>anova(lm_gpa)</code> are relevant for constructing and interpreting an F test to test <span class="math inline">\(H_0\)</span> against <span class="math inline">\(H_a\)</span>. Explain how to calculate the sample test statistic for this test. Specify the distribution of the model-generated test statistic under <span class="math inline">\(H_0\)</span>, and saying how the resulting p-value is calculated. What do you conclude?</p></li>
+</ol>
+<p><br></p>
+<hr />
+</div>
+<div id="q2.-data-manipulation-and-visualization-exercises." class="section level3">
+<h3>Q2. Data manipulation and visualization exercises.</h3>
+<p><strong>If at all possible, do these by yourself. It is okay to discuss the exercises with your peers or to come to office hours after a reasonable amount of time working by yourself, experimenting by trial and error, consulting R help pages, and collecting information from the internet. One source to reinforce R skills appropriate for STATS 401 is <a href="http://rstatistics.net/r-tutorial-exercise-for-beginners/">rstatistics.net/r-tutorial-exercise-for-beginners</a>.</strong></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Obtain the last 10 lines of <code>gpa</code> by two methods: (i) using matrix indexing; (2) via the <code>tail()</code> function.</p></li>
+<li><p>Write R code to count the number of students in the dataset <code>gpa</code> who were admitted in 1997. Hint: <code>sum()</code> applied to a logical vector counts the number of <code>TRUE</code> values.</p></li>
+</ol>
+<pre class="r"><code>sum(c(TRUE,TRUE,FALSE,TRUE))</code></pre>
+<pre><code>## [1] 3</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><p>Write R code to find the proportion of the students in <code>gpa</code> who are both above the 50th percentile in their high school and have an ACT score greater than 15. <br>Hint: there are various ways to do this. Using an “and” operation <code>&amp;</code> on suitably constructed logical vectors is perhaps the simplest and best, and is something you should be able to do.</p></li>
+<li><p>Make a scatterplot of high school percentile rank against ACT score, with points colored black, blue, red, green and cyan according to the year of admission. <br>Hint: one way to get started on this is to create a vector <code>my_color &lt;- rep(&quot;black&quot;,length=nrow(gpa))</code> and then modify the entries of <code>my_color</code> corresponding to the different years. For example, you can create a logical vector <code>gpa$Year==1997</code> to pick out the rows with admission year 1997. The corresponding entries of <code>my_color</code> can then be modified to take the value <code>&quot;blue&quot;</code>. Finally, you can use <code>plot(...,col=my_color)</code> to color your scatterplot.</p></li>
+<li><p>Make 5 separate scatterplots of high school percentile rank against ACT score for each of the years 1996, 1997, 1998, 1999, 2000. Use <code>par(mfrow=c(3,2))</code> to combine the scatterplots into a single figure. Use the <code>xlim</code> and <code>ylim</code> arguments to <code>plot()</code> to give all five scatterplots the same axis scales: this is helpful to do since otherwise the differing scales on each plot make them hard to compare. <br>Hints: the <code>xlim</code> argument expects a vector of length 2 giving the lower and upper limits of the x-axis. Conveniently, <code>range(gpa$ACT)</code> produces a vector of length 2 giving the minimum and maximum values in the vector <code>gpa$ACT</code>. An internet search on <code>R plot mfrow example</code> will provide examples using <code>par(mfrow=...)</code> to combine several plots into one figure. <br>Note: For this particular plot, <code>ggplot()</code> will fairly easily give you a nicer version if you have learned previously how to use it. However, learning to use base R graphics (as you are asked to do here) remains a useful skill.</p></li>
+<li><p>Comment on the relative strengths and weaknesses of the two types of plot in (d) and (e) above as a graphical tool for inspecting the admissions data from different years.</p></li>
 </ol>
 <hr />
 <hr />
