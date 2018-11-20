@@ -12,7 +12,12 @@
 \end{myitemize}
 \myquestion. If there are \m{\ell} explanatory variables, considered as \myemph{main effects}, and any pair of them could give rise to an \myemph{interaction effect}, how many possible models are there? For simplicity, allow for the possibility of including interactions without the main effects.
 
-\vspace{30mm}
+\answer{\vspace{30mm}}{There are $\ell(\ell-1)/2$ possible interactions and $\ell$ main effects, so $\ell(\ell+1)/2$ possible explanatory variables. Each can be in or out of the model, giving a total of
+\[
+2^{\ell(\ell+1)/1}
+\]
+possible models. This get big quickly as $\ell$ increases.
+}
 
 \end{frame}
 
@@ -47,10 +52,9 @@
 \begin{frame}[fragile]
 \frametitle{Confidence intervals after model selection}
 
-\myquestion. Suppose you have \m{\ell=100} explanatory variables and you consider \m{\ell=100} different models, each with only one of the explanatory variables in the model. You pick as your favorite model the one with the highest \m{R^2} statistic, which is equivalent to picking the one with the smalles p-value for its t statistic. You report a 95\% confidence interval for the coefficient in this linear model. What is the chance that this confidence interval will cover the truth, under the null probability model where all the coefficients for all the explanatory variables are zero?
+\myquestion. Suppose you have \m{\ell=100} explanatory variables and you consider \m{\ell=100} different models, each with only one of the explanatory variables in the model. You pick as your favorite model the one with the highest \m{R^2} statistic, which is equivalent to picking the one with the smalles p-value for its \m{t} statistic. You report a 95\% confidence interval for the coefficient in this linear model. What is the chance that a corresponding model-generated confidence interval will cover the true parameter value, for the null probability model where all the coefficients for all the explanatory variables are zero? You can suppose that, under this null probability model, the model-generated p-values for each explanatory variable are independent.
 
-\answer{\vspace{50mm}}{The 95\% CI covers zero exactly when we fail to reject the null hypothesis that zero is the true value. Thus, the CI for the parameter with the smallest p-value covers the true value of zero only when all p-values are greater than 0.05. The chance that all p-values are greater than 0.05 under the null mypothesis is
-$0.95^100=0.0059$.}
+\answer{\vspace{50mm}}{The 95\% CI covers zero exactly when we fail to reject the null hypothesis that zero is the true value at the 5\% level. Thus, the CI for the parameter with the smallest p-value covers the true value of zero only when all p-values are greater than 0.05. The chance that all model-generated p-values are greater than 0.05 under the null hypothesis is $0.95^{100}=0.0059$.}
 
 \end{frame}
 

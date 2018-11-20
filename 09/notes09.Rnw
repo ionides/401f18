@@ -4,8 +4,8 @@
 \input{../header.tex}
 \newcommand\CHAPTER{9}
 % \newcommand\answer[2]{\textcolor{blue}{#2}} % to show answers
-\newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
-% \newcommand\answer[2]{#1} % to show blank space
+%\newcommand\answer[2]{\textcolor{red}{#2}} % to show answers
+ \newcommand\answer[2]{#1} % to show blank space
 <<R_answer,echo=F,purl=F>>=
 # ANS = TRUE
 # ANS=FALSE

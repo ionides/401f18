@@ -90,28 +90,30 @@ To make sense of a probability statement like this, it is helpful to keep track 
 
 \begin{frame}[fragile]
 \frametitle{Keeping track of random variables}
-\begin{myitemize}
-\item Which of the following make sense, for data \m{y_1,\dots,y_n}
 
-\vspace{2mm}
+\myquestion. Which of the following make sense, for data \m{y_1,\dots,y_n}
 
-A. A simple model is \m{y_1,\dots,y_n\sim\normal(\mu,\sigma)}.
+%\begin{myitemize}
+\begin{enumerate}
+
+\item A simple model is \m{y_1,\dots,y_n\sim\normal(\mu,\sigma)}.
 
 \answer{\vspace{10mm}}{No. On the left of $\sim$ we have data, on the right a probability distribution.}
 
-B. \m{\var(y_1)=\frac{1}{n-1}\sum_{i=1}^n (y_i-\bar y)^2} for \m{\bar y = \frac{1}{n}\sum_{i=1}^n y_i}.
+\item \m{\var(y_1)=\frac{1}{n-1}\sum_{i=1}^n (y_i-\bar y)^2} for \m{\bar y = \frac{1}{n}\sum_{i=1}^n y_i}.
 
 \answer{\vspace{10mm}}{No. $y_1$ is a single constant. It doesn't have a variance. $y_1,\dots,y_n$ does have a sample variance}
 
-C. In a linear model, \m{\E[\vec{b}] = \vec{\beta}}.
+\item If \m{\vec{y}} follows the usual linear model, \m{\E[\vec{b}] = \vec{\beta}}.
 
 \answer{\vspace{10mm}}{No. $\vec{b}$ is a constant so $\E[\vec{b}]=\vec{b}$.}
 
-D. Because \m{\hat\beta_1 \pm 1.96 \sd{\hat\beta_1}} covers \m{\beta_1} with probability 0.95, we call \m{b_1 \pm 1.96 \SE{b_1}} a 95\% confidence interval.
+\item Because \m{\hat\beta_1 \pm 1.96\, \sd(\hat\beta_1)} covers \m{\beta_1} with probability \m{0.95}, we call \m{b_1 \pm 1.96 \, \SE(b_1)} a \m{95\%} confidence interval for \m{\beta_1}.
 
 \answer{\vspace{10mm}}{Yes. The probability statement in a confidence interval refers to the random variable $\hat\beta_1$ according to the probability model.}
 
-\end{myitemize}
+%\end{myitemize}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]

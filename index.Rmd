@@ -50,9 +50,9 @@ The [syllabus](syllabus.html) gives the course description, contact information,
 [(R code)](08/notes08.R).
 [(Annotations)](08/annotated-notes08.pdf).
 
-<!--
-9. [Additional topics in linear modeling](09/notes09.pdf). [(R code)](09/notes09.R).
--->
+9. [Additional topics in linear modeling](09/notes09.pdf). 
+[(R code)](09/notes09.R).
+
 
 --------
 
