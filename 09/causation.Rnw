@@ -23,6 +23,8 @@ The usual corresponding probability model is \m{Y_i=\alpha x_i+\beta +\epsilon_i
 \begin{frame}[fragile]
 \frametitle{Does coffee cause heart attacks?}
 
+\vspace{-1.5mm}
+
 \begin{myitemize}
 \item Coffee has relatively high levels of caffeine, a commonly consumed drug. Many studies have been done to see if it has adverse (or positive) health effects. 
 \item A typical observational study will model a health outcome (say, a measure of heart health) and investigate linear models based on available explanatory variables.
@@ -30,7 +32,7 @@ The usual corresponding probability model is \m{Y_i=\alpha x_i+\beta +\epsilon_i
 \end{myitemize}
 \myquestion. Suggest important confounding variable(s) in the causal interpretation of this model. What would you do to help make a convincing argument for or against coffee?
 
-\answer{\vspace{30mm}}{todo}
+\answer{\vspace{30mm}}{Smoking is the main confounder. You could restrict your study to non-smokers.}
 
 \end{frame}
 
@@ -44,7 +46,7 @@ The usual corresponding probability model is \m{Y_i=\alpha x_i+\beta +\epsilon_i
 \end{myitemize}
 \myquestion. Suppose you find the estimated effect is negative and statistically significant: higher salaries are associated with lower success rates. How would you interpret this result? What are possible confounding factors?
 
-\answer{\vspace{40mm}}{todo}
+\answer{\vspace{40mm}}{Likely, the highest qualified and highest paid surgeons deal with the sickest cases. These are also the patients most likely to have complications with surgery.}
 
 
 \end{frame}
@@ -75,7 +77,7 @@ The ideas were developed in the 1950s while tracking down the case against cigar
 \end{myitemize}
 \myquestion. In World War II, the US Airforce was suffering heavy losses in bombing raids over Germany. To decide where to add extra armor, engineers studied bullet holes on returning planes to see which parts were exposed to most gunfire. A prominent statistician, Abraham Wald, provided a different interpretation. What was it?
 
-\answer{\vspace{30mm}}{todo}
+\answer{\vspace{30mm}}{These were the planes that came back. You should put armor exactly where the bullet holes are not present on these planes.}
 
 \end{frame}
 
@@ -88,7 +90,7 @@ The ideas were developed in the 1950s while tracking down the case against cigar
 \end{myitemize}
 \myquestion. Consider the field goal percentage data. Recall that we analyzed the 19 NFL kickers who made at least ten field goal attempts in each of 2002, 2003, 2004, 2005 and 2006 seasons. We found a slope of -0.504 when predicting field goal percentage in year t using field goal percentage in year t-1, with a separate intercept for each kicker. Comment on the possible roles of selection bias and/or confounding for interpreting this result.
 
-\answer{\vspace{30mm}}{todo}
+\answer{\vspace{40mm}}{If the kickers had a really bad season they might retire or be fired, and therefore not end up in the dataset. Consequently, 2006 might be expected to have lower success rate for this dataset, since kickers with a poor 2006 season can still stay in the dataset. Possibly, kickers who appear to be highly capable (due to a lucky season) are asked to take kicks from a longer distance the next year - this is not confounding or selection bias but is a different causal interpretation. Any ideas?}
 
 \end{frame}
 
@@ -101,9 +103,9 @@ The ideas were developed in the 1950s while tracking down the case against cigar
 \item Random assignment to treatment in a controlled experiment removes the possibility of confounding, and ensures that any statistically significan effect can legitimately be given a causal interpretation.
 \item A \myemph{randomized experiment} occurs when individual \m{i} is randomly assigned a \myemph{treatment}. A treatment is a set of explanatory variables corresponding to a row of \m{\mat{X}}.
 \item In a randomized experiment the independence assumption on the errors is reasonable: we can view the errors as coming from differences between individuals drawn independently from a large population.
-  \item STATS 470 investigates design and analysis of experiments, which is an extension of linear statistical modeling.
+%  \item STATS 470 investigates design and analysis of experiments, which is an extension of linear statistical modeling.
   \item Random sampling removes selection bias, apart from missing data.
-    \item STATS 480 investigates sample survey analysis, which also builds on linear statistial modeling.
+%    \item STATS 480 investigates sample survey analysis, which also builds on linear statistial modeling.
 \end{myitemize}
 
 \end{frame}

@@ -39,7 +39,7 @@
 
 \myquestion.  Suppose that you consider \m{\ell=100} variables by placing them all in a linear model and reporting the variables whose t statistic is significant at the \m{0.05} level. How many ``significant'' variables would you expect to report under a null probability model where all the coefficients are zero?
 
-\answer{\vspace{40mm}}{todo}
+\answer{\vspace{50mm}}{If all coefficients are zero, then the chance of a p-value for each variable being significant at the 5\% level (if the null hypothesis is correct) is 5\%. So, the expected number of significant variables is $0.05\times 100=5$.}
 
 \end{frame}
 
@@ -49,7 +49,8 @@
 
 \myquestion. Suppose you have \m{\ell=100} explanatory variables and you consider \m{\ell=100} different models, each with only one of the explanatory variables in the model. You pick as your favorite model the one with the highest \m{R^2} statistic, which is equivalent to picking the one with the smalles p-value for its t statistic. You report a 95\% confidence interval for the coefficient in this linear model. What is the chance that this confidence interval will cover the truth, under the null probability model where all the coefficients for all the explanatory variables are zero?
 
-\answer{\vspace{40mm}}{todo}
+\answer{\vspace{50mm}}{The 95\% CI covers zero exactly when we fail to reject the null hypothesis that zero is the true value. Thus, the CI for the parameter with the smallest p-value covers the true value of zero only when all p-values are greater than 0.05. The chance that all p-values are greater than 0.05 under the null mypothesis is
+$0.95^100=0.0059$.}
 
 \end{frame}
 
