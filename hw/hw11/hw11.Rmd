@@ -30,9 +30,14 @@ csl: ecology.csl
 
 
 **Optional: If you like, you are encouraged to write your homework report as an Rmarkdown document**. The [slides for Lab 11](https://ionides.github.io/401f18/Lab/Lab11/R_markdown_Introduction.html) are a good start. Rmarkdown is a powerful tool for applied statistics, since it leads to reproducible analysis that can be relatively easily modified and shared. Combining text, code and R output helps to clarify what you did, why you did it, what you found, and what you conclude. 
-You can edit the [Rmarkdown file generating this homework](https://ionides.github.io/401f18/hw/hw11/hw11.Rmd) as a starting point.
+You can edit the [Rmarkdown file generating this homework](https://ionides.github.io/401f18/hw/hw11/hw11.Rmd) as a starting point. You are not expected to use the math typesetting in \LaTeX for Rmarkdown (though you can try it if you want to). You can add blank lines to handwrite equations, by using `<br>` in Rmarkdown which gives a line of blank space if you render the Rmarkdown as HTML. `<br><br><br>` gives three blank lines in HTML, which looks like:
 
-It is easier to learn Rmarkdown once you feel comfortable with R. So, if you don't feel ready to figure our Rmarkdown, **TODO**
+<br>
+<br>
+<br>
+
+Or you can just represent equations in text, writing for example Y[i]=X beta[i] + epsilon[i] in place of $\vec{Y}=\mat{X}\vec{\beta}+\vec{\epsilon}$.
+
 
 --------------
 
@@ -40,6 +45,7 @@ It is easier to learn Rmarkdown once you feel comfortable with R. So, if you don
 
 ### Data analysis: investigating hospital infections
 
+This homework asks you to develop your own data analysis, starting with just the dataset and some background information.
 Data on 12 variables for 113 hospitals from the Study on the Efficacy of Nosocomial Infection Control (SENIC) are provided in the file [senic.txt](senic.txt). 
 The primary purpose of this study is to look for properties of hospitals associated with high (or low) rates of hospital-acquired infections, which have the technical name of *nosocomial infections*.
 The rate of nosocomial infections is measured by the variable `Infection risk`.
@@ -73,9 +79,13 @@ The variables are described as follows:
 **Facilities**: percent of 35 specific facilities and services which are provided by the hospital
 
 Explore these data to find statistically supported evidence of associations that might explain nosocomial infection risk.
-You are expected to use the linear modeling techniques we have learned in class, as well as making one or more appropriate graphs.
+You are expected to use the linear modeling techniques we have learned in class, including the F test and confidence intervals.
+You should also present at least one appropriate graph.
 You may try as many different models as you like, but focus your report on a subset of analyses that you find informative.
 Numerical analysis that you present should be combined with explanation of your methods and conclusions.
+Your report should be clear about your original contribution above and beyond what you have acquired from other sources (classmates, web pages, or any other source). 
+Material from sources should be clearly referenced to the list of sources. 
+Be generous and explicit about the credit you give to sources so that the reader does not have to carry out detective work to assess your own contribution.
 
 
 --------------

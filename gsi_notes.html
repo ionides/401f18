@@ -133,6 +133,7 @@ $(document).ready(function () {
 <li><a href="#random-variables">Random variables</a></li>
 <li><a href="#probability-models">Probability models</a></li>
 <li><a href="#notation-for-linear-models">Notation for linear models</a></li>
+<li><a href="#potential-areas-for-improvement-in-future.">Potential areas for improvement in future.</a></li>
 <li><a href="#latex-macros">Latex macros</a></li>
 </ul>
 </div>
@@ -145,6 +146,7 @@ $(document).ready(function () {
 <li><p>vectors are in bold, using <code>\vect{}</code> or <code>\vec{}</code> which are defined to be the same thing. Vector random variables are also in bold, but follow the naming convention below for random variables.</p></li>
 <li><p>matrices are in blackboard bold, using <code>\mat{}</code>.</p></li>
 <li><p>random variables are capital letters, with some exceptions. <span class="math inline">\({\boldsymbol{\mathrm{\epsilon}}}\)</span> is used for a vector of iid measurement errors. <span class="math inline">\({\boldsymbol{\mathrm{\hat\beta}}}\)</span> is the random variable for model-generated least squares linear model coefficients.</p></li>
+<li><p>A complete list of STATS 401 Latex macros is given at the end of this document.</p></li>
 </ul>
 <hr />
 </div>
@@ -191,6 +193,17 @@ $(document).ready(function () {
 <li><p><span class="math inline">\({\boldsymbol{\mathrm{\hat\beta}}}\)</span> is a random variable. It can have a normal distribution, mean and variance. You can make probability statements about it.</p></li>
 <li><p><span class="math inline">\({\boldsymbol{\mathrm{b}}}\)</span> is not a random variable. If you find yourself making any statement about <span class="math inline">\({\boldsymbol{\mathrm{b}}}\)</span> that supposes <span class="math inline">\({\boldsymbol{\mathrm{b}}}\)</span> is a random variable then there is an error. Saying <span class="math inline">\({\boldsymbol{\mathrm{b}}}\sim{\mathrm{normal}}(\cdot,\cdot)\)</span> is one such example.</p></li>
 <li><p>The separation between random variables and sample quantities is not carried out well in many courses and textbooks, so does not come naturally to many of us. Once you are clear about this separation, the logic of statistical inference becomes more transparent. However, to give the students a chance to understand this separation, we have to keep it clear ourselves, both notationally and conceptually.</p></li>
+</ul>
+<hr />
+</div>
+<div id="potential-areas-for-improvement-in-future." class="section level3">
+<h3>Potential areas for improvement in future.</h3>
+<p>There is plenty of room for future improvement in STATS 401, based on continuing feedback. Some possiblities follow.</p>
+<ul>
+<li><p><strong>Workflow</strong>. Until quiz1, students should be learning the R console. After quiz1, they should be learning to write R script files. After quiz2, we might in future have them use Rmarkdown. This would involve thinking about how to give them good examples, and teaching a way to do it that avoids dealing with Latex at this point. They could leave space for handwritten formulas (as they do for R script files) or write in a simplified notation such as y[i,j] in place of <span class="math inline">\(y_{ij}\)</span>.</p></li>
+<li><p><strong>Vectors</strong>. It might be helpful to have vectors default to being column vectors.</p></li>
+<li><p><strong>Teaching R</strong>. Too many students fell behind on basic data manipulation skills. They started asking peers for code, getting into a vicious cycle of not improving skills so becoming increasingly dependent on peers. At a mimimum, everyone in STATS 401 should acquire some skills working with dataframes (indexing in various ways and modifying). All homeworks could have some simple R exercises to be completed independently. HW10 makes a start on trying this.</p></li>
+<li><p><strong>Data science motivation</strong>. The intellectual rationale for teaching plenty of math and computing in STATS 401 needs to be explained. Putting the material in <a href="ds/ds.pdf">the class discussion on data science</a> earlier in the semester should help somewhat.</p></li>
 </ul>
 <hr />
 </div>
