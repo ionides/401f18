@@ -2,8 +2,9 @@
 \begin{frame}[fragile]
 \frametitle{Reviewing random variables}
 \begin{myitemize}
-\item Our definition of a random variable was \myemph{A random variable X is a random number with probabilities assigned to outcomes}.
-\item  For the purposes of this course, a random variable is equivalent to the probability distribution of its possible values.
+\item Our definition of a random variable was: \myemph{a random variable X is a random number with probabilities assigned to outcomes}.
+\item  A more precise definition: \myemph{a random variable is a probability distribution on a range of possible numeric values}.
+\item This is a simplied mathematical definition of a random variable, sufficient for this course.
 \item ``Random variable'' is a problematic name.
 
 (i) A random variable is not a variable: it is a collection of possible values and their assigned probabilities.
@@ -12,7 +13,6 @@
 
 \item 
 A single draw of the random variable can only take on one value, but you can think of the random variable itself taking all possible values simultaneously.
-\item Let's investigate some consequences of these ideas.
 \end{myitemize}
 \end{frame}
 

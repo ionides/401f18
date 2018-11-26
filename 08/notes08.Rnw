@@ -358,6 +358,7 @@ Archimedes: ``Give me a lever and a place to stand and I will move the earth.''}
 \frametitle{Normality}
 
 \begin{myitemize}
+\item A histogram of the residuals assesses the normal measurement error model.
 \item If the number of points is fairly large (say, more than 30) the estimates of the coefficients in the linear model have a \myemph{central limit theorem}.
 \item Recall that a basic central limit theorem says that the average of many independent identically distributed (iid) random variables approximately follows a normal distribution.
 \item The least squares estimates of coefficients can be thought of as a kind of averaging of the data. This argument suggests (correctly!) that the distribution of these estimates should also follows a central limit theorem.
@@ -374,7 +375,7 @@ Archimedes: ``Give me a lever and a place to stand and I will move the earth.''}
 \begin{myitemize}
 \item Our usual probability model assumes (in addition to normality and independence) that the measurement errors have constant variance.
 \item Plotting the residuals (say, against fitted values or against time or against some other variable) may show that the spread of the residuals is larger in some places than others.
-\item Taking the logarithm of non-negative data help surprisingly often in this case.
+\item Taking the logarithm of non-negative data help surprisingly often in this case: assess this by looking for football-shaped scatterplots on the log scale. 
 \item Other approaches to deal with this problem are beyond this course, though you now have the necessary background to learn and use these methods. These involve models with a different measurement model from the constant variance model \m{\epsilon_1,\dots,\epsilon_n\sim \iid\;\normal(0,\sigma)}.
 
 \end{myitemize}
