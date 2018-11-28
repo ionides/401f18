@@ -79,8 +79,8 @@ The variables are described as follows:
 **Facilities**: percent of 35 specific facilities and services which are provided by the hospital
 
 Explore these data to find statistically supported evidence of associations that might explain nosocomial infection risk.
-You are expected to use the linear modeling techniques we have learned in class, including the F test and confidence intervals.
-You should also present at least one appropriate graph.
+You are expected to use the linear modeling techniques we have learned in class, including the F test, confidence intervals and diagnostic checks of model assumptions.
+You should present at least one appropriate graph.
 You may try as many different models as you like, but focus your report on a subset of analyses that you find informative.
 Numerical analysis that you present should be combined with explanation of your methods and conclusions.
 Your report should be clear about your original contribution above and beyond what you have acquired from other sources (classmates, web pages, or any other source). 

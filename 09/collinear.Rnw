@@ -21,19 +21,21 @@ We see that \m{\mat{X}\vect{\alpha}} can be thought of as a \myemph{linear combi
 \begin{frame}[fragile]
 \frametitle{Example: an intercept with a coefficient for each factor}
 
-\begin{myitemize}
-\item Recall the mouse weight dataset. Consider a sample linear model,
+\vspace{-1.5mm}
 
-\vspace{-2mm}
+\begin{myitemize}
+\item Recall the mouse weight dataset. Consider a sample linear model and corresponding probability model,
+
+\vspace{-4mm}
 
 \mydisplaymath{
-y_{ij}=\mu+\mu_j+e_{ij}.
+y_{ij}=m+m_j+e_{ij}, \hspace{15mm} Y_{ij}=\mu+\mu_j+\epsilon_{ij}.
 }
 
 \vspace{-2mm}
 
-\item Suppose that we don't set the $\mu_1=0$ so we try to estimate both $\mu_1$ and $\mu_2$ at the same time as the intercept, $\mu$.
-\item Let's work with just 3 mice in each treatment group, so \m{i=1,2,3} and \m{j=1,2}. The design matrix is therefore
+\item Suppose that we don't require \m{\mu_1=0}. Then, we must estimate both \m{\mu_1} and \m{\mu_2} at the same time as the intercept, \m{\mu}.
+\item Let's work with just 3 mice in each treatment group, so \m{i=1,2,3} and \m{j=1,2}. The design matrix is 
 <<>>=
 X <- cbind(rep(1,6),rep(c(1,0),each=3),rep(c(0,1),each=3)) ; X
 @
@@ -44,6 +46,8 @@ X <- cbind(rep(1,6),rep(c(1,0),each=3),rep(c(0,1),each=3)) ; X
 
 \begin{frame}[fragile]
 \frametitle{The least squares fit with collinear predictors}
+
+\vspace{-1.5mm}
 
 \begin{myitemize}
 \item Suppose that \m{\vect{b}} is a least squares coefficient vector, so that the fitted value vector \m{\vect{\hat y}=\mat{X}\vect{b}} minimizes \m{\sum_{i=1}^n \big(y_i - \hat y_i\big)^2}.
@@ -59,7 +63,12 @@ we see that \m{\vect{b}+\vect{\alpha}} is also a least squares coefficient vecto
 \end{myitemize}
 \myquestion. Let \m{c} be any number. Recall multiplication of a vector by a scalar: \m{c\vect{\alpha}=(c\alpha_1,\dots,c\alpha_p)}. Show that \m{\vect{b}+c \vect{\alpha}} is also a least squares fit.
 
-\vspace{20mm}
+\answer{\vspace{30mm}}{
+\[
+\mat{X}(\vect{b}+c\vect{\alpha}) = \mat{X}\vect{b}+\mat{X}c\vect{\alpha} = \mat{X}\vect{b}+c\mat{X}\vect{\alpha}= \mat{X}\vect{b}+\vect{0} = \mat{X}\vect{b},
+\]
+}
+
 \end{frame}
 
 \begin{frame}[fragile]

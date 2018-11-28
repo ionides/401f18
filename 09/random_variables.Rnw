@@ -124,7 +124,7 @@ To make sense of a probability statement like this, it is helpful to keep track 
 
 \item If you say that a quantity has a probability distribution, such as the normal distribution, then that quantity should be a random variable.
 
-\item If the histogram of data, or residuals, follows a normal curve we are tempted to say that the data are normally distributed. Resist this temptation. It conflicts with our definition, according to which only a random variable can have a distribution. Say that the histogram shows that a normal model for the data, or measurement errors, is appropriate.
+\item If the histogram of data, or residuals, follows a normal curve we are tempted to say that the data are normally distributed. Resist this temptation. It conflicts with our definition, according to which only a random variable can have a distribution. Say that the histogram shows that a normal model for the data, or a normal measurement model, is appropriate.
 
 \end{myitemize}
 
