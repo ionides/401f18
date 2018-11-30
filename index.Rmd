@@ -106,6 +106,12 @@ Due in lab on 10/26.
 [Solutions](hw/hw09/sol_hw09.html).
 -->
 
+* [Homework 11. Data analysis: investigating hospital infections](hw/hw11/hw11.html). Due in lab on 12/7.
+
+<!--
+[Solutions](hw/hw11/sol_hw11.html).
+-->
+
 ------------
 
 ## Lab materials
