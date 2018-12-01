@@ -1,0 +1,204 @@
+---
+title: "Homework 10, STATS 401 F18"
+author: "Due in your lab on 11/30"
+output:
+  html_document:
+    theme: flatly
+    toc: no
+---
+
+**Your report should include the R code that you use. For calculations, please add enough explanation to help the reader understand what you did and why. Recall that you are permitted to collaborate, or to use any internet resources, but you must list all sources that influenced your report. As usual, a statement of _Sources_ is required to get credit for the homework.**
+
+
+--------------
+
+### Q1. Making and interpreting an F test
+
+We consider again the data on freshman GPA, ACT exam scores and percentile ranking of each student within their high school for 705 students at a large state university.
+In addition, we now consider the year (1996 to 2000) in which the student entered college.
+```{r download data,eval=F}
+download.file(destfile="gpa.txt",
+  url="https://ionides.github.io/401f18/hw/hw10/gpa.txt")
+```
+```{r read_data}
+gpa <- read.table("gpa.txt",header=T)
+head(gpa)
+```
+The predictive relationship between freshman GPA and the admission scores may, or may not, be stable over time. 
+Intercepts and/or slopes of fitted lines may be approximately constant, or may show trends through time.
+The director of admissions is interested in what ways, if any, there is evidence for changes larger than can be explained by chance variation. 
+Let the null hypothesis, $H_0$, be a probability model for which freshman GPA is modeled to depend linearly on ACT score and high school ranking.
+Let $H_a$ be the probability model where $H_0$ is extended to include year as a factor, as fitted in R by
+```{r lm}
+lm_gpa <- lm(GPA~High_School+ACT+factor(Year),data=gpa)
+```
+
+(a) Write out the null and alternative hypotheses by completely specifying the probability models. Sometimes, to save time and space, we don't write the complete details of each model. Here, you are asked to write out the details in full. Looking at `model.matrix(lm_gpa)` may help you to understand the model that R has fitted. You can write the models in matrix, subscript or double subscript form.
+
+<font color = "blue">
+
+\[
+H_0: Y_i = \mu + \beta_1x_{i,1} + \beta_2x_{i,2} \\
+H_a: Y_{ij} = \mu + \beta_1x_{i,1} + \beta_2x_{i,2} + \alpha_jz_{i,j}
+\]
+
+where $x_{i,1}$ is the student's high school ranking, $x_{i,2}$ is the student's ACT score, and $z_{i,j}$ is an indicator for what year the student entered college for $j = 1997, 1998, 1999, 2000$. $\mu$ is the intercept, $\beta_1$ is the coefficient corresponding to high school ranking, $\beta_2$ is the coefficient corresponding to ACT score, and the $\alpha_j$'s are the coefficients correspoding to the indicators for what year the student entered college.
+
+</font>
+
+(b) Interpret the results in `summary(lm_gpa)` in the context of whether there is evidence that some year, or years, may have substantially different intercepts. Why is there no row in the results table for `factor(Year)1996`?
+
+<font color = "blue">
+
+```{r}
+summary(lm_gpa)
+```
+
+Based on the linear model results above, it does not appear that any of the years 1997-2000 have a substantially different intercept from the year 1996, because none of the p-values are signficant for the coefficients for these years. We should still perform a hypothesis test to confirm.
+
+There is no row in the results table for the year 1996 because 1996 is contained in the intercept. If we included a dummy variable for the year 1996, then we would have an over-specified model.
+
+</font>
+
+(c) Explain which numbers in `anova(lm_gpa)` are relevant for constructing and interpreting an F test to test $H_0$ against $H_a$. Explain how to calculate the sample test statistic for this test. Specify the distribution of the model-generated test statistic under $H_0$, and saying how the resulting p-value is calculated. What do you conclude?
+
+<font color = "blue">
+
+```{r}
+anova(lm_gpa)
+```
+
+The numbers that are relevant for testing $H_0$ against $H_a$ are 1.072, 4, 224.742, and 698.
+
+Recall that the sample F test statistic is calculated as $f = \frac{(RSS_0 - RSS_a)/d}{RSS_a/(n-q)}$. Here $RSS_0 - RSS_a = 1.072$, $RSS_a = 224.742$, $d = 4$, and $n-q = 698$. In our case, the F test statistic is calculated as $\frac{1.072/4}{224.742/698} = 0.832$
+
+$f$ ~ $F_{4, 698}$; the model-generated test statistic under $H_0$ has an F-distribution with 4 and 698 degrees of freedom.
+
+Our p-value is by definition $P(F>f)$ and is calculated in R using `pf(0.832, 4, 698, lower.tail = FALSE)`. We can see from the ANOVA output that the p-value is 0.505 which is much larger than any reasonable level of significance (0.01 or 0.05). Therefore, we fail to reject the null hypothesis and conclude that the year in which a student entered college should not be included in the model.
+
+</font>
+
+<br>
+
+----------
+
+### Q2. Data manipulation and visualization exercises.
+
+**If at all possible, do these by yourself. It is okay to discuss the exercises with your peers or to come to office hours after a reasonable amount of time working by yourself, experimenting by trial and error, consulting R help pages, and collecting information from the internet. One source to reinforce R skills appropriate for STATS 401 is 
+[rstatistics.net/r-tutorial-exercise-for-beginners](http://rstatistics.net/r-tutorial-exercise-for-beginners/).**
+
+(a) Obtain the last 10 lines of `gpa` by two methods: (i) using matrix indexing; (2) via the `tail()` function.
+
+<font color = "blue">
+
+To obtain the last 10 lines of `gpa` we can use the following lines of code: `gpa[696:705,]` and `tail(gpa, 10)`.
+
+</font>
+
+(b) Write R code to count the number of students in the dataset `gpa` who were admitted in 1997. Hint: `sum()` applied to a logical vector counts the number of `TRUE` values.
+```{r}
+sum(c(TRUE,TRUE,FALSE,TRUE))
+```
+
+<font color = "blue">
+
+To count the number of students in the dataset `gpa` who were admitted in 1997 we can use the following code: `sum(gpa$Year == 1997)`.
+
+</font>
+
+(c) Write R code to find the proportion of the students in `gpa` who are both above the 50th percentile in their high school and have an ACT score greater than 15.
+<br>Hint: there are various ways to do this. Using an "and" operation `&` on suitably constructed logical vectors is perhaps the simplest and best, and is something you should be able to do. 
+
+<font color = "blue">
+
+Note that the High_School variable in the GPA dataset is the percentile ranking of the student.
+
+Relevant code to find the **proportion** of students who are both above the 50th percentile and have an ACT score greater than 15: `sum(gpa$High_School > 50 & gpa$ACT > 15)/nrow(gpa)`.
+
+</font>
+ 
+(d) Make a scatterplot of high school percentile rank against ACT score, with points colored black, blue, red, green and cyan according to the year of admission. 
+<br>Hint: one way to get started on this is to create a vector `my_color <- rep("black",length=nrow(gpa))` and then modify the entries of `my_color` corresponding to the different years. For example, you can create a logical vector `gpa$Year==1997` to pick out the rows with admission year 1997. The corresponding entries of `my_color` can then be modified to take the value `"blue"`. Finally, you can use `plot(...,col=my_color)` to color your scatterplot.
+
+```{r}
+my_color <- rep("black",length=nrow(gpa))
+my_color[gpa$Year == 1997] <- 'blue'
+my_color[gpa$Year == 1998] <- 'red'
+my_color[gpa$Year == 1999] <- 'green'
+my_color[gpa$Year == 2000] <- 'cyan'
+
+plot(gpa$High_School, gpa$ACT, xlab = 'High School', ylab = 'ACT',
+     main = 'ACT score by High School Ranking', col = my_color)
+
+```
+
+(e) Make 5 separate scatterplots of high school percentile rank against ACT score for each of the years 1996, 1997, 1998, 1999, 2000. Use `par(mfrow=c(3,2))` to combine the scatterplots into a single figure. Use the `xlim` and `ylim` arguments to `plot()` to give all five scatterplots the same axis scales: this is helpful to do since otherwise the differing scales on each plot make them hard to compare. 
+<br>Hints: the `xlim` argument expects a vector of length 2 giving the lower and upper limits of the x-axis. Conveniently, `range(gpa$ACT)` produces a vector of length 2 giving the minimum and maximum values in the vector `gpa$ACT`. An internet search on  `R plot mfrow example` will provide examples using `par(mfrow=...)` to combine several plots into one figure.
+<br>Note: For this particular plot, `ggplot()` will fairly easily give you a nicer version if you have learned previously how to use it. However, learning to use base R graphics (as you are asked to do here) remains a useful skill.
+
+<font color = "blue">
+
+```{r}
+# subset the dataset based on the year a student was admitted 
+gpa1996 <- gpa[gpa$Year == 1996,]
+gpa1997 <- gpa[gpa$Year == 1997,]
+gpa1998 <- gpa[gpa$Year == 1998,]
+gpa1999 <- gpa[gpa$Year == 1999,]
+gpa2000 <- gpa[gpa$Year == 2000,]
+
+# get the summary statistics from the full gpa dataset to determine the x and y limits
+summary(gpa)
+```
+
+Based on the summary statistics, we can guess that the limits for the x-axis with High School Ranking should be 4 and 99, and the limits for the y-axis with ACT score should be 13 and 35.
+
+```{r}
+par(mfrow=c(3,2))
+plot(gpa1996$High_School, gpa1996$ACT, xlab = 'High School', ylab = 'ACT',
+     main = 'Students Admitted in 1996',
+     xlim = c(4, 99), ylim = c(13, 35), col = my_color[gpa$Year == 1996])
+
+plot(gpa1997$High_School, gpa1997$ACT, xlab = 'High School', ylab = 'ACT',
+     main = 'Students Admitted in 1997',
+     xlim = c(4, 99), ylim = c(13, 35), col = my_color[gpa$Year == 1997])
+
+plot(gpa1998$High_School, gpa1998$ACT, xlab = 'High School', ylab = 'ACT',
+     main = 'Students Admitted in 1998',
+     xlim = c(4, 99), ylim = c(13, 35), col = my_color[gpa$Year == 1998])
+
+plot(gpa1999$High_School, gpa1999$ACT, xlab = 'High School', ylab = 'ACT',
+     main = 'Students Admitted in 1999',
+     xlim = c(4, 99), ylim = c(13, 35), col = my_color[gpa$Year == 1999])
+
+plot(gpa2000$High_School, gpa2000$ACT, xlab = 'High School', ylab = 'ACT',
+     main = 'Students Admitted in 2000',
+     xlim = c(4, 99), ylim = c(13, 35), col = my_color[gpa$Year == 2000])
+```
+
+</font>
+
+(f) Comment on the relative strengths and weaknesses of the two types of plot in (d) and (e) above as a graphical tool for inspecting the admissions data from different years.
+
+<font color = "blue">
+
+**(d):**
+
+*Strengths:* You can see all of the data at once. If there were distinct clusters of students based on their high school ranking, ACT score, and year admitted, the clusters would be easy to see with this graph.
+
+*Weaknesses:* Since there are no distinct clusters, any differences in overall high school ranking and ACT scores by year admitted are difficult to see.
+
+**(e):**
+
+*Strengths:* You can see the differences in overall high school rankings and ACT scores for students admitted in different years. It is much easier to compare trends between the years.
+
+*Weaknesses:* It would be easy to overstate differences in the high school rankings and ACT scores which could lead to erroneous conclusions. The graphs are smaller which can make them harder to read.
+
+</font>
+--------------
+
+-------------
+
+License: This material is provided under an [MIT license](https://ionides.github.io/401w18/LICENSE)<br>
+
+
+------

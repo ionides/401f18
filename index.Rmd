@@ -101,10 +101,7 @@ Due in lab on 10/26.
 -->
 
 * [Homework 10. Making and interpreting an F test.](hw/hw10/hw10.html). Due in lab on 11/30.
-
-<!--
-[Solutions](hw/hw09/sol_hw09.html).
--->
+    * [HW 10 Solutions](hw/hw10/hw10_solutions.html).
 
 * [Homework 11. Data analysis: investigating hospital infections](hw/hw11/hw11.html). Due in lab on 12/7.
 
