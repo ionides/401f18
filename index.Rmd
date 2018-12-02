@@ -152,11 +152,11 @@ Due in lab on 10/26.
     * [Introduction to R Markdown HTML](Lab/Lab11/R_markdown_Introduction.html)
     * [Introduction to R Markdown PDF](Lab/Lab11/R_markdown_Introduction.pdf)
     * [Code](Lab/Lab11/R_markdown_Introduction.Rmd)
+    
+    
+* [Lab 12. ANOVA and F-tests](Lab/Lab12/Lab12.pdf). Slides for 11/30.
 
 <!--
- [Solutions](lab/lab10/sol_lab10.html).
-
-* Lab 12. Data analysis. [Code](lab/lab12/lab12.R).
 
 * Lab 13. Final review. [Slides](lab/lab13/lab13_slides.pdf) and [exercises](lab/lab13/lab13_exercises.pdf) for 4/12 and 4/13.  [Solutions for the exercises](lab/lab13/lab13_exercises_sol.html)
 
