@@ -42,7 +42,9 @@ H_0: Y_i = \mu + \beta_1x_{i,1} + \beta_2x_{i,2} \\
 H_a: Y_{ij} = \mu + \beta_1x_{i,1} + \beta_2x_{i,2} + \alpha_jz_{i,j}
 \]
 
-where $x_{i,1}$ is the student's high school ranking, $x_{i,2}$ is the student's ACT score, and $z_{i,j}$ is an indicator for what year the student entered college for $j = 1997, 1998, 1999, 2000$. $\mu$ is the intercept, $\beta_1$ is the coefficient corresponding to high school ranking, $\beta_2$ is the coefficient corresponding to ACT score, and the $\alpha_j$'s are the coefficients correspoding to the indicators for what year the student entered college.
+where $x_{i,1}$ is the student's high school ranking, $x_{i,2}$ is the student's ACT score, and $z_{i,j}$ is an indicator for what year the student entered college for $j = 1997, 1998, 1999, 2000$. $\mu$ is the intercept, $\beta_1$ is the true coefficient corresponding to high school ranking, $\beta_2$ is the true coefficient corresponding to ACT score, and the $\alpha_j$'s are the true coefficients correspoding to the indicators for what year the student entered college.
+
+**Note:** $\mu$ changes meaning between the $H_0$ and $H_a$ models. For $H_0$, it is interpreted as the mean GPA of freshmen holding high school ranking and ACT scores fixed. For $H_a$, it is interpreted as the mean GPA of freshmen who entered college in 1996.
 
 </font>
 
@@ -54,7 +56,7 @@ where $x_{i,1}$ is the student's high school ranking, $x_{i,2}$ is the student's
 summary(lm_gpa)
 ```
 
-Based on the linear model results above, it does not appear that any of the years 1997-2000 have a substantially different intercept from the year 1996, because none of the p-values are signficant for the coefficients for these years. We should still perform a hypothesis test to confirm.
+Based on the linear model results above, it does not appear that any of the years 1997-2000 have a substantially different intercept from the year 1996, because none of the p-values are signficant for the coefficients for these years at the 5% signficance level. It is interesting to note, that 1998 is signficant at the 10% level. **We should still perform a hypothesis test (ANOVA) to confirm that year is not statistically significant in our model.**
 
 There is no row in the results table for the year 1996 because 1996 is contained in the intercept. If we included a dummy variable for the year 1996, then we would have an over-specified model.
 
@@ -74,7 +76,7 @@ Recall that the sample F test statistic is calculated as $f = \frac{(RSS_0 - RSS
 
 $f$ ~ $F_{4, 698}$; the model-generated test statistic under $H_0$ has an F-distribution with 4 and 698 degrees of freedom.
 
-Our p-value is by definition $P(F>f)$ and is calculated in R using `pf(0.832, 4, 698, lower.tail = FALSE)`. We can see from the ANOVA output that the p-value is 0.505 which is much larger than any reasonable level of significance (0.01 or 0.05). Therefore, we fail to reject the null hypothesis and conclude that the year in which a student entered college should not be included in the model.
+Our p-value is by definition $P(F>f)$ and is calculated in R using `pf(0.832, 4, 698, lower.tail = FALSE)`. We can see from the ANOVA output that the p-value is 0.505 which is much larger than any reasonable level of significance (0.01, 0.05, or 0.1). Therefore, we fail to reject the null hypothesis and conclude that the year in which a student entered college should not be included in the model.
 
 </font>
 
@@ -173,6 +175,14 @@ plot(gpa1999$High_School, gpa1999$ACT, xlab = 'High School', ylab = 'ACT',
 plot(gpa2000$High_School, gpa2000$ACT, xlab = 'High School', ylab = 'ACT',
      main = 'Students Admitted in 2000',
      xlim = c(4, 99), ylim = c(13, 35), col = my_color[gpa$Year == 2000])
+```
+
+If you decided to use range, an example of what the r code should look like is
+
+```{r, eval = F}
+plot(gpa2000$High_School, gpa2000$ACT, xlab = 'High School', ylab = 'ACT',
+     main = 'Students Admitted in 2000',
+     xlim = range(gpa$High_School), ylim = range(gpa$ACT), col = my_color[gpa$Year == 2000])
 ```
 
 </font>
