@@ -77,7 +77,13 @@ abline(summary(lm1)$coefficients[,"Estimate"],col="blue")
 (c) Is the value of $a$ large enough to convince you that it can't reasonably be explained by chance variation? Explain your reasoning. This should include a formal statistical test.
 
 <font color = "blue">
+```{r}
+summary(lm1)
+```
+
 We can see this from the output of the `lm` output. As we can see, the t-statistic, which is -1.21 which the t-test compares with the t distribution on (76-2) 74 degrees of freedom to get a p-value of 0.23. Since this is greater than 0.05, we conclude that we don't have sufficient evidence to reject the null hypothesis of $a=0$ and say that the value of a is infact due to chance variation.
+
+Since we are only adding one covariate (FGt1), the T-test is equivalent to the F-test (as can be seen from the identical p-values of both in the `lm()` summary). The F-statistic has a value of 1.462 and has p-value 0.2305 which is greater than 0.05.
 </font>
 
 
@@ -161,6 +167,15 @@ X1 <- cbind(goals$FGt1,dummy_1,dummy_2,dummy_3,dummy_4,dummy_5,dummy_6,dummy_7,d
 X2 <- matrix(nrow=76, ncol=20)
 X2[,1] <- goals$FGt1 # First column corresponds to FGt1
 for(i in 1:19){X2[,i+1] <- rep(c(0,1,0),c((i-1)*4,4,76-i*4))}
+
+#####
+# Alternatively, you could also use `rep()` in the following way
+# Note that the following two give the same output
+# For any fixed value of i (i=1,2,...,19), say i=2
+i=floor(runif(1,1,20))
+vec1 <- rep(c(0,1,0),c((i-1)*4,4,76-i*4))
+vec2 <- rep(rep(c(0,1,0),c(i-1,1,19-i)), each=4)
+identical(vec1, vec2)
 ```
 
 </font>
@@ -294,7 +309,6 @@ Since the p-value of 0.2628432 is greater than 0.05, we fail to reject the null 
 
 <font color = "blue">
 </font>
-
 
 --------------
 
