@@ -156,6 +156,8 @@ Due in lab on 10/26.
     
 * [Lab 12. ANOVA and F-tests](Lab/Lab12/Lab12.pdf). Slides for 11/30.
 
+* [Lab 13. Interpretations, Collinearity, and Interactions](Lab/Lab13/lab13.pdf). Slides for 12/7.
+
 <!--
 
 * Lab 13. Final review. [Slides](lab/lab13/lab13_slides.pdf) and [exercises](lab/lab13/lab13_exercises.pdf) for 4/12 and 4/13.  [Solutions for the exercises](lab/lab13/lab13_exercises_sol.html)
