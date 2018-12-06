@@ -23,7 +23,7 @@ fontsize: 18pt
 
 - Let's first consider the case with 1 predictor
 - Suppose we've fit a linear model $$y_i = b_0 + b_1x_{i1} + e_i$$ where, $i = 1, \dots, n$
-- What is the interpretation of the sample coefficient $b_0$?
+- What is the interpretation of the sample coefficient $b_1$?
 
 # Interpretation: Simple Linear Regression
 
@@ -188,6 +188,7 @@ senic = read.table(file,header = T)
   
 3. How do coefficients for `Beds` differ between the two models? What about the standard errors, t statistics, and p-values?
 
+4. Explain how what you observed in (3) is related to the approximate collinearity between `Beds` and `Patients`
 <!---
 # Example
 How does this approximate collinearity affect our coefficient estimates?
