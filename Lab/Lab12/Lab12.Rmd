@@ -1,15 +1,16 @@
 ---
-title: "Stats 401 Lab 12"
-author: "Sanjana Gupta"
-date: "3/15/2018 and 11/30/2018"
-output:
-  beamer_presentation:
-  colortheme: dolphin
-incremental: no
-ioslides_presentation:
-  incremental: no
 slidy_presentation:
   incremental: no
+author: "Sanjana Gupta"
+date: "12/7/2018"
+output:
+  beamer_presentation: null
+  colortheme: dolphin
+  slidy_presentation: default
+ioslides_presentation:
+  incremental: no
+incremental: no
+title: "Stats 401 Lab 12"
 fontsize: 10pt
 ---
   
@@ -74,7 +75,7 @@ So the Null hypothesis is that the smaller (base) model is better, whereas the a
 \hspace{1cm}
 **Note:**  
 
-- Under $H_0$, the model generated F-statistic has an F distribution with $d$ and %n-q$ degrees of freedom.  
+- Under $H_0$, the model generated F-statistic has an F distribution with $d$ and $n-q$ degrees of freedom.  
 - If $H_0$ is true, then $f\approx 1$. So large values of $f$ are evidence against the null.
 
 
@@ -401,9 +402,9 @@ $\mathbf{R^2} \textbf{ vs F-Test}$
 - Goodness of fit measures (such as $R^2_{adj}$, AIC, BIC) are tools to help us find the best model for our data.
 
 
-#Exit ticket
+# Exit ticket
 
-- [Link between `lm()` and `anova()`] How can you get the F-test that is being done in the `lm()` output in Lab-Activity 1 using `anova()`?
+- [Link between `lm()` and `anova()`] How can you get the F-test that is being done in the `lm()` output in Example 1 using `anova()`?
     (*Hint: What are the null and alt linear models in the LB1 F-test? The input of the anova() function is always the bigger linear model - which is the alternate model*)
 
 - Assume you fit the linear model `y~a+b+c`, i.e. the linear model here is $y=\beta_1\times a + \beta_2\times b + \beta_3\times c + \epsilon$ where $y$ is the outcome variable and $a,b, c$ are covariates.  
@@ -411,3 +412,32 @@ $\mathbf{R^2} \textbf{ vs F-Test}$
     - Write down the null and alt hypothesis corresponding to the F-statistic in the `lm(y~a+b+c)` output
     - Write down the null and alt hypotheses corresponding to the F-statistics in the `anova(y~a+b+c)` output  
     
+# Exit ticket solutions (Q1)
+
+Recall tha the model in Example 1 was `lm(Petal.Length~Petal.Width, data=iris)`. In this, the null and alternate hypotheses are as follows:  
+$H_0: \text{Petal.Length} = \beta_0 + \epsilon$  
+$H_a: \text{Petal.Length} = \text{Petal.Width} + \epsilon$  
+
+The anova command to get the same F-test wiouls be as follows:
+```{r, eval=FALSE}
+anova(lm(Petal.Length~Petal.Width, data=iris))
+```
+
+
+# Exit ticket solutions (Q2)
+For `lm(y~a+b+c)`  
+$H_0: y = \beta_0 + \epsilon$  
+$H_a: y = \beta_1\times a + \beta_2\times b + \beta_3\times c + \beta_0 + \epsilon$  
+
+\vspace{0.4cm}
+For `anova(y~a+b+c)` there are the following two sets of tests:  
+
+$H_0: y = \beta_1\times a + \beta_0 + \epsilon$  
+$H_a: y = \beta_1\times a + \beta_2\times b + \beta_0 + \epsilon$  
+i.e. whether or not to include covariate b in the model
+
+\vspace{0.2cm}
+$H_0: y = \beta_1\times a + \beta_2\times b + \beta_0 + \epsilon$  
+$H_a: y = \beta_1\times a + \beta_2\times b + \beta_3\times c + \beta_0 + \epsilon$  
+i.e. whether or not to include covariate c in the model
+
