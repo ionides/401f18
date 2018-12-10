@@ -189,33 +189,13 @@ Due in lab on 10/26.
 
 ## Final exam materials
 
-<!--
-
-* Topics for the final exam will include
-
-1. F tests.
-
-2. Prediction intervals.
-
-3. Confidence intervals for linear model coefficients.
-
-4. Normal approximations and mean/variance calculations.
-
-5. Linear model diagnostics.
-
-6. Colinearity and its consequences.
-
-7. Building and interpreting design matrices for models with interactions and factors.
-
-8. Observational studies and causation.
-
--->
-
 * The style and format of the final exam will be based on the practice final exam below. The exam will work through a data analysis, asking questions to requiring understanding of the statistical techniques used, how they are computed, and how they are interpreted.
 
 * [Practice final exam](final/final401w18/final401w18.pdf). [Solutions](final/final401w18/sol_final401w18.pdf). This is a past final exam that includes a question on collinearity which we may or may not cover.
 
-* The final exam will cover all material in Chapters 1-8 of the notes, as well as all homeworks and labs. The material will focus on material after Chapter 5, but this builds closely on Chapters 1-5. Some topics from Chapter 9 will be included, depending on which get covered in class. An announcement will be made later about this.
+* The final exam will cover all material in Chapters 1-8 of the notes, as well as all homeworks and labs. The material will focus on material after Chapter 5, but this builds closely on Chapters 1-5. The first four topics from Chapter 9 will be included: review of random variables; fitting polynomial relationships using linear models; $R^2$ and adjusted $R^2$; collinearity.
+
+* The remaining three topics in Chapter 9 (interactions; model selection; more discussion of causation, observational studies and designed experiments) will not be directly tested. However, this material reinforces topics from earlier in the class and so may come in useful for the final exam. You are advised to follow this material to the extent it is discussed in lectures.
 
 
 ------------

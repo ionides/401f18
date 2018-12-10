@@ -13,7 +13,7 @@
 \end{myitemize}
 \myquestion. In a report, the model should be written in mathematical notation, not as an R formula. Why?
 
-\answer{\vspace{35mm}}{(i) well written scientific reports should be independ of a specific software choice; (ii) math is more precise and it requires you to check you understand your model; (iii) writing the model in math cross-checks against your R code.}
+\answer{\vspace{35mm}}{(i) well written scientific reports should be independent of a specific software choice; (ii) math is more precise so it requires you to check you understand details of your model; (iii) writing the model in math cross-checks against your R code.}
 
 \end{frame}
 
@@ -128,7 +128,8 @@ coef(summary(lm3))[,1:2]
 
 \myquestion. Explain in words to the admissions director what you have found about the interaction under investigation here.
 
-\answer{\vspace{35mm}}{There is strong statistical evidence for a positive interaction. This leads to increased predicted GPA scores when the product term  $a_ih_i$ is large. After centering the variables, we see this is the case when both $a_i$ and $h_i$ are either above or below average. Students with inconsistent ACT and high school scores (one high, one low) statistically perform less well than would be expected without consideration of the interaction.}
+\answer{\vspace{35mm}}{There is strong statistical evidence for a positive interaction. This leads to increased predicted GPA scores when the product term  $a_ih_i$ is large. After centering the variables, we see this is the case when both $a_i$ and $h_i$ are either above or below average. Students with inconsistent ACT and high school scores (one high, one low) statistically perform less well than would be expected without consideration of the interaction.\\
+Note: standard errors are smaller after centering due to reduced collinearity. Add a slide on this.}
 
 \end{frame}
 
@@ -179,7 +180,7 @@ cat("s3 =",s3,"; s4 =",s4,"; s5 =",s5)
 \myquestion. Comment on both \myemph{statistical significance} and \myemph{practical significance} of the interaction between  a prediction of freshman GPA.
 
 
-\answer{\vspace{50mm}}{Looking at the numbers, we see that adding interaction does not substantially decrease the estimated measurement error. We also see that these models are only a small amount better at prediction than a simple averagre. }
+\answer{\vspace{50mm}}{Looking at the numbers, we see that adding interaction does not substantially decrease the estimated measurement error. We also see that these models are only a small amount better at prediction than a simple average (\code{lm5}). }
 
 
 \end{frame}
@@ -206,7 +207,7 @@ lm6 <- lm(FGt~FGtM1*Name,data=goals)
 
 \vspace{-2mm} 
 
-\myquestion. What model do you think is being fitted here? Write it in subscript form, where \m{y_{ij}} is the field goal average for the \m{j}th year of kicker \m{i}, with \m{i=1,\dots,19} and \m{j=1,2,3,4}. Let \m{e_{ij}} be the residual error, and let \m{x_{ij}} be the previous year's average. Check your answer against the design matrix shown on the next slide.
+\myquestion. What model do you think is being fitted here? Write it in sample double subscript form, where \m{y_{ij}} is the field goal average for the \m{j}th year of kicker \m{i}, with \m{i=1,\dots,19} and \m{j=1,2,3,4}. Let \m{e_{ij}} be the residual error, and let \m{x_{ij}} be the previous year's average. Check your answer against the design matrix shown on the next slide.
 
 \answer{\vspace{30mm}}{
 \[
