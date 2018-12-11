@@ -1,5 +1,5 @@
 ---
-title: "Homework 9, STATS 401 F18"
+title: "Solutions for homework 9, STATS 401 F18"
 author: "Due in lab on 11/16"
 output:
   html_document:
@@ -81,9 +81,9 @@ abline(summary(lm1)$coefficients[,"Estimate"],col="blue")
 summary(lm1)
 ```
 
-We can see this from the output of the `lm` output. As we can see, the t-statistic, which is -1.21 which the t-test compares with the t distribution on (76-2) 74 degrees of freedom to get a p-value of 0.23. Since this is greater than 0.05, we conclude that we don't have sufficient evidence to reject the null hypothesis of $a=0$ and say that the value of a is infact due to chance variation.
+We can see this from the output of the `lm` output. As we can see, the sample t-statistic, which is -1.21 which the t-test compares with the t distribution on $(76-2)=74$ degrees of freedom to get a p-value of 0.23. Since this is greater than 0.05, we conclude that we don't have sufficient evidence to reject the null hypothesis of $a=0$. It is plausible that the observed value of $a$ is infact due to chance variation.
 
-Since we are only adding one covariate (FGt1), the T-test is equivalent to the F-test (as can be seen from the identical p-values of both in the `lm()` summary). The F-statistic has a value of 1.462 and has p-value 0.2305 which is greater than 0.05.
+Since we are only adding one covariate (FGt1), the t-test is equivalent to the F-test (as can be seen from the identical p-values of both in the `lm()` summary). The sample F-statistic has a value of 1.462 and has p-value 0.2305 which is greater than 0.05.
 </font>
 
 
@@ -244,7 +244,7 @@ mean(summary(lm2)$coefficients[2:20,"Estimate"])
 (a) Write out a probability model for which this null hypothesis is $H_0: \beta_5=\beta_{19}$.
 
 <font color = "blue">
-The probability model is the probability model correspondnig to the sample model in Q2(a) above. That , is $\vec{Y} = \mathbb{X}\vec{\beta} + \vec{\epsilon}$ where $\vec{Y}$ is the random vector which models the percentage successful field goal averages, $\mathbb{X}$ is the design matrix as described in Q2, $\mathbf{\beta} = (\beta_0, \beta_1 \dots, \beta_{19})$ is the vector of the true but unknown population coefficients where $\beta_0$ corresponds to the marginal effect of `FGt1` onto `FGt` and $\beta_i$ corresponds to the marignal effect of kicker $i$ onto `FGt`. Lastly, $\mathbf{\epsilon} = (\epsilon_1,\dots ,\epsilon_{76})$ is the vector of iid errors, i.e. $\epsilon_i \sim \mathcal{N}(0,\sigma^2), \hspace{0.4cm} i=1,2,\dots,76$.
+The probability model is the probability model correspondnig to the sample model in Q2(a) above. That , is $\vec{Y} = \mathbb{X}\vec{\beta} + \vec{\epsilon}$ where $\vec{Y}$ is the random vector which models the percentage successful field goal averages, $\mathbb{X}$ is the design matrix as described in Q2, $\mathbf{\beta} = (\beta_0, \beta_1 \dots, \beta_{19})$ is the vector of the true but unknown population coefficients where $\beta_0$ corresponds to the slope of `FGt1` onto `FGt` and $\beta_i$ corresponds to the intercept for kicker $i$ for $i=1,\dots,19$. Lastly, $\mathbf{\epsilon} = (\epsilon_1,\dots ,\epsilon_{76})$ is the vector of iid errors, i.e. $\epsilon_i \sim \mathcal{N}(0,\sigma^2), \hspace{0.4cm} i=1,2,\dots,76$.
 
 The null hypothesis correponds to the coefficient corresponding to kicker 5 = coefficient corresponding to kicker 19, that is, $\beta_5 = \beta_{19}$.  
 </font>

@@ -87,7 +87,7 @@ We will cover the following topics.
 * Weekly homeworks (20\%) due at the start of lab. Extensions will be granted upon request for up to two late homeworks. Subsequent late homeworks will receive no credit. 
 * Two lab quizzes (5\%+5\%) in lab on October 5 and November 16.
 * Midterm exam (20\%) in class on Monday 10/22.
-* Final exam (40\%) on Thursday, December 13, 4:00pm - 6:00pm.
+* Final exam (40\%) on Thursday, December 13, 4:00pm - 6:00pm in the usual classroom (1528 NUB).
 * Participation (5\%). This will be based on engagement through [the STATS 401 Piazza site](https://piazza.com/umich/fall2018/stats401/home) (signup link: https://piazza.com/umich/fall2018/stats401), contributions in class, and questions during office hours. 
 * Lab grade (5\%).
 

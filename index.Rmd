@@ -95,10 +95,8 @@ Due in lab on 10/26.
     * [HW 8 Solutions](hw/hw08/hw08_solutions.html).
 
 * [Homework 9. Kicking goals: linear models with factors.](hw/hw09/hw09.html). Due in lab on 11/16.
+    * [HW9 Solutions](hw/hw09/hw09_solutions.html).
 
-<!--
-[Solutions](hw/hw09/sol_hw09.html).
--->
 
 * [Homework 10. Making and interpreting an F test.](hw/hw10/hw10.html). Due in lab on 11/30.
     * [HW 10 Solutions](hw/hw10/hw10_solutions.html).
