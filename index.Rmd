@@ -155,6 +155,7 @@ Due in lab on 10/26.
     * Solutions in slides.
 
 * [Lab 13. Interpretations, Collinearity, and Interactions](Lab/Lab13/lab13.pdf). Slides for 12/7.
+    * [Lab 13 Solutions](Lab/Lab13/lab13_sol.pdf)
 
 
 
