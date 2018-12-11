@@ -102,10 +102,8 @@ Due in lab on 10/26.
     * [HW 10 Solutions](hw/hw10/hw10_solutions.html).
 
 * [Homework 11. Data analysis: investigating hospital infections](hw/hw11/hw11.html). Due in lab on 12/7.
+    * [HW 11 Solutions](hw/hw11/sol_hw11.html).
 
-<!--
-[Solutions](hw/hw11/sol_hw11.html).
--->
 
 ------------
 
@@ -154,14 +152,11 @@ Due in lab on 10/26.
     
     
 * [Lab 12. ANOVA and F-tests](Lab/Lab12/Lab12.pdf). Slides for 11/30.
+    * Solutions in slides.
 
 * [Lab 13. Interpretations, Collinearity, and Interactions](Lab/Lab13/lab13.pdf). Slides for 12/7.
 
-<!--
 
-* Lab 13. Final review. [Slides](lab/lab13/lab13_slides.pdf) and [exercises](lab/lab13/lab13_exercises.pdf) for 4/12 and 4/13.  [Solutions for the exercises](lab/lab13/lab13_exercises_sol.html)
-
--->
 
 ------------
 
