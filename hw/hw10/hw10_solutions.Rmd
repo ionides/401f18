@@ -1,5 +1,5 @@
 ---
-title: "Homework 10, STATS 401 F18"
+title: "Homework 10 solutions, STATS 401 F18"
 author: "Due in your lab on 11/30"
 output:
   html_document:
@@ -37,14 +37,13 @@ lm_gpa <- lm(GPA~High_School+ACT+factor(Year),data=gpa)
 
 <font color = "blue">
 
+List the years as $i=1,2,3,4,5$ corresponding to 1996, 1997, 1998, 1999, 2000. Let $Y_{ij}$ model the freshman GPA of the $j$th student entering as a freshman in year $i$. The alternative hypothesis is
 \[
-H_0: Y_i = \mu + \beta_1x_{i,1} + \beta_2x_{i,2} \\
-H_a: Y_{ij} = \mu + \beta_1x_{i,1} + \beta_2x_{i,2} + \alpha_jz_{i,j}
+H_a: \quad Y_{ij} = \mu + \beta_1 h_{ij} + \beta_2 s_{ij} + \alpha_i + \epsilon_{ij}
 \]
+where $h_{ij}$ is the student's high school ranking, $s_{ij}$ is the student's ACT score, and $\alpha_i$ is a contrast for year $i$, and $\mu$ is the intercept. The model supposes that there is a true coefficient $\beta_1$ corresponding to high school ranking, $\beta_2$ corresponding to ACT score, and contrast $\alpha_i$ for each $i$. The measurement error terms $\epsilon_{ij}$ are $\mathrm{iid} \; \mathrm{normal}(0,\sigma)$. In order not to over-specify the model, we set $\alpha_1=0$.
 
-where $x_{i,1}$ is the student's high school ranking, $x_{i,2}$ is the student's ACT score, and $z_{i,j}$ is an indicator for what year the student entered college for $j = 1997, 1998, 1999, 2000$. $\mu$ is the intercept, $\beta_1$ is the true coefficient corresponding to high school ranking, $\beta_2$ is the true coefficient corresponding to ACT score, and the $\alpha_j$'s are the true coefficients correspoding to the indicators for what year the student entered college.
-
-**Note:** $\mu$ changes meaning between the $H_0$ and $H_a$ models. For $H_0$, it is interpreted as the mean GPA of freshmen holding high school ranking and ACT scores fixed. For $H_a$, it is interpreted as the mean GPA of freshmen who entered college in 1996.
+The null hypothesis is the special case of $H_a$ where $\alpha_i=0$ for all $i$.
 
 </font>
 
