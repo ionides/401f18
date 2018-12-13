@@ -17,16 +17,16 @@ csl: ecology.csl
 ```{r preliminaries,echo=F,cache=F}
 FRONTMATTER <- TRUE 
 # FRONTMATTER <- FALSE
-SOL <- FALSE
-# SOL <- TRUE
+#SOL <- FALSE
+ SOL <- TRUE
 set.seed(12)
 # library(mat2tex)
 ```
 
 \newcommand\solution{ {\bf Solution}}
 
-%% \newcommand\exam[1]{} %% remove exam formatting, e.g., for solutions
-\newcommand\exam[1]{#1} %% use exam paper formatting
+ \newcommand\exam[1]{} %% remove exam formatting, e.g., for solutions
+%\newcommand\exam[1]{#1} %% use exam paper formatting
 
 
 \newcommand\grade[1]{} %% hide grade scheme

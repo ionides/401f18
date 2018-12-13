@@ -1,5 +1,5 @@
 \solution.
-There is no clear nonlinear pattern. The residuals are scattered in a football shape, consistent with the model. This supports the finding from (a), since we can't tell without looking at the data whether there are serious model violations that could make the ANOVA table in (a) unreliable.
+There is no clear nonlinear pattern. The residuals are scattered in a football shape parallel to the x-axis, consistent with the model. The football shape is not particularly clear with relatively few data points: a simulation experiment would confirm that these residuals are consistent with an independent identically distributed normal model. What we mean by ``football-shaped'' is bivariate normally distributed, and having the football parallel to the axes corresponds to independence. This supports the finding from (a), since we can't tell without looking at the data whether there are serious model violations that could make the ANOVA table in (a) unreliable.
 
 
 \grade{
