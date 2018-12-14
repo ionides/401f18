@@ -1,0 +1,15 @@
+
+\color{blue}
+
+**Solution**:
+
+The p-value is the probability that a model-generated test statistic takes a more extreme value than the sample test statistic under the null hypothesis. In this case, $\pval=\prob(F>f)$ where $f$ is the sample F statistic from 2(b) and $F$ is a model-generated F statistic under the probability model corresponding to the hypothesis $H_0$. $F$ is a random variable having the F-distribution on 2 and 47 degrees of freedom. 
+
+\grade{2 points for the general definition (1 point if showing some comprehension but also a non-trivial error). 1 point for identifying the sample test statistic, 1 point for the model-generated distribution under $H_0$.}
+
+\color{black}
+
+
+
+
+ 

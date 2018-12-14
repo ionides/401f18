@@ -1,0 +1,37 @@
+
+\color{blue}
+
+**Solution**:
+
+The sample version in matrix form is
+\[
+\vec{y}=\mat{X}\vec{b}+\vec{e}, 
+\]
+where $\vec{b}=(b_0,b_1,b_2)$ is a vector of least squares coefficients.
+Now, set $\vec{x}^*=(1,2018,2018^2)$. Using the notation in the hint, a 95% prediction interval is an interval 
+\[
+[ \hat y^* - 1.96 \SE_{\mathrm{pred}},\hat y^* + 1.96 \SE_{\mathrm{pred}} ]
+\]
+constructed so that $Y^*$ falls within 
+\[
+[ \hat Y^* - 1.96 \sd_{\mathrm{pred}},\hat Y^* + 1.96 \sd_{\mathrm{pred}} ]
+\]
+with probability 0.95, where $\SE_{\mathrm{pred}}$ is an estimate of $\sd_{\mathrm{pred}}$.
+In words, if the model is right the 95% prediction interval at $\vec{x}^*$ covers a new observation at $\vec{x}^*$ with probability 0.95.
+The variance of $Y^*-\hat{Y^*}$ is 
+\[ 
+\sd_\mathrm{pred}^2=\sigma^2 \vec{x}^*\big(\mat{X}^\transpose \mat{X}\big)^{-1} \vec{x}^{*\transpose}+ \sigma^2
+\]
+and so we take 
+\[
+\SE_{\mathrm{pred}} = s \sqrt{ \vec{x}^*\big(\mat{X}^\transpose \mat{X}\big)^{-1}\vec{x}^{*\transpose} + 1 }.
+\]
+
+\grade{1 point for $\vec{x}^*$. 1 point for $\SE_{\mathrm{pred}}$. 1 point for putting together the prediction interval. 1 point for a correct explanation of what a prediction interval is, either in words or as a probability statement. No credit was assigned for specification of $s$}
+
+\color{black}
+
+
+
+
+ 

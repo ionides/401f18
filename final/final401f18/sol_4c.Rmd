@@ -1,0 +1,15 @@
+
+\color{blue}
+
+**Solution**:
+
+The unadjusted $R^2$ statistic cannot decrease when an additional explanatory variable is added to a linear model. This makes it hard to use comparison of $R^2$ values for model selection. Adjusted $R^2$ divides $\RSS_a$ and $\RSS_0$ by the corresponding residual degrees of freedom, penalizing $\RSS_a$ for its additional parameters.
+
+\grade{Maximum 2 of the following. 1 point for ``model selection''. 1 point for ``$R^2$ doesn't decrease''. 1 point for showing knowledge of the definitions of adjusted $R^2$ and $R^2$. 1 point for any other relevant and correct comment.}
+
+\color{black}
+
+
+
+
+ 

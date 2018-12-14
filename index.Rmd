@@ -191,6 +191,7 @@ Due in lab on 10/26.
 
 * The remaining three topics in Chapter 9 (interactions; model selection; more discussion of causation, observational studies and designed experiments) will not be directly tested. However, this material reinforces topics from earlier in the class and so may come in useful for the final exam. You are advised to follow this material to the extent it is discussed in lectures.
 
+* [Final exam](final/final401f18/exam_final_401f18.pdf). [Solutions](final/final401f18/sol_final401f18.pdf).
 
 ------------
 

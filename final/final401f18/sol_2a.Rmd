@@ -1,0 +1,17 @@
+
+\color{blue}
+
+**Solution**:
+
+$H_0:$ The probability model from Question 1 holds with $\beta_1=0$ and $\beta_2=0$.
+
+$H_a:$ The probability model from Question 1 holds with $\beta_1$ and $\beta_2$  unconstrained.
+
+\grade{1 point for each hypothesis}
+
+\color{black}
+
+
+
+
+ 

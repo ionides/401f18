@@ -1,0 +1,32 @@
+
+\color{blue}
+
+**Solution**:
+
+Let $\RSS_a$ be the residual sum of squares under $H_a$, that is, $\RSS_a=\sum_{i=1}^n e_i^2$ where $e_1,\dots e_n$ are the residuals from fitting
+\[
+y_i = b_0+b_1 t_i + b_2 t_i^2 + e_i, \quad i=1,\dots,n
+\]
+with $b_0$, $b_1$ and $b_2$ chosen by least squares. $H_a$ fits 3 parameters so has $q=50-3=47$ residual degrees of freedom.
+
+Let $\RSS_0$ be the residual sum of squares under $H_0$, that is, fitting
+\[
+y_i = b_0+ e_i, \quad i=1,\dots,n
+\]
+with $b_0$ chosen by least squares. $H_0$ fits 1 parameter so has $p=50-1=49$ residual degrees of freedom.
+
+The sample F statistic is
+\[
+f = \frac{(\RSS_0-\RSS_a)/(p-q)}{\RSS_a/q}
+\]
+with degrees of freedom being $p-q=2$  and $q=47$.
+
+
+\grade{1 point explaining each of $\RSS_a$ and $\RSS_0$, either in words or as a formula. 1 point for the formula for the sample f statistic. 1 point for explaining the 2 and 47 in terms of residual degrees of freedom}
+
+\color{black}
+
+
+
+
+ 

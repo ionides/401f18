@@ -1,0 +1,75 @@
+
+\vspace{1mm}
+
+
+\textbf{Name}: \hspace{8cm} \textbf{UMID}: 
+
+\vspace{1mm}
+
+* You have a time allowance of 120 minutes.  The exam is closed book and closed notes. Any electronic devices (including calculators) in your possession must be turned off and remain in a bag on the floor. 
+
+* If you need extra paper, please number the pages and put your name and UMID on each page.
+  
+* Responses will be assessed on quality of explanation as well as whether they lead to a correct answer.
+
+* You may use the following formulas. Proper use of these formulas may involve making appropriate definitions of the necessary quantities.
+
+
+1. $\quad\quad\mathbf{b}=\big(\mathbb{X}^\transpose \mathbb{X} \big)^{-1}\, \mathbb{X}^\transpose\mathbf{y}, \quad\quad \vec{\hat\beta}= \big(\mathbb{X}^\transpose \mathbb{X} \big)^{-1}\, \mathbb{X}^\transpose\mathbf{Y}, \quad \quad
+\var(\vec{\hat\beta})= \sigma^2 \big( \mathbb{X}^\transpose \mathbb{X} \big)^{-1}$
+
+1. $\quad\quad\var(X)=\E\big[ (X-\E[X])^2\big] = \E[X^2]-\big(\E[X]\big)^2$
+
+
+1. $\quad\quad\cov(X,Y)=\E\big[ \big(X-\E[X]\big)\big(Y-\E[Y]\big)\big] = \E[XY]-\E[X]\,\E[Y]$
+
+1. $\quad\quad\var(\mat{A}\mathbf{Y})=\mat{A}\var(\mathbf{Y})\mat{A}^\transpose$,
+$\quad\quad\varSample(\mat{X}\mat{A}^\transpose) = \mat{A}\, \varSample(\mat{X})\, \mat{A}^\transpose$
+
+1. $\quad\quad(\mat{A}\mat{B})^\transpose = \mat{B}^\transpose\mat{A}^\transpose$, 
+\hspace{2mm} $(\mat{A}\mat{B})^{-1} = \mat{B}^{-1}\mat{A}^{-1}$, 
+\hspace{2mm} $(\mat{A}^\transpose)^{-1}=(\mat{A}^{-1})^\transpose$, 
+\hspace{2mm} $(\mat{A}^\transpose)^\transpose = \mat{A}$.
+
+1.  $\quad\quad$The probability density function of the standard normal distribution is $\frac{1}{\sqrt{2\pi}} e^{-x^2/2}$
+
+1.  $\quad\quad$If a random variable is normally distributed, the probability it falls within one standard deviation of the mean is 68%, within two standard deviations of the mean is 95%, and within three standard deviations of the mean is 99.7%.
+
+1. $\quad\quad \displaystyle f=\frac{(\RSS_0-\RSS_a)/(q-p)}{\RSS_a/(n-q)}.$
+\vspace{1cm}
+
+
+\vspace{-13mm}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{||c|c|c||}
+\hline
+\hline
+{Problem} & {Points} & {Your Score}\\
+\hline
+\hline
+1 & 5 & \\
+\hline
+2 & 12 & \\
+\hline
+3 & 3 & \\
+\hline
+4 & 5 & \\
+\hline
+5 & 7 & \\
+\hline
+6 & 3 & \\
+\hline
+7 & 3 & \\
+\hline
+Total & 38 &  \\
+\hline
+\hline
+\end{tabular}
+\\
+\renewcommand{\arraystretch}{1}
+
+\end{center}
+
+

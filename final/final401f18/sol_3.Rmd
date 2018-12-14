@@ -1,0 +1,17 @@
+
+\color{blue}
+
+**Solution**:
+
+The data follow the curve approximately, but we can nevertheless see long sequences of measurements all above or below the fitted line. This is inconsistent with the independent measurement errors in our probability model. Superficially, the curve seems like a good fit (and credit was given for noticing this) but ``fit'' formally means how well the data are modeled by the proposed probability model.
+
+To see this pattern more clearly, we could make (i) a time plot of the residuals; (ii) a lag plot (plotting $e_i$ against the $e_{i-1}$); (iii) look for improved model fit for a different model (e.g., try including $t_i^3$ in the model and see if we obtain a statistically significant coefficient).
+
+\grade{1 point for a sensible comment about model fit; $2\times 1$ points for two sensible additional analyses. The analyses should be clearly described, so just saying ``residual plot'' is not sufficient.}
+
+\color{black}
+
+
+
+
+ 

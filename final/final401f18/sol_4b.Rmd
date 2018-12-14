@@ -1,0 +1,15 @@
+
+\color{blue}
+
+**Solution**:
+
+The $R^2$ statistic close to 1 says that the model fits much better than a simple constant mean model. It does not say whether or not there is room for additional model improvement. In situations like this where there is a clear trend, $R^2$ will always be high even when the model is significantly flawed, so $R^2$ is not a good way to assess if the model fits well.
+
+\grade{1 point for something sensible about what you can learn from $R^2$, 1 point for something sensible about a model fitting issue you can't learn from it.}
+
+\color{black}
+
+
+
+
+ 

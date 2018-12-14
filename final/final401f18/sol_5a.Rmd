@@ -1,0 +1,16 @@
+
+\color{blue}
+
+**Solution**:
+
+Set $\mat{X}_{n\times 3}=[\; \vec{1} \; \; \vec{t} \; \; \vec{t}^2 \; ]$ with $\vec{1}=(1,\dots,1)$, $\vect{t}=(t_1,\dots,t_n)$ and $\vec{t}^2=(t_1^2,\dots,t_n^2)$.
+Then, set $\vec{\beta}=(\beta_0,\beta_1,\beta_2)$ in the notation of Question 1.
+
+\grade{1 point for each of $\mat{X}$ and $\vec{\beta}$. It is acceptable to write out $\mat{X}$ using $\dots$. 1 extra point if notation is correctly used (e.g., underscore for vectors, blackboard bold for matrices) and is consistent with notation used earlier.}
+
+\color{black}
+
+
+
+
+ 

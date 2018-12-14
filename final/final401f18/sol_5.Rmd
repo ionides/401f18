@@ -1,0 +1,21 @@
+
+\color{blue}
+
+**Solution**:
+
+Write the sample and probability models in matrix form as
+\[
+\vec{y}=\mat{X}\vec{b}+\vec{e}, 
+\quad \quad
+\vec{Y}=\mat{X}\vec{\beta}+\vec{\epsilon},
+\]
+where $\mat{X}=[\vec{1} \; \vec{t} \; \vec{t}^2 ]$ with $\vec{t}^2=(t_1^2,\dots,t_n^2)$.
+
+\grade{1 point for each hypothesis}
+
+\color{black}
+
+
+
+
+ 

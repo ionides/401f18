@@ -1,0 +1,17 @@
+
+\color{blue}
+
+**Solution**:
+
+\[
+Y_{i}=\beta_0+\beta_1 t_i + \beta_2 t_i^2 + \epsilon_i, \quad i=1,\dots,n
+\]
+where $n=50$ and $\epsilon_1,\dots,\epsilon_n\sim\iid\;\normal(0,\sigma)$.
+Here, $Y_i$ models $CO_2$ levels for year $i$, and $\beta_0,\beta_1,\beta_2$ are unknown constants.
+
+\grade{1 point for the covariates $(1,t_i,t_i^2)$. 1 point for definition of $\epsilon_i$. 1 point for $\vec{\beta}$, with explanation. 1 point for $Y_i$. 1 point for $n$.}
+
+\color{black}
+
+
+ 

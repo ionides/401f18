@@ -1,0 +1,16 @@
+
+\color{blue}
+
+**Solution**:
+
+The p-value is lower than any reasonable significance level. We clearly reject the null hypothesis and conclude that a constant expected value plus measurement error is not a good model for the data. 
+In this case, the conclusion is not surprising. We are fitting the model in order to estimate the trend and subtract it. We are not particulary interested in the possibility that there is actually no trend.
+
+\grade{1 point rejecting. 1 point for some sensible interpretation of what this means in the context of this particular scientific analysis.}
+
+\color{black}
+
+
+
+
+ 

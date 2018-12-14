@@ -1,0 +1,284 @@
+---
+title: "Final exam, STATS 401 F18"
+output:
+  pdf_document:
+  toc: no
+header-includes:
+   - \usepackage{ifthen}
+html_document:
+  theme: flatly
+toc: no
+word_document:
+  toc: no
+csl: ecology.csl
+---
+  
+
+```{r preliminaries,echo=F,cache=F}
+# FRONTMATTER <- TRUE 
+FRONTMATTER <- FALSE
+# SOL <- FALSE
+SOL <- TRUE
+set.seed(12)
+# library(mat2tex)
+```
+
+\newcommand\solution{ {\bf Solution} }
+
+\newcommand\exam[1]{} 
+%% \newcommand\exam[1]{#1} 
+
+
+%% \newcommand\grade[1]{} 
+\newcommand\grade[1]{ {  \color{red} {\bf Summary of grade scheme}: #1 } } 
+
+
+\newcommand\mat[1]{\mathbb{#1}}
+\renewcommand\vec[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand\vect[1]{\vec{#1}}
+\newcommand\transpose{{\scriptscriptstyle \mathrm{T}}}
+\newcommand\prob{\mathrm{P}}
+\newcommand\E{\mathrm{E}}
+
+\newcommand\normal{\mathrm{normal}}
+\newcommand\iid{\mathrm{iid}}
+\newcommand\MVN{\mathrm{MVN}}
+\newcommand\RSS{\mathrm{RSS}}
+\newcommand\SST{\mathrm{SST}}
+\newcommand\pval{\mathrm{pval}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\sd{\mathrm{SD}}
+\newcommand\sdSample{\mathrm{sd}}
+\newcommand\SE{\mathrm{SE}}
+\newcommand\varSample{\mathrm{var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\covSample{\mathrm{cov}}
+\newcommand\corSample{\mathrm{cor}}
+\newcommand\cor{\mathrm{Cor}}
+
+
+
+```{r,child="front_matter.Rmd",eval=FRONTMATTER}
+```
+
+
+
+**Acknowledgments**: The climate data come from \url{https://doi.org/10.1016/j.envsci.2012.03.008}
+
+**License**: This material is provided under an MIT license (\url{https://ionides.github.io/401f18/LICENSE})
+
+
+
+\exam{\newpage}
+
+The questions in this exam concern data you have seen previously in the course on global climate change from 1961 to 2010. Carbon dioxide ($CO_2$) levels in the atmosphere have been increasingly steadily, as recorded by the measurements taken at Mauna Loa observatory in Hawaii. An increasing trend in $CO_2$ matches increasing trends in both global economic activity and the global population, as well as many other socioeconomic phenomena. However, on shorter timescales, fluctuating geophysical processes such as volcanic activity and the El Nino Southern Oscillation (ENSO) may be important. 
+
+```{r,echo=F}
+climate <- read.table("climate.txt",header=TRUE)[-c(1:3,54),]
+climate$Pop <- climate$Pop/1000 # rescale population from millions to billions
+rownames(climate)<- NULL
+```
+
+```{r}
+head(climate,3)
+```
+
+\vspace{-2mm}
+
+* CO2: Mean annual concentration of atmospheric CO2 (parts per million by volume) at Mauna Loa.
+
+* GDP: world gross domestic product reported by the World Bank.
+
+* Pop: world population, in billions, reported by the World Bank.
+
+* ENSO: an El Nino Southern Oscillation index from NOAA.
+
+* Volcanic: an index of monthly estimated sulfate aerosols derived from NOAA.
+
+* Emissions: estimated emissions of CO2 (million Kt) reported by the World Bank.
+
+Throughout the exam, you may write $y_i$ for the $CO_2$ concentration on the $i$th row of the data, $t_i$ for the corresponding year, $g_{i}$ for the world GDP, and $m_{i}$ for the emissions index. The other variables will not be involved in models we consider here. We start by detrending the global $CO_2$ data, fitting a quadratic trend:
+
+```{r}
+lm1 <- lm(CO2~Year+I(Year^2),data=climate)
+summary(lm1)
+
+```
+
+**1** _[5 points]_. Write down the probability model in subscript form for the quadratic trend fitted by `lm1` above. Include all details.
+
+\exam{
+\vspace{10cm}
+}
+
+
+```{r,child="sol_1.Rmd",eval=SOL}
+```
+
+**2** _[12 points]_. Consider the F test from `summary(lm1)` above. 
+
+(a) _[2 points]_. What are the null and alternative hypotheses for this F test?
+You can use notation that you defined in Question 1. 
+
+\exam{
+\vspace{7cm}
+\newpage
+}
+
+
+```{r,child="sol_2a.Rmd",eval=SOL}
+```
+
+
+(b)  _[4 points]_. Explain the construction of the sample F-statistic in `summary(lm1)`. You should include explanation of why it is `on 2 and 47 DF`. 
+
+\exam{
+\vspace{7cm}
+}
+
+
+```{r,child="sol_2b.Rmd",eval=SOL}
+```
+
+
+(c) _[4 points]_. Explain how the p-value on the `F-statistic` line of the summary is calculated. Specifically, start by giving the general definition of a p-value and then explain how the definition applies to this specific test. Your explanation will likely include the phrases "sample test statistic", "model-generated test statistic", and "distribution under the null hypothesis". 
+
+\exam{
+\vspace{8cm}
+%\newpage
+}
+
+
+```{r,child="sol_2c.Rmd",eval=SOL}
+```
+
+(d) _[2 points]_. What do you conclude from this F test? 
+
+\exam{
+\vspace{4cm}
+\newpage
+}
+
+
+```{r,child="sol_2d.Rmd",eval=SOL}
+```
+
+
+
+The fitted values from `lm1` are plotted against time in the following plot:
+```{r plot_fitted,fig.width=6,out.width="4in"}
+plot(CO2~Year, data=climate)
+lines(climate$Year,lm1$fitted)
+```
+
+**3** _[3 points]_. Looking at the fitted value plot, do you think the model is a good fit? Also, describe two additional analyses you would carry out to diagose misspecification in model `lm1`.
+
+```{r,child="sol_3.Rmd",eval=SOL}
+```
+
+\exam{
+\vspace{7cm}
+}
+
+
+
+**4** _[5 points]_. Consider the `multiple R-squared statistic` from `summary(lm1)` above.
+
+(a) _[1 point]_. Describe how this $R^2$ statistic is calculated. Your answer can use notation, including sums of squares, that you have defined in answers to previous questions. 
+
+```{r,child="sol_4a.Rmd",eval=SOL}
+```
+
+\exam{
+\vspace{7cm}
+}
+
+(b) _[2 points]_. To what extent do you agree with the statement: "Because the multiple R-squared statistic is close to 1, the model fits well." Explain what you can and cannot generally conclude from a high $R^2$ about model specification, and then put this in the context of the specific analysis.
+
+```{r,child="sol_4b.Rmd",eval=SOL}
+```
+
+\exam{
+\vspace{9cm}
+}
+
+(c) _[2 points]_. Explain why it may be preferable to look at the `Adjusted R-squared` statistic rather than the `Multiple R-squared` for some particular purpose.
+
+```{r,child="sol_4c.Rmd",eval=SOL}
+```
+
+\exam{
+\newpage
+}
+
+
+**5** _[7 points]_. This question concerns a prediction interval. To work with prediction intervals, it is useful to first write down the model in matrix form.
+
+(a) _[3 points]_. Define $\mat{X}$ and $\vec{\beta}$ such that the probability model you wrote in Question 1 has matrix form 
+$\vec{Y}=\mat{X}\vec{\beta}+\vec{\epsilon}$.
+You can assume that $\vec{Y}=(Y_1,\dots,Y_n)$ and $\vec{\epsilon}=(\epsilon_1,\dots,\epsilon_n)$ for a suitable choice of $n$.
+
+```{r,child="sol_5a.Rmd",eval=SOL}
+```
+
+\exam{
+\vspace{8cm}
+}
+
+
+(b) _[4 points]_. Explain how to find a 95% prediction interval for $CO_2$ in 2018 using the data and the probability model fitted by `lm1`. You can use mathematical notation developed in part (a).  A strong answer should demonstrate understanding of what a 95% prediction interval is and how it is constructed.
+
+Hint: You will likely want to find a row vector $\vec{x}^*$ such that 
+$Y^*=\vec{x}^*\vec{\beta}+\epsilon^*$
+is a random variable modeling a new measurement with a new measurement error $\epsilon^*$ independent of $\epsilon_1,\dots,\epsilon_n$. You may also 
+use in your solution the notation $\hat Y^* = \vec{x^*} \vec{\hat\beta}$ for a model-generated fitted value at $\vec{x}^*$,
+
+
+```{r,child="sol_5b.Rmd",eval=SOL}
+```
+
+
+
+\exam{\newpage}
+
+Now we can study the relationships between the detrended variables.
+Here, we are just going to look at global $CO_2$ , GDP and emissions.
+Rather than detrending with a quadratic model, we will detrend using the local linear regression function `loess()` which was found to work well in the health economics example in the notes. For the current purposes, we don't need to understand details about how `loess()` works. We put a 'd' in front of each detrended variable name in the following code.
+
+```{r}
+climate$dCO2 <- resid(loess(CO2~Year,data=climate,span=0.5))
+climate$dGDP <- resid(loess(GDP~Year,data=climate,span=0.5))
+climate$dEmissions <- resid(loess(Emissions~Year,data=climate,span=0.5))
+lm2 <- lm(dCO2~dGDP+dEmissions,data=climate)
+summary(lm2)$coef
+lm3 <- lm(dCO2~dEmissions,data=climate)
+summary(lm3)$coef
+```
+
+```{r,echo=F,eval=T}
+climate$dPop <- resid(loess(Pop~Year,data=climate,span=0.5))
+climate$dENSO <- resid(loess(ENSO~Year,data=climate,span=0.5))
+climate$dVolcanic <- resid(loess(Volcanic~Year,data=climate,span=0.5))
+```
+
+**6**  _[3 points]_. The coefficient for detrended global $CO_2$ emissions has much higher statistical significance in `lm3` than `lm2`. Explain this fact.
+
+\exam{\vspace{5cm}}
+
+
+
+```{r,child="sol_6.Rmd",eval=SOL}
+```
+
+**7** _[3 points]_. To what extent does the analysis above demonstrate that a major cause of fluctuations around the trend in global $CO_2$ levels is fluctuations in $CO_2$ emissions?
+
+
+\exam{\vspace{5cm}}
+
+
+```{r,child="sol_7.Rmd",eval=SOL}
+```
+
+
+
+

@@ -1,0 +1,16 @@
+
+\color{blue}
+
+**Solution**. This arises because `dCO2` and `dEmissions` have high sample correlation, so they are close to collinear. When both are in the model, neither is significant because the data can't determine if one should be chosen over the other. When detrended emissions is used as the only explanatory variable in the model, there is strong evidence for an association with fluctuations in $CO_2$.
+
+Quite a few students discussed the order of the variables in the summary table. In a table of least squares coefficients and their standard errors, order is unimportant. In an ANOVA table, order can be important.
+
+
+\grade{1 point for mentioning collinearity. 1 point for describing how collinearity affects standard errors. 1 point for a relevant comment relating this back to the data analysis.}
+
+\color{black}
+
+
+
+
+ 

@@ -1,0 +1,16 @@
+
+\color{blue}
+
+**Solution**:
+
+$R^2=1-\RSS_a/\RSS_0$ using the notation of 2(b). 
+
+
+\grade{1 point for the definition.}
+
+\color{black}
+
+
+
+
+ 

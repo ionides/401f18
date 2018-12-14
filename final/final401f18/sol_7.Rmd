@@ -1,0 +1,14 @@
+
+\color{blue}
+
+**Solution**. This is an observational study, so an association does not imply a causal relationship unless one can rule out the possibility of confounding variables, that is, variables which influence both the explanatory variable and the response. We know that fluctuations in emissions are correlated with fluctuations in GDP. Therefore, any other activity associated with economic activity (cutting down rainforest; emissions of some other gas that interacts via atmspheric chemistry to lead to $CO_2$. The alternative confounding explanations don't seem very plausible, but we are not environmental experts. It is plausible to claim based on common knowledge that there are no substantial confounders for the role of emissions: most pathways by which the economy affects $CO_2$ will be via emissions.
+
+
+\grade{At most 3 points from the following. 1 point for ``observational''. 1 point for ``confounding''. 1 point for a relevant comment explaining what this means in practice. 1 point for a plausible example.}
+
+\color{black}
+
+
+
+
+ 
